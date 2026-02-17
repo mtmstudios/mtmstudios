@@ -1,9 +1,21 @@
 
 
-## Make the Header Logo Bigger
+## Hero-Text andern
 
-Increase the logo size in the navigation bar by changing the height class on the logo image in `src/components/Navigation.tsx`.
+Der Hero-Text wird geandert zu **"wir bauen KI-Losungen die Zeit sparen"**, wobei **"Zeit sparen"** im gelben Gradient-Stil (GradientText) dargestellt wird.
 
-### Change
-- In `src/components/Navigation.tsx`, line 15: change `className="h-6"` to `className="h-12"` on the logo `<img>` tag, doubling its size from 24px to 48px.
+### Aufbau der neuen Headline
+
+```text
+Zeile 1: "wir bauen KI-Losungen"  (weiss, mit BlurText-Animation)
+Zeile 2: "die" (weiss, BlurText) + "Zeit sparen" (gelber Gradient, GradientText)
+```
+
+### Technische Anderungen
+
+**Datei: `src/components/HeroSection.tsx`**
+
+- Zeile 1 (BlurText): Text von `"Ultimate Motion"` zu `"wir bauen KI-Lösungen"` andern
+- Zeile 2: `"Background"` (GradientText) zu `"Zeit sparen"` andern, und `"Gallery"` (BlurText) zu `"die"` andern -- wobei die Reihenfolge umgedreht wird, sodass `"die"` vor dem GradientText steht
+- Die Animationen (BlurText, GradientText, motion) bleiben identisch
 
