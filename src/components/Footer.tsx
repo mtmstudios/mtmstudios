@@ -18,30 +18,30 @@ const companyLinks = [
 const Footer = () => {
   return (
     <footer className="border-t border-border/20 bg-background">
-      <div className="container mx-auto px-6 py-16">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
-          {/* Brand */}
-          <div className="space-y-4">
-            <Link to="/">
-              <img src={logo} alt="Setrex Logo" className="h-28 -ml-4 -mt-4 -mb-4 object-contain" />
-            </Link>
-            <p className="text-muted-foreground text-sm leading-relaxed">
-              Wir helfen Unternehmen, mit intelligenter Automatisierung Zeit zu sparen und effizienter zu arbeiten.
-            </p>
-            <div className="flex items-center gap-3">
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-neon transition-colors">
-                <Instagram className="w-5 h-5" />
-              </a>
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-neon transition-colors">
-                <Linkedin className="w-5 h-5" />
-              </a>
-              <a href="mailto:info@setrex.de" className="text-muted-foreground hover:text-neon transition-colors">
-                <Mail className="w-5 h-5" />
-              </a>
-            </div>
+      <div className="container mx-auto px-6 py-10 md:py-16">
+        {/* Brand - zentriert auf Mobile */}
+        <div className="space-y-4 text-center md:text-left mb-8 md:mb-0">
+          <Link to="/" className="inline-block">
+            <img src={logo} alt="Setrex Logo" className="h-28 -mt-4 -mb-4 object-contain md:-ml-4" />
+          </Link>
+          <p className="text-muted-foreground text-sm leading-relaxed max-w-xs mx-auto md:mx-0">
+            Wir helfen Unternehmen, mit intelligenter Automatisierung Zeit zu sparen und effizienter zu arbeiten.
+          </p>
+          <div className="flex items-center justify-center md:justify-start gap-3">
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-neon transition-colors">
+              <Instagram className="w-5 h-5" />
+            </a>
+            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-neon transition-colors">
+              <Linkedin className="w-5 h-5" />
+            </a>
+            <a href="mailto:info@setrex.de" className="text-muted-foreground hover:text-neon transition-colors">
+              <Mail className="w-5 h-5" />
+            </a>
           </div>
+        </div>
 
-          {/* Leistungen */}
+        {/* Leistungen + Unternehmen als 2-Spalten-Grid auf Mobile */}
+        <div className="grid grid-cols-2 md:grid-cols-2 gap-6 mb-8">
           <div>
             <h4 className="text-foreground font-semibold mb-4">Leistungen</h4>
             <ul className="space-y-2">
@@ -55,7 +55,6 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Unternehmen */}
           <div>
             <h4 className="text-foreground font-semibold mb-4">Unternehmen</h4>
             <ul className="space-y-2">
@@ -74,30 +73,24 @@ const Footer = () => {
               ))}
             </ul>
           </div>
+        </div>
 
-          {/* Kontakt */}
-          <div>
-            <h4 className="text-foreground font-semibold mb-4">Kontakt</h4>
-            <ul className="space-y-3">
-              <li>
-                <a href="mailto:info@setrex.de" className="flex items-center gap-2 text-muted-foreground hover:text-neon transition-colors text-sm">
-                  <Mail className="w-4 h-4 shrink-0" />
-                  info@setrex.de
-                </a>
-              </li>
-              <li>
-                <a href="tel:+4912345678" className="flex items-center gap-2 text-muted-foreground hover:text-neon transition-colors text-sm">
-                  <Phone className="w-4 h-4 shrink-0" />
-                  +49 123 456 78
-                </a>
-              </li>
-              <li>
-                <span className="flex items-start gap-2 text-muted-foreground text-sm">
-                  <MapPin className="w-4 h-4 shrink-0 mt-0.5" />
-                  Deutschland
-                </span>
-              </li>
-            </ul>
+        {/* Kontakt - horizontal & zentriert auf Mobile */}
+        <div className="text-center md:text-left">
+          <h4 className="text-foreground font-semibold mb-3">Kontakt</h4>
+          <div className="flex flex-wrap items-center justify-center md:justify-start gap-x-5 gap-y-2">
+            <a href="mailto:info@setrex.de" className="flex items-center gap-1.5 text-muted-foreground hover:text-neon transition-colors text-sm">
+              <Mail className="w-4 h-4 shrink-0" />
+              info@setrex.de
+            </a>
+            <a href="tel:+4912345678" className="flex items-center gap-1.5 text-muted-foreground hover:text-neon transition-colors text-sm">
+              <Phone className="w-4 h-4 shrink-0" />
+              +49 123 456 78
+            </a>
+            <span className="flex items-center gap-1.5 text-muted-foreground text-sm">
+              <MapPin className="w-4 h-4 shrink-0" />
+              Deutschland
+            </span>
           </div>
         </div>
       </div>
