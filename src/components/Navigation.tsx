@@ -36,9 +36,9 @@ const Navigation = () => {
           <a href="#kontakt">
             <Button 
               variant="outline" 
-              className="hidden md:inline-flex border-foreground/20 hover:border-neon hover:text-neon transition-all"
+              className="hidden md:inline-flex border-foreground/20 hover:border-neon hover:bg-neon hover:text-black transition-all"
             >
-              Kontakt
+              Jetzt anfragen
             </Button>
           </a>
 
