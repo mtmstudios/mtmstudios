@@ -60,7 +60,7 @@ const CTASection = () => {
             initial={{ opacity: 0, x: -40, filter: "blur(10px)" }}
             animate={isInView ? { opacity: 1, x: 0, filter: "blur(0px)" } : {}}
             transition={{ duration: 0.8, ease: smoothEase }}
-            className="space-y-8 md:border-r md:border-border/20 md:pr-16"
+            className="space-y-8 text-center md:text-left md:border-r md:border-border/20 md:pr-16"
           >
             {stats.map((stat, i) => (
               <motion.div
@@ -82,7 +82,7 @@ const CTASection = () => {
             initial={{ opacity: 0, x: 40, filter: "blur(10px)" }}
             animate={isInView ? { opacity: 1, x: 0, filter: "blur(0px)" } : {}}
             transition={{ duration: 0.8, delay: 0.3, ease: smoothEase }}
-            className="md:pl-16 space-y-6"
+            className="md:pl-16 space-y-6 text-center md:text-left items-center md:items-start flex flex-col"
           >
             <h2 className="text-3xl md:text-5xl font-bold text-foreground leading-tight">
               Bereit für den
@@ -97,7 +97,7 @@ const CTASection = () => {
               initial={{ opacity: 0, y: 15, filter: "blur(6px)" }}
               animate={isInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
               transition={{ duration: 0.6, delay: 0.6, ease: smoothEase }}
-              className="flex flex-col sm:flex-row gap-4 pt-2"
+              className="flex flex-col sm:flex-row gap-4 pt-2 items-center sm:items-start"
             >
               <a href="#kontakt">
                 <Button
