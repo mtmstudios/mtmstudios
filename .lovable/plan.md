@@ -1,31 +1,36 @@
 
 
-## Header abdunkeln beim Scrollen
-
-### Problem
-Die Navigation hat aktuell keinen Hintergrund (`nav` in Zeile 8). Beim Scrollen ueberlagert sich der Content mit den Nav-Links und wird unlesbar.
-
-### Loesung
-Einen halbtransparenten, dunklen Hintergrund mit Backdrop-Blur auf die Navigation legen -- passend zum bestehenden Glassmorphism-Stil.
+## Anführungszeichen-Icon statt Avatar-Kreise
 
 ### Aenderung
 
-**`src/components/Navigation.tsx` (Zeile 8)**
+**`src/components/ui/testimonial-card.tsx`**
 
-Aktuelle Klassen:
+- Avatar-Import und `AvatarFallback` entfernen
+- Stattdessen ein `Quote`-Icon von `lucide-react` als visuelles Element oben links in der Karte
+- Icon-Styling: `text-neon/30` (dezent, passend zum Neon-Design), Groesse `24px`
+- Das Quote-Icon steht oberhalb des Textes, nicht neben dem Namen
+- Der Autorenbereich unten wird ohne Icon dargestellt -- nur Name, Rolle und Firma als Text
+
+### Vorher
 ```
-fixed top-0 left-0 right-0 z-[100] border-b border-border/10
+[Initialen-Kreis] Name
+                  Rolle, Firma
 ```
 
-Neue Klassen:
+### Nachher
 ```
-fixed top-0 left-0 right-0 z-[100] border-b border-border/10 bg-background/80 backdrop-blur-md
+" (Quote-Icon, neon-gruen, oben)
+
+"Bewertungstext..."
+
+Name
+Rolle, Firma
 ```
 
-- `bg-background/80` -- 80% deckender schwarzer Hintergrund (da `--background: 0 0% 0%`)
-- `backdrop-blur-md` -- Frosted-Glass-Effekt, konsistent mit den Testimonial- und Feature-Karten
+### Technische Details
+- Import: `import { Quote } from "lucide-react"`
+- Avatar-Import wird entfernt (nicht mehr benoetigt)
+- `Quote` Icon mit `className="text-neon/30 mb-3"` und `size={24}`
+- Autorenbereich bleibt unten, aber ohne Avatar -- nur Text-basiert mit `font-semibold` fuer den Namen
 
-### Ergebnis
-- Header ist beim Scrollen immer lesbar
-- Content darunter scheint dezent durch (Agentur-Flair)
-- Konsistent mit dem bestehenden Glassmorphism-Design
