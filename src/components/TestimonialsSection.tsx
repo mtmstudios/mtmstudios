@@ -2,19 +2,19 @@ import { TestimonialCard, type TestimonialAuthor } from "@/components/ui/testimo
 
 const testimonials: { author: TestimonialAuthor; text: string }[] = [
   {
-    author: { name: "Thomas Müller", role: "Vertriebsleiter", company: "Schmidt Versicherungen" },
+    author: { name: "Thomas Müller", role: "Vertriebsleiter" },
     text: "Seit der Automatisierung unseres Sales-Prozesses sparen wir pro Woche über 15 Stunden manuelle Arbeit. Die Leads werden automatisch qualifiziert und unser Team kann sich auf die wirklich wichtigen Gespräche konzentrieren.",
   },
   {
-    author: { name: "Dr. Lisa Weber", role: "Praxismanagerin", company: "Zahnarztpraxis Weber" },
+    author: { name: "Dr. Lisa Weber", role: "Praxismanagerin" },
     text: "Der KI-Telefonassistent hat unsere Erreichbarkeit komplett verändert. Kein Patient landet mehr in der Warteschleife – Termine werden rund um die Uhr automatisch vergeben. Das Team ist deutlich entlastet.",
   },
   {
-    author: { name: "Marco Hoffmann", role: "Geschäftsführer", company: "Hoffmann Malerbetrieb" },
+    author: { name: "Marco Hoffmann", role: "Geschäftsführer" },
     text: "Der Chatbot auf unserer Website beantwortet 80% der Kundenanfragen sofort – von Preisanfragen bis zur Terminbuchung. Wir bekommen jetzt deutlich mehr qualifizierte Anfragen als vorher.",
   },
   {
-    author: { name: "Stefan Krause", role: "Projektleiter", company: "Krause Bau GmbH" },
+    author: { name: "Stefan Krause", role: "Projektleiter" },
     text: "Mit dem WhatsApp-Bot können unsere Bauleiter Projektupdates direkt vom Handy abfragen und Statusberichte automatisch erstellen lassen. Das spart uns jeden Tag mindestens eine Stunde Dokumentation.",
   },
 ];

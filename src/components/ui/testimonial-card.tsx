@@ -4,7 +4,7 @@ import { Quote } from "lucide-react";
 export interface TestimonialAuthor {
   name: string;
   role: string;
-  company: string;
+  company?: string;
 }
 
 interface TestimonialCardProps {
@@ -28,7 +28,7 @@ export function TestimonialCard({ author, text, className }: TestimonialCardProp
       <div>
         <p className="text-sm font-semibold text-foreground">{author.name}</p>
         <p className="text-xs text-muted-foreground">
-          {author.role}, {author.company}
+          {author.role}{author.company ? `, ${author.company}` : ""}
         </p>
       </div>
     </div>
