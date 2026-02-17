@@ -1,38 +1,44 @@
 
 
-## Korrektur: VideoCardsSection entfernen und FeaturesSection wiederherstellen
+## "So funktioniert's" — Gestaffelte Karten (Premium/Clean)
 
-Die falsche Section wurde geloescht. Die **VideoCardsSection** (6 unbeschriftete Video-Karten) soll weg, die **FeaturesSection** (Bento-Grid mit den drei Leistungen) muss wiederhergestellt werden.
+Neue Section unterhalb der FeaturesSection mit 5 Schritten in einem modernen, reduzierten Karten-Layout.
 
-### 1. VideoCardsSection entfernen
+### Neue Datei: `src/components/ProcessSection.tsx`
 
-**`src/components/VideoCardsSection.tsx`**
-- Datei komplett loeschen
+**Layout:**
+- Section mit `id="prozess"` und dunklem Hintergrund (`bg-muted/20`) zur Abgrenzung
+- Section-Header: Neon-Badge "So funktioniert's" + Headline "Von der Idee zur Loesung"
+- 5 Karten vertikal gestapelt, auf Desktop leicht versetzt (ungerade Karten links, gerade rechts via `md:ml-auto`)
+- Jede Karte hat:
+  - Grosse halbtransparente Nummer im Hintergrund (`text-6xl font-bold text-neon/10`)
+  - `border-l-4 border-neon` als linker Akzent
+  - Glassmorphism-Styling: `bg-white/5 backdrop-blur-md rounded-xl`
+  - Icon (klein, dezent in `text-neon/60`), Titel und Beschreibung
+  - Keine Hover-Animationen, keine Glow-Effekte — ruhig und premium
 
-**`src/pages/Index.tsx`**
-- Import von `VideoCardsSection` entfernen
-- `<VideoCardsSection />` aus dem JSX entfernen
+**Die 5 Schritte:**
 
-### 2. FeaturesSection neu erstellen
+| Nr | Titel | Icon | Beschreibung |
+|----|-------|------|-------------|
+| 01 | Erstgespraech und Analyse | MessageSquare | Wir lernen euer Unternehmen kennen, analysieren Prozesse und identifizieren Potenziale. |
+| 02 | Konzept und Strategie | Lightbulb | Basierend auf der Analyse entwickeln wir eine massgeschneiderte Strategie und einen klaren Plan. |
+| 03 | Umsetzung und Integration | Cog | Wir entwickeln die Loesung und integrieren sie nahtlos in eure bestehenden Systeme. |
+| 04 | Testing und Go-Live | Rocket | Gruendliches Testen, Feinschliff und begleiteter Launch eurer neuen KI-Loesung. |
+| 05 | Langfristige Partnerschaft | Handshake | Kontinuierliche Optimierung, Skalierung und persoenlicher Support als euer KI-Partner. |
 
-**`src/components/FeaturesSection.tsx`**
-- Bento-Grid-Layout mit drei Leistungs-Karten wiederherstellen:
-  - **KI-Telefonassistent** — Icon: Phone, Beschreibung der Telefonassistenten-Loesung
-  - **WhatsApp und Chatbots** — Icon: MessageSquare, Beschreibung der Chatbot-Loesung
-  - **Automatisierungen** — Icon: Zap, Beschreibung der Automatisierungs-Loesung
-- Styling: Glassmorphism-Karten (`bg-white/5 backdrop-blur`), Neon-Akzente, passend zum bestehenden Dark-Theme
-- Section-Header: "Unsere Loesungen" mit Neon-Badge
-- Responsive: Grid-Layout auf Desktop (3 Spalten), gestapelt auf Mobile
+**Karten-Breite:** `max-w-2xl` (nicht volle Breite, wirkt eleganter)
+**Abstand zwischen Karten:** `gap-6`
 
-**`src/pages/Index.tsx`**
-- Import von `FeaturesSection` hinzufuegen
-- `<FeaturesSection />` unterhalb von `<HeroSection />` einbinden
+### Aenderung: `src/pages/Index.tsx`
+
+- Import `ProcessSection` hinzufuegen
+- `<ProcessSection />` unterhalb von `<FeaturesSection />` einbinden
 
 ### Technische Details
 
-- Icons aus `lucide-react` (Phone, MessageSquare, Zap)
-- Karten mit `rounded-xl border border-border/30 bg-white/5 backdrop-blur-md`
-- Neon-Glow-Effekte auf Hover
-- Section bekommt die ID `id="loesungen"` fuer zukuenftige Anker-Navigation
-- Keine neuen Dependencies noetig
+- Icons aus `lucide-react`: MessageSquare, Lightbulb, Cog, Rocket, Handshake
+- Keine neuen Dependencies
+- Keine Scroll-Animationen — statisch und ruhig
+- Responsive: Auf Mobile alle Karten zentriert ohne Versatz
 
