@@ -1,40 +1,38 @@
 
 
-## Zusammenfassung: Navigation updaten und FeaturesSection entfernen
+## Korrektur: VideoCardsSection entfernen und FeaturesSection wiederherstellen
 
-### 1. FeaturesSection entfernen
+Die falsche Section wurde geloescht. Die **VideoCardsSection** (6 unbeschriftete Video-Karten) soll weg, die **FeaturesSection** (Bento-Grid mit den drei Leistungen) muss wiederhergestellt werden.
 
-**`src/pages/Index.tsx`**
-- Import von `FeaturesSection` entfernen
-- `<FeaturesSection />` aus dem JSX entfernen
+### 1. VideoCardsSection entfernen
 
-**`src/components/FeaturesSection.tsx`**
+**`src/components/VideoCardsSection.tsx`**
 - Datei komplett loeschen
 
----
+**`src/pages/Index.tsx`**
+- Import von `VideoCardsSection` entfernen
+- `<VideoCardsSection />` aus dem JSX entfernen
 
-### 2. Navigation-Links aktualisieren
+### 2. FeaturesSection neu erstellen
 
-**`src/components/Navigation.tsx`**
+**`src/components/FeaturesSection.tsx`**
+- Bento-Grid-Layout mit drei Leistungs-Karten wiederherstellen:
+  - **KI-Telefonassistent** — Icon: Phone, Beschreibung der Telefonassistenten-Loesung
+  - **WhatsApp und Chatbots** — Icon: MessageSquare, Beschreibung der Chatbot-Loesung
+  - **Automatisierungen** — Icon: Zap, Beschreibung der Automatisierungs-Loesung
+- Styling: Glassmorphism-Karten (`bg-white/5 backdrop-blur`), Neon-Akzente, passend zum bestehenden Dark-Theme
+- Section-Header: "Unsere Loesungen" mit Neon-Badge
+- Responsive: Grid-Layout auf Desktop (3 Spalten), gestapelt auf Mobile
 
-Die drei bestehenden Links (Gallery, Download, Twitter) und der "Access Gallery"-Button werden ersetzt durch:
+**`src/pages/Index.tsx`**
+- Import von `FeaturesSection` hinzufuegen
+- `<FeaturesSection />` unterhalb von `<HeroSection />` einbinden
 
-| Link | Ziel | Typ |
-|------|------|-----|
-| KI-Telefonassistent | `#telefonassistent` | Anker-Link |
-| Chatbot | `#chatbot` | Anker-Link |
-| Automatisierungen | `#automatisierungen` | Anker-Link |
-| Das sind Wir | `/about` | React Router Link |
-| Kontakt | `#kontakt` | Anker-Link |
+### Technische Details
 
-- Der "Access Gallery"-Button wird durch einen **"Kontakt"**-Button ersetzt, der zu `#kontakt` scrollt
-- Alle Anker-Links verwenden `<a href="#...">` fuer sanftes Scrollen
-- "Das sind Wir" verwendet `<Link to="/about">` (React Router)
-- Gleiches Styling wie bisher: `text-foreground hover:text-neon transition-colors`
-
----
-
-### Hinweis
-
-Die Anker-Ziele (`#telefonassistent`, `#chatbot`, `#automatisierungen`, `#kontakt`) existieren noch nicht als Sections auf der Seite. Diese koennen in einem naechsten Schritt als eigene Sektionen angelegt werden.
+- Icons aus `lucide-react` (Phone, MessageSquare, Zap)
+- Karten mit `rounded-xl border border-border/30 bg-white/5 backdrop-blur-md`
+- Neon-Glow-Effekte auf Hover
+- Section bekommt die ID `id="loesungen"` fuer zukuenftige Anker-Navigation
+- Keine neuen Dependencies noetig
 
