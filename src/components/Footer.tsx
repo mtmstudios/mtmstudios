@@ -23,7 +23,7 @@ const Footer = () => {
           {/* Brand */}
           <div className="space-y-4">
             <Link to="/">
-              <img src={logo} alt="Setrex Logo" className="h-10" />
+              <img src={logo} alt="Setrex Logo" className="h-28 -ml-4 -mt-4 -mb-4 object-contain" />
             </Link>
             <p className="text-muted-foreground text-sm leading-relaxed">
               Wir helfen Unternehmen, mit intelligenter Automatisierung Zeit zu sparen und effizienter zu arbeiten.
