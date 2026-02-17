@@ -4,6 +4,7 @@ import LogosSection from "@/components/LogosSection";
 import FeaturesSection from "@/components/FeaturesSection";
 import ProcessSection from "@/components/ProcessSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
+import CTASection from "@/components/CTASection";
 
 import { useEffect, useRef } from "react";
 
@@ -61,6 +62,7 @@ const Index = () => {
         <FeaturesSection />
         <ProcessSection />
         <TestimonialsSection />
+        <CTASection />
       </div>
     </div>
   );
