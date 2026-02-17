@@ -1,36 +1,35 @@
 
 
-## Anführungszeichen-Icon statt Avatar-Kreise
+## Button-Styling Anpassungen
 
-### Aenderung
+### 1. Navigation: "Kontakt" -> "Jetzt anfragen" + Hover-Fix
 
-**`src/components/ui/testimonial-card.tsx`**
+**`src/components/Navigation.tsx`**
 
-- Avatar-Import und `AvatarFallback` entfernen
-- Stattdessen ein `Quote`-Icon von `lucide-react` als visuelles Element oben links in der Karte
-- Icon-Styling: `text-neon/30` (dezent, passend zum Neon-Design), Groesse `24px`
-- Das Quote-Icon steht oberhalb des Textes, nicht neben dem Namen
-- Der Autorenbereich unten wird ohne Icon dargestellt -- nur Name, Rolle und Firma als Text
+- Button-Text von "Kontakt" zu "Jetzt anfragen" aendern
+- Hover-Styling fixen: `hover:bg-neon hover:text-black` damit die Schrift bei gelbem Hintergrund sichtbar bleibt
 
-### Vorher
-```
-[Initialen-Kreis] Name
-                  Rolle, Firma
-```
+### 2. Hero: CTA-Button Text aendern
 
-### Nachher
-```
-" (Quote-Icon, neon-gruen, oben)
+**`src/components/HeroSection.tsx`**
 
-"Bewertungstext..."
+- "Jetzt anfragen!" aendern zu "Jetzt beraten lassen!"
 
-Name
-Rolle, Firma
-```
+### 3. Hero: WhatsApp-Button in WhatsApp-Gruen
 
-### Technische Details
-- Import: `import { Quote } from "lucide-react"`
-- Avatar-Import wird entfernt (nicht mehr benoetigt)
-- `Quote` Icon mit `className="text-neon/30 mb-3"` und `size={24}`
-- Autorenbereich bleibt unten, aber ohne Avatar -- nur Text-basiert mit `font-semibold` fuer den Namen
+Gute Idee mit dem WhatsApp-Gruen -- das ist markenkonform und sofort wiedererkennbar.
+
+- Statt dem aktuellen Outline-Style bekommt der Button einen gruenen Rand und gruene Schrift
+- Hover: dezent dunkleres Gruen, aber nicht komplett ausgefuellt
+- WhatsApp-Gruen: `#25D366` (offizielles WhatsApp-Gruen)
+- Klassen: `border-[#25D366] text-[#25D366] hover:bg-[#25D366]/10` -- der Button bleibt transparent mit gruenem Rand und wird beim Hover nur leicht gruen hinterlegt
+
+### Zusammenfassung der Aenderungen
+
+| Element | Vorher | Nachher |
+|---|---|---|
+| Nav-Button Text | "Kontakt" | "Jetzt anfragen" |
+| Nav-Button Hover | Gelb ohne sichtbare Schrift | Gelb mit schwarzer Schrift |
+| Hero CTA Text | "Jetzt anfragen!" | "Jetzt beraten lassen!" |
+| WhatsApp Button | Weisser Outline, Hover neon-gelb | Gruener Outline (#25D366), dezenter Gruen-Hover |
 
