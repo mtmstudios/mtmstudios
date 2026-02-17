@@ -1,5 +1,6 @@
 import Navigation from "@/components/Navigation";
 import HeroSection from "@/components/HeroSection";
+import LogosSection from "@/components/LogosSection";
 import FeaturesSection from "@/components/FeaturesSection";
 import ProcessSection from "@/components/ProcessSection";
 
@@ -55,6 +56,7 @@ const Index = () => {
 
       <div style={{ position: 'relative', zIndex: 10 }}>
         <HeroSection />
+        <LogosSection />
         <FeaturesSection />
         <ProcessSection />
       </div>
