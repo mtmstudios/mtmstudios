@@ -1,24 +1,63 @@
 
-## Hero-Bereich: Mobile-Fix + Deutsche CTA-Buttons
 
-### 1. WhatsApp-Logo als Asset speichern
-- Das hochgeladene Bild (`WhatsApp.svg.png`) wird als `src/assets/whatsapp-logo.png` gespeichert
+## Leistungs-Section: "Unsere Loesungen"
 
-### 2. Mobile Text-Fix
-- Headline-Schriftgroesse von `text-5xl` auf `text-4xl` reduzieren (mobile)
-- Zweite Zeile ("die Zeit sparen") bekommt `flex-wrap justify-center` damit der Text auf kleinen Bildschirmen zentriert umbricht
+Die bestehende "Premium Quality, Zero Cost"-Section (`FeaturesSection.tsx`) wird komplett durch eine neue Leistungs-Section ersetzt, die eure drei KI-Services praesentiert.
 
-### 3. CTA-Buttons ersetzen
-- **Button 1**: "Jetzt anfragen!" -- gelber Neon-Button mit ArrowRight-Icon, Link zu `#kontakt`
-- **Button 2**: "WhatsApp schreiben" -- schwarzer Outline-Button mit WhatsApp-Logo davor, Link zu `https://wa.me/4915123456789` (Platzhalter-Nummer)
+### Layout: Bento-Grid
 
-### Technische Aenderungen
+```text
++-------------------------------+------------------+
+|                               |  WhatsApp &      |
+|   KI-Telefonassistent         |  Chatbots        |
+|   (grosse Karte)              |                  |
+|                               +------------------+
+|                               |  Automatisie-    |
+|                               |  rungen          |
++-------------------------------+------------------+
+```
 
-**Neues Asset:**
-- `src/assets/whatsapp-logo.png` (aus Upload)
+- **Linke Karte (gross)**: KI-Telefonassistent -- nimmt die volle Hoehe ein, betont als Hauptleistung
+- **Rechts oben**: WhatsApp und Chatbots
+- **Rechts unten**: Automatisierungen
 
-**Datei: `src/components/HeroSection.tsx`**
-- Import hinzufuegen: `import whatsappLogo from "@/assets/whatsapp-logo.png"`
-- Zeile 14: `text-5xl` zu `text-4xl` aendern
-- Zeile 30: `flex items-baseline` zu `flex flex-wrap justify-center items-baseline` aendern
-- Zeilen 93-103: Beide Buttons ersetzen durch deutsche Versionen mit WhatsApp-Logo
+Auf Mobile stapeln sich alle drei Karten untereinander.
+
+### Design-Stil
+
+Gleicher Look wie die bestehenden Karten:
+- Halbtransparenter Hintergrund: `bg-card/50 backdrop-blur-sm`
+- Subtiler Border: `border-border/50`
+- Neon-Hover: `hover:border-neon/50 hover:shadow-neon/10`
+- Neon-Icon-Container mit `bg-neon/10`
+
+### Section-Header
+
+- Neon-Badge: "Was wir anbieten" (gleicher Pill-Stil wie aktuell)
+- Headline: "Unsere Loesungen"
+- Subtext: Kurzer Satz ueber eure KI-Services
+
+### Inhalte der drei Karten
+
+**1. KI-Telefonassistent** (Icon: Phone)
+- Titel: "KI-Telefonassistent"
+- Beschreibung: Euer KI-Assistent nimmt Anrufe entgegen, beantwortet Fragen und leitet wichtige Anfragen weiter -- rund um die Uhr, ohne Wartezeit.
+
+**2. WhatsApp und Chatbots** (Icon: MessageCircle)
+- Titel: "WhatsApp und Chatbots"
+- Beschreibung: Intelligente Chatbots fuer WhatsApp und eure Website, die Kundenanfragen sofort beantworten und Leads qualifizieren.
+
+**3. Automatisierungen** (Icon: Workflow)
+- Titel: "Automatisierungen"
+- Beschreibung: Wiederkehrende Aufgaben automatisieren -- von E-Mail-Workflows bis zur Datenverarbeitung. Mehr Effizienz, weniger manueller Aufwand.
+
+### Technische Umsetzung
+
+**Datei: `src/components/FeaturesSection.tsx`**
+- Kompletter Inhalt wird ersetzt
+- Neues Bento-Grid Layout mit CSS Grid: `grid-cols-1 md:grid-cols-2`, linke Karte mit `md:row-span-2`
+- Gleiche Card-Komponente und Styling-Patterns wie bisher
+- Icons aus `lucide-react`: Phone, MessageCircle, Workflow
+
+Keine neuen Dateien oder Dependencies noetig -- alles ist bereits vorhanden.
+
