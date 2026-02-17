@@ -1,44 +1,29 @@
 
+## Moderne Scroll-Animationen fuer die Prozess-Section
 
-## "So funktioniert's" — Gestaffelte Karten (Premium/Clean)
+Upgrade der bestehenden Fade-In-Animation zu einem richtungsbezogenen Staggered Slide-In, das zum versetzten Karten-Layout passt.
 
-Neue Section unterhalb der FeaturesSection mit 5 Schritten in einem modernen, reduzierten Karten-Layout.
+### Aenderung: `src/components/ProcessSection.tsx`
 
-### Neue Datei: `src/components/ProcessSection.tsx`
+**Aktuelle Animation:** Alle Karten kommen von unten (`y: 30`) — wirkt etwas eintoenig.
 
-**Layout:**
-- Section mit `id="prozess"` und dunklem Hintergrund (`bg-muted/20`) zur Abgrenzung
-- Section-Header: Neon-Badge "So funktioniert's" + Headline "Von der Idee zur Loesung"
-- 5 Karten vertikal gestapelt, auf Desktop leicht versetzt (ungerade Karten links, gerade rechts via `md:ml-auto`)
-- Jede Karte hat:
-  - Grosse halbtransparente Nummer im Hintergrund (`text-6xl font-bold text-neon/10`)
-  - `border-l-4 border-neon` als linker Akzent
-  - Glassmorphism-Styling: `bg-white/5 backdrop-blur-md rounded-xl`
-  - Icon (klein, dezent in `text-neon/60`), Titel und Beschreibung
-  - Keine Hover-Animationen, keine Glow-Effekte — ruhig und premium
+**Neue Animation:**
+- Ungerade Karten (01, 03, 05 — links positioniert) gleiten von links rein: `initial={{ opacity: 0, x: -60 }}`
+- Gerade Karten (02, 04 — rechts positioniert via `md:ml-auto`) gleiten von rechts rein: `initial={{ opacity: 0, x: 60 }}`
+- Auf Mobile (kein Versatz) gleiten alle von unten rein: `initial={{ opacity: 0, y: 30 }}`
+- Weiterhin `whileInView` mit `viewport={{ once: true }}`
+- Timing: `duration: 0.6`, stagger `delay: index * 0.12`
+- Easing: `ease: [0.25, 0.1, 0.25, 1]` (cubic-bezier, smooth und premium)
 
-**Die 5 Schritte:**
+**Partnerschafts-Karte (letzte Karte) Bonus:**
+- Leichter Scale-Effekt: `initial={{ opacity: 0, x: -60, scale: 0.97 }}` -> `whileInView={{ opacity: 1, x: 0, scale: 1 }}`
+- Etwas laengere Duration (`0.7s`) fuer einen "Landing"-Effekt
 
-| Nr | Titel | Icon | Beschreibung |
-|----|-------|------|-------------|
-| 01 | Erstgespraech und Analyse | MessageSquare | Wir lernen euer Unternehmen kennen, analysieren Prozesse und identifizieren Potenziale. |
-| 02 | Konzept und Strategie | Lightbulb | Basierend auf der Analyse entwickeln wir eine massgeschneiderte Strategie und einen klaren Plan. |
-| 03 | Umsetzung und Integration | Cog | Wir entwickeln die Loesung und integrieren sie nahtlos in eure bestehenden Systeme. |
-| 04 | Testing und Go-Live | Rocket | Gruendliches Testen, Feinschliff und begleiteter Launch eurer neuen KI-Loesung. |
-| 05 | Langfristige Partnerschaft | Handshake | Kontinuierliche Optimierung, Skalierung und persoenlicher Support als euer KI-Partner. |
-
-**Karten-Breite:** `max-w-2xl` (nicht volle Breite, wirkt eleganter)
-**Abstand zwischen Karten:** `gap-6`
-
-### Aenderung: `src/pages/Index.tsx`
-
-- Import `ProcessSection` hinzufuegen
-- `<ProcessSection />` unterhalb von `<FeaturesSection />` einbinden
+**Section-Header Animation:**
+- Badge und Headline ebenfalls mit Fade-In von oben: `initial={{ opacity: 0, y: -20 }}`
 
 ### Technische Details
 
-- Icons aus `lucide-react`: MessageSquare, Lightbulb, Cog, Rocket, Handshake
+- Nutzung von `useMediaQuery` oder `window.matchMedia` ist nicht noetig — stattdessen wird die x-Richtung immer gesetzt, da auf Mobile die Karten ohnehin zentriert sind und der horizontale Slide minimal wirkt
 - Keine neuen Dependencies
-- Keine Scroll-Animationen — statisch und ruhig
-- Responsive: Auf Mobile alle Karten zentriert ohne Versatz
-
+- Nur Aenderungen in `ProcessSection.tsx`
