@@ -1,37 +1,46 @@
 
 
-## Logo-Slider unterhalb des Hero-Bereichs
+## Testimonials-Section unter der Prozess-Section
 
-Ein endlos laufender Logo-Slider (von links nach rechts), der in der Mitte heller wird und an den Raendern ausblendet -- direkt unter dem Hero-Bereich.
+Eine horizontal scrollende Bewertungs-Section mit Marquee-Animation, die Vertrauen schafft und zum bestehenden dunklen Neon-Design passt.
 
 ### Neue Dateien
 
-**1. `src/components/ui/infinite-slider.tsx`**
-- Endlos-Slider-Komponente basierend auf dem bereitgestellten Code
-- Anpassung: Import von `motion` statt `framer-motion` (das Projekt nutzt das `motion`-Paket, nicht `framer-motion`)
-- Import: `import { useMotionValue, animate, motion } from "motion/react"`
+**1. `src/components/ui/testimonial-card.tsx`**
+- Karten-Komponente fuer einzelne Bewertungen
+- Styling: `bg-white/5 backdrop-blur-md border-border/30` (wie Feature-Karten)
+- Hover: `hover:border-neon/40` mit Neon-Glow
+- Avatar: Initialen-basiert via `AvatarFallback` mit `bg-neon/10 text-neon`
+- Felder: Name, Rolle, Firma, Bewertungstext
+- Kein Foto, kein Social-Handle -- stattdessen Rolle + Firmenname (B2B-passend)
 
-**2. `src/components/ui/logo-cloud.tsx`**
-- Wrapper-Komponente fuer den Logo-Slider
-- Nutzt `InfiniteSlider` mit einem CSS-Mask-Gradient fuer den Fade-Effekt an den Raendern (Mitte hell, Raender transparent)
-- Logos als `img`-Tags mit den bereitgestellten URLs (Nvidia, Supabase, OpenAI, etc.)
+**2. `src/components/TestimonialsSection.tsx`**
+- Section mit Badge ("Kundenstimmen"), Headline und Marquee-Slider
+- Marquee via CSS-Animation (`animate-marquee`) -- kein zusaetzliches JS
+- Fade-Effekt an den Raendern via CSS `mask-image` (wie beim Logo-Slider)
+- Vier vorgefuellte Bewertungen:
+  - Thomas Mueller, Vertriebsleiter, Schmidt Versicherungen -- Sales-Automatisierung
+  - Dr. Lisa Weber, Praxismanagerin, Zahnarztpraxis Weber -- KI-Telefonassistent
+  - Marco Hoffmann, Geschaeftsfuehrer, Hoffmann Malerbetrieb -- Chatbot
+  - Stefan Krause, Projektleiter, Krause Bau GmbH -- WhatsApp-Bot
 
-**3. `src/components/LogosSection.tsx`**
-- Section-Komponente mit "Trusted by"-Text und dem Logo-Cloud darunter
-- Styling passend zum dunklen Theme: weisse/graue Logos, dezenter Text
+### Aenderungen
 
-### Aenderung: `src/pages/Index.tsx`
+**`tailwind.config.ts`**
+- Neue Keyframe `marquee`: `from { translateX(0) } to { translateX(calc(-100% - var(--gap))) }`
+- Neue Animation `marquee`: `marquee var(--duration) linear infinite`
 
-- Import und Einbindung von `LogosSection` direkt nach `<HeroSection />`
+**`src/pages/Index.tsx`**
+- Import und Einbindung von `TestimonialsSection` nach `ProcessSection`
 
-### Neue Dependency
-
-- `react-use-measure` -- wird vom InfiniteSlider benoetigt, um die Breite des Containers zu messen
+### Keine neuen Dependencies noetig
+- `@radix-ui/react-avatar` ist bereits installiert
+- `Avatar` und `AvatarFallback` existieren bereits in `src/components/ui/avatar.tsx`
 
 ### Technische Details
-
-- Der Fade-Effekt wird ueber CSS `mask-image` realisiert: `linear-gradient(to right, transparent, black 20%, black 80%, transparent)` -- dadurch sind die Raender transparent und die Mitte sichtbar
-- Logos laufen endlos in einer Richtung durch, dupliziert fuer nahtloses Looping
-- Keine `framer-motion`-Installation noetig -- das bestehende `motion`-Paket wird verwendet
-- Logos werden als externe SVGs von `storage.efferd.com` geladen und mit `brightness(0) invert(1)` auf Weiss gefiltert, passend zum dunklen Design
+- Die Marquee-Animation ist rein CSS-basiert (performanter als JS-basierte Loesung)
+- Testimonials werden 4x dupliziert im DOM fuer nahtloses Looping
+- `--duration` und `--gap` als CSS Custom Properties fuer einfache Anpassung
+- Responsive: Karten haben feste Breite (`w-[350px]`), Marquee passt sich automatisch an
+- Der Glassmorphism-Stil (`bg-white/5 backdrop-blur-md`) ist konsistent mit FeaturesSection und ProcessSection
 
