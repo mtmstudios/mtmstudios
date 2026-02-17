@@ -1,4 +1,5 @@
 import { MessageSquare, Lightbulb, Cog, Rocket, Handshake, LucideIcon } from "lucide-react";
+import { motion } from "motion/react";
 
 const steps: { number: string; title: string; icon: LucideIcon; description: string }[] = [
   {
@@ -47,27 +48,44 @@ const ProcessSection = () => {
         </div>
 
         <div className="flex flex-col gap-6">
-          {steps.map((step, index) => (
-            <div
-              key={step.number}
-              className={`relative max-w-2xl border-l-4 border-neon bg-white/5 backdrop-blur-md rounded-xl p-8 ${
-                index % 2 === 1 ? "md:ml-auto" : ""
-              }`}
-            >
-              <span className="absolute top-4 right-6 text-6xl font-bold text-neon/10 select-none pointer-events-none">
-                {step.number}
-              </span>
-              <div className="relative">
-                <step.icon className="w-5 h-5 text-neon/60 mb-3" />
-                <h3 className="text-xl font-semibold text-foreground mb-2">
-                  {step.title}
-                </h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  {step.description}
-                </p>
-              </div>
-            </div>
-          ))}
+          {steps.map((step, index) => {
+            const isLast = index === steps.length - 1;
+
+            return (
+              <motion.div
+                key={step.number}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.5, delay: index * 0.1, ease: "easeOut" }}
+                className={`relative max-w-2xl border-l-4 rounded-xl p-8 ${
+                  isLast
+                    ? "border-neon bg-neon/5 backdrop-blur-md shadow-[0_0_40px_hsl(72_100%_60%/0.1)]"
+                    : "border-neon bg-white/5 backdrop-blur-md"
+                } ${index % 2 === 1 ? "md:ml-auto" : ""}`}
+              >
+                <span className={`absolute top-4 right-6 text-6xl font-bold select-none pointer-events-none ${
+                  isLast ? "text-neon/20" : "text-neon/10"
+                }`}>
+                  {step.number}
+                </span>
+                <div className="relative">
+                  <step.icon className={`w-5 h-5 mb-3 ${isLast ? "text-neon" : "text-neon/60"}`} />
+                  <h3 className={`text-xl font-semibold mb-2 ${isLast ? "text-neon" : "text-foreground"}`}>
+                    {step.title}
+                  </h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    {step.description}
+                  </p>
+                  {isLast && (
+                    <span className="inline-block mt-4 px-3 py-1 rounded-full text-xs font-medium bg-neon/10 text-neon border border-neon/20">
+                      Euer langfristiger KI-Partner
+                    </span>
+                  )}
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>
