@@ -73,8 +73,7 @@ const HeroSection = () => {
         delay: 0.5,
         ease: smoothEase
       }} className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-12 leading-relaxed">
-          A curated collection of stunning motion backgrounds, completely free.
-          Perfect for videos, presentations, and creative projects.
+          Von intelligenten Telefonassistenten über smarte Chatbots bis hin zu maßgeschneiderten Automatisierungen — wir entwickeln KI, die Ihr Unternehmen entlastet.
         </motion.p>
 
         {/* CTA Buttons */}
