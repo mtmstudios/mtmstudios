@@ -76,7 +76,7 @@ const ProcessSection = () => {
                 transition={{ duration: isLast ? 0.7 : 0.6, delay: index * 0.12, ease: easing }}
                 className={`relative max-w-2xl border-l-4 rounded-xl p-8 text-center ${
                   isLast
-                    ? "border-neon bg-neon/5 backdrop-blur-md shadow-[0_0_40px_hsl(72_100%_60%/0.1)]"
+                    ? "border-neon bg-neon/5 backdrop-blur-md shadow-[0_0_40px_hsl(174_72%_48%/0.1)]"
                     : "border-neon bg-white/5 backdrop-blur-md"
                 } ${isRight ? "md:ml-auto" : ""}`}
               >
