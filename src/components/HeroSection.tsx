@@ -3,6 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { motion } from "motion/react";
 import BlurText from "./BlurText";
 import GradientText from "./GradientText";
+import whatsappLogo from "@/assets/whatsapp-logo.png";
 const smoothEase = [0.25, 0.1, 0.25, 1] as const;
 const HeroSection = () => {
   return <section className="min-h-screen flex items-center justify-center overflow-hidden pt-24">
@@ -11,7 +12,7 @@ const HeroSection = () => {
         {/* Badge */}
 
         {/* Hero Headline */}
-        <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-foreground mb-2 leading-snug flex flex-col items-center">
+        <h1 className="text-4xl md:text-7xl lg:text-8xl font-bold text-foreground mb-2 leading-snug flex flex-col items-center">
           <span className="flex items-baseline gap-x-[0.3em]">
             <BlurText text="Wir bauen KI-Lösungen," delay={60} className="inline" animateBy="words" direction="bottom" stepDuration={0.5} animationFrom={{
             filter: 'blur(12px)',
@@ -27,7 +28,7 @@ const HeroSection = () => {
             y: 0
           }]} />
           </span>
-          <span className="flex items-baseline gap-x-[0.3em]">
+          <span className="flex flex-wrap justify-center items-baseline gap-x-[0.3em]">
             <BlurText text="die" delay={60} className="inline" animateBy="words" direction="bottom" stepDuration={0.5} animationFrom={{
             filter: 'blur(12px)',
             opacity: 0,
@@ -90,15 +91,16 @@ const HeroSection = () => {
         delay: 0.7,
         ease: smoothEase
       }} className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <a href="https://viktoroddy.substack.com/p/5-quick-examples-of-really-good-motion" target="_blank" rel="noopener noreferrer">
+          <a href="#kontakt">
             <Button size="lg" className="bg-neon text-accent-foreground hover:bg-neon-glow neon-glow font-semibold text-lg px-8 py-6 rounded-full transition-all duration-300">
               <ArrowRight className="w-5 h-5 mr-2" />
-              Access Gallery
+              Jetzt anfragen!
             </Button>
           </a>
-          <a href="https://x.com/viktoroddy" target="_blank" rel="noopener noreferrer">
+          <a href="https://wa.me/4915123456789" target="_blank" rel="noopener noreferrer">
             <Button size="lg" variant="outline" className="border-foreground/20 hover:border-neon hover:text-neon text-foreground font-semibold text-lg px-8 py-6 rounded-full transition-all duration-300">
-              Follow Me on Twitter
+              <img src={whatsappLogo} alt="WhatsApp" className="w-5 h-5 mr-2" />
+              WhatsApp schreiben
             </Button>
           </a>
         </motion.div>
