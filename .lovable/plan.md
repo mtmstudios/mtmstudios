@@ -1,63 +1,40 @@
 
 
-## Leistungs-Section: "Unsere Loesungen"
+## Zusammenfassung: Navigation updaten und FeaturesSection entfernen
 
-Die bestehende "Premium Quality, Zero Cost"-Section (`FeaturesSection.tsx`) wird komplett durch eine neue Leistungs-Section ersetzt, die eure drei KI-Services praesentiert.
+### 1. FeaturesSection entfernen
 
-### Layout: Bento-Grid
+**`src/pages/Index.tsx`**
+- Import von `FeaturesSection` entfernen
+- `<FeaturesSection />` aus dem JSX entfernen
 
-```text
-+-------------------------------+------------------+
-|                               |  WhatsApp &      |
-|   KI-Telefonassistent         |  Chatbots        |
-|   (grosse Karte)              |                  |
-|                               +------------------+
-|                               |  Automatisie-    |
-|                               |  rungen          |
-+-------------------------------+------------------+
-```
+**`src/components/FeaturesSection.tsx`**
+- Datei komplett loeschen
 
-- **Linke Karte (gross)**: KI-Telefonassistent -- nimmt die volle Hoehe ein, betont als Hauptleistung
-- **Rechts oben**: WhatsApp und Chatbots
-- **Rechts unten**: Automatisierungen
+---
 
-Auf Mobile stapeln sich alle drei Karten untereinander.
+### 2. Navigation-Links aktualisieren
 
-### Design-Stil
+**`src/components/Navigation.tsx`**
 
-Gleicher Look wie die bestehenden Karten:
-- Halbtransparenter Hintergrund: `bg-card/50 backdrop-blur-sm`
-- Subtiler Border: `border-border/50`
-- Neon-Hover: `hover:border-neon/50 hover:shadow-neon/10`
-- Neon-Icon-Container mit `bg-neon/10`
+Die drei bestehenden Links (Gallery, Download, Twitter) und der "Access Gallery"-Button werden ersetzt durch:
 
-### Section-Header
+| Link | Ziel | Typ |
+|------|------|-----|
+| KI-Telefonassistent | `#telefonassistent` | Anker-Link |
+| Chatbot | `#chatbot` | Anker-Link |
+| Automatisierungen | `#automatisierungen` | Anker-Link |
+| Das sind Wir | `/about` | React Router Link |
+| Kontakt | `#kontakt` | Anker-Link |
 
-- Neon-Badge: "Was wir anbieten" (gleicher Pill-Stil wie aktuell)
-- Headline: "Unsere Loesungen"
-- Subtext: Kurzer Satz ueber eure KI-Services
+- Der "Access Gallery"-Button wird durch einen **"Kontakt"**-Button ersetzt, der zu `#kontakt` scrollt
+- Alle Anker-Links verwenden `<a href="#...">` fuer sanftes Scrollen
+- "Das sind Wir" verwendet `<Link to="/about">` (React Router)
+- Gleiches Styling wie bisher: `text-foreground hover:text-neon transition-colors`
 
-### Inhalte der drei Karten
+---
 
-**1. KI-Telefonassistent** (Icon: Phone)
-- Titel: "KI-Telefonassistent"
-- Beschreibung: Euer KI-Assistent nimmt Anrufe entgegen, beantwortet Fragen und leitet wichtige Anfragen weiter -- rund um die Uhr, ohne Wartezeit.
+### Hinweis
 
-**2. WhatsApp und Chatbots** (Icon: MessageCircle)
-- Titel: "WhatsApp und Chatbots"
-- Beschreibung: Intelligente Chatbots fuer WhatsApp und eure Website, die Kundenanfragen sofort beantworten und Leads qualifizieren.
-
-**3. Automatisierungen** (Icon: Workflow)
-- Titel: "Automatisierungen"
-- Beschreibung: Wiederkehrende Aufgaben automatisieren -- von E-Mail-Workflows bis zur Datenverarbeitung. Mehr Effizienz, weniger manueller Aufwand.
-
-### Technische Umsetzung
-
-**Datei: `src/components/FeaturesSection.tsx`**
-- Kompletter Inhalt wird ersetzt
-- Neues Bento-Grid Layout mit CSS Grid: `grid-cols-1 md:grid-cols-2`, linke Karte mit `md:row-span-2`
-- Gleiche Card-Komponente und Styling-Patterns wie bisher
-- Icons aus `lucide-react`: Phone, MessageCircle, Workflow
-
-Keine neuen Dateien oder Dependencies noetig -- alles ist bereits vorhanden.
+Die Anker-Ziele (`#telefonassistent`, `#chatbot`, `#automatisierungen`, `#kontakt`) existieren noch nicht als Sections auf der Seite. Diese koennen in einem naechsten Schritt als eigene Sektionen angelegt werden.
 
