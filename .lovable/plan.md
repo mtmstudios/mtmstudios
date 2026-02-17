@@ -1,55 +1,25 @@
 
 
-## Footer Mobile-Optimierung
+## Footer Logo-Ausrichtung fixen
 
 ### Problem
-Der Footer zeigt auf Mobile alle 4 Spalten (Brand, Leistungen, Unternehmen, Kontakt) untereinander in voller Laenge -- das erzeugt einen sehr langen Scroll-Bereich.
+Das Logo-Bild (`logo.png`) hat intern viel Whitespace/Padding. Die bisherigen negativen Margins (`-mt-6`, `-mb-6`) reichen nicht, um den sichtbaren Logo-Text auf die gleiche Hoehe wie die Spalten-Ueberschriften ("Leistungen", "Unternehmen", "Kontakt") zu bringen.
 
 ### Loesung
-Kompakteres Mobile-Layout mit folgenden Aenderungen:
+Den Logo-Container mit `overflow-hidden` und einer festen Hoehe beschneiden, sodass nur der sichtbare Logo-Text angezeigt wird. Zusaetzlich die erste Spalte so ausrichten, dass der Logo-Text auf der gleichen Baseline wie die h4-Ueberschriften der anderen Spalten liegt.
 
 ### Aenderungen in `src/components/Footer.tsx`
 
-**1. Brand-Bereich auf Mobile zentrieren**
-- Logo und Beschreibung zentriert
-- Social Icons zentriert
-- Kleinerer Abstand (`py-10` statt `py-16` auf Mobile)
+**1. Logo-Container clippen**
+- Den Link-Container um das Logo mit einer festen Hoehe und `overflow-hidden` versehen
+- Das Logo-Bild mit groesseren negativen Margins nach oben schieben, damit der sichtbare Text in den sichtbaren Bereich rutscht
+- Beispiel: Container `h-7 overflow-hidden` mit Logo `h-28 -mt-8 object-contain`
 
-**2. Link-Spalten auf Mobile als 2-Spalten-Grid**
-- "Leistungen" und "Unternehmen" nebeneinander in einem 2-Spalten-Grid auf Mobile
-- Das spart eine ganze Spalte Platz vertikal
-- Grid-Struktur: `grid grid-cols-2 sm:grid-cols-1`
-
-**3. Kontakt-Bereich kompakter**
-- Kontakt-Infos auf Mobile horizontal/zentriert statt als vertikale Liste
-- Oder als kompakte Zeile unter den Link-Spalten
-
-**4. Gesamtstruktur auf Mobile**
-Statt 4 Spalten untereinander wird der Footer so aufgebaut:
-
-```text
-Mobile:
-+---------------------------+
-|     [Logo] (zentriert)    |
-|   Kurzbeschreibung        |
-|   [Social Icons]          |
-+---------------------------+
-| Leistungen | Unternehmen  |
-| - Link     | - Link       |
-| - Link     | - Link       |
-+---------------------------+
-|   Kontakt (zentriert)     |
-|   Mail | Telefon | Ort    |
-+---------------------------+
-|      Copyright            |
-+---------------------------+
-```
+**2. Space-y entfernen, manuelle Abstände**
+- `space-y-4` durch individuelle Margins ersetzen, damit der Abstand zwischen Logo und Beschreibung stimmt
 
 ### Technische Details
-
-- Padding: `py-10 md:py-16` fuer kompakteren Mobile-Abstand
-- Brand-Block: `text-center md:text-left`, Logo und Social Icons zentriert auf Mobile
-- Mittlere Spalten: In ein eigenes `grid grid-cols-2` auf Mobile wrappen
-- Kontakt: `flex flex-wrap justify-center md:justify-start` fuer horizontale Anordnung auf Mobile
-- Keine neuen Dependencies noetig
+- Keine neuen Dependencies
+- Nur CSS-Anpassungen in der Brand-Spalte des Footers
+- Die mobile Zentrierung bleibt erhalten
 
