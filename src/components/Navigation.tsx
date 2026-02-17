@@ -5,7 +5,7 @@ import logo from "@/assets/logo.png";
 
 const Navigation = () => {
   return (
-    <nav className="fixed top-0 left-0 right-0 z-[100] border-b border-border/10">
+    <nav className="fixed top-0 left-0 right-0 z-[100] border-b border-border/10 bg-background/80 backdrop-blur-md">
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
