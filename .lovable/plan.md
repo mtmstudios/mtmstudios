@@ -1,35 +1,41 @@
 
+## Akzentfarbe von Neongelb zu Tuerkis (#22D3C5) aendern
 
-## Integrationen-Icons aktualisieren
+### Uebersicht
+Die gesamte Akzentfarbe der Seite wird von Neongelb/Gruen auf Tuerkis (#22D3C5) umgestellt. Die Farbe ist zentral als CSS-Variable definiert, daher wirkt sich die Aenderung automatisch auf fast alle Elemente aus (Buttons, Hover-Effekte, Badges, Glows, Borders etc.).
 
-### Aktuelle Situation
-20 Icons in der Icon-Cloud, teilweise weniger bekannte Tools wie n8n, Pipedrive, Turso, Airtable.
+### Aenderung 1: `src/index.css` - CSS-Variablen
 
-### Neue Auswahl (20 Stueck, fokussiert auf die wichtigsten/bekanntesten Integrationen)
+| Variable | Aktuell | Neu |
+|---|---|---|
+| `--accent` | `72 100% 60%` | `174 72% 48%` |
+| `--ring` | `72 100% 60%` | `174 72% 48%` |
+| `--neon` | `72 100% 60%` | `174 72% 48%` |
+| `--neon-glow` | `72 100% 70%` | `174 72% 60%` |
+| `--sidebar-primary` | `72 100% 60%` | `174 72% 48%` |
+| `--sidebar-ring` | `72 100% 60%` | `174 72% 48%` |
 
-1. **whatsapp** - Messaging-Standard
-2. **slack** - Team-Kommunikation
-3. **microsoftteams** - Unternehmenskommunikation
-4. **openai** - KI-Kern
-5. **google** - Google Workspace
-6. **microsoft** - Office/Enterprise
-7. **salesforce** - CRM-Marktfuehrer
-8. **hubspot** - CRM/Marketing
-9. **zapier** - Automatisierung
-10. **make** - Automatisierung
-11. **shopify** - E-Commerce
-12. **stripe** - Zahlungen
-13. **wordpress** - CMS
-14. **notion** - Wissensmanagement
-15. **calendly** - Terminplanung
-16. **zendesk** - Kundensupport
-17. **mailchimp** - E-Mail-Marketing
-18. **twilio** - Kommunikations-API
-19. **gmail** - E-Mail
-20. **telegram** - Messaging
+### Aenderung 2: `src/components/GradientText.tsx` - Default-Gradient-Farben
 
-### Technische Aenderung
-- Datei: `src/components/IntegrationsSection.tsx`
-- Nur das `slugs`-Array wird ersetzt
-- Alle Slugs muessen auf simple-icons verfuegbar sein
+Die hartcodierten Default-Farben im Gradient-Text aendern:
+- Von: `['#d4ff50', '#b8ff70', '#d4ff50', '#c8ff60', '#d4ff50']`
+- Zu: `['#22D3C5', '#1ABEBD', '#22D3C5', '#28E0D0', '#22D3C5']`
 
+### Aenderung 3: `src/components/ProcessSection.tsx` - Hartcodierter HSL-Wert
+
+In Zeile 79 steht ein hartcodierter Shadow-Wert `hsl(72 100% 60%/0.1)` der auf `hsl(174 72% 48%/0.1)` geaendert wird.
+
+### Was sich automatisch aendert (ohne Code-Aenderung)
+Alle Tailwind-Klassen wie `text-neon`, `bg-neon`, `hover:text-neon`, `border-neon`, `hover:bg-neon`, `neon-glow` etc. greifen automatisch auf die neuen CSS-Variablen zu. Betroffen sind:
+- Navigation (Hover-Farben, Button)
+- Hero-Section (CTA-Button)
+- Process-Section (Badges, Borders)
+- Features-Section
+- Testimonials
+- CTA-Section
+- Footer (Hover-Farben)
+
+### Zusammenfassung
+- 3 Dateien betroffen
+- Keine neuen Dependencies
+- Sofort auf der gesamten Seite sichtbar
