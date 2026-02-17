@@ -1,48 +1,55 @@
 
 
-## Integrations-Section auf der Startseite
+## Footer Mobile-Optimierung
 
-### Platzierung
+### Problem
+Der Footer zeigt auf Mobile alle 4 Spalten (Brand, Leistungen, Unternehmen, Kontakt) untereinander in voller Laenge -- das erzeugt einen sehr langen Scroll-Bereich.
 
-Zwischen `FeaturesSection` und `ProcessSection` auf der Startseite (`src/pages/Index.tsx`).
+### Loesung
+Kompakteres Mobile-Layout mit folgenden Aenderungen:
 
-### Design-Konzept
+### Aenderungen in `src/components/Footer.tsx`
 
-Ein statisches Logo-Grid mit Glassmorphism-Kacheln -- bewusst anders als die laufende Kunden-Logo-Leiste.
+**1. Brand-Bereich auf Mobile zentrieren**
+- Logo und Beschreibung zentriert
+- Social Icons zentriert
+- Kleinerer Abstand (`py-10` statt `py-16` auf Mobile)
 
-### Neue Datei: `src/components/IntegrationsSection.tsx`
+**2. Link-Spalten auf Mobile als 2-Spalten-Grid**
+- "Leistungen" und "Unternehmen" nebeneinander in einem 2-Spalten-Grid auf Mobile
+- Das spart eine ganze Spalte Platz vertikal
+- Grid-Struktur: `grid grid-cols-2 sm:grid-cols-1`
 
-**Aufbau:**
-- Badge oben: "Integrationen" (gleicher Stil wie andere Sections)
-- Ueberschrift: "Ueber 100+ Integrationen"
-- Untertitel: kurzer Satz wie "Wir verbinden eure bestehenden Tools nahtlos mit KI."
-- Darunter ein responsives Grid mit 12-16 Logo-Kacheln
-- Am Ende ein dezenter Hinweis: "...und viele mehr"
+**3. Kontakt-Bereich kompakter**
+- Kontakt-Infos auf Mobile horizontal/zentriert statt als vertikale Liste
+- Oder als kompakte Zeile unter den Link-Spalten
 
-**Logo-Kacheln:**
-- Glassmorphism-Stil: `bg-white/5 backdrop-blur border border-white/10 rounded-xl`
-- Hover-Effekt: `hover:border-neon/30` mit sanftem Neon-Glow
-- Inhalt: SVG/PNG Logo + Tool-Name darunter in kleiner Schrift
-- Logos werden als externe URLs eingebunden (wie bei der bestehenden Kunden-Leiste)
+**4. Gesamtstruktur auf Mobile**
+Statt 4 Spalten untereinander wird der Footer so aufgebaut:
 
-**Geplante Logos (Auswahl):**
-WhatsApp, Google Calendar, HubSpot, Slack, n8n, Make (Integromat), OpenAI, Salesforce, Zapier, Microsoft Teams, Notion, Calendly, Pipedrive, Zendesk, Mailchimp, Stripe
-
-**Responsive Grid:**
-- Desktop: 4-6 Spalten
-- Tablet: 3 Spalten
-- Mobile: 2 Spalten
-
-### Aenderung: `src/pages/Index.tsx`
-
-- Import von `IntegrationsSection` hinzufuegen
-- `<IntegrationsSection />` zwischen `<FeaturesSection />` und `<ProcessSection />` einfuegen
+```text
+Mobile:
++---------------------------+
+|     [Logo] (zentriert)    |
+|   Kurzbeschreibung        |
+|   [Social Icons]          |
++---------------------------+
+| Leistungen | Unternehmen  |
+| - Link     | - Link       |
+| - Link     | - Link       |
++---------------------------+
+|   Kontakt (zentriert)     |
+|   Mail | Telefon | Ort    |
++---------------------------+
+|      Copyright            |
++---------------------------+
+```
 
 ### Technische Details
 
+- Padding: `py-10 md:py-16` fuer kompakteren Mobile-Abstand
+- Brand-Block: `text-center md:text-left`, Logo und Social Icons zentriert auf Mobile
+- Mittlere Spalten: In ein eigenes `grid grid-cols-2` auf Mobile wrappen
+- Kontakt: `flex flex-wrap justify-center md:justify-start` fuer horizontale Anordnung auf Mobile
 - Keine neuen Dependencies noetig
-- Logos als externe SVGs (z.B. von cdn.simpleicons.org oder svgl.app) oder als lokale Assets
-- Kein Slider/Marquee -- bewusst statisch als Kontrast zur Kunden-Leiste
-- Motion/Framer Motion fuer subtile Einblend-Animationen (staggered fade-in beim Scrollen)
-- Glassmorphism und Neon-Hover passend zum bestehenden Design-System
 
