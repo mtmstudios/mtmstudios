@@ -13,7 +13,7 @@ const HeroSection = () => {
         {/* Hero Headline */}
         <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-foreground mb-2 leading-snug flex flex-col items-center">
           <span className="flex items-baseline gap-x-[0.3em]">
-            <BlurText text="wir bauen KI-Lösungen" delay={60} className="inline" animateBy="words" direction="bottom" stepDuration={0.5} animationFrom={{
+            <BlurText text="Wir bauen KI-Lösungen," delay={60} className="inline" animateBy="words" direction="bottom" stepDuration={0.5} animationFrom={{
             filter: 'blur(12px)',
             opacity: 0,
             y: 30
@@ -53,7 +53,7 @@ const HeroSection = () => {
             duration: 0.5,
             delay: 0.18,
             ease: smoothEase
-          }} className="font-playfair italic font-medium">
+          }} className="font-bold">
               <GradientText animationSpeed={5}>Zeit sparen</GradientText>
             </motion.span>
           </span>
