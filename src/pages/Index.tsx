@@ -3,6 +3,7 @@ import HeroSection from "@/components/HeroSection";
 import LogosSection from "@/components/LogosSection";
 import FeaturesSection from "@/components/FeaturesSection";
 import ProcessSection from "@/components/ProcessSection";
+import TestimonialsSection from "@/components/TestimonialsSection";
 
 import { useEffect, useRef } from "react";
 
@@ -59,6 +60,7 @@ const Index = () => {
         <LogosSection />
         <FeaturesSection />
         <ProcessSection />
+        <TestimonialsSection />
       </div>
     </div>
   );
