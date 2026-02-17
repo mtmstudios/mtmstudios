@@ -73,7 +73,7 @@ const HeroSection = () => {
         delay: 0.5,
         ease: smoothEase
       }} className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-12 leading-relaxed">
-          Von intelligenten Telefonassistenten über smarte Chatbots bis hin zu maßgeschneiderten Automatisierungen — wir entwickeln KI, die Ihr Unternehmen entlastet.
+          Von intelligenten Telefonassistenten über smarte Chatbots bis hin zu maßgeschneiderten Automatisierungen — wir entwickeln KI, die dein Unternehmen entlastet.
         </motion.p>
 
         {/* CTA Buttons */}
