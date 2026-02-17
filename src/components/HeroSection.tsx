@@ -98,7 +98,7 @@ const HeroSection = () => {
             </Button>
           </a>
           <a href="https://wa.me/4915123456789" target="_blank" rel="noopener noreferrer">
-            <Button size="lg" variant="outline" className="border-[#25D366] text-[#25D366] hover:bg-[#25D366]/10 font-semibold text-lg px-8 py-6 rounded-full transition-all duration-300">
+            <Button size="lg" variant="outline" className="border-foreground/20 text-foreground hover:border-[#25D366]/50 hover:bg-[#25D366]/5 font-semibold text-lg px-8 py-6 rounded-full transition-all duration-300">
               <img src={whatsappLogo} alt="WhatsApp" className="w-5 h-5 mr-2" />
               WhatsApp schreiben
             </Button>
