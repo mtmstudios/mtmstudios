@@ -1,29 +1,37 @@
 
-## Moderne Scroll-Animationen fuer die Prozess-Section
 
-Upgrade der bestehenden Fade-In-Animation zu einem richtungsbezogenen Staggered Slide-In, das zum versetzten Karten-Layout passt.
+## Logo-Slider unterhalb des Hero-Bereichs
 
-### Aenderung: `src/components/ProcessSection.tsx`
+Ein endlos laufender Logo-Slider (von links nach rechts), der in der Mitte heller wird und an den Raendern ausblendet -- direkt unter dem Hero-Bereich.
 
-**Aktuelle Animation:** Alle Karten kommen von unten (`y: 30`) — wirkt etwas eintoenig.
+### Neue Dateien
 
-**Neue Animation:**
-- Ungerade Karten (01, 03, 05 — links positioniert) gleiten von links rein: `initial={{ opacity: 0, x: -60 }}`
-- Gerade Karten (02, 04 — rechts positioniert via `md:ml-auto`) gleiten von rechts rein: `initial={{ opacity: 0, x: 60 }}`
-- Auf Mobile (kein Versatz) gleiten alle von unten rein: `initial={{ opacity: 0, y: 30 }}`
-- Weiterhin `whileInView` mit `viewport={{ once: true }}`
-- Timing: `duration: 0.6`, stagger `delay: index * 0.12`
-- Easing: `ease: [0.25, 0.1, 0.25, 1]` (cubic-bezier, smooth und premium)
+**1. `src/components/ui/infinite-slider.tsx`**
+- Endlos-Slider-Komponente basierend auf dem bereitgestellten Code
+- Anpassung: Import von `motion` statt `framer-motion` (das Projekt nutzt das `motion`-Paket, nicht `framer-motion`)
+- Import: `import { useMotionValue, animate, motion } from "motion/react"`
 
-**Partnerschafts-Karte (letzte Karte) Bonus:**
-- Leichter Scale-Effekt: `initial={{ opacity: 0, x: -60, scale: 0.97 }}` -> `whileInView={{ opacity: 1, x: 0, scale: 1 }}`
-- Etwas laengere Duration (`0.7s`) fuer einen "Landing"-Effekt
+**2. `src/components/ui/logo-cloud.tsx`**
+- Wrapper-Komponente fuer den Logo-Slider
+- Nutzt `InfiniteSlider` mit einem CSS-Mask-Gradient fuer den Fade-Effekt an den Raendern (Mitte hell, Raender transparent)
+- Logos als `img`-Tags mit den bereitgestellten URLs (Nvidia, Supabase, OpenAI, etc.)
 
-**Section-Header Animation:**
-- Badge und Headline ebenfalls mit Fade-In von oben: `initial={{ opacity: 0, y: -20 }}`
+**3. `src/components/LogosSection.tsx`**
+- Section-Komponente mit "Trusted by"-Text und dem Logo-Cloud darunter
+- Styling passend zum dunklen Theme: weisse/graue Logos, dezenter Text
+
+### Aenderung: `src/pages/Index.tsx`
+
+- Import und Einbindung von `LogosSection` direkt nach `<HeroSection />`
+
+### Neue Dependency
+
+- `react-use-measure` -- wird vom InfiniteSlider benoetigt, um die Breite des Containers zu messen
 
 ### Technische Details
 
-- Nutzung von `useMediaQuery` oder `window.matchMedia` ist nicht noetig — stattdessen wird die x-Richtung immer gesetzt, da auf Mobile die Karten ohnehin zentriert sind und der horizontale Slide minimal wirkt
-- Keine neuen Dependencies
-- Nur Aenderungen in `ProcessSection.tsx`
+- Der Fade-Effekt wird ueber CSS `mask-image` realisiert: `linear-gradient(to right, transparent, black 20%, black 80%, transparent)` -- dadurch sind die Raender transparent und die Mitte sichtbar
+- Logos laufen endlos in einer Richtung durch, dupliziert fuer nahtloses Looping
+- Keine `framer-motion`-Installation noetig -- das bestehende `motion`-Paket wird verwendet
+- Logos werden als externe SVGs von `storage.efferd.com` geladen und mit `brightness(0) invert(1)` auf Weiss gefiltert, passend zum dunklen Design
+
