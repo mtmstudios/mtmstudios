@@ -1,36 +1,48 @@
 
 
-## Footer einbauen (ohne Ladebildschirm)
+## Integrations-Section auf der Startseite
 
-### Neue Datei: `src/components/Footer.tsx`
+### Platzierung
 
-Ein 4-Spalten-Footer passend zum Setrex-Design mit folgender Struktur:
+Zwischen `FeaturesSection` und `ProcessSection` auf der Startseite (`src/pages/Index.tsx`).
 
-| Spalte 1 (Brand) | Spalte 2 (Leistungen) | Spalte 3 (Unternehmen) | Spalte 4 (Kontakt) |
-|---|---|---|---|
-| Logo (`logo.png`) + Kurzbeschreibung + Social Icons (Instagram, LinkedIn, Mail) | KI-Telefonassistent, Chatbot, Automatisierungen, Beratung | Ueber uns, Karriere, Blog | E-Mail, Telefon, Standort |
+### Design-Konzept
 
-**Design-Details:**
-- Hintergrund: `bg-background` mit `border-t border-border/20` oben
-- Ueberschriften: `text-foreground font-semibold`
-- Links: `text-muted-foreground` mit `hover:text-neon` (Neongruen-Uebergang)
-- Social Icons: Lucide-Icons in `text-muted-foreground` mit `hover:text-neon`
-- Copyright-Zeile unten, getrennt durch `border-t border-border/10`
-- Responsive: 1 Spalte Mobile, 2 Spalten Tablet, 4 Spalten Desktop
-- Logo: Nutzt das bestehende `src/assets/logo.png` (wie in der Navigation)
-- Links mit `react-router-dom` fuer interne Navigation, `<a>` fuer externe
+Ein statisches Logo-Grid mit Glassmorphism-Kacheln -- bewusst anders als die laufende Kunden-Logo-Leiste.
 
-**Kein Next.js**: `Link` von `react-router-dom` statt `next/link`. Keine neue Dependency noetig.
+### Neue Datei: `src/components/IntegrationsSection.tsx`
+
+**Aufbau:**
+- Badge oben: "Integrationen" (gleicher Stil wie andere Sections)
+- Ueberschrift: "Ueber 100+ Integrationen"
+- Untertitel: kurzer Satz wie "Wir verbinden eure bestehenden Tools nahtlos mit KI."
+- Darunter ein responsives Grid mit 12-16 Logo-Kacheln
+- Am Ende ein dezenter Hinweis: "...und viele mehr"
+
+**Logo-Kacheln:**
+- Glassmorphism-Stil: `bg-white/5 backdrop-blur border border-white/10 rounded-xl`
+- Hover-Effekt: `hover:border-neon/30` mit sanftem Neon-Glow
+- Inhalt: SVG/PNG Logo + Tool-Name darunter in kleiner Schrift
+- Logos werden als externe URLs eingebunden (wie bei der bestehenden Kunden-Leiste)
+
+**Geplante Logos (Auswahl):**
+WhatsApp, Google Calendar, HubSpot, Slack, n8n, Make (Integromat), OpenAI, Salesforce, Zapier, Microsoft Teams, Notion, Calendly, Pipedrive, Zendesk, Mailchimp, Stripe
+
+**Responsive Grid:**
+- Desktop: 4-6 Spalten
+- Tablet: 3 Spalten
+- Mobile: 2 Spalten
 
 ### Aenderung: `src/pages/Index.tsx`
 
-- `Footer` importieren
-- `<Footer />` nach `<CTASection />` einfuegen (Zeile 65-66)
+- Import von `IntegrationsSection` hinzufuegen
+- `<IntegrationsSection />` zwischen `<FeaturesSection />` und `<ProcessSection />` einfuegen
 
 ### Technische Details
 
-- Keine neuen Dependencies -- `lucide-react` und `react-router-dom` sind bereits installiert
-- Social Icons: `Instagram`, `Linkedin`, `Mail` aus `lucide-react`
-- Kontakt-Icons: `Mail`, `Phone`, `MapPin` aus `lucide-react`
-- Das uploaded Logo (`LOGO-5-TRANSPARENT.png`) wird nicht separat kopiert -- stattdessen wird das bereits vorhandene `src/assets/logo.png` wiederverwendet (Konsistenz mit Navigation)
+- Keine neuen Dependencies noetig
+- Logos als externe SVGs (z.B. von cdn.simpleicons.org oder svgl.app) oder als lokale Assets
+- Kein Slider/Marquee -- bewusst statisch als Kontrast zur Kunden-Leiste
+- Motion/Framer Motion fuer subtile Einblend-Animationen (staggered fade-in beim Scrollen)
+- Glassmorphism und Neon-Hover passend zum bestehenden Design-System
 
