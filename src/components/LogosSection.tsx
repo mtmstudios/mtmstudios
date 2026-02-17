@@ -13,7 +13,7 @@ const logos = [
 
 const LogosSection = () => {
   return (
-    <section className="py-16">
+    <section className="py-6">
       <div className="container mx-auto px-6">
         <p className="text-center text-sm text-muted-foreground mb-8 tracking-widest uppercase">
           Trusted by experts
