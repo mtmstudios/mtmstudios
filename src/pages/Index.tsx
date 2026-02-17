@@ -1,7 +1,7 @@
 import Navigation from "@/components/Navigation";
 import HeroSection from "@/components/HeroSection";
 import VideoCardsSection from "@/components/VideoCardsSection";
-import FeaturesSection from "@/components/FeaturesSection";
+
 import { useEffect, useRef } from "react";
 
 const Index = () => {
@@ -61,7 +61,7 @@ const Index = () => {
       <div style={{ position: 'relative', zIndex: 10 }}>
         <HeroSection />
         <VideoCardsSection />
-        <FeaturesSection />
+        
       </div>
     </div>
   );

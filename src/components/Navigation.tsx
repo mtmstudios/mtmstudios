@@ -15,38 +15,30 @@ const Navigation = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
-            <Link to="/" className="text-foreground hover:text-neon transition-colors">
-              Gallery
-            </Link>
-            <a 
-              href="https://viktoroddy.substack.com/p/5-quick-examples-of-really-good-motion" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="text-foreground hover:text-neon transition-colors"
-            >
-              Download
+            <a href="#telefonassistent" className="text-foreground hover:text-neon transition-colors">
+              KI-Telefonassistent
             </a>
-            <a 
-              href="https://x.com/viktoroddy" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="text-foreground hover:text-neon transition-colors"
-            >
-              Twitter
+            <a href="#chatbot" className="text-foreground hover:text-neon transition-colors">
+              Chatbot
+            </a>
+            <a href="#automatisierungen" className="text-foreground hover:text-neon transition-colors">
+              Automatisierungen
+            </a>
+            <Link to="/about" className="text-foreground hover:text-neon transition-colors">
+              Das sind Wir
+            </Link>
+            <a href="#kontakt" className="text-foreground hover:text-neon transition-colors">
+              Kontakt
             </a>
           </div>
 
           {/* CTA Button */}
-          <a 
-            href="https://viktoroddy.substack.com/p/5-quick-examples-of-really-good-motion"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <a href="#kontakt">
             <Button 
               variant="outline" 
               className="hidden md:inline-flex border-foreground/20 hover:border-neon hover:text-neon transition-all"
             >
-              Access Gallery
+              Kontakt
             </Button>
           </a>
 
