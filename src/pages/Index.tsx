@@ -1,6 +1,6 @@
 import Navigation from "@/components/Navigation";
 import HeroSection from "@/components/HeroSection";
-import VideoCardsSection from "@/components/VideoCardsSection";
+import FeaturesSection from "@/components/FeaturesSection";
 
 import { useEffect, useRef } from "react";
 
@@ -11,7 +11,7 @@ const Index = () => {
     const handleScroll = () => {
       if (videoRef.current) {
         const scrollPosition = window.scrollY;
-        const maxScroll = 300; // Distance to reach 30% opacity
+        const maxScroll = 300;
         const opacity = Math.max(0.3, 1 - (scrollPosition / maxScroll) * 0.7);
         videoRef.current.style.opacity = opacity.toString();
       }
@@ -23,13 +23,9 @@ const Index = () => {
 
   return (
     <div className="relative min-h-screen bg-background">
-      {/* Full-screen video background with hard-light blend mode */}
       <div 
         className="fixed inset-0 w-screen h-screen overflow-hidden" 
-        style={{ 
-          isolation: 'isolate',
-          zIndex: 0 
-        }}
+        style={{ isolation: 'isolate', zIndex: 0 }}
       >
         <video
           ref={videoRef}
@@ -52,16 +48,13 @@ const Index = () => {
         </video>
       </div>
 
-      {/* Navbar overlays video */}
       <div style={{ position: 'relative', zIndex: 50 }}>
         <Navigation />
       </div>
 
-      {/* Hero content */}
       <div style={{ position: 'relative', zIndex: 10 }}>
         <HeroSection />
-        <VideoCardsSection />
-        
+        <FeaturesSection />
       </div>
     </div>
   );
