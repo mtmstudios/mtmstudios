@@ -23,7 +23,7 @@ const Footer = () => {
           {/* Brand - zentriert auf Mobile */}
           <div className="space-y-4 text-center md:text-left">
             <Link to="/" className="inline-block">
-              <img src={logo} alt="Setrex Logo" className="h-28 -mt-4 -mb-4 object-contain md:-ml-4" />
+              <img src={logo} alt="Setrex Logo" className="h-28 -mb-6 -mt-6 object-contain md:-ml-4 md:-mt-2 md:-mb-6" />
             </Link>
             <p className="text-muted-foreground text-sm leading-relaxed">
               Wir helfen Unternehmen, mit intelligenter Automatisierung Zeit zu sparen und effizienter zu arbeiten.
