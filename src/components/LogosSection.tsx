@@ -16,7 +16,7 @@ const LogosSection = () => {
     <section className="-mt-20">
       <div className="container mx-auto px-6">
         <p className="text-center text-sm text-muted-foreground mb-8 tracking-widest uppercase">
-          Trusted by experts
+          Die Kunden vertrauen uns bereits
         </p>
         <LogoCloud logos={logos} />
       </div>
