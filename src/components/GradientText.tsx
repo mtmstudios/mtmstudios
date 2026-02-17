@@ -11,7 +11,7 @@ interface GradientTextProps {
 const GradientText = ({
   children,
   className = '',
-  colors = ['#d4ff50', '#b8ff70', '#d4ff50', '#c8ff60', '#d4ff50'],
+  colors = ['#22D3C5', '#1ABEBD', '#22D3C5', '#28E0D0', '#22D3C5'],
   animationSpeed = 6,
   showBorder = false
 }: GradientTextProps) => {

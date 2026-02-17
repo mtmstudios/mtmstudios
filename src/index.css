@@ -26,7 +26,7 @@ All colors MUST be HSL.
     --muted: 0 0% 10%;
     --muted-foreground: 0 0% 60%;
 
-    --accent: 72 100% 60%;
+    --accent: 174 72% 48%;
     --accent-foreground: 0 0% 0%;
 
     --destructive: 0 84.2% 60.2%;
@@ -34,21 +34,21 @@ All colors MUST be HSL.
 
     --border: 0 0% 15%;
     --input: 0 0% 15%;
-    --ring: 72 100% 60%;
+    --ring: 174 72% 48%;
 
     --radius: 0.75rem;
 
-    --neon: 72 100% 60%;
-    --neon-glow: 72 100% 70%;
+    --neon: 174 72% 48%;
+    --neon-glow: 174 72% 60%;
 
     --sidebar-background: 0 0% 0%;
     --sidebar-foreground: 0 0% 100%;
-    --sidebar-primary: 72 100% 60%;
+    --sidebar-primary: 174 72% 48%;
     --sidebar-primary-foreground: 0 0% 0%;
     --sidebar-accent: 0 0% 10%;
     --sidebar-accent-foreground: 0 0% 100%;
     --sidebar-border: 0 0% 15%;
-    --sidebar-ring: 72 100% 60%;
+    --sidebar-ring: 174 72% 48%;
   }
 }
 
