@@ -27,16 +27,16 @@ const Navigation = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
-            <a href="#telefonassistent" className="text-foreground hover:text-neon transition-colors">
+            <a href="#telefonassistent" className="text-sm text-foreground hover:text-neon transition-colors">
               KI-Telefonassistent
             </a>
-            <a href="#chatbot" className="text-foreground hover:text-neon transition-colors">
+            <a href="#chatbot" className="text-sm text-foreground hover:text-neon transition-colors">
               Chatbot
             </a>
-            <a href="#automatisierungen" className="text-foreground hover:text-neon transition-colors">
+            <a href="#automatisierungen" className="text-sm text-foreground hover:text-neon transition-colors">
               Automatisierungen
             </a>
-            <Link to="/about" className="text-foreground hover:text-neon transition-colors">
+            <Link to="/about" className="text-sm text-foreground hover:text-neon transition-colors">
               Das sind Wir
             </Link>
           </div>
