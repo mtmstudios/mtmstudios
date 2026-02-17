@@ -1,23 +1,24 @@
 
+## Hero-Bereich: Mobile-Fix + Deutsche CTA-Buttons
 
-## Beschreibungstext als Designer gestalten
+### 1. WhatsApp-Logo als Asset speichern
+- Das hochgeladene Bild (`WhatsApp.svg.png`) wird als `src/assets/whatsapp-logo.png` gespeichert
 
-Basierend auf eurem Profil (KI-Agentur, Suddeutschland, Telefonassistenten, Chatbots, Automatisierungen) schlage ich folgenden Text vor:
+### 2. Mobile Text-Fix
+- Headline-Schriftgroesse von `text-5xl` auf `text-4xl` reduzieren (mobile)
+- Zweite Zeile ("die Zeit sparen") bekommt `flex-wrap justify-center` damit der Text auf kleinen Bildschirmen zentriert umbricht
 
-### Neuer Beschreibungstext
+### 3. CTA-Buttons ersetzen
+- **Button 1**: "Jetzt anfragen!" -- gelber Neon-Button mit ArrowRight-Icon, Link zu `#kontakt`
+- **Button 2**: "WhatsApp schreiben" -- schwarzer Outline-Button mit WhatsApp-Logo davor, Link zu `https://wa.me/4915123456789` (Platzhalter-Nummer)
 
-**"Von intelligenten Telefonassistenten uber smarte Chatbots bis hin zu massgeschneiderten Automatisierungen -- wir entwickeln KI, die Ihr Unternehmen entlastet."**
+### Technische Aenderungen
 
-Dieser Text:
-- Nennt konkret die drei Leistungen (Telefonassistenten, Chatbots, Automatisierungen)
-- Endet mit einem klaren Nutzenversprechen ("entlastet")
-- Passt zum Hero-Titel "Wir bauen KI-Losungen, die Zeit sparen"
-- Ist kurz genug fur eine Subheadline
-
-### Technische Anderung
+**Neues Asset:**
+- `src/assets/whatsapp-logo.png` (aus Upload)
 
 **Datei: `src/components/HeroSection.tsx`**
-
-- Der bestehende englische Text im `<motion.p>` Block (ca. Zeile 63-75) wird durch den neuen deutschen Text ersetzt
-- Animationen und Styling bleiben identisch
-
+- Import hinzufuegen: `import whatsappLogo from "@/assets/whatsapp-logo.png"`
+- Zeile 14: `text-5xl` zu `text-4xl` aendern
+- Zeile 30: `flex items-baseline` zu `flex flex-wrap justify-center items-baseline` aendern
+- Zeilen 93-103: Beide Buttons ersetzen durch deutsche Versionen mit WhatsApp-Logo
