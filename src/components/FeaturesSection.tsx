@@ -38,9 +38,9 @@ const FeaturesSection = () => {
           {features.map((feature) => (
             <div
               key={feature.title}
-              className="group relative rounded-xl border border-border/30 bg-white/5 backdrop-blur-md p-8 transition-all duration-300 hover:border-neon/40 hover:shadow-[0_0_30px_hsl(72_100%_60%/0.15)]"
+              className="group relative rounded-xl border border-border/30 bg-white/5 backdrop-blur-md p-8 text-center transition-all duration-300 hover:border-neon/40 hover:shadow-[0_0_30px_hsl(72_100%_60%/0.15)]"
             >
-              <div className="mb-5 inline-flex items-center justify-center w-12 h-12 rounded-lg bg-neon/10 text-neon transition-colors duration-300 group-hover:bg-neon/20">
+              <div className="mb-5 mx-auto inline-flex items-center justify-center w-12 h-12 rounded-lg bg-neon/10 text-neon transition-colors duration-300 group-hover:bg-neon/20">
                 <feature.icon className="w-6 h-6" />
               </div>
               <h3 className="text-xl font-semibold text-foreground mb-3">
