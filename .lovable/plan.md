@@ -1,46 +1,31 @@
 
 
-## Testimonials-Section unter der Prozess-Section
+## Header abdunkeln beim Scrollen
 
-Eine horizontal scrollende Bewertungs-Section mit Marquee-Animation, die Vertrauen schafft und zum bestehenden dunklen Neon-Design passt.
+### Problem
+Die Navigation hat aktuell keinen Hintergrund (`nav` in Zeile 8). Beim Scrollen ueberlagert sich der Content mit den Nav-Links und wird unlesbar.
 
-### Neue Dateien
+### Loesung
+Einen halbtransparenten, dunklen Hintergrund mit Backdrop-Blur auf die Navigation legen -- passend zum bestehenden Glassmorphism-Stil.
 
-**1. `src/components/ui/testimonial-card.tsx`**
-- Karten-Komponente fuer einzelne Bewertungen
-- Styling: `bg-white/5 backdrop-blur-md border-border/30` (wie Feature-Karten)
-- Hover: `hover:border-neon/40` mit Neon-Glow
-- Avatar: Initialen-basiert via `AvatarFallback` mit `bg-neon/10 text-neon`
-- Felder: Name, Rolle, Firma, Bewertungstext
-- Kein Foto, kein Social-Handle -- stattdessen Rolle + Firmenname (B2B-passend)
+### Aenderung
 
-**2. `src/components/TestimonialsSection.tsx`**
-- Section mit Badge ("Kundenstimmen"), Headline und Marquee-Slider
-- Marquee via CSS-Animation (`animate-marquee`) -- kein zusaetzliches JS
-- Fade-Effekt an den Raendern via CSS `mask-image` (wie beim Logo-Slider)
-- Vier vorgefuellte Bewertungen:
-  - Thomas Mueller, Vertriebsleiter, Schmidt Versicherungen -- Sales-Automatisierung
-  - Dr. Lisa Weber, Praxismanagerin, Zahnarztpraxis Weber -- KI-Telefonassistent
-  - Marco Hoffmann, Geschaeftsfuehrer, Hoffmann Malerbetrieb -- Chatbot
-  - Stefan Krause, Projektleiter, Krause Bau GmbH -- WhatsApp-Bot
+**`src/components/Navigation.tsx` (Zeile 8)**
 
-### Aenderungen
+Aktuelle Klassen:
+```
+fixed top-0 left-0 right-0 z-[100] border-b border-border/10
+```
 
-**`tailwind.config.ts`**
-- Neue Keyframe `marquee`: `from { translateX(0) } to { translateX(calc(-100% - var(--gap))) }`
-- Neue Animation `marquee`: `marquee var(--duration) linear infinite`
+Neue Klassen:
+```
+fixed top-0 left-0 right-0 z-[100] border-b border-border/10 bg-background/80 backdrop-blur-md
+```
 
-**`src/pages/Index.tsx`**
-- Import und Einbindung von `TestimonialsSection` nach `ProcessSection`
+- `bg-background/80` -- 80% deckender schwarzer Hintergrund (da `--background: 0 0% 0%`)
+- `backdrop-blur-md` -- Frosted-Glass-Effekt, konsistent mit den Testimonial- und Feature-Karten
 
-### Keine neuen Dependencies noetig
-- `@radix-ui/react-avatar` ist bereits installiert
-- `Avatar` und `AvatarFallback` existieren bereits in `src/components/ui/avatar.tsx`
-
-### Technische Details
-- Die Marquee-Animation ist rein CSS-basiert (performanter als JS-basierte Loesung)
-- Testimonials werden 4x dupliziert im DOM fuer nahtloses Looping
-- `--duration` und `--gap` als CSS Custom Properties fuer einfache Anpassung
-- Responsive: Karten haben feste Breite (`w-[350px]`), Marquee passt sich automatisch an
-- Der Glassmorphism-Stil (`bg-white/5 backdrop-blur-md`) ist konsistent mit FeaturesSection und ProcessSection
-
+### Ergebnis
+- Header ist beim Scrollen immer lesbar
+- Content darunter scheint dezent durch (Agentur-Flair)
+- Konsistent mit dem bestehenden Glassmorphism-Design
