@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Quote } from "lucide-react";
 
 export interface TestimonialAuthor {
   name: string;
@@ -14,12 +14,6 @@ interface TestimonialCardProps {
 }
 
 export function TestimonialCard({ author, text, className }: TestimonialCardProps) {
-  const initials = author.name
-    .split(" ")
-    .map((n) => n[0])
-    .join("")
-    .slice(0, 2);
-
   return (
     <div
       className={cn(
@@ -27,21 +21,15 @@ export function TestimonialCard({ author, text, className }: TestimonialCardProp
         className
       )}
     >
+      <Quote className="text-neon/30 mb-3" size={24} />
       <p className="text-muted-foreground leading-relaxed mb-5 text-sm flex-1">
-        "{text}"
+        {text}
       </p>
-      <div className="flex items-center gap-3">
-        <Avatar className="h-9 w-9">
-          <AvatarFallback className="bg-neon/10 text-neon text-xs font-semibold">
-            {initials}
-          </AvatarFallback>
-        </Avatar>
-        <div>
-          <p className="text-sm font-semibold text-foreground">{author.name}</p>
-          <p className="text-xs text-muted-foreground">
-            {author.role}, {author.company}
-          </p>
-        </div>
+      <div>
+        <p className="text-sm font-semibold text-foreground">{author.name}</p>
+        <p className="text-xs text-muted-foreground">
+          {author.role}, {author.company}
+        </p>
       </div>
     </div>
   );
