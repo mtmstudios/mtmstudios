@@ -34,35 +34,51 @@ const steps: { number: string; title: string; icon: LucideIcon; description: str
   },
 ];
 
+const easing = [0.25, 0.1, 0.25, 1] as const;
+
 const ProcessSection = () => {
   return (
     <section id="prozess" className="py-20 px-4 bg-muted/20">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-16">
-          <span className="inline-block px-4 py-1.5 rounded-full text-sm font-medium bg-neon/10 text-neon border border-neon/20 mb-4">
+          <motion.span
+            initial={{ opacity: 0, y: -20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, ease: easing }}
+            className="inline-block px-4 py-1.5 rounded-full text-sm font-medium bg-neon/10 text-neon border border-neon/20 mb-4"
+          >
             So funktioniert's
-          </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground">
+          </motion.span>
+          <motion.h2
+            initial={{ opacity: 0, y: -20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1, ease: easing }}
+            className="text-3xl md:text-4xl font-bold text-foreground"
+          >
             Von der Idee zur Lösung
-          </h2>
+          </motion.h2>
         </div>
 
         <div className="flex flex-col gap-6">
           {steps.map((step, index) => {
             const isLast = index === steps.length - 1;
+            const isRight = index % 2 === 1;
+            const xDirection = isRight ? 60 : -60;
 
             return (
               <motion.div
                 key={step.number}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, x: xDirection, ...(isLast ? { scale: 0.97 } : {}) }}
+                whileInView={{ opacity: 1, x: 0, ...(isLast ? { scale: 1 } : {}) }}
                 viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.5, delay: index * 0.1, ease: "easeOut" }}
+                transition={{ duration: isLast ? 0.7 : 0.6, delay: index * 0.12, ease: easing }}
                 className={`relative max-w-2xl border-l-4 rounded-xl p-8 text-center ${
                   isLast
                     ? "border-neon bg-neon/5 backdrop-blur-md shadow-[0_0_40px_hsl(72_100%_60%/0.1)]"
                     : "border-neon bg-white/5 backdrop-blur-md"
-                } ${index % 2 === 1 ? "md:ml-auto" : ""}`}
+                } ${isRight ? "md:ml-auto" : ""}`}
               >
                 <span className={`absolute top-4 right-6 text-6xl font-bold select-none pointer-events-none ${
                   isLast ? "text-neon/20" : "text-neon/10"
