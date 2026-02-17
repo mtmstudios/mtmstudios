@@ -1,21 +1,23 @@
 
 
-## Hero-Text andern
+## Beschreibungstext als Designer gestalten
 
-Der Hero-Text wird geandert zu **"wir bauen KI-Losungen die Zeit sparen"**, wobei **"Zeit sparen"** im gelben Gradient-Stil (GradientText) dargestellt wird.
+Basierend auf eurem Profil (KI-Agentur, Suddeutschland, Telefonassistenten, Chatbots, Automatisierungen) schlage ich folgenden Text vor:
 
-### Aufbau der neuen Headline
+### Neuer Beschreibungstext
 
-```text
-Zeile 1: "wir bauen KI-Losungen"  (weiss, mit BlurText-Animation)
-Zeile 2: "die" (weiss, BlurText) + "Zeit sparen" (gelber Gradient, GradientText)
-```
+**"Von intelligenten Telefonassistenten uber smarte Chatbots bis hin zu massgeschneiderten Automatisierungen -- wir entwickeln KI, die Ihr Unternehmen entlastet."**
 
-### Technische Anderungen
+Dieser Text:
+- Nennt konkret die drei Leistungen (Telefonassistenten, Chatbots, Automatisierungen)
+- Endet mit einem klaren Nutzenversprechen ("entlastet")
+- Passt zum Hero-Titel "Wir bauen KI-Losungen, die Zeit sparen"
+- Ist kurz genug fur eine Subheadline
+
+### Technische Anderung
 
 **Datei: `src/components/HeroSection.tsx`**
 
-- Zeile 1 (BlurText): Text von `"Ultimate Motion"` zu `"wir bauen KI-Lösungen"` andern
-- Zeile 2: `"Background"` (GradientText) zu `"Zeit sparen"` andern, und `"Gallery"` (BlurText) zu `"die"` andern -- wobei die Reihenfolge umgedreht wird, sodass `"die"` vor dem GradientText steht
-- Die Animationen (BlurText, GradientText, motion) bleiben identisch
+- Der bestehende englische Text im `<motion.p>` Block (ca. Zeile 63-75) wird durch den neuen deutschen Text ersetzt
+- Animationen und Styling bleiben identisch
 
