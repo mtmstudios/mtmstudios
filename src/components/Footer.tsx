@@ -21,11 +21,11 @@ const Footer = () => {
       <div className="container mx-auto px-6 py-10 md:py-16">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-10">
           {/* Brand - zentriert auf Mobile */}
-          <div className="space-y-4 text-center md:text-left">
-            <Link to="/" className="inline-block">
-              <img src={logo} alt="Setrex Logo" className="h-28 -mb-6 -mt-6 object-contain md:-ml-4 md:-mt-2 md:-mb-6" />
+           <div className="text-center md:text-left">
+            <Link to="/" className="inline-block h-7 overflow-hidden md:-ml-4">
+              <img src={logo} alt="Setrex Logo" className="h-28 -mt-[2.15rem] object-contain" />
             </Link>
-            <p className="text-muted-foreground text-sm leading-relaxed">
+            <p className="text-muted-foreground text-sm leading-relaxed mt-4">
               Wir helfen Unternehmen, mit intelligenter Automatisierung Zeit zu sparen und effizienter zu arbeiten.
             </p>
             <div className="flex items-center justify-center md:justify-start gap-3">
