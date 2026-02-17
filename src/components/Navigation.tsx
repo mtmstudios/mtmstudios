@@ -39,9 +39,6 @@ const Navigation = () => {
             <Link to="/about" className="text-foreground hover:text-neon transition-colors">
               Das sind Wir
             </Link>
-            <a href="#kontakt" className="text-foreground hover:text-neon transition-colors">
-              Kontakt
-            </a>
           </div>
 
           {/* CTA Button */}
