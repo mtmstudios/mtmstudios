@@ -1,35 +1,28 @@
 
 
-## Button-Styling Anpassungen
+## WhatsApp-Button: Gruen nur als Akzent
 
-### 1. Navigation: "Kontakt" -> "Jetzt anfragen" + Hover-Fix
+### Aenderung
 
-**`src/components/Navigation.tsx`**
+**`src/components/HeroSection.tsx`** (Zeile 101)
 
-- Button-Text von "Kontakt" zu "Jetzt anfragen" aendern
-- Hover-Styling fixen: `hover:bg-neon hover:text-black` damit die Schrift bei gelbem Hintergrund sichtbar bleibt
+Der Button bekommt ein dezenteres Styling:
 
-### 2. Hero: CTA-Button Text aendern
+- **Rand**: Weiss/grau (`border-foreground/20`) statt komplett gruen -- wie ein normaler Outline-Button
+- **Text**: Weiss (`text-foreground`) statt gruen -- passt zum restlichen Design
+- **WhatsApp-Icon**: Bleibt gruen -- das Logo selbst ist schon gruen und dient als Akzent
+- **Hover**: Dezenter gruener Schimmer (`hover:border-[#25D366]/50 hover:bg-[#25D366]/5`) -- nur beim Hover kommt das Gruen leicht durch
 
-**`src/components/HeroSection.tsx`**
+### Vorher vs. Nachher
 
-- "Jetzt anfragen!" aendern zu "Jetzt beraten lassen!"
-
-### 3. Hero: WhatsApp-Button in WhatsApp-Gruen
-
-Gute Idee mit dem WhatsApp-Gruen -- das ist markenkonform und sofort wiedererkennbar.
-
-- Statt dem aktuellen Outline-Style bekommt der Button einen gruenen Rand und gruene Schrift
-- Hover: dezent dunkleres Gruen, aber nicht komplett ausgefuellt
-- WhatsApp-Gruen: `#25D366` (offizielles WhatsApp-Gruen)
-- Klassen: `border-[#25D366] text-[#25D366] hover:bg-[#25D366]/10` -- der Button bleibt transparent mit gruenem Rand und wird beim Hover nur leicht gruen hinterlegt
-
-### Zusammenfassung der Aenderungen
-
-| Element | Vorher | Nachher |
+| Eigenschaft | Vorher | Nachher |
 |---|---|---|
-| Nav-Button Text | "Kontakt" | "Jetzt anfragen" |
-| Nav-Button Hover | Gelb ohne sichtbare Schrift | Gelb mit schwarzer Schrift |
-| Hero CTA Text | "Jetzt anfragen!" | "Jetzt beraten lassen!" |
-| WhatsApp Button | Weisser Outline, Hover neon-gelb | Gruener Outline (#25D366), dezenter Gruen-Hover |
+| Rand | Gruen (#25D366) | Weiss/grau, hover leicht gruen |
+| Text | Gruen | Weiss |
+| Icon | Gruen | Gruen (unveraendert) |
+| Hover | Gruener Hintergrund | Dezent gruener Rand + leichter Hintergrund |
+
+### Ergebnis
+
+Der Button wirkt zurueckhaltender und professioneller. Das WhatsApp-Logo allein reicht als gruener Akzent, damit sofort klar ist, worum es geht -- ohne dass der ganze Button in Gruen schreit.
 
