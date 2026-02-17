@@ -10,7 +10,7 @@ const Navigation = () => {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center">
-            <img src={logo} alt="Setrex Logo" className="h-6" />
+            <img src={logo} alt="Setrex Logo" className="h-12" />
           </Link>
 
           {/* Desktop Navigation */}
