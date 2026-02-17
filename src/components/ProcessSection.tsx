@@ -58,11 +58,11 @@ const ProcessSection = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.5, delay: index * 0.1, ease: "easeOut" }}
-                className={`relative max-w-2xl mx-auto border-l-4 rounded-xl p-8 text-center ${
+                className={`relative max-w-2xl border-l-4 rounded-xl p-8 text-center ${
                   isLast
                     ? "border-neon bg-neon/5 backdrop-blur-md shadow-[0_0_40px_hsl(72_100%_60%/0.1)]"
                     : "border-neon bg-white/5 backdrop-blur-md"
-                }`}
+                } ${index % 2 === 1 ? "md:ml-auto" : ""}`}
               >
                 <span className={`absolute top-4 right-6 text-6xl font-bold select-none pointer-events-none ${
                   isLast ? "text-neon/20" : "text-neon/10"
