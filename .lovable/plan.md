@@ -1,14 +1,9 @@
 
 
-## Change Header Logo
+## Make the Header Logo Bigger
 
-Replace the current logo in the navigation header with your uploaded logo image.
+Increase the logo size in the navigation bar by changing the height class on the logo image in `src/components/Navigation.tsx`.
 
-### What will change
-- The current logo file at `src/assets/logo.png` will be replaced with your new white transparent logo (`LOGO-2-WHITE-TARANSPERNT.png`)
-- No code changes needed since the Navigation component already imports from `src/assets/logo.png`
-
-### Steps
-1. Copy the uploaded logo to `src/assets/logo.png`, replacing the existing one
-2. The Navigation component already references this file, so the new logo will appear automatically
+### Change
+- In `src/components/Navigation.tsx`, line 15: change `className="h-6"` to `className="h-12"` on the logo `<img>` tag, doubling its size from 24px to 48px.
 
