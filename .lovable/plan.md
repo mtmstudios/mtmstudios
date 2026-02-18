@@ -1,37 +1,36 @@
 
 
-## Mobile/Tablet Header-Layout umbauen
+## FeaturesSection aufwerten -- Animationen und N8N-Icon
 
-### Aktuelle Situation
-Auf Mobile/Tablet: Logo links, Hamburger-Menu rechts. Kein WhatsApp-Icon. Das mobile Menu hat noch keine Aufklapp-Funktion.
+### Uebersicht
+Die "Unsere Loesungen"-Sektion wird visuell aufgewertet mit Scroll-Animationen (staggered Einblendungen) und einem N8N-Logo anstelle des Blitz-Icons bei "Automatisierungen". Ausserdem wird ein alter gelber Shadow-Farbwert korrigiert.
 
-### Neues Layout (nur unter md-Breakpoint)
+### Aenderungen in `src/components/FeaturesSection.tsx`
 
-```text
-+---------------------------------------+
-|  [Hamburger]    [Logo]    [WhatsApp]  |
-+---------------------------------------+
-```
+**1. N8N-Icon statt Blitz**
+- Das Zap-Icon bei "Automatisierungen" wird durch ein inline-SVG des N8N-Logos ersetzt (das bekannte orange-rote N8N-Knoten-Symbol)
+- Die anderen zwei Icons (Phone, MessageSquare) bleiben
 
-- **Links**: Hamburger-Menu-Button (oeffnet ein Sheet/Drawer mit den Navigationspunkten)
-- **Mitte**: Logo zentriert
-- **Rechts**: Rundes WhatsApp-Logo (verlinkt auf WhatsApp-Chat)
+**2. Scroll-Animationen mit motion/react**
+- Import von `motion` aus `motion/react`
+- Jede Feature-Card bekommt eine staggered Animation beim Scrollen (viewport-triggered):
+  - Fade-in von unten mit leichtem Blur
+  - Versetzt um je 0.15s pro Card
+  - Nur einmal ausgeloest (`once: true`)
+- Die Ueberschrift und das Badge ebenfalls mit Fade-in-Animation
 
-Desktop bleibt unveraendert.
+**3. Hover-Effekte verbessern**
+- Beim Hover: Icon skaliert leicht hoch (`group-hover:scale-110`)
+- Karte hebt sich leicht an (`hover:-translate-y-1`)
+- Subtiler Neon-Glow-Rand wird staerker
 
-### Technische Aenderungen
+**4. Bugfix: Alter Farbwert**
+- Zeile 41: `hover:shadow-[0_0_30px_hsl(72_100%_60%/0.15)]` wird zu `hover:shadow-[0_0_30px_hsl(174_72%_48%/0.15)]` (Tuerkis statt Gelb)
 
-**Datei: `src/components/Navigation.tsx`**
+### Technische Details
 
-1. Imports hinzufuegen: `Sheet`, `SheetContent`, `SheetTrigger` aus `@/components/ui/sheet` sowie das WhatsApp-Logo aus `@/assets/whatsapp-logo.png`
-2. State `mobileMenuOpen` hinzufuegen
-3. Mobiles Layout umstrukturieren:
-   - Hamburger-Button nach links (als SheetTrigger)
-   - Logo in die Mitte (mit `absolute left-1/2 -translate-x-1/2` fuer echte Zentrierung)
-   - WhatsApp-Logo rechts als runder Button (ca. 8x8, `rounded-full`)
-4. Sheet-Inhalt: Die 4 Navigationspunkte untereinander + "Jetzt anfragen"-Button
-5. Desktop-Layout (`md:` und groesser) bleibt komplett unveraendert
-
-### WhatsApp-Link
-Der WhatsApp-Button verlinkt auf `https://wa.me/TELEFONNUMMER` - die Nummer muss noch eingesetzt werden (vorerst als Platzhalter `https://wa.me/` oder ein `#`).
+- Keine neuen Dependencies (motion/react ist bereits installiert)
+- N8N-Logo als inline SVG (kein externer Asset noetig)
+- Scroll-Animation nutzt `whileInView` von Framer Motion
+- 1 Datei betroffen: `src/components/FeaturesSection.tsx`
 
