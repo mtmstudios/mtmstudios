@@ -77,14 +77,24 @@ const Navigation = () => {
             />
           </Link>
 
-          {/* Right: WhatsApp */}
+          {/* Right: WhatsApp (phone only) */}
           <a
             href="https://wa.me/"
             target="_blank"
             rel="noopener noreferrer"
-            className="z-10 w-9 h-9 rounded-full overflow-hidden flex items-center justify-center"
+            className="z-10 flex sm:hidden items-center justify-center w-10 h-10 rounded-full overflow-hidden"
           >
-            <img src={whatsappLogo} alt="WhatsApp" className="w-full h-full object-cover" />
+            <img src={whatsappLogo} alt="WhatsApp" className="w-10 h-10 object-contain" />
+          </a>
+
+          {/* Right: Jetzt anfragen (tablet only) */}
+          <a href="#kontakt" className="z-10 hidden sm:flex lg:hidden">
+            <Button
+              variant="outline"
+              className="border-foreground/20 hover:border-neon hover:bg-neon hover:text-black transition-all text-sm"
+            >
+              Jetzt anfragen
+            </Button>
           </a>
         </div>
 
