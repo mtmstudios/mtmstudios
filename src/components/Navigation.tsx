@@ -26,7 +26,7 @@ const Navigation = () => {
       <div className={`container mx-auto px-6 transition-all duration-300 ${scrolled ? "py-2" : "py-4"}`}>
         
         {/* Mobile/Tablet Layout */}
-        <div className="flex md:hidden items-center justify-between relative">
+        <div className="flex lg:hidden items-center justify-between relative">
           {/* Left: Hamburger */}
           <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
             <SheetTrigger asChild>
@@ -89,7 +89,7 @@ const Navigation = () => {
         </div>
 
         {/* Desktop Layout */}
-        <div className="hidden md:flex items-center justify-between">
+        <div className="hidden lg:flex items-center justify-between">
           <Link to="/" className="flex items-center">
             <img
               src={logo}
