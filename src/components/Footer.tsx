@@ -1,6 +1,6 @@
 import { Instagram, Linkedin, Mail, Phone, MapPin } from "lucide-react";
 import { Link } from "react-router-dom";
-import logo from "@/assets/logo.png";
+import logo from "@/assets/logo-2.png";
 
 const serviceLinks = [
   { text: "KI-Telefonassistent", href: "#telefonassistent" },

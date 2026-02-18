@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
-import logo from "@/assets/logo.png";
+import logo from "@/assets/logo-2.png";
 import whatsappLogo from "@/assets/whatsapp-logo.png";
 
 const Navigation = () => {
