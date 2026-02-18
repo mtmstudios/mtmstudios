@@ -22,8 +22,8 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-10">
           {/* Brand - zentriert auf Mobile */}
            <div className="text-center md:text-left">
-            <Link to="/" className="inline-block h-7 overflow-hidden md:-ml-4">
-              <img src={logo} alt="Setrex Logo" className="h-28 -mt-[2.15rem] object-contain" />
+            <Link to="/" className="inline-block md:-ml-2">
+              <img src={logo} alt="Setrex Logo" className="h-20 object-contain" />
             </Link>
             <p className="text-muted-foreground text-sm leading-relaxed mt-4">
               Wir helfen Unternehmen, mit intelligenter Automatisierung Zeit zu sparen und effizienter zu arbeiten.

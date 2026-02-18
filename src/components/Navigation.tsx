@@ -73,7 +73,7 @@ const Navigation = () => {
             <img
               src={logo}
               alt="Setrex Logo"
-              className={`object-contain transition-all duration-300 ${scrolled ? "h-12 -my-1" : "h-20 -my-4"}`}
+              className={`object-contain transition-all duration-300 ${scrolled ? "h-6" : "h-10 -my-1"}`}
             />
           </Link>
 
@@ -104,7 +104,7 @@ const Navigation = () => {
             <img
               src={logo}
               alt="Setrex Logo"
-              className={`object-contain -ml-2 transition-all duration-300 ${scrolled ? "h-16 -my-2" : "h-28 -my-6"}`}
+              className={`object-contain -ml-2 transition-all duration-300 ${scrolled ? "h-8 -my-1" : "h-14 -my-2"}`}
             />
           </Link>
 
