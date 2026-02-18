@@ -174,106 +174,51 @@ const WorkflowDemo = () => {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true });
 
-  const nodes = [
-    { x: 30, y: 50, label: "Trigger" },
-    { x: 120, y: 25, label: "n8n" },
-    { x: 120, y: 75, label: "Filter" },
-    { x: 210, y: 50, label: "CRM" },
-  ];
-
-  const edges = [
-    { from: 0, to: 1 },
-    { from: 0, to: 2 },
-    { from: 1, to: 3 },
-    { from: 2, to: 3 },
+  const steps = [
+    { icon: "↓", label: "Input" },
+    { icon: "⚙", label: "Process" },
+    { icon: "↑", label: "Output" },
   ];
 
   return (
-    <div ref={ref} className="h-full flex items-center justify-center">
-      <svg viewBox="0 0 240 100" className="w-full h-auto max-h-[160px]">
-        {/* Edges */}
-        {inView &&
-          edges.map((e, i) => {
-            const from = nodes[e.from];
-            const to = nodes[e.to];
-            return (
-              <g key={`edge-${i}`}>
-                <motion.line
-                  x1={from.x}
-                  y1={from.y}
-                  x2={to.x}
-                  y2={to.y}
-                  stroke="hsl(174 72% 48% / 0.3)"
-                  strokeWidth="1.5"
-                  initial={{ pathLength: 0 }}
-                  animate={{ pathLength: 1 }}
-                  transition={{ duration: 0.8, delay: 0.3 + i * 0.15 }}
-                />
-                {/* Flowing data dot */}
-                <motion.circle
-                  r="3"
-                  fill="hsl(174 72% 60%)"
-                  filter="url(#glow)"
-                  initial={{ opacity: 0 }}
-                  animate={{
-                    cx: [from.x, to.x],
-                    cy: [from.y, to.y],
-                    opacity: [0, 1, 1, 0],
-                  }}
-                  transition={{
-                    duration: 1.8,
-                    repeat: Infinity,
-                    delay: 1 + i * 0.5,
-                    ease: "easeInOut",
-                  }}
-                />
-              </g>
-            );
-          })}
+    <div ref={ref} className="h-full flex items-center justify-center px-6">
+      <div className="relative flex items-center justify-between w-full max-w-[220px]">
+        {/* Connecting line */}
+        {inView && (
+          <motion.div
+            className="absolute top-1/2 left-[24px] right-[24px] h-[2px] -translate-y-1/2 bg-neon/20"
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            style={{ transformOrigin: "left" }}
+          />
+        )}
 
-        {/* Glow filter */}
-        <defs>
-          <filter id="glow">
-            <feGaussianBlur stdDeviation="2" result="blur" />
-            <feMerge>
-              <feMergeNode in="blur" />
-              <feMergeNode in="SourceGraphic" />
-            </feMerge>
-          </filter>
-        </defs>
+        {/* Flowing dot */}
+        {inView && (
+          <motion.div
+            className="absolute top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-neon shadow-[0_0_8px_hsl(var(--neon))]"
+            animate={{ left: ["24px", "calc(100% - 24px)"] }}
+            transition={{ duration: 2, repeat: Infinity, repeatDelay: 0.5, ease: "easeInOut" }}
+          />
+        )}
 
-        {/* Nodes */}
-        {inView &&
-          nodes.map((n, i) => (
-            <motion.g
-              key={`node-${i}`}
-              initial={{ opacity: 0, scale: 0 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.4, delay: i * 0.12 }}
-              style={{ transformOrigin: `${n.x}px ${n.y}px` }}
-            >
-              <circle
-                cx={n.x}
-                cy={n.y}
-                r="14"
-                fill="hsl(174 72% 48% / 0.1)"
-                stroke="hsl(174 72% 48% / 0.5)"
-                strokeWidth="1.5"
-              />
-              <text
-                x={n.x}
-                y={n.y + 1}
-                textAnchor="middle"
-                dominantBaseline="middle"
-                fill="hsl(174 72% 70%)"
-                fontSize="7"
-                fontFamily="monospace"
-              >
-                {n.label}
-              </text>
-            </motion.g>
-          ))}
-      </svg>
+        {/* Step nodes */}
+        {steps.map((step, i) => (
+          <motion.div
+            key={step.label}
+            className="relative z-10 flex flex-col items-center gap-2"
+            initial={{ opacity: 0, scale: 0 }}
+            animate={inView ? { opacity: 1, scale: 1 } : {}}
+            transition={{ duration: 0.35, delay: i * 0.15 }}
+          >
+            <div className="w-12 h-12 rounded-full bg-neon/10 border border-neon/40 flex items-center justify-center text-neon text-lg">
+              {step.icon}
+            </div>
+            <span className="text-[10px] text-muted-foreground font-mono">{step.label}</span>
+          </motion.div>
+        ))}
+      </div>
     </div>
   );
 };
@@ -355,7 +300,7 @@ const FeaturesSection = () => {
 
               {/* Content */}
               <div className="p-6">
-                <div className="flex items-center gap-3 mb-3">
+                <div className="flex flex-col items-center gap-2 mb-3">
                   <div className="w-9 h-9 rounded-lg bg-neon/10 text-neon flex items-center justify-center transition-all duration-300 group-hover:bg-neon/20 group-hover:scale-110">
                     {feature.icon ? (
                       <feature.icon className="w-4 h-4" />
@@ -367,7 +312,7 @@ const FeaturesSection = () => {
                     {feature.title}
                   </h3>
                 </div>
-                <p className="text-sm text-muted-foreground leading-relaxed">
+                <p className="text-sm text-muted-foreground leading-relaxed text-center">
                   {feature.description}
                 </p>
               </div>
