@@ -104,7 +104,7 @@ const Navigation = () => {
             <img
               src={logo}
               alt="Setrex Logo"
-              className={`object-contain -ml-2 transition-all duration-300 ${scrolled ? "h-8 -my-1" : "h-11 -my-1"}`}
+              className={`object-contain -ml-2 transition-all duration-300 ${scrolled ? "h-8" : "h-11"}`}
             />
           </Link>
 
