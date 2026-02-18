@@ -1,41 +1,37 @@
 
-## Akzentfarbe von Neongelb zu Tuerkis (#22D3C5) aendern
 
-### Uebersicht
-Die gesamte Akzentfarbe der Seite wird von Neongelb/Gruen auf Tuerkis (#22D3C5) umgestellt. Die Farbe ist zentral als CSS-Variable definiert, daher wirkt sich die Aenderung automatisch auf fast alle Elemente aus (Buttons, Hover-Effekte, Badges, Glows, Borders etc.).
+## Mobile/Tablet Header-Layout umbauen
 
-### Aenderung 1: `src/index.css` - CSS-Variablen
+### Aktuelle Situation
+Auf Mobile/Tablet: Logo links, Hamburger-Menu rechts. Kein WhatsApp-Icon. Das mobile Menu hat noch keine Aufklapp-Funktion.
 
-| Variable | Aktuell | Neu |
-|---|---|---|
-| `--accent` | `72 100% 60%` | `174 72% 48%` |
-| `--ring` | `72 100% 60%` | `174 72% 48%` |
-| `--neon` | `72 100% 60%` | `174 72% 48%` |
-| `--neon-glow` | `72 100% 70%` | `174 72% 60%` |
-| `--sidebar-primary` | `72 100% 60%` | `174 72% 48%` |
-| `--sidebar-ring` | `72 100% 60%` | `174 72% 48%` |
+### Neues Layout (nur unter md-Breakpoint)
 
-### Aenderung 2: `src/components/GradientText.tsx` - Default-Gradient-Farben
+```text
++---------------------------------------+
+|  [Hamburger]    [Logo]    [WhatsApp]  |
++---------------------------------------+
+```
 
-Die hartcodierten Default-Farben im Gradient-Text aendern:
-- Von: `['#d4ff50', '#b8ff70', '#d4ff50', '#c8ff60', '#d4ff50']`
-- Zu: `['#22D3C5', '#1ABEBD', '#22D3C5', '#28E0D0', '#22D3C5']`
+- **Links**: Hamburger-Menu-Button (oeffnet ein Sheet/Drawer mit den Navigationspunkten)
+- **Mitte**: Logo zentriert
+- **Rechts**: Rundes WhatsApp-Logo (verlinkt auf WhatsApp-Chat)
 
-### Aenderung 3: `src/components/ProcessSection.tsx` - Hartcodierter HSL-Wert
+Desktop bleibt unveraendert.
 
-In Zeile 79 steht ein hartcodierter Shadow-Wert `hsl(72 100% 60%/0.1)` der auf `hsl(174 72% 48%/0.1)` geaendert wird.
+### Technische Aenderungen
 
-### Was sich automatisch aendert (ohne Code-Aenderung)
-Alle Tailwind-Klassen wie `text-neon`, `bg-neon`, `hover:text-neon`, `border-neon`, `hover:bg-neon`, `neon-glow` etc. greifen automatisch auf die neuen CSS-Variablen zu. Betroffen sind:
-- Navigation (Hover-Farben, Button)
-- Hero-Section (CTA-Button)
-- Process-Section (Badges, Borders)
-- Features-Section
-- Testimonials
-- CTA-Section
-- Footer (Hover-Farben)
+**Datei: `src/components/Navigation.tsx`**
 
-### Zusammenfassung
-- 3 Dateien betroffen
-- Keine neuen Dependencies
-- Sofort auf der gesamten Seite sichtbar
+1. Imports hinzufuegen: `Sheet`, `SheetContent`, `SheetTrigger` aus `@/components/ui/sheet` sowie das WhatsApp-Logo aus `@/assets/whatsapp-logo.png`
+2. State `mobileMenuOpen` hinzufuegen
+3. Mobiles Layout umstrukturieren:
+   - Hamburger-Button nach links (als SheetTrigger)
+   - Logo in die Mitte (mit `absolute left-1/2 -translate-x-1/2` fuer echte Zentrierung)
+   - WhatsApp-Logo rechts als runder Button (ca. 8x8, `rounded-full`)
+4. Sheet-Inhalt: Die 4 Navigationspunkte untereinander + "Jetzt anfragen"-Button
+5. Desktop-Layout (`md:` und groesser) bleibt komplett unveraendert
+
+### WhatsApp-Link
+Der WhatsApp-Button verlinkt auf `https://wa.me/TELEFONNUMMER` - die Nummer muss noch eingesetzt werden (vorerst als Platzhalter `https://wa.me/` oder ein `#`).
+
