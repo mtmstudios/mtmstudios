@@ -27,7 +27,6 @@ const PhoneDemo = () => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Pulsing rings — slower, only 2 */}
       {inView &&
         [0, 1].map((i) => (
           <motion.div
@@ -217,39 +216,28 @@ const WorkflowDemo = () => {
   );
 };
 
-/* ─── N8nIcon ─── */
-const N8nIcon = () => (
-  <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
-    <circle cx="6" cy="12" r="2.5" />
-    <circle cx="18" cy="7" r="2.5" />
-    <circle cx="18" cy="17" r="2.5" />
-    <line x1="8.5" y1="12" x2="15.5" y2="7" stroke="currentColor" strokeWidth="1.5" fill="none" />
-    <line x1="8.5" y1="12" x2="15.5" y2="17" stroke="currentColor" strokeWidth="1.5" fill="none" />
-  </svg>
-);
-
 /* ─── Card Data ─── */
 const features = [
   {
-    icon: Phone,
     title: "KI-Telefonassistent",
     description:
       "Nimmt Anrufe entgegen, beantwortet Fragen und leitet Gespräche weiter – rund um die Uhr, ohne Wartezeit.",
     Demo: PhoneDemo,
+    href: "#telefonassistent",
   },
   {
-    icon: MessageSquare,
     title: "WhatsApp & Chatbots",
     description:
       "Automatisierte Chatbots, die Kundenanfragen sofort beantworten und euer Team spürbar entlasten.",
     Demo: ChatDemo,
+    href: "#chatbot",
   },
   {
-    customIcon: N8nIcon,
     title: "Automatisierungen",
     description:
       "Workflows optimieren und wertvolle Zeit sparen – mit maßgeschneiderten KI-Lösungen für eure Prozesse.",
     Demo: WorkflowDemo,
+    href: "#automatisierungen",
   },
 ];
 
@@ -287,7 +275,6 @@ const FeaturesSection = () => {
                     isEven ? "md:order-2" : ""
                   }`}
                 >
-                  <div className="absolute inset-0 bg-gradient-to-b from-neon/[0.03] to-transparent" />
                   <div className="relative z-10 h-full">
                     <feature.Demo />
                   </div>
@@ -295,19 +282,18 @@ const FeaturesSection = () => {
 
                 {/* Text area */}
                 <div className={`flex flex-col gap-4 ${isEven ? "md:order-1 md:text-right md:items-end" : "md:items-start"} items-center text-center md:text-left`}>
-                  <div className="w-10 h-10 rounded-xl bg-neon/10 text-neon flex items-center justify-center">
-                    {feature.icon ? (
-                      <feature.icon className="w-5 h-5" />
-                    ) : feature.customIcon ? (
-                      <feature.customIcon />
-                    ) : null}
-                  </div>
-                  <h3 className="text-2xl md:text-3xl font-semibold text-foreground">
+                  <h3 className="text-3xl md:text-4xl font-semibold text-foreground">
                     {feature.title}
                   </h3>
                   <p className="text-muted-foreground leading-relaxed max-w-md">
                     {feature.description}
                   </p>
+                  <a
+                    href={feature.href}
+                    className="text-sm text-accent hover:text-accent/80 transition-opacity duration-200 mt-2"
+                  >
+                    Mehr erfahren →
+                  </a>
                 </div>
               </motion.div>
             );

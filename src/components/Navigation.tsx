@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
@@ -22,12 +21,11 @@ const Navigation = () => {
   ];
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-[100] border-b border-border/10 bg-background/80 backdrop-blur-md transition-all duration-300">
-      <div className={`container mx-auto px-6 transition-all duration-300 ${scrolled ? "py-2 lg:py-4" : "py-4"}`}>
+    <nav className="fixed top-0 left-0 right-0 z-[100] border-b border-border/10 bg-background/80 backdrop-blur-md transition-all duration-200">
+      <div className={`container mx-auto px-6 transition-all duration-200 ${scrolled ? "py-2 lg:py-4" : "py-4"}`}>
         
         {/* Mobile/Tablet Layout */}
         <div className="flex lg:hidden items-center justify-between relative">
-          {/* Left: Hamburger */}
           <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
             <SheetTrigger asChild>
               <button className="text-foreground z-10">
@@ -43,7 +41,7 @@ const Navigation = () => {
                   <a
                     key={link.href}
                     href={link.href}
-                    className="text-lg text-foreground hover:text-neon transition-colors"
+                    className="text-lg text-foreground/80 hover:text-foreground transition-opacity duration-200"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     {link.label}
@@ -51,18 +49,17 @@ const Navigation = () => {
                 ))}
                 <Link
                   to="/about"
-                  className="text-lg text-foreground hover:text-neon transition-colors"
+                  className="text-lg text-foreground/80 hover:text-foreground transition-opacity duration-200"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Das sind Wir
                 </Link>
-                <a href="#kontakt" onClick={() => setMobileMenuOpen(false)}>
-                  <Button
-                    variant="outline"
-                    className="w-full border-foreground/20 hover:border-neon hover:bg-neon hover:text-black transition-all"
-                  >
-                    Jetzt anfragen
-                  </Button>
+                <a
+                  href="#kontakt"
+                  className="text-lg text-foreground/80 hover:text-foreground transition-opacity duration-200"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Jetzt anfragen
                 </a>
               </div>
             </SheetContent>
@@ -73,7 +70,7 @@ const Navigation = () => {
             <img
               src={logo}
               alt="Setrex Logo"
-              className={`object-contain transition-all duration-300 ${scrolled ? "h-6" : "h-8"}`}
+              className={`object-contain transition-all duration-200 ${scrolled ? "h-6" : "h-8"}`}
             />
           </Link>
 
@@ -88,13 +85,8 @@ const Navigation = () => {
           </a>
 
           {/* Right: Jetzt anfragen (tablet only) */}
-          <a href="#kontakt" className="z-10 hidden sm:flex lg:hidden">
-            <Button
-              variant="outline"
-              className="border-foreground/20 hover:border-neon hover:bg-neon hover:text-black transition-all text-sm"
-            >
-              Jetzt anfragen
-            </Button>
+          <a href="#kontakt" className="z-10 hidden sm:flex lg:hidden text-sm text-foreground/80 hover:text-foreground transition-opacity duration-200">
+            Jetzt anfragen
           </a>
         </div>
 
@@ -110,22 +102,17 @@ const Navigation = () => {
 
           <div className="flex items-center gap-8">
             {navLinks.map((link) => (
-              <a key={link.href} href={link.href} className="text-sm text-foreground hover:text-neon transition-colors">
+              <a key={link.href} href={link.href} className="text-sm text-foreground/80 hover:text-foreground transition-opacity duration-200">
                 {link.label}
               </a>
             ))}
-            <Link to="/about" className="text-sm text-foreground hover:text-neon transition-colors">
+            <Link to="/about" className="text-sm text-foreground/80 hover:text-foreground transition-opacity duration-200">
               Das sind Wir
             </Link>
           </div>
 
-          <a href="#kontakt">
-            <Button
-              variant="outline"
-              className="border-foreground/20 hover:border-neon hover:bg-neon hover:text-black transition-all"
-            >
-              Jetzt anfragen
-            </Button>
+          <a href="#kontakt" className="text-sm text-foreground/80 hover:text-foreground transition-opacity duration-200">
+            Jetzt anfragen
           </a>
         </div>
 

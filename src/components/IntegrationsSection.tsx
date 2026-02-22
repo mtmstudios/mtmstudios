@@ -2,50 +2,25 @@ import { motion } from "motion/react";
 import { IconCloud } from "@/components/ui/interactive-icon-cloud";
 
 const slugs = [
-  "whatsapp",
-  "slack",
-  "microsoftteams",
-  "openai",
-  "google",
-  "microsoft",
-  "salesforce",
-  "hubspot",
-  "zapier",
-  "make",
-  "shopify",
-  "stripe",
-  "wordpress",
-  "notion",
-  "calendly",
-  "zendesk",
-  "mailchimp",
-  "twilio",
-  "gmail",
-  "telegram",
+  "whatsapp", "slack", "microsoftteams", "openai", "google", "microsoft",
+  "salesforce", "hubspot", "zapier", "make", "shopify", "stripe",
+  "wordpress", "notion", "calendly", "zendesk", "mailchimp", "twilio",
+  "gmail", "telegram",
 ];
 
-const easing = [0.25, 0.1, 0.25, 1] as const;
+const appleEase = [0.16, 1, 0.3, 1] as const;
 
 const IntegrationsSection = () => {
   return (
-    <section className="py-20 px-4">
+    <section className="py-32 px-4">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-4">
-          <motion.span
-            initial={{ opacity: 0, y: -20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, ease: easing }}
-            className="inline-block px-4 py-1.5 rounded-full text-sm font-medium bg-neon/10 text-neon border border-neon/20 mb-4"
-          >
-            Integrationen
-          </motion.span>
           <motion.h2
             initial={{ opacity: 0, y: -20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1, ease: easing }}
-            className="text-3xl md:text-4xl font-bold text-foreground mb-3"
+            transition={{ duration: 0.8, ease: appleEase }}
+            className="text-4xl md:text-5xl font-bold text-foreground mb-3"
           >
             Über 100+ Integrationen
           </motion.h2>
@@ -53,7 +28,7 @@ const IntegrationsSection = () => {
             initial={{ opacity: 0, y: -20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2, ease: easing }}
+            transition={{ duration: 0.8, delay: 0.1, ease: appleEase }}
             className="text-muted-foreground max-w-xl mx-auto"
           >
             Wir verbinden eure bestehenden Tools nahtlos mit KI.
@@ -64,7 +39,7 @@ const IntegrationsSection = () => {
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.7, delay: 0.3, ease: easing }}
+          transition={{ duration: 0.8, delay: 0.2, ease: appleEase }}
         >
           <IconCloud iconSlugs={slugs} />
         </motion.div>
@@ -73,7 +48,7 @@ const IntegrationsSection = () => {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.6, ease: easing }}
+          transition={{ duration: 0.8, delay: 0.4, ease: appleEase }}
           className="text-center text-sm text-muted-foreground mt-4"
         >
           ...und viele mehr
