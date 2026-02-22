@@ -28,7 +28,7 @@ const AutomationsTestimonial = () => {
           transition={{ duration: 0.8, delay: 0.2, ease: appleEase }}
         >
           <p className="text-foreground font-semibold">Markus Bauer</p>
-          <p className="text-muted-foreground text-sm">Head of Operations, TechScale GmbH</p>
+          <p className="text-muted-foreground text-sm">Head of Operations</p>
         </motion.div>
       </div>
     </section>
