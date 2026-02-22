@@ -32,7 +32,7 @@ const Footer = () => {
           <div className="text-center md:text-left">
             <h4 className="text-foreground font-semibold mb-4">Leistungen</h4>
             <ul className="space-y-2">
-              <li><a href="#telefonassistent" className="text-muted-foreground hover:text-foreground transition-opacity duration-200 text-sm">KI-Telefonassistent</a></li>
+              <li><Link to="/telefonassistent" className="text-muted-foreground hover:text-foreground transition-opacity duration-200 text-sm">KI-Telefonassistent</Link></li>
               <li><a href="#chatbot" className="text-muted-foreground hover:text-foreground transition-opacity duration-200 text-sm">Chatbot</a></li>
               <li><a href="#automatisierungen" className="text-muted-foreground hover:text-foreground transition-opacity duration-200 text-sm">Automatisierungen</a></li>
               <li><a href="#kontakt" className="text-muted-foreground hover:text-foreground transition-opacity duration-200 text-sm">Beratung</a></li>
