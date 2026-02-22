@@ -21,13 +21,10 @@ const testimonials: { author: TestimonialAuthor; text: string }[] = [
 
 const TestimonialsSection = () => {
   return (
-    <section className="py-20 px-4 overflow-hidden">
+    <section className="py-32 px-4 overflow-hidden">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-12">
-          <span className="inline-block px-4 py-1.5 rounded-full text-sm font-medium bg-neon/10 text-neon border border-neon/20 mb-4">
-            Kundenstimmen
-          </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-5xl font-bold text-foreground">
             Was unsere Kunden sagen
           </h2>
         </div>
