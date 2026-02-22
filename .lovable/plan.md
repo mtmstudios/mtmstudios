@@ -1,30 +1,46 @@
 
 
-## Anruf-Button im Smartphone-Visual
+## Handy-SVG Neustrukturierung
 
-Ein klickbarer gruener Anruf-Button wird ins bestehende Handy-SVG eingebaut. Die Telefonnummer ist als Prop konfigurierbar.
+Das Innenleben des Smartphone-Visuals wird aufgeraeumter und Apple-like umgebaut.
 
-### Aenderungen
+### Aenderungen in `src/components/phone-assistant/PhoneHero.tsx`
 
-**`src/components/phone-assistant/PhoneHero.tsx`**
-- Neue optionale Prop: `testPhoneNumber` (z.B. `"+491234567890"`)
-- Im SVG unterhalb des "Anruf laeuft"-Texts (bei y~390-440):
-  - Gruener Kreis (r=28) als Anruf-Button mit Telefon-Icon (SVG path)
-  - Text "Jetzt testen" darunter (y~445)
-  - Pulsierender Glow-Effekt via animiertem aeusseren Kreis
-  - `foreignObject` mit `<a href="tel:...">` fuer echte Klickbarkeit
-- Animation: Button fadet nach den Waveform-Animationen ein (delay ~3s)
+**Entfernt:**
+- "Anruf laeuft..." Text (Zeilen 117-129) -- redundant und stoert die Klarheit
 
-**`src/pages/PhoneAssistant.tsx`**
-- Uebergibt die Telefonnummer als Prop:
-  ```
-  <PhoneHero testPhoneNumber="+491234567890" />
-  ```
-- Die Nummer laesst sich spaeter einfach austauschen
+**Neu:**
+- Dezenter Text im oberen Bereich des Handys (~y=80): "KI-Telefonassistent testen"
+  - Schriftgroesse: 11px, font-weight 400
+  - Farbe: `hsl(var(--accent))` mit opacity 0.4
+  - Animation: fade-in mit delay 2.4s (nach Notch)
+  - Zentriert, `textAnchor="middle"`
 
-### Design-Details
-- Gruener Kreis im iOS-Anruf-Stil, Farbe: `#22c55e` (green-500)
-- Weisses Telefon-Icon im Kreis
-- Dezenter Pulse (Opacity 0.3 bis 0.6 auf aeusserem Ring)
-- Auf Mobile: `tel:`-Link startet direkt den Anruf
-- Auf Desktop: oeffnet die Standard-Telefon-App oder zeigt die Nummer
+**Angepasst:**
+- Waveform-Bars: Mittelpunkt von y=250 auf y=210 verschoben (mehr Platz nach unten)
+- Glow-Kreis: cy von 250 auf 210
+- Call-Button: cy von 400 auf 360 (rueckt naeher an Waveform)
+- Pulsing Ring: cy von 400 auf 360
+- Phone-Icon: Pfad-Koordinaten um 40px nach oben angepasst
+- "Jetzt anrufen" statt "Jetzt testen", y von 445 auf 405
+- foreignObject: y von 370 auf 330
+
+### Visueller Aufbau (von oben nach unten)
+
+```text
++---------------------------+
+|         [Notch]           |  y=24
+|                           |
+| KI-Telefonassistent testen|  y=80  (neu, dezent)
+|                           |
+|      |||||||||||          |  y=210 (Waveform)
+|      |||||||||||          |
+|                           |
+|        ( Phone )          |  y=360 (Call-Button)
+|     Jetzt anrufen         |  y=405
+|                           |
++---------------------------+
+```
+
+Ergebnis: Klarere Hierarchie, weniger Rauschen, Apple-typisch reduziert.
+
