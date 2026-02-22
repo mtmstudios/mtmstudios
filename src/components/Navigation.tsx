@@ -17,7 +17,7 @@ const Navigation = () => {
   const navLinks = [
     { href: "/telefonassistent", label: "KI-Telefonassistent", isRoute: true },
     { href: "/chatbots", label: "WhatsApp & Chatbots", isRoute: true },
-    { href: "#automatisierungen", label: "Automatisierungen", isRoute: false },
+    { href: "/automatisierungen", label: "Automatisierungen", isRoute: true },
   ];
 
   return (
@@ -80,7 +80,7 @@ const Navigation = () => {
           <Link to="/" className="absolute left-1/2 -translate-x-1/2">
             <img
               src={logo}
-              alt="Setrex Logo"
+              alt="MTM Studios Logo"
               className={`object-contain transition-all duration-200 ${scrolled ? "h-6" : "h-8"}`}
             />
           </Link>
@@ -106,7 +106,7 @@ const Navigation = () => {
           <Link to="/" className="flex items-center">
             <img
               src={logo}
-              alt="Setrex Logo"
+              alt="MTM Studios Logo"
               className="object-contain -ml-2 h-8"
             />
           </Link>

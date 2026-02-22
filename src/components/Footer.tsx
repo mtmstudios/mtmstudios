@@ -10,7 +10,7 @@ const Footer = () => {
           {/* Brand */}
           <div className="text-center md:text-left">
             <Link to="/" className="inline-block md:-ml-2">
-              <img src={logo} alt="Setrex Logo" className="h-10 object-contain" />
+              <img src={logo} alt="MTM Studios Logo" className="h-10 object-contain" />
             </Link>
             <p className="text-muted-foreground text-sm leading-relaxed mt-2">
               Wir helfen Unternehmen, mit intelligenter Automatisierung Zeit zu sparen und effizienter zu arbeiten.
@@ -22,7 +22,7 @@ const Footer = () => {
               <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-opacity duration-200">
                 <Linkedin className="w-5 h-5" />
               </a>
-              <a href="mailto:info@setrex.de" className="text-muted-foreground hover:text-foreground transition-opacity duration-200">
+              <a href="mailto:info@mtmstudios.de" className="text-muted-foreground hover:text-foreground transition-opacity duration-200">
                 <Mail className="w-5 h-5" />
               </a>
             </div>
@@ -34,7 +34,7 @@ const Footer = () => {
             <ul className="space-y-2">
               <li><Link to="/telefonassistent" className="text-muted-foreground hover:text-foreground transition-opacity duration-200 text-sm">KI-Telefonassistent</Link></li>
               <li><Link to="/chatbots" className="text-muted-foreground hover:text-foreground transition-opacity duration-200 text-sm">WhatsApp & Chatbots</Link></li>
-              <li><a href="#automatisierungen" className="text-muted-foreground hover:text-foreground transition-opacity duration-200 text-sm">Automatisierungen</a></li>
+              <li><Link to="/automatisierungen" className="text-muted-foreground hover:text-foreground transition-opacity duration-200 text-sm">Automatisierungen</Link></li>
               <li><a href="#kontakt" className="text-muted-foreground hover:text-foreground transition-opacity duration-200 text-sm">Beratung</a></li>
               <li><Link to="/about" className="text-muted-foreground hover:text-foreground transition-opacity duration-200 text-sm">Über uns</Link></li>
             </ul>
@@ -44,9 +44,9 @@ const Footer = () => {
           <div className="text-center md:text-left">
             <h4 className="text-foreground font-semibold mb-4">Kontakt</h4>
             <div className="flex flex-col gap-3 items-center md:items-start">
-              <a href="mailto:info@setrex.de" className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-opacity duration-200 text-sm">
+              <a href="mailto:info@mtmstudios.de" className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-opacity duration-200 text-sm">
                 <Mail className="w-4 h-4 shrink-0" />
-                info@setrex.de
+                info@mtmstudios.de
               </a>
               <a href="tel:+4912345678" className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-opacity duration-200 text-sm">
                 <Phone className="w-4 h-4 shrink-0" />
@@ -64,7 +64,7 @@ const Footer = () => {
       {/* Copyright */}
       <div className="border-t border-border/10">
         <div className="container mx-auto px-6 py-5 text-center">
-          <span className="text-muted-foreground text-xs">© 2025 Setrex</span>
+          <span className="text-muted-foreground text-xs">© 2025 MTM Studios</span>
         </div>
       </div>
     </footer>

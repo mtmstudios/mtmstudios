@@ -94,7 +94,7 @@ const AboutUs = () => {
           <div className="container mx-auto max-w-4xl text-center">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-neon/10 border border-neon/20 mb-6">
               <div className="w-2 h-2 rounded-full bg-neon"></div>
-              <span className="text-sm text-neon font-medium">About Setrex</span>
+              <span className="text-sm text-neon font-medium">About MTM Studios</span>
             </div>
             
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-foreground mb-6">
@@ -140,7 +140,7 @@ const AboutUs = () => {
             </h2>
             <div className="space-y-6 text-lg text-muted-foreground leading-relaxed">
               <p>
-                Founded in 2023, Setrex was born from a simple observation: businesses were drowning in repetitive tasks, losing valuable time that could be spent on strategy, innovation, and growth.
+                Founded in 2023, MTM Studios was born from a simple observation: businesses were drowning in repetitive tasks, losing valuable time that could be spent on strategy, innovation, and growth.
               </p>
               <p>
                 Our founders, a team of engineers and automation experts from leading tech companies, set out to create a platform that would make enterprise-grade automation accessible to everyone—from startups to Fortune 500 companies.
