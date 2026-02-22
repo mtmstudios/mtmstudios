@@ -230,7 +230,7 @@ const features = [
     description:
       "Automatisierte Chatbots, die Kundenanfragen sofort beantworten und euer Team spürbar entlasten.",
     Demo: ChatDemo,
-    href: "#chatbot",
+    href: "/chatbots",
   },
   {
     title: "Automatisierungen",

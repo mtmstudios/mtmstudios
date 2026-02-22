@@ -16,7 +16,7 @@ const Navigation = () => {
 
   const navLinks = [
     { href: "/telefonassistent", label: "KI-Telefonassistent", isRoute: true },
-    { href: "#chatbot", label: "Chatbot", isRoute: false },
+    { href: "/chatbots", label: "WhatsApp & Chatbots", isRoute: true },
     { href: "#automatisierungen", label: "Automatisierungen", isRoute: false },
   ];
 

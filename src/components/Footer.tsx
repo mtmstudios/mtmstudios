@@ -33,7 +33,7 @@ const Footer = () => {
             <h4 className="text-foreground font-semibold mb-4">Leistungen</h4>
             <ul className="space-y-2">
               <li><Link to="/telefonassistent" className="text-muted-foreground hover:text-foreground transition-opacity duration-200 text-sm">KI-Telefonassistent</Link></li>
-              <li><a href="#chatbot" className="text-muted-foreground hover:text-foreground transition-opacity duration-200 text-sm">Chatbot</a></li>
+              <li><Link to="/chatbots" className="text-muted-foreground hover:text-foreground transition-opacity duration-200 text-sm">WhatsApp & Chatbots</Link></li>
               <li><a href="#automatisierungen" className="text-muted-foreground hover:text-foreground transition-opacity duration-200 text-sm">Automatisierungen</a></li>
               <li><a href="#kontakt" className="text-muted-foreground hover:text-foreground transition-opacity duration-200 text-sm">Beratung</a></li>
               <li><Link to="/about" className="text-muted-foreground hover:text-foreground transition-opacity duration-200 text-sm">Über uns</Link></li>
