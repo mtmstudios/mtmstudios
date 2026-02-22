@@ -15,9 +15,9 @@ const Navigation = () => {
   }, []);
 
   const navLinks = [
-    { href: "#telefonassistent", label: "KI-Telefonassistent" },
-    { href: "#chatbot", label: "Chatbot" },
-    { href: "#automatisierungen", label: "Automatisierungen" },
+    { href: "/telefonassistent", label: "KI-Telefonassistent", isRoute: true },
+    { href: "#chatbot", label: "Chatbot", isRoute: false },
+    { href: "#automatisierungen", label: "Automatisierungen", isRoute: false },
   ];
 
   return (
@@ -37,16 +37,27 @@ const Navigation = () => {
             <SheetContent side="left" className="bg-background/95 backdrop-blur-md border-border/20 w-72">
               <SheetTitle className="sr-only">Navigation</SheetTitle>
               <div className="flex flex-col gap-6 mt-8">
-                {navLinks.map((link) => (
-                  <a
-                    key={link.href}
-                    href={link.href}
-                    className="text-lg text-foreground/80 hover:text-foreground transition-opacity duration-200"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    {link.label}
-                  </a>
-                ))}
+                {navLinks.map((link) =>
+                  link.isRoute ? (
+                    <Link
+                      key={link.href}
+                      to={link.href}
+                      className="text-lg text-foreground/80 hover:text-foreground transition-opacity duration-200"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      {link.label}
+                    </Link>
+                  ) : (
+                    <a
+                      key={link.href}
+                      href={link.href}
+                      className="text-lg text-foreground/80 hover:text-foreground transition-opacity duration-200"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      {link.label}
+                    </a>
+                  )
+                )}
                 <Link
                   to="/about"
                   className="text-lg text-foreground/80 hover:text-foreground transition-opacity duration-200"
@@ -101,11 +112,17 @@ const Navigation = () => {
           </Link>
 
           <div className="flex items-center gap-8">
-            {navLinks.map((link) => (
-              <a key={link.href} href={link.href} className="text-sm text-foreground/80 hover:text-foreground transition-opacity duration-200">
-                {link.label}
-              </a>
-            ))}
+            {navLinks.map((link) =>
+              link.isRoute ? (
+                <Link key={link.href} to={link.href} className="text-sm text-foreground/80 hover:text-foreground transition-opacity duration-200">
+                  {link.label}
+                </Link>
+              ) : (
+                <a key={link.href} href={link.href} className="text-sm text-foreground/80 hover:text-foreground transition-opacity duration-200">
+                  {link.label}
+                </a>
+              )
+            )}
             <Link to="/about" className="text-sm text-foreground/80 hover:text-foreground transition-opacity duration-200">
               Das sind Wir
             </Link>

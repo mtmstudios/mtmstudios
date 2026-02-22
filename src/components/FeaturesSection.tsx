@@ -223,7 +223,7 @@ const features = [
     description:
       "Nimmt Anrufe entgegen, beantwortet Fragen und leitet Gespräche weiter – rund um die Uhr, ohne Wartezeit.",
     Demo: PhoneDemo,
-    href: "#telefonassistent",
+    href: "/telefonassistent",
   },
   {
     title: "WhatsApp & Chatbots",
