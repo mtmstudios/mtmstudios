@@ -61,7 +61,7 @@ const PhoneAssistant = () => {
       </div>
 
       <div style={{ position: "relative", zIndex: 10 }}>
-        <PhoneHero />
+        <PhoneHero testPhoneNumber="+491234567890" />
         <ProblemSection />
         <HowItWorks />
         <PhoneFeatures />
