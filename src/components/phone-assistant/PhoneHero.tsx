@@ -68,10 +68,25 @@ const PhoneHero = ({ testPhoneNumber }: PhoneHeroProps) => {
             transition={{ delay: 2.2, duration: 0.4 }}
           />
 
+          {/* Subtle top label */}
+          <motion.text
+            x="160"
+            y="80"
+            textAnchor="middle"
+            fill="hsl(var(--accent))"
+            fillOpacity="0.4"
+            style={{ fontSize: "11px", fontWeight: 400 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 2.4 }}
+          >
+            KI-Telefonassistent testen
+          </motion.text>
+
           {/* Glow behind waveform */}
           <motion.circle
             cx="160"
-            cy="250"
+            cy="210"
             r="60"
             fill="hsl(var(--accent))"
             fillOpacity="0.06"
@@ -99,10 +114,10 @@ const PhoneHero = ({ testPhoneNumber }: PhoneHeroProps) => {
                 rx="5"
                 fill="hsl(var(--accent))"
                 fillOpacity="0.5"
-                initial={{ y: 250, height: 20 }}
+                initial={{ y: 210, height: 20 }}
                 animate={{
                   height: [20, h1, 20, h2, 20, h3, 20],
-                  y: [250, 250 - h1 / 2, 250, 250 - h2 / 2, 250, 250 - h3 / 2, 250],
+                  y: [210, 210 - h1 / 2, 210, 210 - h2 / 2, 210, 210 - h3 / 2, 210],
                 }}
                 transition={{
                   duration: 3.5,
@@ -114,27 +129,13 @@ const PhoneHero = ({ testPhoneNumber }: PhoneHeroProps) => {
             );
           })}
 
-          {/* "Anruf läuft" text */}
-          <motion.text
-            x="160"
-            y="340"
-            textAnchor="middle"
-            className="text-xs fill-accent/50"
-            style={{ fontSize: "12px" }}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: [0, 0.7, 0.7, 0] }}
-            transition={{ duration: 6, repeat: Infinity, delay: 2.5 }}
-          >
-            Anruf läuft…
-          </motion.text>
-
           {/* Call Button */}
           {testPhoneNumber && (
             <>
               {/* Pulsing glow ring */}
               <motion.circle
                 cx="160"
-                cy="400"
+                cy="360"
                 r="32"
                 fill="none"
                 stroke="#22c55e"
@@ -146,7 +147,7 @@ const PhoneHero = ({ testPhoneNumber }: PhoneHeroProps) => {
               {/* Green circle */}
               <motion.circle
                 cx="160"
-                cy="400"
+                cy="360"
                 r="26"
                 fill="#22c55e"
                 initial={{ opacity: 0, scale: 0.5 }}
@@ -155,16 +156,16 @@ const PhoneHero = ({ testPhoneNumber }: PhoneHeroProps) => {
               />
               {/* Phone icon */}
               <motion.path
-                d="M152 393c0-1.1.9-2 2-2h1.5a1 1 0 0 1 .9.6l1.2 2.4a1 1 0 0 1-.2 1.1l-1.4 1.4a8 8 0 0 0 4.5 4.5l1.4-1.4a1 1 0 0 1 1.1-.2l2.4 1.2a1 1 0 0 1 .6.9V404a2 2 0 0 1-2 2 12 12 0 0 1-12-12z"
+                d="M152 353c0-1.1.9-2 2-2h1.5a1 1 0 0 1 .9.6l1.2 2.4a1 1 0 0 1-.2 1.1l-1.4 1.4a8 8 0 0 0 4.5 4.5l1.4-1.4a1 1 0 0 1 1.1-.2l2.4 1.2a1 1 0 0 1 .6.9V364a2 2 0 0 1-2 2 12 12 0 0 1-12-12z"
                 fill="white"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.4, delay: 3.3 }}
               />
-              {/* "Jetzt testen" label */}
+              {/* "Jetzt anrufen" label */}
               <motion.text
                 x="160"
-                y="445"
+                y="405"
                 textAnchor="middle"
                 fill="#22c55e"
                 style={{ fontSize: "11px", fontWeight: 500 }}
@@ -172,10 +173,10 @@ const PhoneHero = ({ testPhoneNumber }: PhoneHeroProps) => {
                 animate={{ opacity: 0.8 }}
                 transition={{ duration: 0.6, delay: 3.4 }}
               >
-                Jetzt testen
+                Jetzt anrufen
               </motion.text>
               {/* Clickable foreignObject overlay */}
-              <foreignObject x="130" y="370" width="60" height="80">
+              <foreignObject x="130" y="330" width="60" height="80">
                 <a
                   href={`tel:${testPhoneNumber}`}
                   style={{
