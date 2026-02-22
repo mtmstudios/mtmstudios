@@ -1,147 +1,92 @@
 
 
-## Chatbot-Unterseite: WhatsApp und Chatbots
+## Automatisierungen-Seite + Umbenennung zu MTM Studios
 
-Aufgebaut nach dem gleichen Muster wie die Telefonassistent-Seite -- 8 Sektionen, eigene massgeschneiderte Animationen, Apple-like Premium-Qualitaet.
-
----
-
-### Seitenstruktur
-
-```text
-1. Hero -- Grosser Titel + Subline + animiertes Chat-Visual
-2. Problem -- Warum braucht man das?
-3. So funktioniert's -- 3 Schritte (inkl. Terminbuchung)
-4. Features -- 4 Features mit eigenen Animationen
-5. Kanaele -- WhatsApp + Website-Chat als Dual-Ansicht
-6. Anwendungsfaelle -- Branchen-Grid
-7. Testimonial -- Ein grosses Zitat
-8. CTA + Footer -- Wiederverwendet
-```
+Zwei Aufgaben in einem: Die neue Automatisierungen-Seite bauen und gleichzeitig ueberall "Setrex" durch "MTM Studios" ersetzen.
 
 ---
 
-### Sektion 1: Hero
+### Teil 1: Umbenennung Setrex zu MTM Studios
 
-- Headline: `Chatbots, die wirklich helfen.` -- BlurText-Animation, `text-3xl sm:text-5xl md:text-7xl font-bold`
-- Subline: `WhatsApp und Website-Chat -- automatisiert, intelligent, 24/7 erreichbar.`
-- Animiertes Visual: **Chat-Bubble-Visual** -- ein stilisiertes SVG-Chat-Interface mit zwei Sprechblasen die sich nacheinander aufbauen. Eine User-Bubble (rechts, dunkel) und eine Bot-Bubble (links, accent-Farbe) mit Typing-Dots die zu Text werden. Die Bubbles zeichnen sich mit `pathLength`-Animation, danach erscheint der Inhalt.
-- Groesse: `max-w-[400px] h-[400px] sm:h-[500px]`
-- Kein CTA-Button im Hero
+Alle Vorkommen von "Setrex" werden zu "MTM Studios" geaendert:
 
----
+| Datei | Aenderung |
+|-------|-----------|
+| `index.html` | `meta author` von "Setrex" zu "MTM Studios" |
+| `src/components/Navigation.tsx` | Logo alt-Text: "MTM Studios Logo" (2 Stellen) |
+| `src/components/Footer.tsx` | Logo alt-Text, E-Mail zu `info@mtmstudios.de`, Copyright zu "MTM Studios" |
+| `src/pages/AboutUs.tsx` | "About Setrex" Badge, Firmenname im Fliesstext |
 
-### Sektion 2: Problem
-
-- Headline: `Kunden warten nicht.`
-- Text: "Langsame Antworten, ueberlastete Service-Teams, immer die gleichen Fragen. Kunden erwarten sofortige Hilfe -- auf dem Kanal, den sie schon nutzen."
-- Statistik mit CountUp: `78% der Kunden bevorzugen Messaging gegenueber Telefonieren.`
-- Gleicher Stil wie ProblemSection der Telefonassistent-Seite (fade-up mit blur)
+Hinweis: Die E-Mail-Adresse wird zu `info@mtmstudios.de` geaendert -- falls eine andere Domain gewuenscht ist, bitte Bescheid geben.
 
 ---
 
-### Sektion 3: So funktioniert's (mit Terminbuchung)
+### Teil 2: Automatisierungen-Seite
 
-3 Karten, identischer Stil wie HowItWorks der Telefonassistent-Seite:
+8 Sektionen, Apple-like Premium-Qualitaet, vertrauensbildend.
 
-| Schritt | Titel | Beschreibung |
-|---------|-------|-------------|
-| 01 | Kunde schreibt | Ueber WhatsApp, Website-Chat oder andere Kanaele -- der Bot antwortet sofort. |
-| 02 | KI versteht und handelt | Beantwortet Fragen, bucht Termine und uebergibt bei Bedarf an euer Team. |
-| 03 | Alles dokumentiert | Gespraechsverlauf, gebuchte Termine und Kundendaten -- automatisch in eurem System. |
+**Sektion 1: Hero**
+- Headline: `Automatisierung, die mit euch waechst.`
+- Subline: `Vom ersten kleinen Workflow bis zur kompletten Prozesslandschaft. Euer Partner im Zeitalter der KI.`
+- Animation: GearFlowVisual -- 3 ineinandergreifende Zahnraeder (klein, mittel, gross) die sich drehen, mit leuchtenden Datenpunkten entlang der Verbindungslinien.
 
-- Schritt 02 erwaehnt jetzt explizit "bucht Termine"
-- Schritt 03 erwaehnt "gebuchte Termine" neben Gespraechsverlauf und Kundendaten
-- Letzter Schritt mit Neon-Highlight, gestaggertes fade-up
+**Sektion 2: Problem**
+- Headline: `Euer Team ist zu gut fuer Routinearbeit.`
+- CountUp-Statistik: `73% aller Arbeitsschritte lassen sich automatisieren.`
 
----
+**Sektion 3: Das Spektrum (einzigartig fuer diese Seite)**
+- Headline: `Von der ersten Automation zur kompletten Transformation.`
+- 3 aufsteigende Karten:
+  - **Kleine Helfer:** E-Mail-Weiterleitung, Kalender-Sync, Benachrichtigungen
+  - **Vernetzte Prozesse:** Lead-Erfassung, Rechnungsstellung, Kundenkommunikation
+  - **Komplette Automatisierung:** Sales-Pipelines, Onboarding, Reporting (Neon-Highlight)
+- Animierte Verbindungslinie mit leuchtenden Punkten zwischen den Karten
 
-### Sektion 4: Features (4 Features mit eigenen Animationen)
+**Sektion 4: So funktioniert's**
+- 3 Schritte: Analyse, Umsetzung, Skalierung
+- Gleicher Stil wie die anderen Seiten
 
-Zweispalter-Layout wie PhoneFeatures, alternierend. Jedes Feature bekommt eine einzigartige Animation:
+**Sektion 5: Features (4 mit eigenen Animationen)**
+- **Nahtlose Integration** -- IntegrationNodesAnimation (Tool-Icons verbinden sich mit Hub)
+- **Massgeschneidert** -- BlueprintAnimation (Bauplan-Grid mit leuchtenden Nodes)
+- **Messbare Ergebnisse** -- MetricsAnimation (wachsende Balken mit CountUp-Zahlen)
+- **Zukunftssicher** -- ScaleUpAnimation (stufenweise Vergroesserung mit Pulse)
 
-**Feature 1: Sofortige Antworten**
-- Text: "Kein Warten, keine Warteschlange. Der Bot antwortet in Sekunden -- rund um die Uhr, auf jeder Plattform."
-- Animation: **MessageBurstAnimation** -- 3-4 Chat-Bubbles die nacheinander von unten einfliegen, abwechselnd links/rechts (User/Bot). Jede Bubble erscheint mit einem sanften Scale + Fade. Die letzte Bot-Bubble hat einen dezenten Accent-Glow. Loop mit Pause.
+**Sektion 6: Vertrauen (Trust-Builder)**
+- 2x2 Grid mit CountUp-Zahlen:
+  - 100+ automatisierte Workflows
+  - 15h+ pro Woche eingespart
+  - 98% Kundenzufriedenheit
+  - 24/7 Prozesse laufen immer
 
-**Feature 2: Kontextverstaendnis**
-- Text: "Der Bot versteht den Kontext -- erkennt Absichten, merkt sich den Gespraechsverlauf und gibt relevante Antworten."
-- Animation: **BrainNetworkAnimation** -- 5-6 Punkte (Neuronen) verbunden durch duenne Linien. Zufaellige Punkte leuchten nacheinander auf (accent-glow), und die Verbindungslinien zum naechsten Punkt leuchten kurz mit. Simuliert "Denken/Verstehen". Alles in SVG + motion.
+**Sektion 7: Testimonial**
+- "MTM Studios hat unseren kompletten Sales-Prozess automatisiert..."
 
-**Feature 3: Nahtlose Uebergabe**
-- Text: "Wenn der Bot nicht weiterweiss, uebergibt er an einen echten Menschen -- mit dem kompletten Kontext."
-- Animation: **HandoffAnimation** -- Zwei Icons (Bot-Icon links, Person-Icon rechts) mit einer Verbindungslinie. Ein leuchtender Punkt wandert vom Bot zur Person, dann pulsiert das Person-Icon kurz. Aehnlich wie FlowDotsAnimation, aber mit nur 2 Nodes und Bot/Mensch Thematik.
-
-**Feature 4: Multi-Channel**
-- Text: "Ein Bot, alle Kanaele. WhatsApp, Website-Chat, Instagram, Facebook Messenger -- alles zentral gesteuert."
-- Animation: **ChannelIconsAnimation** -- 4 kleine Icons (WhatsApp, Web, Instagram, Messenger) die in einem Kreis angeordnet sind. In der Mitte ein zentraler Punkt (Bot). Duenne Linien verbinden den Mittelpunkt mit allen Icons. Die Icons leuchten nacheinander auf, mit einer Pulse-Welle die vom Zentrum ausgeht.
-
----
-
-### Sektion 5: Kanaele
-
-Zwei grosse Karten nebeneinander die WhatsApp und Website-Chat als die beiden Haupt-Kanaele hervorheben.
-
-- **WhatsApp-Karte:** Glassmorphism-Card mit einem stilisierten WhatsApp-Chat-Mockup (2-3 Bubbles in WhatsApp-Gruen als dezenter Akzent). Titel: "WhatsApp Business". Kurzer Text: "Erreicht eure Kunden dort, wo sie taeglich kommunizieren."
-- **Website-Chat-Karte:** Glassmorphism-Card mit einem stilisierten Chat-Widget-Mockup (kleines Chatfenster-Outline, accent-Farbe). Titel: "Website-Chat". Kurzer Text: "Besucher direkt auf eurer Website betreuen -- ohne Wartezeit."
-
-Beide Karten: `bg-white/[0.03] backdrop-blur-md rounded-2xl`, mit sanftem fade-up, `grid grid-cols-1 md:grid-cols-2 gap-8`.
-
----
-
-### Sektion 6: Anwendungsfaelle
-
-Gleicher Stil wie UseCases der Telefonassistent-Seite:
-
-- **E-Commerce** -- Bestellstatus, Retouren und Produktberatung automatisieren
-- **Gesundheitswesen** -- Terminbuchung und Rezeptanfragen per WhatsApp
-- **Immobilien** -- Besichtigungstermine und Objektinfos automatisch beantworten
-- **Gastronomie** -- Reservierungen und Speisekarten-Anfragen rund um die Uhr
-
----
-
-### Sektion 7: Testimonial
-
-> "Unser WhatsApp-Bot beantwortet 80% der Kundenanfragen automatisch. Das Team kann sich endlich auf die komplexen Faelle konzentrieren."
-
--- **Markus Schneider**, Head of Customer Service
-
-Gleicher Stil wie PhoneTestimonial (dekoratives Anfuehrungszeichen, fade-up mit blur).
-
----
-
-### Sektion 8: CTA + Footer
-
-Bestehende Komponenten importiert. Keine Aenderungen.
+**Sektion 8: CTA + Footer** -- Wiederverwendet
 
 ---
 
 ### Technische Umsetzung
 
-**Neue Dateien:**
-- `src/pages/Chatbots.tsx` -- Hauptseite (Video-Hintergrund, scroll-to-top wie PhoneAssistant.tsx)
-- `src/components/chatbot/ChatbotHero.tsx` -- Hero mit SVG-Chat-Bubble-Visual
-- `src/components/chatbot/ChatbotProblem.tsx` -- Zentrierter Text mit CountUp
-- `src/components/chatbot/ChatbotHowItWorks.tsx` -- 3-Schritt-Grid (inkl. Terminbuchung)
-- `src/components/chatbot/ChatbotFeatures.tsx` -- 4 Features mit Animationen
-- `src/components/chatbot/MessageBurstAnimation.tsx` -- Chat-Bubbles Animation
-- `src/components/chatbot/BrainNetworkAnimation.tsx` -- Neuronen-Netz Animation
-- `src/components/chatbot/HandoffAnimation.tsx` -- Bot-zu-Mensch Uebergabe
-- `src/components/chatbot/ChannelIconsAnimation.tsx` -- Multi-Channel Kreis
-- `src/components/chatbot/ChannelsSection.tsx` -- WhatsApp + Website-Chat Dual-Karten
-- `src/components/chatbot/ChatbotUseCases.tsx` -- Branchen-Grid
-- `src/components/chatbot/ChatbotTestimonial.tsx` -- Einzelnes Zitat
+**Neue Dateien (12):**
+- `src/pages/Automations.tsx`
+- `src/components/automations/AutomationsHero.tsx`
+- `src/components/automations/AutomationsProblem.tsx`
+- `src/components/automations/AutomationsSpectrum.tsx`
+- `src/components/automations/AutomationsHowItWorks.tsx`
+- `src/components/automations/AutomationsFeatures.tsx`
+- `src/components/automations/IntegrationNodesAnimation.tsx`
+- `src/components/automations/BlueprintAnimation.tsx`
+- `src/components/automations/MetricsAnimation.tsx`
+- `src/components/automations/ScaleUpAnimation.tsx`
+- `src/components/automations/TrustSection.tsx`
+- `src/components/automations/AutomationsTestimonial.tsx`
 
-**Aenderungen an bestehenden Dateien:**
-- `src/App.tsx` -- Route `/chatbots` hinzufuegen
-- `src/components/Navigation.tsx` -- "WhatsApp & Chatbots" Link auf `/chatbots` aendern
-- `src/components/FeaturesSection.tsx` -- Zweite Karte `href` von `#chatbot` zu `/chatbots`
-- `src/components/Footer.tsx` -- Link von `#chatbot` zu `/chatbots`
-
-**Animations-Patterns:**
-- Alle Animationen mit `motion/react`, `appleEase: [0.16, 1, 0.3, 1]`
-- `whileInView` mit `once: true` fuer alle Sektionen
-- SVG-basierte Animationen fuer Hero, BrainNetwork und ChannelIcons
-- `useInView` Hook fuer Demo-Animationen
-- WhatsApp-Gruen (`#25D366`) nur als dezenter Akzent auf Icons/Hover, nicht als Flaechenfarbe
+**Geaenderte Dateien (6):**
+- `index.html` -- Author-Meta umbenennen
+- `src/App.tsx` -- Route `/automatisierungen` hinzufuegen
+- `src/components/Navigation.tsx` -- Logo-Alt umbenannt, "Automatisierungen" Link zu `/automatisierungen`
+- `src/components/Footer.tsx` -- Name, E-Mail, Copyright umbenannt, Automatisierungen-Link
+- `src/components/FeaturesSection.tsx` -- Dritte Karte href zu `/automatisierungen`
+- `src/pages/AboutUs.tsx` -- Alle "Setrex"-Vorkommen zu "MTM Studios"
 
