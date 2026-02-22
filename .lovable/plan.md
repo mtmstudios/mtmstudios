@@ -1,172 +1,120 @@
 
 
-## KI-Telefonassistent Unterseite -- Ueberarbeiteter Premium-Plan
+## Animations verfeinern -- Premium-Qualitaet
 
-### Kritik am vorherigen Plan
-
-Der vorherige Plan hatte zwei schwerwiegende Fehler:
-
-1. **"Bild folgt"-Platzhalter sind kein Apple-Design** -- sie sind Baukasten. Apple zeigt nie leere Flaechen. Wenn kein Bild da ist, muessen hochwertige Animationen die Rolle uebernehmen. Die bestehenden Demos auf der Startseite (PhoneDemo, ChatDemo, WorkflowDemo) sind bereits gut -- sie bleiben.
-
-2. **Die Unterseite braucht eigene, massgeschneiderte Animationen** -- keine kopierten Demos von der Startseite. Jedes Feature auf der Unterseite bekommt eine einzigartige, subtile Animation die das Feature visuell erklaert.
+Alle Animationen auf beiden Seiten werden ueberarbeitet, um ein hochwertiges, Apple-like Erlebnis zu schaffen. Die Aenderungen umfassen groessere Elemente, langsamere Bewegungen, subtile Glows und neue Micro-Animations.
 
 ---
 
-### Seitenstruktur (8 Sektionen)
+### Telefonassistent-Seite: Animationen verfeinern
 
-```text
-1. Hero -- Grosser Titel + Subline + animiertes Visual
-2. Problem -- Warum braucht man das?
-3. So funktioniert's -- 3 Schritte mit Termin + CRM
-4. Features -- 4 Features mit eigenen Animationen
-5. Anwendungsfaelle -- Branchen-Grid
-6. Testimonial -- Ein grosses Zitat
-7. CTA -- Wiederverwendet
-8. Footer -- Wiederverwendet
-```
+**1. WaveformAnimation -- groesser, smoother, mit Glow**
+- Balkenanzahl von 7 auf 9 erhoehen
+- Balkenbreite von `w-2` auf `w-3` vergroessern
+- Abstand von `gap-2` auf `gap-[6px]`
+- Update-Intervall von 800ms auf 1200ms verlangsamen (ruhiger, eleganter)
+- Hoehen-Range erhoehen: `24 + Math.random() * 80` statt `16 + Math.random() * 64`
+- Animation-Duration von 0.6s auf 0.9s verlangsamen
+- Subtilen Glow hinzufuegen: `shadow-[0_0_12px_hsl(var(--accent)/0.3)]` auf den mittleren Balken
+- Mittlere Balken hoher als die aeusseren (natuerlichere Wellenform)
+- Farbe auf `bg-accent/50` mit dem mittleren Balken auf `bg-accent/80`
 
----
+**2. FlowDotsAnimation -- langsamer, mit Pulse-Effekt**
+- Dot-Reise von 3s auf 5s verlangsamen
+- repeatDelay von 1s auf 2s erhoehen
+- Pause beim mittleren Knoten laenger: times `[0, 0.3, 0.6, 1]` statt `[0, 0.35, 0.55, 1]`
+- Node-Groesse von `w-12 h-12` auf `w-14 h-14` erhoehen
+- Traveling-Dot groesser: `w-3 h-3` statt `w-2.5 h-2.5`
+- Glow verstaerken: `shadow-[0_0_20px_hsl(var(--accent)/0.5)]`
+- Pulse-Animation auf den aktiven Node hinzufuegen (der Node der gerade vom Dot beruehrt wird -- ueber CSS, nicht JS)
+- Verbindungslinie dicker: `h-[2px]` bleibt, aber mit Gradient statt Flat-Color
 
-### Sektion 1: Hero
+**3. CalendarAnimation -- smoothere Reveals, Glow auf gebucht**
+- Zellen groesser: `w-12 h-10` statt `w-10 h-8`
+- Stagger-Delay langsamer: `0.05` statt `0.03` pro Zelle
+- Gebuchte Zelle: sanfter pulsierender Glow `shadow-[0_0_16px_hsl(var(--accent)/0.3)]` mit `animate`
+- Checkmark-Delay von 1.2s auf 1.8s (laesst die Spannung laenger aufbauen)
+- Checkmark mit leichter Rotation beim Erscheinen: `rotate: ["-10deg", "0deg"]`
+- Header-Zeile (Mo, Di, Mi...) erscheint vor den Zellen mit eigenem Stagger
 
-**Konzept:** Volle Viewport-Hoehe. Zentrierter Text oben, darunter eine grosse, animierte Visualisierung -- keine PhoneDemo-Kopie, sondern ein neues, groesseres Visual.
+**4. TypewriterAnimation -- realistischeres Tippen**
+- Tippgeschwindigkeit variabel: 25-60ms zufaellig pro Buchstabe statt fix 35ms (realistischer)
+- Pause zwischen Zeilen von 400ms auf 600ms erhoehen
+- Start-Delay von 600ms auf 800ms
+- Cursor-Blink langsamer: 0.7s statt 0.5s
+- Jede fertige Zeile bekommt einen kurzen Fade-Glow-Effekt wenn sie komplett ist
+- Schriftgroesse leicht groesser: `text-base` statt `text-sm`
 
-- Headline: `Euer KI-Telefonassistent` -- `text-5xl md:text-7xl font-bold`, BlurText-Animation wie auf der Startseite
-- Subline: `Nimmt Anrufe entgegen, beantwortet Fragen, bucht Termine -- rund um die Uhr.` -- `text-lg text-muted-foreground`
-- Darunter: **Animiertes Phone-Visual** -- ein stilisiertes Smartphone-Outline (nur Linien, kein Fill) mit einer animierten Wellenform darin, die "spricht". Gebaut aus SVG-Pfaden + motion/react. Groesse: `max-w-[320px] h-[500px]` auf Desktop. Die Wellenform pulsiert dezent, wie ein aktiver Anruf.
-- Kein CTA-Button im Hero
+**5. PhoneHero SVG -- groessere Wellenform, subtilere Bewegung**
+- Wellenform-Balken breiter: `width="10"` statt `width="8"` 
+- Wellenform-Balken hoeher: Maximalhoehe erhoehen auf `40 + Math.random() * 80`
+- Bewegung langsamer: `duration: 3.5` statt `2.5`
+- Weniger abrupte Hoehenwechsel (mehr Keyframes fuer smoothere Uebergaenge)
+- Subtiler Glow um die Wellenform: ein SVG-Kreis mit `filter: blur(30px)` und `fill-accent/10` hinter den Balken
+- "Anruf laeuft..." Text: langsamerer Fade-Zyklus, `duration: 6` statt `4`
 
-**Animation:**
-- BlurText fuer Headline (bestehendes Pattern)
-- Smartphone-Outline zeichnet sich mit `pathLength` Animation (0 zu 1, duration 1.5s)
-- Wellenform startet nach dem Outline-Draw
+**6. ProblemSection -- Counting-Animation fuer die Statistik**
+- Die Zahl "62%" bekommt eine Count-Up Animation: von 0% auf 62%, getriggert `onInView`
+- Duration: 2s, easeOut
+- Nach dem Count-Up bleibt die Zahl stehen
 
----
+**7. HowItWorks -- subtile Hover-Effekte auf Karten**
+- Karten bekommen `hover:bg-white/[0.06]` und `transition-colors duration-300`
+- Leichter `hover:translate-y-[-2px]` Lift-Effekt
+- Nummern bekommen einen dezenten Glow beim Hover: `hover:text-neon/60`
 
-### Sektion 2: Problem
+**8. UseCases -- dezente Trennlinien + Hover**
+- Zwischen den Eintraegen eine subtile `border-b border-white/[0.06]` Trennlinie
+- Hover: `hover:pl-2 transition-all duration-300` (leichter Indent)
+- Branchennamen bekommen beim Hover accent-Farbe: `hover:text-accent transition-colors`
 
-**Konzept:** Zentriert, nur Text, maximale Wirkung durch Groesse und Weissraum.
-
-- Headline: `Verpasste Anrufe kosten Kunden.` -- `text-3xl md:text-5xl font-bold`
-- Zwei kurze Saetze darunter: "Warteschleifen, volle Mailboxen, ueberlastetest Team. Jeder verpasste Anruf ist eine verpasste Chance."
-- Eine statische Zahl: `62% aller Anrufer legen auf, wenn niemand abhebt.` -- `text-muted-foreground`, klein, als Fussnote
-- **Animation:** `whileInView` fade-up mit blur, `duration: 0.8`, `appleEase`
-
----
-
-### Sektion 3: So funktioniert's (mit Termin + CRM)
-
-**Konzept:** 3 horizontale Karten, identischer Stil wie ProcessSection auf Startseite.
-
-| Schritt | Titel | Beschreibung |
-|---------|-------|-------------|
-| 01 | Anruf kommt rein | Euer KI-Assistent nimmt ab -- sofort, ohne Wartezeit, 24/7. |
-| 02 | KI versteht und handelt | Beantwortet Fragen, vereinbart Termine und leitet bei Bedarf an euer Team weiter. |
-| 03 | Alles im CRM | Zusammenfassung, Transkript und gebuchte Termine -- automatisch in eurem System. |
-
-- Gleicher Kartenstil: `bg-white/[0.03] backdrop-blur-md rounded-2xl`
-- Letzter Schritt mit Neon-Highlight wie auf Startseite
-- `grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8`
-- **Animation:** Gestaggertes fade-up, `delay: index * 0.15`
-
----
-
-### Sektion 4: Features (4 Features mit eigenen Animationen)
-
-**Konzept:** Jedes Feature im grossen Zweispalter (Text + Animation), alternierend wie auf der Startseite. Aber mit **einzigartigen, massgeschneiderten Animationen** fuer jedes Feature.
-
-**Feature 1: Natuerliche Gespraeche**
-- Text: "Der Assistent spricht wie ein Mensch -- nicht wie ein Roboter. Natuerliche Sprache, anpassbarer Tonfall, mehrsprachig."
-- Animation: **Audio-Waveform** -- 5-7 vertikale Balken die in unterschiedlichen Hoehen pulsieren, wie ein Audio-Equalizer. Gebaut mit motion.div-Elementen, `animate={{ height }}`, random Hoehen, langsam und smooth. Farbe: `bg-accent/60`.
-
-**Feature 2: Intelligente Weiterleitung**
-- Text: "Erkennt, wann ein Mensch uebernehmen muss, und leitet nahtlos an die richtige Person weiter."
-- Animation: **Flow-Dots** -- Drei Kreise (KI, Entscheidung, Mensch) verbunden durch eine Linie. Ein leuchtender Punkt wandert von links nach rechts, pausiert beim mittleren Kreis (Entscheidung), waehlt dann den Weg zum dritten Kreis. Aehnlich wie WorkflowDemo, aber mit Entscheidungslogik.
-
-**Feature 3: Terminbuchung**
-- Text: "Bucht Termine direkt waehrend des Anrufs -- synchronisiert mit eurem Kalender."
-- Animation: **Kalender-Slot** -- Ein minimaler 3x3 Grid aus Zellen (Mo-Fr). Eine Zelle faerbt sich mit einem sanften Glow ein (der gebuchte Termin), dann erscheint ein kleiner Checkmark. Alles in `text-accent`.
-
-**Feature 4: Echtzeit-Zusammenfassung**
-- Text: "Nach jedem Anruf: automatische Zusammenfassung, Transkript und Action Items."
-- Animation: **Typewriter** -- 3-4 kurze Zeilen die Buchstabe fuer Buchstabe erscheinen, wie eine KI die tippt. Zeilen: "Anrufer: Herr Schmidt", "Anliegen: Terminbuchung", "Status: Erledigt". Monospace-Schrift, `text-accent/70`.
-
-Jedes Feature: `grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16`, Animation-Bereich `h-[280px] md:h-[340px] rounded-2xl bg-white/[0.03]`. Alle Animationen starten `onInView` mit `once: true`.
+**9. PhoneTestimonial -- Anfuehrungszeichen-Dekor**
+- Grosses dekoratives Anfuehrungszeichen vor dem Zitat: `text-8xl text-accent/10 font-serif` -- absolut positioniert, oben links
+- Zitat bekommt `filter: blur` Eingangsanimation wie ProblemSection (bereits vorhanden, bleibt)
 
 ---
 
-### Sektion 5: Anwendungsfaelle
+### Startseite: Animationen verfeinern
 
-**Konzept:** Minimales Grid, nur Text, kein visueller Overhead.
+**10. FeaturesSection Demos -- subtile Verfeinerungen**
+- PhoneDemo: Puls-Ringe langsamer (duration 4s statt 3s), groesserer Max-Radius (160px statt 130px im Normalzustand)
+- ChatDemo: Typing-Indicator Dots langsamer (duration 1s statt 0.8s)
+- WorkflowDemo: Traveling-Dot langsamer (duration 3s statt 2s), Glow verstaerken
 
-- Headline: `Fuer jede Branche.` -- `text-3xl md:text-5xl font-bold`
-- Grid `grid-cols-1 md:grid-cols-2 gap-8`, 4 Eintraege:
-  - **Arztpraxen** -- Terminvergabe und Rezeptanfragen automatisieren
-  - **Handwerk** -- Auftraege annehmen, auch wenn das Team auf der Baustelle ist
-  - **Kanzleien** -- Erstgespraeche vorqualifizieren und Rueckrufbitten aufnehmen
-  - **E-Commerce** -- Bestellstatus und Retouren telefonisch abwickeln
-- Jeder Eintrag: Branchenname fett (`text-foreground font-semibold`) + ein Satz (`text-muted-foreground`)
-- Keine Icons, keine Karten, keine Borders -- nur Text mit Weissraum
-- **Animation:** Gestaggertes fade-up, `delay: index * 0.1`
+**11. ProcessSection -- gleiche Hover-Effekte wie HowItWorks**
+- Karten: `hover:bg-white/[0.06] transition-colors duration-300`
+- Leichter Lift: `hover:translate-y-[-2px] transition-transform`
 
----
+**12. TestimonialsSection -- smootherer Uebergang**
+- Transition-Duration von 0.6s auf 0.8s erhoehen
+- Blur-Staerke im Exit von 8px auf 12px erhoehen (smootherer Uebergang)
 
-### Sektion 6: Testimonial
+**13. IntegrationsSection -- Entry-Animation verfeinern**
+- Scale-Animation von 0.95 auf 0.9 erhoehen (dramatischerer Eintritt)
+- Duration von 0.8s auf 1s
 
-- Ein einziges, grosses Zitat: Dr. Lisa Weber (das Telefonassistent-Testimonial)
-- Gleicher Stil wie Startseite: `text-xl md:text-2xl lg:text-3xl font-light italic`
-- Kein Auto-Wechsel (nur ein Zitat), statisch
-- **Animation:** Fade-up mit blur, `whileInView`
-
----
-
-### Sektion 7 + 8: CTA + Footer
-
-Bestehende Komponenten direkt importieren. Keine Aenderungen.
-
----
-
-### Startseite: Demos bleiben!
-
-Die bestehenden PhoneDemo, ChatDemo und WorkflowDemo auf der Startseite sind hochwertig und bleiben unveraendert. Es werden KEINE Platzhalter eingefuegt. Der einzige "Mehr erfahren"-Link der ersten Karte wird auf `/telefonassistent` geaendert.
-
----
-
-### Globale Seiten-Details
-
-- Video-Hintergrund wie auf Startseite (Index.tsx Pattern mit `<video>` und Scroll-Opacity)
-- Scroll-to-top beim Navigieren zur Unterseite
-- Navigation oben: "KI-Telefonassistent" Link wird zu `/telefonassistent` (React Router Link statt Anchor)
-- Footer: Link "KI-Telefonassistent" wird zu `/telefonassistent`
+**14. CTASection -- subtiler Glow auf dem Button**
+- Button bekommt einen dezenten Hover-Glow: `hover:shadow-[0_0_30px_hsl(var(--accent)/0.2)]`
 
 ---
 
 ### Technische Umsetzung
 
-**Neue Dateien:**
-- `src/pages/PhoneAssistant.tsx` -- Hauptseite mit Video-Hintergrund, importiert Navigation, CTASection, Footer
-- `src/components/phone-assistant/PhoneHero.tsx` -- Hero mit SVG-Phone-Outline + Wellenform
-- `src/components/phone-assistant/ProblemSection.tsx` -- Zentrierter Text
-- `src/components/phone-assistant/HowItWorks.tsx` -- 3-Schritt-Grid
-- `src/components/phone-assistant/PhoneFeatures.tsx` -- 4 Features mit Animationen
-- `src/components/phone-assistant/WaveformAnimation.tsx` -- Audio-Equalizer Animation
-- `src/components/phone-assistant/FlowDotsAnimation.tsx` -- Weiterleitungs-Flow
-- `src/components/phone-assistant/CalendarAnimation.tsx` -- Kalender-Slot Animation
-- `src/components/phone-assistant/TypewriterAnimation.tsx` -- Typewriter-Effekt
-- `src/components/phone-assistant/UseCases.tsx` -- Branchen-Grid
-- `src/components/phone-assistant/PhoneTestimonial.tsx` -- Einzelnes Zitat
+**Geaenderte Dateien:**
+- `src/components/phone-assistant/WaveformAnimation.tsx` -- groessere Balken, Glow, langsameres Update
+- `src/components/phone-assistant/FlowDotsAnimation.tsx` -- langsamerer Dot, groessere Nodes, Pulse
+- `src/components/phone-assistant/CalendarAnimation.tsx` -- groessere Zellen, Glow, smootherer Stagger
+- `src/components/phone-assistant/TypewriterAnimation.tsx` -- variables Tipping, Glow-Effekt
+- `src/components/phone-assistant/PhoneHero.tsx` -- groessere Wellenform, Glow, langsamere Bewegung
+- `src/components/phone-assistant/ProblemSection.tsx` -- Count-Up Animation fuer 62%
+- `src/components/phone-assistant/HowItWorks.tsx` -- Hover-Effekte auf Karten
+- `src/components/phone-assistant/UseCases.tsx` -- Trennlinien, Hover-Indent
+- `src/components/phone-assistant/PhoneTestimonial.tsx` -- dekoratives Anfuehrungszeichen
+- `src/components/FeaturesSection.tsx` -- langsamere Demos, groessere Pulse
+- `src/components/ProcessSection.tsx` -- Hover-Effekte
+- `src/components/TestimonialsSection.tsx` -- smootherer Blur-Uebergang
+- `src/components/IntegrationsSection.tsx` -- dramatischerer Scale-Entry
+- `src/components/CTASection.tsx` -- Button-Glow
 
-**Aenderungen an bestehenden Dateien:**
-- `src/App.tsx` -- Route `/telefonassistent` hinzufuegen
-- `src/components/Navigation.tsx` -- navLinks: `href: "#telefonassistent"` wird zu `href: "/telefonassistent"` (mit React Router Link)
-- `src/components/FeaturesSection.tsx` -- Erste Karte `href` von `#telefonassistent` zu `/telefonassistent`
-- `src/components/Footer.tsx` -- Link von `#telefonassistent` zu `/telefonassistent`
-
-**Animations-Patterns (alle mit motion/react):**
-- `appleEase: [0.16, 1, 0.3, 1]`
-- `duration: 0.8` fuer alle whileInView
-- `useInView` mit `once: true` fuer alle Demo-Animationen
-- BlurText-Komponente fuer den Hero-Titel (bestehendes Pattern)
-- SVG `pathLength` fuer Phone-Outline Draw
-- `motion.div` mit `animate={{ height }}` fuer Waveform-Balken
+**Keine neuen Dateien noetig.** Alle Aenderungen sind Verfeinerungen bestehender Komponenten.
 
