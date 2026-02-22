@@ -1,104 +1,81 @@
-import { MessageSquare, Lightbulb, Cog, Rocket, Handshake, LucideIcon } from "lucide-react";
+import { Search, Rocket, Handshake, LucideIcon } from "lucide-react";
 import { motion } from "motion/react";
+
+const appleEase = [0.16, 1, 0.3, 1] as const;
 
 const steps: { number: string; title: string; icon: LucideIcon; description: string }[] = [
   {
     number: "01",
-    title: "Erstgespräch & Analyse",
-    icon: MessageSquare,
-    description: "Wir lernen euer Unternehmen kennen, analysieren Prozesse und identifizieren Potenziale.",
+    title: "Analyse & Strategie",
+    icon: Search,
+    description: "Wir verstehen euer Business, identifizieren Potenziale und entwickeln einen klaren Plan.",
   },
   {
     number: "02",
-    title: "Konzept & Strategie",
-    icon: Lightbulb,
-    description: "Basierend auf der Analyse entwickeln wir eine maßgeschneiderte Strategie und einen klaren Plan.",
+    title: "Entwicklung & Launch",
+    icon: Rocket,
+    description: "Von der Umsetzung bis zum Go-Live – wir bauen und testen eure maßgeschneiderte KI-Lösung.",
   },
   {
     number: "03",
-    title: "Umsetzung & Integration",
-    icon: Cog,
-    description: "Wir entwickeln die Lösung und integrieren sie nahtlos in eure bestehenden Systeme.",
-  },
-  {
-    number: "04",
-    title: "Testing & Go-Live",
-    icon: Rocket,
-    description: "Gründliches Testen, Feinschliff und begleiteter Launch eurer neuen KI-Lösung.",
-  },
-  {
-    number: "05",
     title: "Langfristige Partnerschaft",
     icon: Handshake,
-    description: "Kontinuierliche Optimierung, Skalierung und persönlicher Support als euer KI-Partner.",
+    description: "Keine Einmal-Projekte. Wir optimieren, skalieren und wachsen mit euch – als euer KI-Partner.",
   },
 ];
 
-const easing = [0.25, 0.1, 0.25, 1] as const;
-
 const ProcessSection = () => {
   return (
-    <section id="prozess" className="py-20 px-4 bg-muted/20">
-      <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-16">
-          <motion.span
-            initial={{ opacity: 0, y: -20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, ease: easing }}
-            className="inline-block px-4 py-1.5 rounded-full text-sm font-medium bg-neon/10 text-neon border border-neon/20 mb-4"
-          >
-            So funktioniert's
-          </motion.span>
-          <motion.h2
-            initial={{ opacity: 0, y: -20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1, ease: easing }}
-            className="text-3xl md:text-4xl font-bold text-foreground"
-          >
-            Von der Idee zur Lösung
-          </motion.h2>
-        </div>
+    <section id="prozess" className="py-32 px-4 bg-muted/20">
+      <div className="max-w-5xl mx-auto">
+        <motion.h2
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: appleEase }}
+          className="text-4xl md:text-5xl font-bold text-foreground text-center mb-20"
+        >
+          Von der Idee zur Lösung
+        </motion.h2>
 
-        <div className="flex flex-col gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
           {steps.map((step, index) => {
             const isLast = index === steps.length - 1;
-            const isRight = index % 2 === 1;
-            const xDirection = isRight ? 60 : -60;
 
             return (
               <motion.div
                 key={step.number}
-                initial={{ opacity: 0, x: xDirection, ...(isLast ? { scale: 0.97 } : {}) }}
-                whileInView={{ opacity: 1, x: 0, ...(isLast ? { scale: 1 } : {}) }}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: isLast ? 0.7 : 0.6, delay: index * 0.12, ease: easing }}
-                className={`relative max-w-2xl border-l-4 rounded-xl p-8 text-center ${
+                transition={{ duration: 0.8, delay: index * 0.15, ease: appleEase }}
+                className={`relative rounded-2xl p-8 md:p-10 text-center ${
                   isLast
-                    ? "border-neon bg-neon/5 backdrop-blur-md shadow-[0_0_40px_hsl(174_72%_48%/0.1)]"
-                    : "border-neon bg-white/5 backdrop-blur-md"
-                } ${isRight ? "md:ml-auto" : ""}`}
+                    ? "bg-neon/5 backdrop-blur-md border border-neon/20"
+                    : "bg-white/[0.03] backdrop-blur-md"
+                }`}
               >
-                <span className={`absolute top-4 right-6 text-6xl font-bold select-none pointer-events-none ${
-                  isLast ? "text-neon/20" : "text-neon/10"
+                <span className={`block text-5xl md:text-6xl font-bold mb-6 select-none ${
+                  isLast ? "text-neon/25" : "text-neon/10"
                 }`}>
                   {step.number}
                 </span>
-                <div className="relative">
-                  <step.icon className={`w-5 h-5 mb-3 mx-auto ${isLast ? "text-neon" : "text-neon/60"}`} />
-                  <h3 className={`text-xl font-semibold mb-2 ${isLast ? "text-neon" : "text-foreground"}`}>
-                    {step.title}
-                  </h3>
-                  <p className="text-muted-foreground leading-relaxed">
-                    {step.description}
-                  </p>
-                  {isLast && (
-                    <span className="inline-block mt-4 px-3 py-1 rounded-full text-xs font-medium bg-neon/10 text-neon border border-neon/20">
-                      Euer langfristiger KI-Partner
-                    </span>
-                  )}
-                </div>
+
+                <step.icon className={`w-6 h-6 mx-auto mb-4 ${isLast ? "text-neon" : "text-neon/60"}`} />
+
+                <h3 className={`text-xl md:text-2xl font-semibold mb-3 ${isLast ? "text-neon" : "text-foreground"}`}>
+                  {step.title}
+                </h3>
+
+                <p className="text-muted-foreground leading-relaxed">
+                  {step.description}
+                </p>
+
+                {isLast && (
+                  <span className="inline-block mt-6 px-4 py-1.5 rounded-full text-xs font-medium bg-neon/10 text-neon border border-neon/20">
+                    Euer langfristiger KI-Partner
+                  </span>
+                )}
               </motion.div>
             );
           })}

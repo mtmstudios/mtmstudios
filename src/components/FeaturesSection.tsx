@@ -2,6 +2,8 @@ import { Phone, MessageSquare } from "lucide-react";
 import { motion, useInView } from "motion/react";
 import { useRef, useState, useEffect } from "react";
 
+const appleEase = [0.16, 1, 0.3, 1] as const;
+
 /* ─── Phone Demo ─── */
 const PhoneDemo = () => {
   const ref = useRef(null);
@@ -25,9 +27,9 @@ const PhoneDemo = () => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Pulsing rings */}
+      {/* Pulsing rings — slower, only 2 */}
       {inView &&
-        [0, 1, 2].map((i) => (
+        [0, 1].map((i) => (
           <motion.div
             key={i}
             className="absolute rounded-full border border-neon/30"
@@ -38,24 +40,22 @@ const PhoneDemo = () => {
               opacity: [0.6, 0],
             }}
             transition={{
-              duration: 2,
+              duration: 3,
               repeat: Infinity,
-              delay: i * 0.6,
+              delay: i * 0.8,
               ease: "easeOut",
             }}
           />
         ))}
 
-      {/* Phone icon */}
       <motion.div
         className="relative z-10 w-14 h-14 rounded-full bg-neon/20 border border-neon/40 flex items-center justify-center"
         animate={inView ? { scale: [1, 1.08, 1] } : {}}
-        transition={{ duration: 1.5, repeat: Infinity }}
+        transition={{ duration: 2, repeat: Infinity }}
       >
         <Phone className="w-6 h-6 text-neon" />
       </motion.div>
 
-      {/* Call status */}
       {inView && (
         <motion.div
           className="mt-4 flex flex-col items-center gap-1"
@@ -70,7 +70,6 @@ const PhoneDemo = () => {
         </motion.div>
       )}
 
-      {/* Hover bubble */}
       <motion.div
         className="absolute -right-2 top-4 bg-neon/10 border border-neon/30 rounded-xl rounded-br-none px-3 py-2 max-w-[150px]"
         initial={{ opacity: 0, scale: 0.8, y: 10 }}
@@ -183,7 +182,6 @@ const WorkflowDemo = () => {
   return (
     <div ref={ref} className="h-full flex items-center justify-center px-6">
       <div className="relative flex items-center justify-between w-full max-w-[220px]">
-        {/* Connecting line */}
         {inView && (
           <motion.div
             className="absolute top-1/2 left-[24px] right-[24px] h-[2px] -translate-y-1/2 bg-neon/20"
@@ -193,8 +191,6 @@ const WorkflowDemo = () => {
             style={{ transformOrigin: "left" }}
           />
         )}
-
-        {/* Flowing dot */}
         {inView && (
           <motion.div
             className="absolute top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-neon shadow-[0_0_8px_hsl(var(--neon))]"
@@ -202,8 +198,6 @@ const WorkflowDemo = () => {
             transition={{ duration: 2, repeat: Infinity, repeatDelay: 0.5, ease: "easeInOut" }}
           />
         )}
-
-        {/* Step nodes */}
         {steps.map((step, i) => (
           <motion.div
             key={step.label}
@@ -223,7 +217,7 @@ const WorkflowDemo = () => {
   );
 };
 
-/* ─── N8nIcon (kept for reference) ─── */
+/* ─── N8nIcon ─── */
 const N8nIcon = () => (
   <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
     <circle cx="6" cy="12" r="2.5" />
@@ -240,21 +234,21 @@ const features = [
     icon: Phone,
     title: "KI-Telefonassistent",
     description:
-      "Nimmt Anrufe entgegen, beantwortet Fragen und leitet Gespräche weiter – rund um die Uhr.",
+      "Nimmt Anrufe entgegen, beantwortet Fragen und leitet Gespräche weiter – rund um die Uhr, ohne Wartezeit.",
     Demo: PhoneDemo,
   },
   {
     icon: MessageSquare,
     title: "WhatsApp & Chatbots",
     description:
-      "Automatisierte Chatbots, die Kundenanfragen sofort beantworten und euer Team entlasten.",
+      "Automatisierte Chatbots, die Kundenanfragen sofort beantworten und euer Team spürbar entlasten.",
     Demo: ChatDemo,
   },
   {
     customIcon: N8nIcon,
     title: "Automatisierungen",
     description:
-      "Workflows optimieren und wertvolle Zeit sparen – mit maßgeschneiderten KI-Lösungen.",
+      "Workflows optimieren und wertvolle Zeit sparen – mit maßgeschneiderten KI-Lösungen für eure Prozesse.",
     Demo: WorkflowDemo,
   },
 ];
@@ -262,62 +256,62 @@ const features = [
 /* ─── Main Section ─── */
 const FeaturesSection = () => {
   return (
-    <section id="loesungen" className="py-20 px-4">
-      <div className="max-w-7xl mx-auto">
-        <motion.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 20 }}
+    <section id="loesungen" className="py-32 px-4">
+      <div className="max-w-5xl mx-auto">
+        <motion.h2
+          className="text-4xl md:text-5xl font-bold text-foreground text-center mb-24"
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.8, ease: appleEase }}
         >
-          <span className="inline-block px-4 py-1.5 rounded-full text-sm font-medium bg-neon/10 text-neon border border-neon/20 mb-4">
-            Unsere Lösungen
-          </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground">
-            Was wir für euch tun können
-          </h2>
-        </motion.div>
+          Was wir für euch tun können
+        </motion.h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {features.map((feature, index) => (
-            <motion.div
-              key={feature.title}
-              initial={{ opacity: 0, y: 30, filter: "blur(6px)" }}
-              whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.2 }}
-              className="group relative rounded-xl border border-border/30 bg-white/[0.03] backdrop-blur-md overflow-hidden transition-all duration-300 hover:border-neon/40 hover:shadow-[0_0_40px_hsl(174_72%_48%/0.15)] hover:-translate-y-1"
-            >
-              {/* Demo area */}
-              <div className="h-[220px] relative border-b border-border/20 p-4 overflow-hidden">
-                {/* Subtle gradient bg */}
-                <div className="absolute inset-0 bg-gradient-to-b from-neon/[0.03] to-transparent" />
-                <div className="relative z-10 h-full">
-                  <feature.Demo />
+        <div className="flex flex-col gap-32">
+          {features.map((feature, index) => {
+            const isEven = index % 2 === 1;
+
+            return (
+              <motion.div
+                key={feature.title}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-80px" }}
+                transition={{ duration: 0.8, ease: appleEase }}
+                className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center"
+              >
+                {/* Demo area */}
+                <div
+                  className={`h-[280px] md:h-[340px] rounded-2xl bg-white/[0.03] backdrop-blur-md overflow-hidden relative ${
+                    isEven ? "md:order-2" : ""
+                  }`}
+                >
+                  <div className="absolute inset-0 bg-gradient-to-b from-neon/[0.03] to-transparent" />
+                  <div className="relative z-10 h-full">
+                    <feature.Demo />
+                  </div>
                 </div>
-              </div>
 
-              {/* Content */}
-              <div className="p-6">
-                <div className="flex flex-col items-center gap-2 mb-3">
-                  <div className="w-9 h-9 rounded-lg bg-neon/10 text-neon flex items-center justify-center transition-all duration-300 group-hover:bg-neon/20 group-hover:scale-110">
+                {/* Text area */}
+                <div className={`flex flex-col gap-4 ${isEven ? "md:order-1 md:text-right md:items-end" : "md:items-start"} items-center text-center md:text-left`}>
+                  <div className="w-10 h-10 rounded-xl bg-neon/10 text-neon flex items-center justify-center">
                     {feature.icon ? (
-                      <feature.icon className="w-4 h-4" />
+                      <feature.icon className="w-5 h-5" />
                     ) : feature.customIcon ? (
                       <feature.customIcon />
                     ) : null}
                   </div>
-                  <h3 className="text-lg font-semibold text-foreground">
+                  <h3 className="text-2xl md:text-3xl font-semibold text-foreground">
                     {feature.title}
                   </h3>
+                  <p className="text-muted-foreground leading-relaxed max-w-md">
+                    {feature.description}
+                  </p>
                 </div>
-                <p className="text-sm text-muted-foreground leading-relaxed text-center">
-                  {feature.description}
-                </p>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>
