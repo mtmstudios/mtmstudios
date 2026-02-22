@@ -3,7 +3,11 @@ import BlurText from "@/components/BlurText";
 
 const appleEase = [0.16, 1, 0.3, 1] as const;
 
-const PhoneHero = () => {
+interface PhoneHeroProps {
+  testPhoneNumber?: string;
+}
+
+const PhoneHero = ({ testPhoneNumber }: PhoneHeroProps) => {
   return (
     <section className="min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 pt-24 overflow-hidden">
       <BlurText
@@ -123,6 +127,68 @@ const PhoneHero = () => {
           >
             Anruf läuft…
           </motion.text>
+
+          {/* Call Button */}
+          {testPhoneNumber && (
+            <>
+              {/* Pulsing glow ring */}
+              <motion.circle
+                cx="160"
+                cy="400"
+                r="32"
+                fill="none"
+                stroke="#22c55e"
+                strokeWidth="2"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: [0, 0.3, 0.6, 0.3], scale: [1, 1.1, 1] }}
+                transition={{ duration: 2, repeat: Infinity, delay: 3 }}
+              />
+              {/* Green circle */}
+              <motion.circle
+                cx="160"
+                cy="400"
+                r="26"
+                fill="#22c55e"
+                initial={{ opacity: 0, scale: 0.5 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6, delay: 3, ease: appleEase }}
+              />
+              {/* Phone icon */}
+              <motion.path
+                d="M152 393c0-1.1.9-2 2-2h1.5a1 1 0 0 1 .9.6l1.2 2.4a1 1 0 0 1-.2 1.1l-1.4 1.4a8 8 0 0 0 4.5 4.5l1.4-1.4a1 1 0 0 1 1.1-.2l2.4 1.2a1 1 0 0 1 .6.9V404a2 2 0 0 1-2 2 12 12 0 0 1-12-12z"
+                fill="white"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.4, delay: 3.3 }}
+              />
+              {/* "Jetzt testen" label */}
+              <motion.text
+                x="160"
+                y="445"
+                textAnchor="middle"
+                fill="#22c55e"
+                style={{ fontSize: "11px", fontWeight: 500 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 0.8 }}
+                transition={{ duration: 0.6, delay: 3.4 }}
+              >
+                Jetzt testen
+              </motion.text>
+              {/* Clickable foreignObject overlay */}
+              <foreignObject x="130" y="370" width="60" height="80">
+                <a
+                  href={`tel:${testPhoneNumber}`}
+                  style={{
+                    display: "block",
+                    width: "100%",
+                    height: "100%",
+                    cursor: "pointer",
+                  }}
+                  aria-label="Testbot anrufen"
+                />
+              </foreignObject>
+            </>
+          )}
         </svg>
       </motion.div>
     </section>
