@@ -4,9 +4,9 @@ import { useRef } from "react";
 const appleEase = [0.16, 1, 0.3, 1] as const;
 
 const nodes = [
-  { label: "KI", x: 0 },
-  { label: "Entscheidung", x: 50 },
-  { label: "Mensch", x: 100 },
+  { label: "KI", emoji: "🤖" },
+  { label: "Entscheidung", emoji: "⟡" },
+  { label: "Mensch", emoji: "👤" },
 ];
 
 const FlowDotsAnimation = () => {
@@ -16,29 +16,32 @@ const FlowDotsAnimation = () => {
   return (
     <div ref={ref} className="h-full flex items-center justify-center px-8">
       <div className="relative w-full max-w-[260px]">
-        {/* Connecting line */}
+        {/* Gradient connecting line */}
         {inView && (
           <motion.div
-            className="absolute top-1/2 left-[24px] right-[24px] h-[2px] -translate-y-1/2 bg-accent/20"
+            className="absolute top-1/2 left-[28px] right-[28px] h-[2px] -translate-y-1/2"
+            style={{ background: "linear-gradient(90deg, hsl(var(--accent) / 0.1), hsl(var(--accent) / 0.3), hsl(var(--accent) / 0.1))" }}
             initial={{ scaleX: 0 }}
             animate={{ scaleX: 1 }}
             transition={{ duration: 0.8, ease: appleEase }}
-            style={{ transformOrigin: "left" }}
+            // @ts-ignore
+            style2={{ transformOrigin: "left" }}
           />
         )}
 
         {/* Traveling dot */}
         {inView && (
           <motion.div
-            className="absolute top-1/2 -translate-y-1/2 w-2.5 h-2.5 rounded-full bg-accent shadow-[0_0_12px_hsl(var(--accent)/0.6)]"
+            className="absolute top-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-accent"
+            style={{ boxShadow: "0 0 20px hsl(var(--accent) / 0.5)" }}
             animate={{
-              left: ["24px", "calc(50% - 5px)", "calc(50% - 5px)", "calc(100% - 29px)"],
+              left: ["28px", "calc(50% - 6px)", "calc(50% - 6px)", "calc(100% - 34px)"],
             }}
             transition={{
-              duration: 3,
-              times: [0, 0.35, 0.55, 1],
+              duration: 5,
+              times: [0, 0.3, 0.6, 1],
               repeat: Infinity,
-              repeatDelay: 1,
+              repeatDelay: 2,
               ease: "easeInOut",
             }}
           />
@@ -54,9 +57,9 @@ const FlowDotsAnimation = () => {
               animate={inView ? { opacity: 1, scale: 1 } : {}}
               transition={{ duration: 0.4, delay: 0.2 + i * 0.15, ease: appleEase }}
             >
-              <div className="w-12 h-12 rounded-full bg-accent/10 border border-accent/30 flex items-center justify-center">
-                <span className="text-accent text-xs font-medium">
-                  {i === 0 ? "🤖" : i === 1 ? "⟡" : "👤"}
+              <div className="w-14 h-14 rounded-full bg-accent/10 border border-accent/30 flex items-center justify-center transition-all duration-300 hover:bg-accent/20">
+                <span className="text-accent text-sm font-medium">
+                  {node.emoji}
                 </span>
               </div>
               <span className="text-[10px] text-muted-foreground whitespace-nowrap">

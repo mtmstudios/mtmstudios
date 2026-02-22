@@ -1,6 +1,28 @@
-import { motion } from "motion/react";
+import { motion, useInView } from "motion/react";
+import { useRef, useEffect, useState } from "react";
 
 const appleEase = [0.16, 1, 0.3, 1] as const;
+
+const CountUp = ({ target }: { target: number }) => {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true });
+  const [value, setValue] = useState(0);
+
+  useEffect(() => {
+    if (!inView) return;
+    const duration = 2000;
+    const start = performance.now();
+    const step = (now: number) => {
+      const t = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - t, 3);
+      setValue(Math.round(eased * target));
+      if (t < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }, [inView, target]);
+
+  return <span ref={ref}>{value} %</span>;
+};
 
 const ProblemSection = () => {
   return (
@@ -35,7 +57,7 @@ const ProblemSection = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.3, ease: appleEase }}
         >
-          62 % aller Anrufer legen auf, wenn niemand abhebt.
+          <CountUp target={62} /> aller Anrufer legen auf, wenn niemand abhebt.
         </motion.p>
       </div>
     </section>

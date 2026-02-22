@@ -5,9 +5,14 @@ const appleEase = [0.16, 1, 0.3, 1] as const;
 const PhoneTestimonial = () => {
   return (
     <section className="py-32 px-6">
-      <div className="max-w-3xl mx-auto text-center">
+      <div className="max-w-3xl mx-auto text-center relative">
+        {/* Decorative quotation mark */}
+        <span className="absolute -top-8 left-1/2 -translate-x-1/2 md:left-0 md:translate-x-0 text-8xl text-accent/10 font-serif leading-none select-none pointer-events-none">
+          „
+        </span>
+
         <motion.blockquote
-          className="text-xl md:text-2xl lg:text-3xl font-light italic text-foreground leading-relaxed"
+          className="text-xl md:text-2xl lg:text-3xl font-light italic text-foreground leading-relaxed relative z-10"
           initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
           whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           viewport={{ once: true }}

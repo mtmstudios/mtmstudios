@@ -12,6 +12,7 @@ const TypewriterAnimation = () => {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true });
   const [displayed, setDisplayed] = useState<string[]>([]);
+  const [completedLines, setCompletedLines] = useState<Set<number>>(new Set());
 
   useEffect(() => {
     if (!inView) return;
@@ -28,36 +29,46 @@ const TypewriterAnimation = () => {
       setDisplayed([...current]);
 
       if (charIdx >= lines[lineIdx].length) {
+        setCompletedLines((prev) => new Set(prev).add(lineIdx));
         lineIdx++;
         charIdx = 0;
         if (lineIdx < lines.length) {
-          setTimeout(tick, 400);
+          setTimeout(tick, 600);
         }
       } else {
-        setTimeout(tick, 35);
+        const delay = 25 + Math.random() * 35;
+        setTimeout(tick, delay);
       }
     };
 
-    setTimeout(tick, 600);
+    setTimeout(tick, 800);
   }, [inView]);
 
   return (
     <div ref={ref} className="h-full flex items-center justify-center px-6">
-      <div className="font-mono text-sm space-y-2 w-full max-w-[240px]">
+      <div className="font-mono text-base space-y-2 w-full max-w-[260px]">
         {displayed.map((line, i) => (
           <motion.div
             key={i}
             className="text-accent/70"
             initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.15 }}
+            animate={{
+              opacity: 1,
+              textShadow: completedLines.has(i)
+                ? ["0 0 0px hsl(var(--accent) / 0)", "0 0 8px hsl(var(--accent) / 0.3)", "0 0 0px hsl(var(--accent) / 0)"]
+                : "none",
+            }}
+            transition={{
+              duration: 0.15,
+              textShadow: completedLines.has(i) ? { duration: 0.8, ease: "easeOut" } : undefined,
+            }}
           >
             {line}
             {i === displayed.length - 1 && displayed[i]?.length < lines[i]?.length && (
               <motion.span
                 className="inline-block w-[2px] h-4 bg-accent/60 ml-0.5 align-middle"
                 animate={{ opacity: [1, 0] }}
-                transition={{ duration: 0.5, repeat: Infinity }}
+                transition={{ duration: 0.7, repeat: Infinity }}
               />
             )}
           </motion.div>
@@ -66,7 +77,7 @@ const TypewriterAnimation = () => {
           <motion.span
             className="inline-block w-[2px] h-4 bg-accent/60"
             animate={{ opacity: [1, 0] }}
-            transition={{ duration: 0.5, repeat: Infinity }}
+            transition={{ duration: 0.7, repeat: Infinity }}
           />
         )}
       </div>
