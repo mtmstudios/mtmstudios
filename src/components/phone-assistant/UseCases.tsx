@@ -35,7 +35,7 @@ const UseCases = () => {
           Für jede Branche.
         </motion.h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8">
           {useCases.map((uc, i) => (
             <motion.div
               key={uc.title}
@@ -43,8 +43,15 @@ const UseCases = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: i * 0.1, ease: appleEase }}
+              className={`py-6 transition-all duration-300 hover:pl-2 ${
+                i < useCases.length - 1 || i < useCases.length - 2
+                  ? "border-b border-white/[0.06]"
+                  : ""
+              }`}
             >
-              <h3 className="text-foreground font-semibold text-lg">{uc.title}</h3>
+              <h3 className="text-foreground font-semibold text-lg transition-colors duration-300 hover:text-accent">
+                {uc.title}
+              </h3>
               <p className="text-muted-foreground mt-1">{uc.description}</p>
             </motion.div>
           ))}

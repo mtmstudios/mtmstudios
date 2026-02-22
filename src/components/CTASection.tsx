@@ -50,7 +50,7 @@ const CTASection = () => {
           <a href="#kontakt">
             <Button
               size="lg"
-              className="bg-foreground text-background hover:bg-foreground/90 font-semibold text-lg px-10 py-6 rounded-full transition-all duration-200"
+              className="bg-foreground text-background hover:bg-foreground/90 font-semibold text-lg px-10 py-6 rounded-full transition-all duration-300 hover:shadow-[0_0_30px_hsl(var(--accent)/0.2)]"
             >
               Jetzt beraten lassen
             </Button>

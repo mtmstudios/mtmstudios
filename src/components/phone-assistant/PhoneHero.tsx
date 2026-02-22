@@ -64,28 +64,51 @@ const PhoneHero = () => {
             transition={{ delay: 2.2, duration: 0.4 }}
           />
 
+          {/* Glow behind waveform */}
+          <motion.circle
+            cx="160"
+            cy="250"
+            r="60"
+            fill="hsl(var(--accent))"
+            fillOpacity="0.06"
+            filter="url(#waveGlow)"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: [0, 0.8, 0.4, 0.8, 0.4] }}
+            transition={{ duration: 6, repeat: Infinity, delay: 2.5 }}
+          />
+          <defs>
+            <filter id="waveGlow">
+              <feGaussianBlur stdDeviation="30" />
+            </filter>
+          </defs>
+
           {/* Waveform bars inside the phone */}
-          {[0, 1, 2, 3, 4, 5, 6].map((i) => (
-            <motion.rect
-              key={i}
-              x={100 + i * 18}
-              width="8"
-              rx="4"
-              fill="hsl(var(--accent))"
-              fillOpacity="0.5"
-              initial={{ y: 250, height: 20 }}
-              animate={{
-                height: [20, 30 + Math.random() * 60, 20, 40 + Math.random() * 40, 20],
-                y: [250, 250 - (30 + Math.random() * 60) / 2, 250, 250 - (40 + Math.random() * 40) / 2, 250],
-              }}
-              transition={{
-                duration: 2.5,
-                repeat: Infinity,
-                delay: 2.5 + i * 0.1,
-                ease: "easeInOut",
-              }}
-            />
-          ))}
+          {[0, 1, 2, 3, 4, 5, 6].map((i) => {
+            const h1 = 40 + Math.random() * 80;
+            const h2 = 40 + Math.random() * 80;
+            const h3 = 40 + Math.random() * 80;
+            return (
+              <motion.rect
+                key={i}
+                x={97 + i * 19}
+                width="10"
+                rx="5"
+                fill="hsl(var(--accent))"
+                fillOpacity="0.5"
+                initial={{ y: 250, height: 20 }}
+                animate={{
+                  height: [20, h1, 20, h2, 20, h3, 20],
+                  y: [250, 250 - h1 / 2, 250, 250 - h2 / 2, 250, 250 - h3 / 2, 250],
+                }}
+                transition={{
+                  duration: 3.5,
+                  repeat: Infinity,
+                  delay: 2.5 + i * 0.1,
+                  ease: "easeInOut",
+                }}
+              />
+            );
+          })}
 
           {/* "Anruf läuft" text */}
           <motion.text
@@ -96,7 +119,7 @@ const PhoneHero = () => {
             style={{ fontSize: "12px" }}
             initial={{ opacity: 0 }}
             animate={{ opacity: [0, 0.7, 0.7, 0] }}
-            transition={{ duration: 4, repeat: Infinity, delay: 2.5 }}
+            transition={{ duration: 6, repeat: Infinity, delay: 2.5 }}
           >
             Anruf läuft…
           </motion.text>

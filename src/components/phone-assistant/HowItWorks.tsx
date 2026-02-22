@@ -44,13 +44,13 @@ const HowItWorks = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.8, delay: index * 0.15, ease: appleEase }}
-                className={`relative rounded-2xl p-8 md:p-10 min-h-[240px] ${
+                className={`group relative rounded-2xl p-8 md:p-10 min-h-[240px] transition-all duration-300 hover:translate-y-[-2px] hover:bg-white/[0.06] ${
                   isLast
                     ? "bg-neon/5 backdrop-blur-md border border-neon/20"
                     : "bg-white/[0.03] backdrop-blur-md"
                 }`}
               >
-                <span className="block text-lg font-mono tracking-widest text-neon/40 mb-6 select-none">
+                <span className="block text-lg font-mono tracking-widest text-neon/40 mb-6 select-none transition-colors duration-300 group-hover:text-neon/60">
                   {step.number}
                 </span>
                 <h3 className={`text-xl md:text-2xl font-semibold mb-3 ${isLast ? "text-neon" : "text-foreground"}`}>

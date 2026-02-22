@@ -34,12 +34,12 @@ const PhoneDemo = () => {
             className="absolute rounded-full border border-neon/30"
             initial={{ width: 40, height: 40, opacity: 0.6 }}
             animate={{
-              width: [40, isHovered ? 160 : 130],
-              height: [40, isHovered ? 160 : 130],
+              width: [40, isHovered ? 180 : 160],
+              height: [40, isHovered ? 180 : 160],
               opacity: [0.6, 0],
             }}
             transition={{
-              duration: 3,
+              duration: 4,
               repeat: Infinity,
               delay: i * 0.8,
               ease: "easeOut",
@@ -95,7 +95,7 @@ const TypingIndicator = () => (
         key={i}
         className="w-1.5 h-1.5 rounded-full bg-[hsl(142_70%_49%)]"
         animate={{ opacity: [0.3, 1, 0.3], y: [0, -3, 0] }}
-        transition={{ duration: 0.8, repeat: Infinity, delay: i * 0.15 }}
+        transition={{ duration: 1, repeat: Infinity, delay: i * 0.15 }}
       />
     ))}
   </div>
@@ -192,9 +192,9 @@ const WorkflowDemo = () => {
         )}
         {inView && (
           <motion.div
-            className="absolute top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-neon shadow-[0_0_8px_hsl(var(--neon))]"
+            className="absolute top-1/2 -translate-y-1/2 w-2.5 h-2.5 rounded-full bg-neon shadow-[0_0_16px_hsl(var(--neon))]"
             animate={{ left: ["24px", "calc(100% - 24px)"] }}
-            transition={{ duration: 2, repeat: Infinity, repeatDelay: 0.5, ease: "easeInOut" }}
+            transition={{ duration: 3, repeat: Infinity, repeatDelay: 0.8, ease: "easeInOut" }}
           />
         )}
         {steps.map((step, i) => (
