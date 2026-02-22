@@ -1,92 +1,55 @@
 
 
-## Automatisierungen-Seite + Umbenennung zu MTM Studios
+## Bild als Hero-Visual mit Apple-Animationen
 
-Zwei Aufgaben in einem: Die neue Automatisierungen-Seite bauen und gleichzeitig ueberall "Setrex" durch "MTM Studios" ersetzen.
-
----
-
-### Teil 1: Umbenennung Setrex zu MTM Studios
-
-Alle Vorkommen von "Setrex" werden zu "MTM Studios" geaendert:
-
-| Datei | Aenderung |
-|-------|-----------|
-| `index.html` | `meta author` von "Setrex" zu "MTM Studios" |
-| `src/components/Navigation.tsx` | Logo alt-Text: "MTM Studios Logo" (2 Stellen) |
-| `src/components/Footer.tsx` | Logo alt-Text, E-Mail zu `info@mtmstudios.de`, Copyright zu "MTM Studios" |
-| `src/pages/AboutUs.tsx` | "About Setrex" Badge, Firmenname im Fliesstext |
-
-Hinweis: Die E-Mail-Adresse wird zu `info@mtmstudios.de` geaendert -- falls eine andere Domain gewuenscht ist, bitte Bescheid geben.
+Das hochgeladene iPhone-Bild (KI-Telefonassistent Anruf-Screen) ersetzt die aktuelle SVG-Animation im PhoneHero.
 
 ---
 
-### Teil 2: Automatisierungen-Seite
+### Aenderungen
 
-8 Sektionen, Apple-like Premium-Qualitaet, vertrauensbildend.
+**Kopiert:**
+- `user-uploads://KITELEFON-2.png` nach `src/assets/ki-telefon.png`
 
-**Sektion 1: Hero**
-- Headline: `Automatisierung, die mit euch waechst.`
-- Subline: `Vom ersten kleinen Workflow bis zur kompletten Prozesslandschaft. Euer Partner im Zeitalter der KI.`
-- Animation: GearFlowVisual -- 3 ineinandergreifende Zahnraeder (klein, mittel, gross) die sich drehen, mit leuchtenden Datenpunkten entlang der Verbindungslinien.
-
-**Sektion 2: Problem**
-- Headline: `Euer Team ist zu gut fuer Routinearbeit.`
-- CountUp-Statistik: `73% aller Arbeitsschritte lassen sich automatisieren.`
-
-**Sektion 3: Das Spektrum (einzigartig fuer diese Seite)**
-- Headline: `Von der ersten Automation zur kompletten Transformation.`
-- 3 aufsteigende Karten:
-  - **Kleine Helfer:** E-Mail-Weiterleitung, Kalender-Sync, Benachrichtigungen
-  - **Vernetzte Prozesse:** Lead-Erfassung, Rechnungsstellung, Kundenkommunikation
-  - **Komplette Automatisierung:** Sales-Pipelines, Onboarding, Reporting (Neon-Highlight)
-- Animierte Verbindungslinie mit leuchtenden Punkten zwischen den Karten
-
-**Sektion 4: So funktioniert's**
-- 3 Schritte: Analyse, Umsetzung, Skalierung
-- Gleicher Stil wie die anderen Seiten
-
-**Sektion 5: Features (4 mit eigenen Animationen)**
-- **Nahtlose Integration** -- IntegrationNodesAnimation (Tool-Icons verbinden sich mit Hub)
-- **Massgeschneidert** -- BlueprintAnimation (Bauplan-Grid mit leuchtenden Nodes)
-- **Messbare Ergebnisse** -- MetricsAnimation (wachsende Balken mit CountUp-Zahlen)
-- **Zukunftssicher** -- ScaleUpAnimation (stufenweise Vergroesserung mit Pulse)
-
-**Sektion 6: Vertrauen (Trust-Builder)**
-- 2x2 Grid mit CountUp-Zahlen:
-  - 100+ automatisierte Workflows
-  - 15h+ pro Woche eingespart
-  - 98% Kundenzufriedenheit
-  - 24/7 Prozesse laufen immer
-
-**Sektion 7: Testimonial**
-- "MTM Studios hat unseren kompletten Sales-Prozess automatisiert..."
-
-**Sektion 8: CTA + Footer** -- Wiederverwendet
+**Geaendert:**
+- `src/components/phone-assistant/PhoneHero.tsx`
 
 ---
 
-### Technische Umsetzung
+### Animationskonzept (Apple-Vibe)
 
-**Neue Dateien (12):**
-- `src/pages/Automations.tsx`
-- `src/components/automations/AutomationsHero.tsx`
-- `src/components/automations/AutomationsProblem.tsx`
-- `src/components/automations/AutomationsSpectrum.tsx`
-- `src/components/automations/AutomationsHowItWorks.tsx`
-- `src/components/automations/AutomationsFeatures.tsx`
-- `src/components/automations/IntegrationNodesAnimation.tsx`
-- `src/components/automations/BlueprintAnimation.tsx`
-- `src/components/automations/MetricsAnimation.tsx`
-- `src/components/automations/ScaleUpAnimation.tsx`
-- `src/components/automations/TrustSection.tsx`
-- `src/components/automations/AutomationsTestimonial.tsx`
+Der gesamte SVG-Block (Zeilen 27-127) wird entfernt und durch das Bild ersetzt. Drei gestaffelte Animationsschichten erzeugen den Apple-Effekt:
 
-**Geaenderte Dateien (6):**
-- `index.html` -- Author-Meta umbenennen
-- `src/App.tsx` -- Route `/automatisierungen` hinzufuegen
-- `src/components/Navigation.tsx` -- Logo-Alt umbenannt, "Automatisierungen" Link zu `/automatisierungen`
-- `src/components/Footer.tsx` -- Name, E-Mail, Copyright umbenannt, Automatisierungen-Link
-- `src/components/FeaturesSection.tsx` -- Dritte Karte href zu `/automatisierungen`
-- `src/pages/AboutUs.tsx` -- Alle "Setrex"-Vorkommen zu "MTM Studios"
+1. **Bild-Einblendung** (Hauptelement)
+   - Scale von 0.9 auf 1 (leichtes "Heranzoomen")
+   - Opacity von 0 auf 1
+   - Y-Translate von +50px auf 0 (schwebt nach oben)
+   - Dauer: 1.2s, Delay: 0.8s (nach Headline), Apple-Easing `[0.16, 1, 0.3, 1]`
+
+2. **Glow-Ring** (hinter dem Bild)
+   - Ein weiches, unscharfes Neon-Tuerkis-Licht hinter dem Telefon
+   - Fadet mit leichter Verzoegerung ein (Delay: 1.2s)
+   - Pulsiert sanft (Opacity zwischen 0.3 und 0.6) in einer Endlosschleife
+   - Erzeugt durch ein absolut positioniertes `motion.div` mit `blur` und `rounded-full`
+
+3. **Subtiler Float-Effekt** (nach Einblendung)
+   - Das Bild schwebt leicht auf und ab (Y: -8px bis +8px)
+   - Sehr langsam (6s Zyklus), endlos
+   - Gibt dem Bild eine lebendige, schwebende Qualitaet
+
+### Groesse und Responsive
+
+- Mobile: max-width ~280px
+- Desktop: max-width ~360px
+- Das Bild behaelt seinen transparenten Hintergrund, sodass es nahtlos auf dem dunklen Hintergrund sitzt
+
+### Struktur im Code
+
+```text
+<motion.div>  (Container: relative, flex-center)
+  |
+  +-- <motion.div>  (Glow: absolute, centered, blur, neon bg, pulsing)
+  |
+  +-- <motion.img>  (Bild: scale+fade+translateY entry, then float)
+```
 
