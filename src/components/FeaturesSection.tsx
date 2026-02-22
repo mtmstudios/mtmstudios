@@ -237,7 +237,7 @@ const features = [
     description:
       "Workflows optimieren und wertvolle Zeit sparen – mit maßgeschneiderten KI-Lösungen für eure Prozesse.",
     Demo: WorkflowDemo,
-    href: "#automatisierungen",
+    href: "/automatisierungen",
   },
 ];
 
