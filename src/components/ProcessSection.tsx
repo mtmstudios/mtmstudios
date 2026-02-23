@@ -34,37 +34,32 @@ const ProcessSection = () => {
           Von der Idee zur Lösung
         </motion.h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-          {steps.map((step, index) => {
-            const isLast = index === steps.length - 1;
-
-            return (
-              <motion.div
-                key={step.number}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.8, delay: index * 0.15, ease: appleEase }}
-                className={`group relative rounded-2xl p-8 md:p-10 min-h-[240px] transition-all duration-300 hover:translate-y-[-2px] hover:bg-white/[0.06] ${
-                  isLast
-                    ? "bg-neon/5 backdrop-blur-md border border-neon/20"
-                    : "bg-white/[0.03] backdrop-blur-md"
-                }`}
-              >
-                <span className="block text-lg font-mono tracking-widest text-neon/40 mb-6 select-none transition-colors duration-300 group-hover:text-neon/60">
-                  {step.number}
-                </span>
-
-                <h3 className={`text-xl md:text-2xl font-semibold mb-3 ${isLast ? "text-neon" : "text-foreground"}`}>
+        <div className="max-w-4xl mx-auto">
+          {steps.map((step, index) => (
+            <motion.div
+              key={step.number}
+              initial={{ opacity: 0, y: 30, filter: "blur(8px)" }}
+              whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.8, delay: index * 0.15, ease: appleEase }}
+              whileHover={{ x: 8 }}
+              className={`group flex items-start gap-6 md:gap-10 py-8 md:py-10 border-t border-border/10 cursor-default ${
+                index === steps.length - 1 ? "border-b border-border/10" : ""
+              }`}
+            >
+              <span className="text-5xl md:text-6xl font-bold text-accent/20 select-none transition-colors duration-300 group-hover:text-accent/50 shrink-0 leading-none pt-1">
+                {step.number}
+              </span>
+              <div>
+                <h3 className="text-xl md:text-2xl font-bold text-foreground mb-2 transition-colors duration-300 group-hover:text-accent">
                   {step.title}
                 </h3>
-
                 <p className="text-muted-foreground leading-relaxed">
                   {step.description}
                 </p>
-              </motion.div>
-            );
-          })}
+              </div>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>
