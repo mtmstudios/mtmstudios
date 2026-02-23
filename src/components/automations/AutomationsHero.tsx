@@ -14,8 +14,8 @@ const AutomationsHero = () => {
         />
 
         <motion.p
-          className="text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed"
-          style={{ textShadow: '0 2px 20px rgba(0,0,0,0.8)' }}
+          className="text-lg md:text-xl text-foreground/70 max-w-2xl leading-relaxed"
+          style={{ textShadow: '0 2px 20px rgba(0,0,0,0.9), 0 0 40px rgba(0,0,0,0.6)' }}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6, ease: appleEase }}
