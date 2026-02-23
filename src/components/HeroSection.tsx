@@ -9,7 +9,7 @@ const HeroSection = () => {
   return (
     <section className="min-h-[70vh] flex items-start justify-center overflow-hidden pt-[15vh]">
       <div className="container mx-auto px-6 py-0 text-center">
-        <h1 className="text-4xl md:text-7xl lg:text-8xl font-bold text-foreground mb-2 leading-snug flex flex-col items-center">
+        <h1 className="text-4xl md:text-7xl lg:text-8xl font-bold text-foreground mb-2 leading-snug flex flex-col items-center" style={{ textShadow: '0 2px 30px rgba(0,0,0,0.6)' }}>
           <span className="flex items-baseline gap-x-[0.3em]">
             <BlurText text="Wir bauen KI-Lösungen," delay={60} className="inline" animateBy="words" direction="bottom" stepDuration={0.5} animationFrom={{
               filter: 'blur(12px)',
@@ -69,7 +69,7 @@ const HeroSection = () => {
           duration: 1,
           delay: 0.5,
           ease: smoothEase
-        }} className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-12 leading-relaxed">
+        }} className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-12 leading-relaxed" style={{ textShadow: '0 2px 20px rgba(0,0,0,0.8)' }}>
           Intelligente KI-Lösungen, die euer Team entlasten — rund um die Uhr.
         </motion.p>
 
@@ -106,7 +106,7 @@ const HeroSection = () => {
           duration: 1.2,
           delay: 1,
           ease: smoothEase
-        }} className="mt-32" />
+        }} className="mt-16" />
       </div>
     </section>
   );
