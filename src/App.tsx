@@ -10,6 +10,9 @@ import AboutUs from "./pages/AboutUs";
 import PhoneAssistant from "./pages/PhoneAssistant";
 import Chatbots from "./pages/Chatbots";
 import Automations from "./pages/Automations";
+import Impressum from "./pages/Impressum";
+import Datenschutz from "./pages/Datenschutz";
+import AGB from "./pages/AGB";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -28,6 +31,9 @@ const App = () => (
             <Route path="/telefonassistent" element={<PhoneAssistant />} />
             <Route path="/chatbots" element={<Chatbots />} />
             <Route path="/automatisierungen" element={<Automations />} />
+            <Route path="/impressum" element={<Impressum />} />
+            <Route path="/datenschutz" element={<Datenschutz />} />
+            <Route path="/agb" element={<AGB />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
