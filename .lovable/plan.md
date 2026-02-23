@@ -1,90 +1,52 @@
 
 
-## Multi-Step Anfrage-Funnel -- Implementierung
+## Footer-Erweiterung und rechtliche Seiten
 
-### Ueberblick
-Ein hochwertiger, mehrstufiger Kontakt-Funnel als Dialog-Overlay mit Premium-Animationen. Der Funnel oeffnet sich von allen "Jetzt anfragen" / "Jetzt beraten lassen" Buttons auf der gesamten Seite.
+### 1. Footer-Aenderungen (`src/components/Footer.tsx`)
 
----
+**Copyright-Bereich erweitern:**
+- "Mit ❤️ fuer den Mittelstand." als eigene Zeile unter dem Copyright, mit einem Lucide `Heart`-Icon in Accent-Farbe (tuerkis, gefuellt)
+- Darunter eine Zeile mit Links zu Impressum, Datenschutz und AGB, getrennt durch dezente Punkte oder Separatoren
+- Layout: Alles zentriert, dezent in `text-muted-foreground text-xs`
 
-### Neue Dateien
+**Ergebnis im Copyright-Bereich:**
+```
+© 2025 MTM Studios
+Mit [Heart] fuer den Mittelstand.
+Impressum  ·  Datenschutz  ·  AGB
+```
 
-**1. `src/contexts/ContactFunnelContext.tsx`**
-- React Context mit `isOpen` / `setIsOpen` State
-- `useContactFunnel()` Hook fuer globalen Zugriff
-- `ContactFunnelProvider` Wrapper-Komponente
+### 2. Drei neue Seiten (Platzhalter-Inhalte)
 
-**2. `src/components/ContactFunnel.tsx`**
-Drei-Schritte-Dialog mit hochwertigen Animationen:
+Alle drei Seiten folgen dem gleichen Layout-Pattern: Navigation oben, Content zentriert, Footer unten. Dunkler Hintergrund passend zum Rest der Seite. Prose-artiges Layout mit max-w-3xl.
 
-**Schritt 1 -- "Was braucht ihr?"**
-- 4 Auswahl-Karten im Glassmorphism-Design (Mehrfachauswahl moeglich):
-  - KI-Telefonassistent
-  - WhatsApp und Chatbots
-  - Automatisierungen
-  - Ich weiss es noch nicht
-- Jede Karte hat ein Lucide-Icon, Accent-Border bei Selektion, Hover-Glow-Effekt
-- AnimatePresence mit staggered Blur-in fuer die Karten
-- "Weiter"-Button unten, aktiviert sobald mindestens 1 Option gewaehlt
+**`src/pages/Impressum.tsx`**
+- Titel: "Impressum"
+- Standard-Platzhalter mit typischen Impressum-Feldern (Firmenname, Adresse, Kontakt, Vertretungsberechtigter, Handelsregister, USt-IdNr.)
+- Alle Werte als Platzhalter markiert zum spaeteren Ausfuellen
 
-**Schritt 2 -- "Wie erreichen wir euch?"**
-- Formular mit: Name (Pflicht), E-Mail (Pflicht), Telefon (optional), Nachricht (optional)
-- Zod-Validierung fuer Name und E-Mail
-- Inputs mit dunklem Glassmorphism-Styling passend zum Design
-- Slide-in Animation von rechts beim Uebergang von Schritt 1
-- "Zurueck"- und "Absenden"-Buttons
+**`src/pages/Datenschutz.tsx`**
+- Titel: "Datenschutzerklarung"
+- Platzhalter-Sections: Verantwortlicher, Erhebung und Speicherung, Weitergabe, Cookies, Rechte der Betroffenen, etc.
 
-**Schritt 3 -- "Geschafft!"**
-- Animierter Checkmark (scale-in mit Glow-Effekt)
-- Bestaetigunstext: "Wir melden uns innerhalb von 24h bei euch."
-- "Schliessen"-Button
-- Konfetti-artiger Accent-Glow-Pulse im Hintergrund
+**`src/pages/AGB.tsx`**
+- Titel: "Allgemeine Geschaeftsbedingungen"
+- Platzhalter-Sections: Geltungsbereich, Vertragsschluss, Leistungen, Zahlung, Haftung, etc.
 
-**Dialog-Design:**
-- Radix Dialog als Basis
-- Overlay: `bg-black/60 backdrop-blur-sm`
-- Content: `bg-background/95 backdrop-blur-xl border border-border/20 rounded-3xl`
-- Max-Width: `max-w-xl`, zentriert
-- Fortschrittsanzeige: 3 kleine Striche oben, aktiver Schritt in Accent-Farbe mit animierter Breite
-- Alle Step-Transitions via `AnimatePresence` mit `mode="wait"`, Slide + Blur-Effekt
-- Close-Button oben rechts (X), dezent
+### 3. Routing (`src/App.tsx`)
 
----
+Drei neue Routes hinzufuegen:
+- `/impressum` -> Impressum
+- `/datenschutz` -> Datenschutz
+- `/agb` -> AGB
 
-### Aenderungen an bestehenden Dateien
+### Dateien-Uebersicht
 
-**3. `src/App.tsx`**
-- Import und Einbindung von `ContactFunnelProvider` (umschliesst alles)
-- `ContactFunnel` Komponente einmal global rendern (innerhalb des Providers, ausserhalb der Routes)
-
-**4. `src/components/Navigation.tsx`**
-- Import von `useContactFunnel`
-- Desktop: "Jetzt anfragen" Link (Zeile 131-133) wird zu `<button>` mit `onClick={() => setIsOpen(true)}`
-- Mobile Sheet: "Jetzt anfragen" (Zeile 68-74) wird zu `<button>` mit Funnel-Open und Sheet-Close
-- Tablet: "Jetzt anfragen" (Zeile 99-101) wird zu `<button>` mit Funnel-Open
-
-**5. `src/components/CTASection.tsx`**
-- Import von `useContactFunnel`
-- "Jetzt beraten lassen" Button (Zeile 50-57): `<a href="#kontakt">` wird zu `<button onClick={() => setIsOpen(true)}>` mit dem gleichen Button-Styling
-
-**6. `src/components/HeroSection.tsx`**
-- Import von `useContactFunnel`
-- "Jetzt beraten lassen" Button (Zeile 89-92): `<a href="#kontakt">` wird zu `<button onClick={() => setIsOpen(true)}>` mit dem gleichen Button-Styling
-
----
-
-### Animations-Details
-
-- **Step-Uebergaenge**: `initial={{ opacity: 0, x: 40, filter: "blur(10px)" }}` / `animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}` / `exit={{ opacity: 0, x: -40, filter: "blur(10px)" }}` mit `appleEase`
-- **Karten-Selektion**: Border animiert von `border-border/10` zu `border-accent/60`, innerer Glow `boxShadow: "0 0 20px hsl(174 72% 48% / 0.15)"`
-- **Fortschrittsbalken**: `layoutId` Animation fuer smooth width-Transition
-- **Checkmark (Schritt 3)**: `scale: [0, 1.2, 1]` mit `spring`-Physik, umgeben von einem pulsierenden Accent-Ring
-- **Dialog-Open**: `animate-in fade-in zoom-in-95` (Radix default, erweitert mit Blur)
-
-### Formular-Handling
-
-Vorerst kein Backend -- das Formular:
-- Validiert client-seitig mit Zod (Name + E-Mail Pflichtfelder)
-- Zeigt Erfolgs-Screen bei Submit
-- Loggt Daten in die Console (spaeter einfach an Supabase/E-Mail-API anschliessbar)
+| Datei | Aktion |
+|---|---|
+| `src/components/Footer.tsx` | Aendern -- Heart-Zeile + Legal-Links |
+| `src/pages/Impressum.tsx` | Neu -- Impressum-Platzhalter |
+| `src/pages/Datenschutz.tsx` | Neu -- Datenschutz-Platzhalter |
+| `src/pages/AGB.tsx` | Neu -- AGB-Platzhalter |
+| `src/App.tsx` | Aendern -- 3 neue Routes |
 
