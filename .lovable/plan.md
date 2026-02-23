@@ -1,41 +1,58 @@
 
 
-## Untertitel auf allen Seiten besser sichtbar machen
+## "Das sind Wir" Seite ueberarbeiten
 
-### Problem
-Die Untertitel (`text-muted-foreground` = 60% Weiss) verschwinden im hellen Bereich des Erd-Hintergrundvideos. Der aktuelle `textShadow: '0 2px 20px rgba(0,0,0,0.8)'` reicht nicht aus.
+### Ueberblick
+Die Seite wird laenger, vertrauensvoller und persoenlicher -- ohne Team-Fotos. Der gewuenschte Leitsatz wird prominent eingebunden. Die Team-Section mit Platzhalter-Kreisen faellt weg.
 
-### Loesung
-Zwei Aenderungen kombiniert fuer maximale Lesbarkeit ohne das Design zu brechen:
+### Aenderungen in `src/pages/AboutUs.tsx`
 
-1. **Textfarbe heller**: Von `text-muted-foreground` (60% Weiss) auf `text-foreground/70` (70% Weiss) -- subtil heller, aber deutlich besser lesbar
-2. **Staerkerer textShadow**: Von einem einzelnen Shadow auf einen doppelten Shadow mit groesserem Spread -- erzeugt einen sanften dunklen "Halo" hinter dem Text
+**1. Hero -- Untertitel erweitern**
+Der kurze Subtitle wird ersetzt durch den gewuenschten Leitsatz:
+> "Technologie schafft Moeglichkeiten, Vertrauen entscheidet. Wir sorgen dafuer, dass KI dir vor allem eines bringt: Zeit fuer deine Kunden."
 
-Neuer Shadow-Wert:
-```
-textShadow: '0 2px 20px rgba(0,0,0,0.9), 0 0 40px rgba(0,0,0,0.6)'
-```
+**2. Mission-Section -- ausfuehrlicher**
+Der bestehende Missions-Text bleibt, wird aber ergaenzt um einen zweiten Absatz der mehr Tiefe gibt:
+> "Unser Versprechen: Keine Black-Box-Loesungen, keine leeren Buzzwords. Sondern Technologie, die ihr versteht, der ihr vertraut — und die ab Tag eins Ergebnisse liefert."
 
-### Betroffene Dateien und Stellen
+**3. Werte-Section -- vierter Wert hinzufuegen**
+Zu den drei bestehenden Werten (Klarheit, Geschwindigkeit, Partnerschaft) kommt ein vierter:
+- **04 — Vertrauen**: "Transparenz in jedem Schritt. Ihr wisst immer, was wir tun, warum wir es tun — und was es euch bringt."
+- Grid aendert sich von `md:grid-cols-3` auf `md:grid-cols-2` fuer bessere Balance mit 4 Karten
+- Die `md:divide-x` Trenner werden entfernt, stattdessen bekommt jede Karte einen subtilen Border (`border border-border/10 rounded-2xl p-8`)
 
-**1. `src/components/HeroSection.tsx` (Zeile ~60)**
-- Subtitle: `className` von `text-muted-foreground` auf `text-foreground/70`
-- textShadow verstaerken
+**4. Team-Section komplett ersetzen**
+Die Team-Section mit Platzhalter-Bildern und Dummy-Namen wird entfernt. Stattdessen kommt eine neue "Warum wir"-Section mit drei kurzen Statements als horizontale Karten:
+- "Persoenlich statt anonym" — "Ihr arbeitet direkt mit uns — nicht mit einem Support-Ticket."
+- "Ergebnisorientiert" — "Wir messen Erfolg nicht in Features, sondern in eingesparter Zeit."
+- "Langfristig gedacht" — "Unsere Loesungen wachsen mit eurem Unternehmen — ohne Vendor Lock-in."
 
-**2. `src/pages/AboutUs.tsx` (Zeile ~102)**
-- Hero-Subtitle: gleiche Aenderung
+Diese werden als schlichte Text-Blocks mit Nummer und Divider dargestellt, kein Foto noetig.
 
-**3. `src/components/chatbot/ChatbotHero.tsx` (Zeile ~247)**
-- Hero-Subtitle: gleiche Aenderung
+**5. Neue Trust-Zahlen-Section (optional, vor CTA)**
+Einfache Statistik-Zeile aehnlich der TrustSection von Automations, aber schlichter:
+- "50+ automatisierte Prozesse"
+- "12h+ eingesparte Zeit pro Woche"  
+- "100% Transparenz"
 
-**4. `src/components/phone-assistant/PhoneHero.tsx` (Zeile ~220)**
-- Hero-Subtitle: gleiche Aenderung
+Drei Zahlen nebeneinander mit CountUp-Animation.
 
-**5. `src/components/automations/AutomationsHero.tsx` (Zeile ~17)**
-- Hero-Subtitle: gleiche Aenderung
+### Technische Details
 
-### Zusammenfassung der Aenderung pro Stelle
-- `text-muted-foreground` wird zu `text-foreground/70`
-- `textShadow: '0 2px 20px rgba(0,0,0,0.8)'` wird zu `textShadow: '0 2px 20px rgba(0,0,0,0.9), 0 0 40px rgba(0,0,0,0.6)'`
+- Datei: `src/pages/AboutUs.tsx` — einzige Datei die geaendert wird
+- `team`-Array und `teamRef`/`teamInView` werden entfernt
+- Neues `reasons`-Array fuer die "Warum wir"-Section
+- Neues `trustStats`-Array fuer die Zahlen-Section
+- Einfacher CountUp wie in `TrustSection.tsx` bereits implementiert (inline, kein Import noetig)
+- Neue refs: `reasonsRef` mit `useInView`, `trustRef` mit `useInView`
+- Alle Animationen nutzen weiterhin `appleEase` und `blur`-Transitions
 
-5 Dateien, jeweils 1-2 Zeilen Aenderung. Kein Logik-Change, nur CSS.
+### Seitenstruktur (neu)
+
+1. **Hero** — "Wir sind MTM Studios." + neuer Leitsatz
+2. **Mission** — Bestehender Text + neuer Vertrauens-Absatz
+3. **Werte** — 4 Karten im 2x2 Grid (Klarheit, Geschwindigkeit, Partnerschaft, Vertrauen)
+4. **Warum wir** — 3 Statements ohne Bilder
+5. **Trust-Zahlen** — 3 Statistiken mit CountUp
+6. **CTA + Footer**
+
