@@ -13,7 +13,7 @@ const logos = [
 
 const LogosSection = () => {
   return (
-    <section className="-mt-16 mb-16">
+    <section className="mt-0 mb-16">
       <div className="container mx-auto px-6">
         <LogoCloud logos={logos} />
       </div>
