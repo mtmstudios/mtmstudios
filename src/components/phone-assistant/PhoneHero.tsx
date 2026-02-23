@@ -1,6 +1,7 @@
 import { motion, useInView } from "motion/react";
 import { useRef } from "react";
 import BlurText from "@/components/BlurText";
+import logoAvatar from "@/assets/logo-phone-avatar.png";
 
 const appleEase = [0.16, 1, 0.3, 1] as const;
 
@@ -52,15 +53,21 @@ const PhoneVisual = ({ testPhoneNumber }: { testPhoneNumber?: string }) => {
           animate={inView ? { opacity: 1, scale: 1 } : {}}
           transition={{ duration: 0.5, delay: 1.6, ease: appleEase }}
         />
-        {/* Phone emoji in avatar */}
-        <motion.text
-          x="160" y="137" textAnchor="middle" fontSize="22"
+        {/* Logo in avatar */}
+        <defs>
+          <clipPath id="avatarClip">
+            <circle cx="160" cy="130" r="28" />
+          </clipPath>
+        </defs>
+        <motion.image
+          href={logoAvatar}
+          x="132" y="102" width="56" height="56"
+          clipPath="url(#avatarClip)"
+          preserveAspectRatio="xMidYMid slice"
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
           transition={{ duration: 0.3, delay: 1.8 }}
-        >
-          📞
-        </motion.text>
+        />
 
         {/* Name */}
         <motion.text
