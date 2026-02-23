@@ -100,6 +100,7 @@ const AboutUs = () => {
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ duration: 0.8, delay: 0.6, ease: appleEase }}
             className="mt-6 text-lg md:text-xl text-muted-foreground max-w-xl text-center leading-relaxed"
+            style={{ textShadow: '0 2px 20px rgba(0,0,0,0.8)' }}
           >
             Wir bauen intelligente Automatisierung, die Unternehmen Zeit zurückgibt — für das, was wirklich zählt.
           </motion.p>
