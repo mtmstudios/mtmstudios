@@ -1,44 +1,84 @@
 
 
-## ChatbotHero Smartphone-Visual Optimierung
+## PhoneHero Redesign -- Gleiches Smartphone, Anruf-Einladung
 
-### Probleme (festgestellt via Screenshot)
-- Header-Hintergrund hat `rx=40` und ueberlappt mit den abgerundeten Ecken des Phone-Frames -- sieht unsauber aus
-- Kein solider Hintergrund im Phone-Inneren -- das Hintergrundvideo scheint durch
-- Zu viel leerer Platz unterhalb der letzten Nachricht
-- Nachrichten sitzen zu hoch, Chat wirkt nicht zentriert
+### Konzept
 
-### Loesung
+Das Smartphone sieht exakt gleich aus wie beim ChatbotHero (gleicher Frame, Notch, solider Hintergrund, ViewBox 320x580, max-w-[380px]). Statt eines Chat-Verlaufs zeigt es einen eleganten **"Bereit zum Testen"**-Bildschirm -- wie eine Kontaktkarte mit Waveform-Visualisierung, die den User einlaedt, den KI-Assistenten anzurufen.
 
-**Datei:** `src/components/chatbot/ChatbotHero.tsx`
+### Visueller Aufbau
 
-**1. Soliden Hintergrund ins Handy einfuegen**
-- Neues `rect` direkt nach dem Phone-Frame mit `fill="hsl(var(--background))"` (oder einem sehr dunklen Ton)
-- Gleiche Position/Groesse wie der Frame (x=20, y=10, 280x560, rx=40), aber als Fill statt Stroke
-- Damit scheint das Video nicht mehr durch
+```text
++---------------------------+
+|         [Notch]           |
+|                           |
+|          (())             |  Avatar-Kreis mit Telefon-Icon
+|   KI-Telefonassistent     |  Name (gross, 16px, foreground)
+|     Bereit fuer Anrufe    |  Status (klein, accent, pulsierend)
+|                           |
+|      ~ Waveform ~         |  7 animierte Bars (dezent, "atmet")
+|      ~ ~ ~ ~ ~ ~         |  mit Glow dahinter
+|                           |
+|     "Teste jetzt live"    |  Einladungstext (11px, muted)
+|                           |
+|        (  CALL  )         |  Grosser gruener Button (r=30)
+|      Jetzt anrufen        |  Label darunter
+|                           |
++---------------------------+
+```
 
-**2. Header-Bereich korrigieren**
-- Header-Hintergrund: `rx=0` statt `rx=40` -- keine eigenen abgerundeten Ecken
-- Nur ein einfaches Rechteck von y=40 bis y=80 (unterhalb der Phone-Rundung)
-- Den zweiten "Clip"-Rect (Zeile 70-76) entfernen -- nicht mehr noetig
+### Technische Details
 
-**3. Chat-Bereich vergroessern und Nachrichten nach unten verteilen**
-- `foreignObject` y von 90 auf 85 aendern, Hoehe von 460 auf 470
-- Nachrichten-Container: `gap` von 6px auf 8px erhoehen fuer bessere Lesbarkeit
-- `padding` von "8px 4px" auf "12px 6px" -- mehr vertikaler Raum nutzen
-- `fontSize` von 10px auf 11px -- besser lesbar
+**Datei:** `src/components/phone-assistant/PhoneHero.tsx`
 
-**4. Typing-Dots Position anpassen**
-- Die festen yPos-Berechnungen (100 + i * 58) passen nicht zu den tatsaechlichen Nachrichten-Positionen via foreignObject
-- Typing-Dots komplett entfernen da sie ohnehin nicht synchron mit den foreignObject-Nachrichten liegen -- stattdessen innerhalb des foreignObject als eigene animierte Div-Elemente vor den Bot-Nachrichten rendern
+**1. Gleicher Smartphone-Frame wie ChatbotHero**
+- ViewBox: `320 x 580`
+- Container: `max-w-[380px] h-[500px] sm:h-[600px]`
+- Solider Hintergrund: `rect` mit `fill="hsl(var(--background))"`, rx=40
+- Animierter Frame mit `pathLength` (0-1.5s)
+- Notch bei y=24
+- `useInView({ once: true })` statt direktem `animate`
 
-**5. Glow-Ellipse nach unten verschieben**
-- cy von 480 auf 510 -- naeher am unteren Rand des Phones, passend zur letzten Nachricht
+**2. Kontakt-Bereich (y=100-180)**
+- Avatar-Kreis (r=28) bei cy=130 mit Telefon-Emoji drin
+- Name "KI-Telefonassistent" (16px, fontWeight 600, foreground)
+- Status "Bereit fuer Anrufe" (10px, accent, pulsierend opacity 0.5-1)
 
-### Ergebnis
-- Sauberer, solider Phone-Hintergrund ohne Video-Durchscheinen
-- Kein Header-Ueberlappungs-Problem mehr
-- Nachrichten fuellen den gesamten Chat-Bereich aus
-- Typing-Dots erscheinen inline direkt vor den Bot-Antworten
-- Professionelleres, Apple-like Erscheinungsbild
+**3. Waveform (y=220-280)**
+- 7 animierte Bars wie bisher, zentriert bei y=250
+- Aber sanfter: "atmet" langsam statt hektisch (duration 4s)
+- Glow-Kreis dahinter bei cy=250
+- Zeigt visuell: "Der Assistent ist aktiv und wartet"
+
+**4. Einladungstext (y=340)**
+- "Teste jetzt live — ruf an und erlebe die KI" (11px, muted-foreground)
+- Dezent, zentriert
+
+**5. Grosser Call-Button (y=410)**
+- Gruener Kreis r=30 (groesser als vorher)
+- Weisses Telefon-Icon drin
+- Pulsierender Glow-Ring (repeat Infinity)
+- "Jetzt anrufen" Label darunter bei y=460
+- Klickbar via `foreignObject` mit `tel:` Link
+- Gesamter Button-Bereich ist klickbar (nicht nur der kleine Kreis)
+
+**6. Animations-Reihenfolge**
+1. Frame zeichnet sich (0-1.5s)
+2. Notch (1.3s)
+3. Avatar + Name fade-in (1.6-2.0s)
+4. Status pulsiert (2.0s, repeat)
+5. Waveform startet (2.2s)
+6. Einladungstext (2.5s)
+7. Call-Button springt rein mit scale (2.8s)
+8. Pulsing Ring startet (3.2s, repeat)
+
+### Was sich aendert vs. aktuell
+- ViewBox von 320x500 auf 320x580
+- Container von max-w-[320px] auf max-w-[380px]
+- Solider Hintergrund (kein Video-Durchscheinen)
+- `useInView` statt direktem `animate`
+- Neuer Kontakt-Bereich oben (Avatar + Name + Status)
+- Einladungstext zwischen Waveform und Button
+- Groesserer Call-Button mit besserem klickbaren Bereich
+- Konsistentes Design mit der Chatbot-Seite
 
