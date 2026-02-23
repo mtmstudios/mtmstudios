@@ -1,52 +1,30 @@
 
 
-## Footer-Erweiterung und rechtliche Seiten
+## Zentrierung und einheitliches Layout
 
-### 1. Footer-Aenderungen (`src/components/Footer.tsx`)
+### Aenderungen im ContactFunnel (`src/components/ContactFunnel.tsx`)
 
-**Copyright-Bereich erweitern:**
-- "Mit ❤️ fuer den Mittelstand." als eigene Zeile unter dem Copyright, mit einem Lucide `Heart`-Icon in Accent-Farbe (tuerkis, gefuellt)
-- Darunter eine Zeile mit Links zu Impressum, Datenschutz und AGB, getrennt durch dezente Punkte oder Separatoren
-- Layout: Alles zentriert, dezent in `text-muted-foreground text-xs`
+**Schritt 1 -- Service-Karten zentrieren:**
+- Karten-Layout von `text-left` auf `text-center` aendern
+- Icons zentriert (`mx-auto`) statt links
+- Text zentriert unter dem Icon
+- Check-Indikator bleibt oben-rechts (als visuelle Bestaetigung)
 
-**Ergebnis im Copyright-Bereich:**
-```
-© 2025 MTM Studios
-Mit [Heart] fuer den Mittelstand.
-Impressum  ·  Datenschutz  ·  AGB
-```
+**Schritt 1 -- Ueberschriften zentrieren:**
+- "Was braucht ihr?" und Untertitel auf `text-center` setzen
 
-### 2. Drei neue Seiten (Platzhalter-Inhalte)
+**Schritt 2 -- Formular-Ueberschriften zentrieren:**
+- "Wie erreichen wir euch?" und Untertitel auf `text-center` setzen
+- Die Labels und Inputs bleiben links-ausgerichtet (das ist Standard fuer Formulare und gut lesbar)
 
-Alle drei Seiten folgen dem gleichen Layout-Pattern: Navigation oben, Content zentriert, Footer unten. Dunkler Hintergrund passend zum Rest der Seite. Prose-artiges Layout mit max-w-3xl.
+**Schritt 2 -- Buttons zentrieren:**
+- Die Button-Reihe (Zurueck + Absenden) bekommt `justify-center`
 
-**`src/pages/Impressum.tsx`**
-- Titel: "Impressum"
-- Standard-Platzhalter mit typischen Impressum-Feldern (Firmenname, Adresse, Kontakt, Vertretungsberechtigter, Handelsregister, USt-IdNr.)
-- Alle Werte als Platzhalter markiert zum spaeteren Ausfuellen
+### Betroffene Dateien
 
-**`src/pages/Datenschutz.tsx`**
-- Titel: "Datenschutzerklarung"
-- Platzhalter-Sections: Verantwortlicher, Erhebung und Speicherung, Weitergabe, Cookies, Rechte der Betroffenen, etc.
-
-**`src/pages/AGB.tsx`**
-- Titel: "Allgemeine Geschaeftsbedingungen"
-- Platzhalter-Sections: Geltungsbereich, Vertragsschluss, Leistungen, Zahlung, Haftung, etc.
-
-### 3. Routing (`src/App.tsx`)
-
-Drei neue Routes hinzufuegen:
-- `/impressum` -> Impressum
-- `/datenschutz` -> Datenschutz
-- `/agb` -> AGB
-
-### Dateien-Uebersicht
-
-| Datei | Aktion |
+| Datei | Aenderung |
 |---|---|
-| `src/components/Footer.tsx` | Aendern -- Heart-Zeile + Legal-Links |
-| `src/pages/Impressum.tsx` | Neu -- Impressum-Platzhalter |
-| `src/pages/Datenschutz.tsx` | Neu -- Datenschutz-Platzhalter |
-| `src/pages/AGB.tsx` | Neu -- AGB-Platzhalter |
-| `src/App.tsx` | Aendern -- 3 neue Routes |
+| `src/components/ContactFunnel.tsx` | Karten-Icons und -Text zentrieren, Ueberschriften zentrieren, Button-Reihe zentrieren |
+
+Alle anderen Sections (Features, Process, Integrations, Testimonials, CTA, Footer) sind bereits zentriert und brauchen keine Aenderungen.
 
