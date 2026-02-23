@@ -106,7 +106,7 @@ const HeroSection = () => {
           duration: 1.2,
           delay: 1,
           ease: smoothEase
-        }} className="mt-16" />
+        }} className="mt-8" />
       </div>
     </section>
   );
