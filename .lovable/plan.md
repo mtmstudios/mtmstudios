@@ -1,26 +1,35 @@
 
 
-## Hero-Sektionen auf gleiche Hoehe bringen
+## Zwei Fixes: Text-Lesbarkeit + Logo-Ueberlappung
 
-### Problem
-Die "Das sind Wir"-Seite hat `min-h-[70vh]` -- die Ueberschrift sitzt dadurch hoeher und die Unterueberschrift ist besser sichtbar vor dem Video-Hintergrund. Alle anderen Hero-Sektionen nutzen `min-h-screen` (100vh), wodurch die Ueberschrift tiefer sitzt und die Unterueberschrift im dunkleren Bereich des Hintergrunds verschwindet.
+### 1. Text-Shadow fuer alle Unterueberschriften
 
-### Aenderungen
+Alle `motion.p` Subtitles in den Hero-Sektionen bekommen einen subtilen `textShadow`, damit sie vor dem Video-Hintergrund besser lesbar sind. Kein plumpes Overlay -- nur ein weicher schwarzer Schatten hinter dem Text.
 
-Alle 4 Hero-Sektionen bekommen `min-h-[70vh]` statt `min-h-screen`, damit die Ueberschriften auf der gleichen Hoehe sitzen wie bei "Das sind Wir".
+**Betroffene Dateien (5 Stellen):**
 
-**1. `src/components/HeroSection.tsx`** (Index/Startseite)
-- Zeile 10: `min-h-screen` aendern zu `min-h-[70vh]`
-- `py-32` auf `py-16` reduzieren, damit der Inhalt nicht zu weit nach unten gedrückt wird
+- `src/components/HeroSection.tsx` (Zeile 72): `text-muted-foreground` Paragraph -- `style={{ textShadow: '0 2px 20px rgba(0,0,0,0.8)' }}` hinzufuegen
+- `src/components/phone-assistant/PhoneHero.tsx` (Zeile 220): gleicher Fix
+- `src/components/chatbot/ChatbotHero.tsx` (Zeile 247): gleicher Fix
+- `src/components/automations/AutomationsHero.tsx` (Zeile 112): gleicher Fix
+- `src/pages/AboutUs.tsx` (Zeile 98): gleicher Fix
 
-**2. `src/components/phone-assistant/PhoneHero.tsx`**
-- Zeile 209: `min-h-screen` aendern zu `min-h-[70vh]`
+Zusaetzlich bekommt die Hauptueberschrift auf der Startseite (`HeroSection.tsx`, Zeile 12, das `h1`) auch einen dezenten Shadow: `style={{ textShadow: '0 2px 30px rgba(0,0,0,0.6)' }}`.
 
-**3. `src/components/chatbot/ChatbotHero.tsx`**
-- Zeile 238: `min-h-screen` aendern zu `min-h-[70vh]`
+---
 
-**4. `src/components/automations/AutomationsHero.tsx`**
-- Zeile 103: `min-h-screen` aendern zu `min-h-[70vh]`
+### 2. Logo-Slider Ueberlappung mit WhatsApp-Text fixen
+
+Das Problem: `LogosSection` hat `-mt-32`, was sie 128px nach oben zieht -- direkt in den WhatsApp-Link-Bereich. Gleichzeitig hat der leere `motion.div` am Ende von `HeroSection` ein `mt-32` als Spacer.
+
+**Fix:**
+- `src/components/LogosSection.tsx` (Zeile 16): `-mt-32` aendern zu `-mt-16` (oder `mt-0`), damit die Logos nicht mehr in den WhatsApp-Text reinragen
+- `src/components/HeroSection.tsx` (Zeile 109): Den leeren Spacer-`div` mit `mt-32` auf `mt-16` reduzieren, damit der Abstand zwischen CTA-Bereich und Logos stimmt
+
+Das Ziel: Ca. 16-32px sichtbarer Abstand zwischen dem WhatsApp-Link und dem Logo-Slider.
+
+---
 
 ### Ergebnis
-Alle Seiten haben die Ueberschrift auf der gleichen Hoehe. Die Unterueberschriften sind besser lesbar, da sie hoeher im sichtbaren Bereich sitzen, wo der Video-Hintergrund heller ist. Die visuellen Elemente (Smartphone, Gears etc.) rutschen entsprechend mit nach oben.
+- Alle Subtitles haben einen weichen Schatten und sind auch vor hellem Video gut lesbar
+- Der Logo-Slider ueberlappt nicht mehr mit dem WhatsApp-Text auf der Startseite
