@@ -4,56 +4,24 @@ import BlurText from "@/components/BlurText";
 
 const appleEase = [0.16, 1, 0.3, 1] as const;
 
-/* Gear SVG component */
-const Gear = ({ size, cx, cy, delay }: { size: number; cx: number; cy: number; delay: number }) => {
-  const teeth = size > 40 ? 10 : size > 30 ? 8 : 6;
-  const innerR = size * 0.55;
-  const outerR = size * 0.75;
-  const toothWidth = (Math.PI * 2) / teeth / 3;
+/* Neural Flow Network Nodes */
+const nodes = [
+  { x: 160, y: 100, r: 14, isHub: true },  // Central hub
+  { x: 60, y: 60, r: 7 },
+  { x: 260, y: 55, r: 8 },
+  { x: 45, y: 140, r: 6 },
+  { x: 275, y: 145, r: 7 },
+  { x: 110, y: 170, r: 6 },
+  { x: 210, y: 175, r: 7 },
+  { x: 160, y: 35, r: 5 },
+];
 
-  const path = Array.from({ length: teeth }, (_, i) => {
-    const angle = (i / teeth) * Math.PI * 2;
-    const x1 = Math.cos(angle - toothWidth) * innerR;
-    const y1 = Math.sin(angle - toothWidth) * innerR;
-    const x2 = Math.cos(angle - toothWidth * 0.6) * outerR;
-    const y2 = Math.sin(angle - toothWidth * 0.6) * outerR;
-    const x3 = Math.cos(angle + toothWidth * 0.6) * outerR;
-    const y3 = Math.sin(angle + toothWidth * 0.6) * outerR;
-    const x4 = Math.cos(angle + toothWidth) * innerR;
-    const y4 = Math.sin(angle + toothWidth) * innerR;
-    return `L${x1},${y1} L${x2},${y2} L${x3},${y3} L${x4},${y4}`;
-  }).join(" ");
+const connections: [number, number][] = [
+  [0, 1], [0, 2], [0, 3], [0, 4], [0, 5], [0, 6], [0, 7],
+  [1, 3], [1, 7], [2, 4], [2, 7], [3, 5], [4, 6], [5, 6],
+];
 
-  return (
-    <motion.g
-      style={{ transformOrigin: `${cx}px ${cy}px` }}
-      animate={{ rotate: size > 40 ? [0, 360] : [360, 0] }}
-      transition={{ duration: size > 40 ? 20 : 15, repeat: Infinity, ease: "linear", delay }}
-    >
-      <g transform={`translate(${cx}, ${cy})`}>
-        <path
-          d={`M${Math.cos(-toothWidth) * innerR},${Math.sin(-toothWidth) * innerR} ${path} Z`}
-          fill="none"
-          stroke="hsl(var(--neon))"
-          strokeWidth="1.5"
-          opacity="0.4"
-        />
-        <circle r={size * 0.3} fill="none" stroke="hsl(var(--neon))" strokeWidth="1" opacity="0.3" />
-        <circle r="3" fill="hsl(var(--neon))" opacity="0.6" />
-      </g>
-    </motion.g>
-  );
-};
-
-const DataDot = ({ path, duration, delay }: { path: string; duration: number; delay: number }) => (
-  <circle r="3" fill="hsl(var(--neon))" filter="url(#glow)">
-    <animateMotion dur={`${duration}s`} repeatCount="indefinite" begin={`${delay}s`}>
-      <mpath href={`#${path}`} />
-    </animateMotion>
-  </circle>
-);
-
-const GearFlowVisual = () => {
+const NeuralFlowVisual = () => {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true });
 
@@ -68,30 +36,110 @@ const GearFlowVisual = () => {
           transition={{ duration: 0.6, delay: 0.8 }}
         >
           <defs>
-            <filter id="glow">
-              <feGaussianBlur stdDeviation="4" result="blur" />
+            <filter id="neuralGlow">
+              <feGaussianBlur stdDeviation="6" result="blur" />
               <feMerge>
                 <feMergeNode in="blur" />
                 <feMergeNode in="SourceGraphic" />
               </feMerge>
             </filter>
-            <path id="path1" d="M80,100 Q160,60 240,100" fill="none" />
-            <path id="path2" d="M80,100 Q160,140 240,100" fill="none" />
+            <filter id="hubGlow">
+              <feGaussianBlur stdDeviation="10" result="blur" />
+              <feMerge>
+                <feMergeNode in="blur" />
+                <feMergeNode in="blur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+            {/* Define paths for data dots */}
+            {connections.map(([a, b], i) => (
+              <path
+                key={`path-${i}`}
+                id={`conn-${i}`}
+                d={`M${nodes[a].x},${nodes[a].y} L${nodes[b].x},${nodes[b].y}`}
+                fill="none"
+              />
+            ))}
           </defs>
 
-          {/* Connection lines */}
-          <path d="M80,100 Q160,60 240,100" fill="none" stroke="hsl(var(--neon))" strokeWidth="1" opacity="0.15" />
-          <path d="M80,100 Q160,140 240,100" fill="none" stroke="hsl(var(--neon))" strokeWidth="1" opacity="0.15" />
+          {/* Connection lines with pathLength animation */}
+          {connections.map(([a, b], i) => (
+            <motion.line
+              key={`line-${i}`}
+              x1={nodes[a].x} y1={nodes[a].y}
+              x2={nodes[b].x} y2={nodes[b].y}
+              stroke="hsl(var(--neon))"
+              strokeWidth="1"
+              initial={{ pathLength: 0, opacity: 0 }}
+              animate={{ pathLength: 1, opacity: 0.15 }}
+              transition={{ duration: 1.2, delay: 1.2 + i * 0.08, ease: appleEase }}
+            />
+          ))}
 
-          {/* Data dots */}
-          <DataDot path="path1" duration={3} delay={0} />
-          <DataDot path="path2" duration={3.5} delay={1} />
-          <DataDot path="path1" duration={4} delay={2} />
+          {/* Traveling data dots */}
+          {[0, 2, 4, 6, 9, 12].map((connIdx, i) => {
+            const [a, b] = connections[connIdx];
+            return (
+              <circle key={`dot-${i}`} r="2.5" fill="hsl(var(--neon))" filter="url(#neuralGlow)" opacity="0.8">
+                <animateMotion
+                  dur={`${2.5 + i * 0.5}s`}
+                  repeatCount="indefinite"
+                  begin={`${1.5 + i * 0.4}s`}
+                >
+                  <mpath href={`#conn-${connIdx}`} />
+                </animateMotion>
+              </circle>
+            );
+          })}
 
-          {/* Gears */}
-          <Gear size={24} cx={80} cy={100} delay={0} />
-          <Gear size={34} cx={160} cy={100} delay={0.5} />
-          <Gear size={46} cx={240} cy={100} delay={1} />
+          {/* Nodes with staggered scale-in */}
+          {nodes.map((node, i) => (
+            <g key={`node-${i}`}>
+              {/* Pulsing ring for hub */}
+              {node.isHub && (
+                <motion.circle
+                  cx={node.x} cy={node.y} r={node.r + 10}
+                  fill="none"
+                  stroke="hsl(var(--neon))"
+                  strokeWidth="1"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: [0, 0.3, 0], scale: [0.8, 1.2, 0.8] }}
+                  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+                  style={{ transformOrigin: `${node.x}px ${node.y}px` }}
+                />
+              )}
+              {/* Outer glow */}
+              <motion.circle
+                cx={node.x} cy={node.y} r={node.r + 4}
+                fill={`hsl(var(--neon) / ${node.isHub ? '0.08' : '0.04'})`}
+                initial={{ opacity: 0, scale: 0 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.8, delay: 0.9 + i * 0.1, ease: appleEase }}
+                style={{ transformOrigin: `${node.x}px ${node.y}px` }}
+              />
+              {/* Core node */}
+              <motion.circle
+                cx={node.x} cy={node.y} r={node.r}
+                fill={node.isHub ? "hsl(var(--neon) / 0.3)" : "hsl(var(--neon) / 0.15)"}
+                stroke="hsl(var(--neon))"
+                strokeWidth={node.isHub ? "1.5" : "1"}
+                filter={node.isHub ? "url(#hubGlow)" : undefined}
+                initial={{ opacity: 0, scale: 0 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6, delay: 0.9 + i * 0.1, ease: appleEase }}
+                style={{ transformOrigin: `${node.x}px ${node.y}px` }}
+              />
+              {/* Inner bright dot */}
+              <motion.circle
+                cx={node.x} cy={node.y} r={node.isHub ? 4 : 2}
+                fill="hsl(var(--neon))"
+                opacity={node.isHub ? 0.8 : 0.5}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: node.isHub ? 0.8 : 0.5 }}
+                transition={{ duration: 0.4, delay: 1.0 + i * 0.1 }}
+              />
+            </g>
+          ))}
         </motion.svg>
       )}
     </div>
@@ -126,7 +174,7 @@ const AutomationsHero = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.8, ease: appleEase }}
         >
-          <GearFlowVisual />
+          <NeuralFlowVisual />
         </motion.div>
       </div>
     </section>
