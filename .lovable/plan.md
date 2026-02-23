@@ -1,58 +1,65 @@
 
 
-## "Das sind Wir" Seite ueberarbeiten
+## "Das sind Wir" Seite -- Sections aufwerten
 
 ### Ueberblick
-Die Seite wird laenger, vertrauensvoller und persoenlicher -- ohne Team-Fotos. Der gewuenschte Leitsatz wird prominent eingebunden. Die Team-Section mit Platzhalter-Kreisen faellt weg.
+Die Mission-Section bekommt einen lockereren, moderneren Text. Die "Wofuer wir stehen" und "Warum wir" Sections bekommen ein visuell aufgewertetes Design mit Glassmorphism-Effekten, Hover-Animationen und Neon-Akzenten -- passend zum Premium-Look der Seite.
 
-### Aenderungen in `src/pages/AboutUs.tsx`
+### 1. Mission-Section -- Text ersetzen
 
-**1. Hero -- Untertitel erweitern**
-Der kurze Subtitle wird ersetzt durch den gewuenschten Leitsatz:
+Der aktuelle Text klingt zu foermlich/IT-maessig. Er wird komplett ersetzt durch eine lockere, moderne Version basierend auf dem Hero-Leitsatz:
+
+**Erster Absatz (neu):**
 > "Technologie schafft Moeglichkeiten, Vertrauen entscheidet. Wir sorgen dafuer, dass KI dir vor allem eines bringt: Zeit fuer deine Kunden."
 
-**2. Mission-Section -- ausfuehrlicher**
-Der bestehende Missions-Text bleibt, wird aber ergaenzt um einen zweiten Absatz der mehr Tiefe gibt:
-> "Unser Versprechen: Keine Black-Box-Loesungen, keine leeren Buzzwords. Sondern Technologie, die ihr versteht, der ihr vertraut — und die ab Tag eins Ergebnisse liefert."
+**Zweiter Absatz (neu):**
+> "Kein Fachchinesisch, keine leeren Versprechen. Wir bauen Loesungen, die sich gut anfuehlen -- fuer euch und fuer eure Kunden. Auf Augenhoehe, mit Klarheit und echtem Interesse an eurem Erfolg."
 
-**3. Werte-Section -- vierter Wert hinzufuegen**
-Zu den drei bestehenden Werten (Klarheit, Geschwindigkeit, Partnerschaft) kommt ein vierter:
-- **04 — Vertrauen**: "Transparenz in jedem Schritt. Ihr wisst immer, was wir tun, warum wir es tun — und was es euch bringt."
-- Grid aendert sich von `md:grid-cols-3` auf `md:grid-cols-2` fuer bessere Balance mit 4 Karten
-- Die `md:divide-x` Trenner werden entfernt, stattdessen bekommt jede Karte einen subtilen Border (`border border-border/10 rounded-2xl p-8`)
+### 2. "Wofuer wir stehen" -- Premium Cards
 
-**4. Team-Section komplett ersetzen**
-Die Team-Section mit Platzhalter-Bildern und Dummy-Namen wird entfernt. Stattdessen kommt eine neue "Warum wir"-Section mit drei kurzen Statements als horizontale Karten:
-- "Persoenlich statt anonym" — "Ihr arbeitet direkt mit uns — nicht mit einem Support-Ticket."
-- "Ergebnisorientiert" — "Wir messen Erfolg nicht in Features, sondern in eingesparter Zeit."
-- "Langfristig gedacht" — "Unsere Loesungen wachsen mit eurem Unternehmen — ohne Vendor Lock-in."
+Aktuell: Schlichte Karten mit `border border-border/10 rounded-2xl p-8` -- zu flach und langweilig.
 
-Diese werden als schlichte Text-Blocks mit Nummer und Divider dargestellt, kein Foto noetig.
+**Neu:**
+- Glassmorphism-Hintergrund: `bg-white/[0.03] backdrop-blur-sm`
+- Subtiler Neon-Border auf Hover: `hover:border-accent/30` mit Transition
+- Groesserer Titel mit Accent-Farbe fuer die Nummer
+- Dezenter Glow-Effekt auf Hover via `box-shadow`
+- Scale-Animation auf Hover (`whileHover={{ scale: 1.02 }}`)
+- Ein grosses dekoratives Zitat/Icon pro Karte als visuelles Element (die Nummer wird gross und semi-transparent als Hintergrund-Element dargestellt)
 
-**5. Neue Trust-Zahlen-Section (optional, vor CTA)**
-Einfache Statistik-Zeile aehnlich der TrustSection von Automations, aber schlichter:
-- "50+ automatisierte Prozesse"
-- "12h+ eingesparte Zeit pro Woche"  
-- "100% Transparenz"
+### 3. "Warum wir" -- Premium Layout
 
-Drei Zahlen nebeneinander mit CountUp-Animation.
+Aktuell: Einfache Textzeilen mit Divider -- zu minimalistisch.
+
+**Neu:**
+- Jeder Reason bekommt eine eigene Card mit Glassmorphism-Hintergrund
+- Horizontales Layout bleibt, aber mit mehr visueller Tiefe
+- Grosse Nummer als dekoratives Element (halbtransparent, ueberlappt den Content leicht)
+- Neon-Akzent-Linie links an jeder Karte statt oben (`border-l-2 border-accent/40`)
+- Hover-Effekt mit leichtem Glow
+- Beschreibungstexte etwas laenger und lockerer formuliert:
+  - "Persoenlich statt anonym" -- "Bei uns landet ihr nicht in einer Warteschleife. Ihr arbeitet direkt mit den Leuten, die eure Loesung bauen."
+  - "Ergebnisorientiert" -- "Wir zaehlen keine Features -- wir messen, wie viel Zeit ihr zurueckbekommt."
+  - "Langfristig gedacht" -- "Unsere Loesungen wachsen mit euch. Kein Vendor Lock-in, keine boesen Ueberraschungen."
 
 ### Technische Details
 
-- Datei: `src/pages/AboutUs.tsx` — einzige Datei die geaendert wird
-- `team`-Array und `teamRef`/`teamInView` werden entfernt
-- Neues `reasons`-Array fuer die "Warum wir"-Section
-- Neues `trustStats`-Array fuer die Zahlen-Section
-- Einfacher CountUp wie in `TrustSection.tsx` bereits implementiert (inline, kein Import noetig)
-- Neue refs: `reasonsRef` mit `useInView`, `trustRef` mit `useInView`
-- Alle Animationen nutzen weiterhin `appleEase` und `blur`-Transitions
+**Datei:** `src/pages/AboutUs.tsx` -- einzige Datei
 
-### Seitenstruktur (neu)
+**Mission (Zeilen 165-170):**
+- Beide `<p>` Texte ersetzen durch die neuen lockeren Formulierungen
 
-1. **Hero** — "Wir sind MTM Studios." + neuer Leitsatz
-2. **Mission** — Bestehender Text + neuer Vertrauens-Absatz
-3. **Werte** — 4 Karten im 2x2 Grid (Klarheit, Geschwindigkeit, Partnerschaft, Vertrauen)
-4. **Warum wir** — 3 Statements ohne Bilder
-5. **Trust-Zahlen** — 3 Statistiken mit CountUp
-6. **CTA + Footer**
+**Values Cards (Zeilen 188-202):**
+- Card-Klassen erweitern: `bg-white/[0.03] backdrop-blur-sm border border-border/10 rounded-2xl p-8 hover:border-accent/30 transition-all duration-500 relative overflow-hidden group`
+- `motion.div` bekommt `whileHover={{ scale: 1.02, y: -4 }}`
+- Grosse dekorative Nummer als Hintergrund-Element: `<span className="absolute -top-4 -right-2 text-[8rem] font-bold text-white/[0.03] select-none pointer-events-none group-hover:text-accent/[0.05] transition-colors duration-500">`
+- Kleine Nummer bekommt `text-accent` statt nur `text-accent`
+
+**Reasons (Zeilen 218-235):**
+- Von Divider-Layout zu Card-Layout wechseln: `grid grid-cols-1 md:grid-cols-3 gap-6`
+- Jede Reason-Card: `bg-white/[0.03] backdrop-blur-sm border border-border/10 rounded-2xl p-8 border-l-2 border-l-accent/40 hover:border-accent/30 transition-all duration-500 relative overflow-hidden group`
+- `whileHover={{ scale: 1.02, y: -4 }}`
+- Grosse dekorative Nummer im Hintergrund wie bei Values
+- Beschreibungstexte aktualisieren (lockerer, laenger)
+- `reasons`-Array (Zeilen 33-49) mit neuen Texten aktualisieren
 
