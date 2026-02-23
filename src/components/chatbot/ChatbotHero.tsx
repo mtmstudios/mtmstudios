@@ -235,7 +235,7 @@ const WhatsAppPhoneVisual = () => {
 
 const ChatbotHero = () => {
   return (
-    <section className="min-h-[70vh] flex flex-col items-center justify-center px-6 pt-24 pb-16">
+    <section className="min-h-[70vh] flex flex-col items-center justify-start px-6 pt-[15vh] pb-16">
       <div className="max-w-4xl mx-auto text-center flex flex-col items-center gap-8">
         <BlurText
           text="Chatbots, die wirklich helfen."

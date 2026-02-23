@@ -87,7 +87,7 @@ const AboutUs = () => {
       {/* Content */}
       <div style={{ position: "relative", zIndex: 10 }}>
         {/* Hero */}
-        <section className="min-h-[70vh] flex flex-col items-center justify-center px-6">
+        <section className="min-h-[70vh] flex flex-col items-center justify-start px-6 pt-[15vh]">
           <BlurText
             text="Wir sind MTM Studios."
             className="text-5xl md:text-7xl font-bold text-foreground tracking-tight"
