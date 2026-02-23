@@ -61,9 +61,9 @@ const PhoneVisual = ({ testPhoneNumber }: { testPhoneNumber?: string }) => {
         </defs>
         <motion.image
           href={logoAvatar}
-          x="132" y="102" width="56" height="56"
+          x="140" y="110" width="40" height="40"
           clipPath="url(#avatarClip)"
-          preserveAspectRatio="xMidYMid slice"
+          preserveAspectRatio="xMidYMid meet"
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
           transition={{ duration: 0.3, delay: 1.8 }}
