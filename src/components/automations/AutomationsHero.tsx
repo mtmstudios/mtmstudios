@@ -4,142 +4,243 @@ import BlurText from "@/components/BlurText";
 
 const appleEase = [0.16, 1, 0.3, 1] as const;
 
-/* Neural Flow Network Nodes */
-const nodes = [
-  { x: 160, y: 100, r: 14, isHub: true },  // Central hub
-  { x: 60, y: 60, r: 7 },
-  { x: 260, y: 55, r: 8 },
-  { x: 45, y: 140, r: 6 },
-  { x: 275, y: 145, r: 7 },
-  { x: 110, y: 170, r: 6 },
-  { x: 210, y: 175, r: 7 },
-  { x: 160, y: 35, r: 5 },
+/* Workflow Node Definitions */
+const workflowNodes = [
+  { id: "trigger", x: 60, y: 120, label: "Trigger", icon: "trigger" },
+  { id: "data", x: 195, y: 120, label: "Daten laden", icon: "database" },
+  { id: "ai", x: 340, y: 120, label: "KI verarbeiten", icon: "ai", isMain: true },
+  { id: "crm", x: 490, y: 120, label: "CRM Update", icon: "webhook" },
+  { id: "email", x: 340, y: 240, label: "E-Mail senden", icon: "mail" },
 ];
 
-const connections: [number, number][] = [
-  [0, 1], [0, 2], [0, 3], [0, 4], [0, 5], [0, 6], [0, 7],
-  [1, 3], [1, 7], [2, 4], [2, 7], [3, 5], [4, 6], [5, 6],
+const NODE_W = 100;
+const NODE_H = 60;
+
+/* Bezier connections between nodes */
+const connections = [
+  {
+    from: 0, to: 1,
+    path: "M110,120 C145,120 160,120 195,120",
+  },
+  {
+    from: 1, to: 2,
+    path: "M245,120 C280,120 305,120 340,120",
+  },
+  {
+    from: 2, to: 3,
+    path: "M390,120 C425,120 455,120 490,120",
+  },
+  {
+    from: 2, to: 4,
+    path: "M340,150 C340,175 340,200 340,210",
+  },
 ];
 
-const NeuralFlowVisual = () => {
+/* Simple SVG icon paths for each node type */
+const NodeIcon = ({ type, x, y }: { type: string; x: number; y: number }) => {
+  const cx = x + NODE_W / 2;
+  const cy = y + 18;
+  const s = 9;
+
+  switch (type) {
+    case "trigger":
+      return (
+        <g>
+          {/* Lightning bolt */}
+          <polygon
+            points={`${cx - 2},${cy - s} ${cx - 5},${cy + 1} ${cx + 0},${cy - 1} ${cx + 2},${cy + s} ${cx + 5},${cy - 1} ${cx},${cy + 1}`}
+            fill="hsl(var(--neon))"
+            opacity="0.9"
+          />
+        </g>
+      );
+    case "database":
+      return (
+        <g>
+          <ellipse cx={cx} cy={cy - 4} rx={s - 2} ry={3} fill="none" stroke="hsl(var(--neon))" strokeWidth="1.5" opacity="0.9" />
+          <line x1={cx - s + 2} y1={cy - 4} x2={cx - s + 2} y2={cy + 4} stroke="hsl(var(--neon))" strokeWidth="1.5" opacity="0.9" />
+          <line x1={cx + s - 2} y1={cy - 4} x2={cx + s - 2} y2={cy + 4} stroke="hsl(var(--neon))" strokeWidth="1.5" opacity="0.9" />
+          <ellipse cx={cx} cy={cy + 4} rx={s - 2} ry={3} fill="none" stroke="hsl(var(--neon))" strokeWidth="1.5" opacity="0.9" />
+        </g>
+      );
+    case "ai":
+      return (
+        <g>
+          {/* Brain/sparkle icon */}
+          <circle cx={cx} cy={cy} r={s - 2} fill="none" stroke="hsl(var(--neon))" strokeWidth="1.5" opacity="0.9" />
+          <circle cx={cx} cy={cy} r={2} fill="hsl(var(--neon))" opacity="0.9" />
+          <line x1={cx} y1={cy - s + 2} x2={cx} y2={cy - 3} stroke="hsl(var(--neon))" strokeWidth="1" opacity="0.7" />
+          <line x1={cx} y1={cy + 3} x2={cx} y2={cy + s - 2} stroke="hsl(var(--neon))" strokeWidth="1" opacity="0.7" />
+          <line x1={cx - s + 2} y1={cy} x2={cx - 3} y2={cy} stroke="hsl(var(--neon))" strokeWidth="1" opacity="0.7" />
+          <line x1={cx + 3} y1={cy} x2={cx + s - 2} y2={cy} stroke="hsl(var(--neon))" strokeWidth="1" opacity="0.7" />
+        </g>
+      );
+    case "webhook":
+      return (
+        <g>
+          {/* Upload/sync arrows */}
+          <path d={`M${cx - 4},${cy + 3} L${cx},${cy - 5} L${cx + 4},${cy + 3}`} fill="none" stroke="hsl(var(--neon))" strokeWidth="1.5" opacity="0.9" strokeLinecap="round" strokeLinejoin="round" />
+          <line x1={cx} y1={cy - 4} x2={cx} y2={cy + 6} stroke="hsl(var(--neon))" strokeWidth="1.5" opacity="0.9" strokeLinecap="round" />
+        </g>
+      );
+    case "mail":
+      return (
+        <g>
+          <rect x={cx - s + 1} y={cy - 4} width={(s - 1) * 2} height={10} rx={1.5} fill="none" stroke="hsl(var(--neon))" strokeWidth="1.5" opacity="0.9" />
+          <polyline points={`${cx - s + 1},${cy - 4} ${cx},${cy + 1} ${cx + s - 1},${cy - 4}`} fill="none" stroke="hsl(var(--neon))" strokeWidth="1.2" opacity="0.7" />
+        </g>
+      );
+    default:
+      return null;
+  }
+};
+
+const WorkflowVisual = () => {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true });
 
   return (
-    <div ref={ref} className="w-full max-w-[320px] sm:max-w-[400px] h-[250px] sm:h-[320px] mx-auto">
+    <div ref={ref} className="w-full max-w-[620px] h-[300px] sm:h-[380px] mx-auto">
       {inView && (
         <motion.svg
-          viewBox="0 0 320 200"
+          viewBox="0 0 560 290"
           className="w-full h-full"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
+          transition={{ duration: 0.6, delay: 0.6 }}
         >
           <defs>
-            <filter id="neuralGlow">
+            <filter id="wfGlow">
               <feGaussianBlur stdDeviation="6" result="blur" />
               <feMerge>
                 <feMergeNode in="blur" />
                 <feMergeNode in="SourceGraphic" />
               </feMerge>
             </filter>
-            <filter id="hubGlow">
-              <feGaussianBlur stdDeviation="10" result="blur" />
+            <filter id="wfNodeGlow">
+              <feGaussianBlur stdDeviation="12" result="blur" />
               <feMerge>
                 <feMergeNode in="blur" />
                 <feMergeNode in="blur" />
                 <feMergeNode in="SourceGraphic" />
               </feMerge>
             </filter>
-            {/* Define paths for data dots */}
-            {connections.map(([a, b], i) => (
-              <path
-                key={`path-${i}`}
-                id={`conn-${i}`}
-                d={`M${nodes[a].x},${nodes[a].y} L${nodes[b].x},${nodes[b].y}`}
-                fill="none"
-              />
+            <filter id="wfGlass">
+              <feGaussianBlur in="SourceGraphic" stdDeviation="1" />
+            </filter>
+            {/* Arrow marker */}
+            <marker id="wfArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 2 L 8 5 L 0 8" fill="none" stroke="hsl(var(--neon))" strokeWidth="1.5" opacity="0.4" />
+            </marker>
+            {/* Grid pattern */}
+            <pattern id="wfGrid" width="30" height="30" patternUnits="userSpaceOnUse">
+              <path d="M 30 0 L 0 0 0 30" fill="none" stroke="hsl(var(--neon))" strokeWidth="0.3" opacity="0.08" />
+            </pattern>
+            {/* Define connection paths for animateMotion */}
+            {connections.map((conn, i) => (
+              <path key={`def-${i}`} id={`wfConn-${i}`} d={conn.path} fill="none" />
             ))}
           </defs>
 
-          {/* Connection lines with pathLength animation */}
-          {connections.map(([a, b], i) => (
-            <motion.line
+          {/* Grid background */}
+          <motion.rect
+            x="0" y="0" width="560" height="290"
+            fill="url(#wfGrid)"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 0.7 }}
+          />
+
+          {/* Connection lines with stroke animation */}
+          {connections.map((conn, i) => (
+            <motion.path
               key={`line-${i}`}
-              x1={nodes[a].x} y1={nodes[a].y}
-              x2={nodes[b].x} y2={nodes[b].y}
+              d={conn.path}
+              fill="none"
               stroke="hsl(var(--neon))"
-              strokeWidth="1"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              markerEnd="url(#wfArrow)"
               initial={{ pathLength: 0, opacity: 0 }}
-              animate={{ pathLength: 1, opacity: 0.15 }}
-              transition={{ duration: 1.2, delay: 1.2 + i * 0.08, ease: appleEase }}
+              animate={{ pathLength: 1, opacity: 0.25 }}
+              transition={{ duration: 1, delay: 1.6 + i * 0.15, ease: appleEase }}
             />
           ))}
 
-          {/* Traveling data dots */}
-          {[0, 2, 4, 6, 9, 12].map((connIdx, i) => {
-            const [a, b] = connections[connIdx];
+          {/* Data particles traveling along paths */}
+          {[0, 1, 2, 3].map((connIdx, i) => (
+            <circle key={`particle-${i}`} r="3" fill="hsl(var(--neon))" filter="url(#wfGlow)" opacity="0.8">
+              <animateMotion
+                dur={`${2.5 + i * 0.4}s`}
+                repeatCount="indefinite"
+                begin={`${2.2 + i * 0.3}s`}
+              >
+                <mpath href={`#wfConn-${connIdx}`} />
+              </animateMotion>
+            </circle>
+          ))}
+
+          {/* Workflow Nodes */}
+          {workflowNodes.map((node, i) => {
+            const nx = node.x;
+            const ny = node.y - NODE_H / 2;
             return (
-              <circle key={`dot-${i}`} r="2.5" fill="hsl(var(--neon))" filter="url(#neuralGlow)" opacity="0.8">
-                <animateMotion
-                  dur={`${2.5 + i * 0.5}s`}
-                  repeatCount="indefinite"
-                  begin={`${1.5 + i * 0.4}s`}
+              <motion.g
+                key={node.id}
+                initial={{ opacity: 0, scale: 0.7 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.7, delay: 0.9 + i * 0.12, ease: appleEase }}
+                style={{ transformOrigin: `${nx + NODE_W / 2}px ${ny + NODE_H / 2}px` }}
+              >
+                {/* Node glow for main AI node */}
+                {node.isMain && (
+                  <motion.rect
+                    x={nx - 6} y={ny - 6}
+                    width={NODE_W + 12} height={NODE_H + 12}
+                    rx={16}
+                    fill="none"
+                    stroke="hsl(var(--neon))"
+                    strokeWidth="1"
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: [0, 0.3, 0], scale: [0.95, 1.05, 0.95] }}
+                    transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 2.5 }}
+                    style={{ transformOrigin: `${nx + NODE_W / 2}px ${ny + NODE_H / 2}px` }}
+                  />
+                )}
+                {/* Node background */}
+                <rect
+                  x={nx} y={ny}
+                  width={NODE_W} height={NODE_H}
+                  rx={12}
+                  fill={node.isMain ? "hsl(var(--neon) / 0.08)" : "hsl(0 0% 100% / 0.04)"}
+                  stroke="hsl(var(--neon))"
+                  strokeWidth={node.isMain ? "1.2" : "0.7"}
+                  strokeOpacity={node.isMain ? 0.5 : 0.2}
+                />
+                {/* Subtle inner highlight */}
+                <rect
+                  x={nx} y={ny}
+                  width={NODE_W} height={NODE_H / 2}
+                  rx={12}
+                  fill="hsl(0 0% 100% / 0.02)"
+                />
+                {/* Icon */}
+                <NodeIcon type={node.icon} x={nx} y={ny} />
+                {/* Label */}
+                <text
+                  x={nx + NODE_W / 2}
+                  y={ny + NODE_H - 10}
+                  textAnchor="middle"
+                  fill="hsl(var(--foreground))"
+                  fontSize="9"
+                  fontFamily="system-ui, sans-serif"
+                  opacity="0.7"
                 >
-                  <mpath href={`#conn-${connIdx}`} />
-                </animateMotion>
-              </circle>
+                  {node.label}
+                </text>
+              </motion.g>
             );
           })}
-
-          {/* Nodes with staggered scale-in */}
-          {nodes.map((node, i) => (
-            <g key={`node-${i}`}>
-              {/* Pulsing ring for hub */}
-              {node.isHub && (
-                <motion.circle
-                  cx={node.x} cy={node.y} r={node.r + 10}
-                  fill="none"
-                  stroke="hsl(var(--neon))"
-                  strokeWidth="1"
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: [0, 0.3, 0], scale: [0.8, 1.2, 0.8] }}
-                  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-                  style={{ transformOrigin: `${node.x}px ${node.y}px` }}
-                />
-              )}
-              {/* Outer glow */}
-              <motion.circle
-                cx={node.x} cy={node.y} r={node.r + 4}
-                fill={`hsl(var(--neon) / ${node.isHub ? '0.08' : '0.04'})`}
-                initial={{ opacity: 0, scale: 0 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.8, delay: 0.9 + i * 0.1, ease: appleEase }}
-                style={{ transformOrigin: `${node.x}px ${node.y}px` }}
-              />
-              {/* Core node */}
-              <motion.circle
-                cx={node.x} cy={node.y} r={node.r}
-                fill={node.isHub ? "hsl(var(--neon) / 0.3)" : "hsl(var(--neon) / 0.15)"}
-                stroke="hsl(var(--neon))"
-                strokeWidth={node.isHub ? "1.5" : "1"}
-                filter={node.isHub ? "url(#hubGlow)" : undefined}
-                initial={{ opacity: 0, scale: 0 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6, delay: 0.9 + i * 0.1, ease: appleEase }}
-                style={{ transformOrigin: `${node.x}px ${node.y}px` }}
-              />
-              {/* Inner bright dot */}
-              <motion.circle
-                cx={node.x} cy={node.y} r={node.isHub ? 4 : 2}
-                fill="hsl(var(--neon))"
-                opacity={node.isHub ? 0.8 : 0.5}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: node.isHub ? 0.8 : 0.5 }}
-                transition={{ duration: 0.4, delay: 1.0 + i * 0.1 }}
-              />
-            </g>
-          ))}
         </motion.svg>
       )}
     </div>
@@ -174,7 +275,7 @@ const AutomationsHero = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.8, ease: appleEase }}
         >
-          <NeuralFlowVisual />
+          <WorkflowVisual />
         </motion.div>
       </div>
     </section>
