@@ -1,65 +1,81 @@
 
 
-## "Das sind Wir" Seite -- Sections aufwerten
+## About Us Seite -- Komplett-Redesign (Apple-Level)
 
-### Ueberblick
-Die Mission-Section bekommt einen lockereren, moderneren Text. Die "Wofuer wir stehen" und "Warum wir" Sections bekommen ein visuell aufgewertetes Design mit Glassmorphism-Effekten, Hover-Animationen und Neon-Akzenten -- passend zum Premium-Look der Seite.
+### Probleme die behoben werden
 
-### 1. Mission-Section -- Text ersetzen
+1. **Doppelter Text**: Hero-Subtitle und Mission-Section haben exakt den gleichen Satz
+2. **Doppelte Nummern**: Kleine "01" UND grosse "01" in den Cards -- redundant
+3. **Trust-Zahlen zu simpel**: Nur Zahlen ohne visuellen Rahmen
+4. **Gesamtbild**: Sections wirken noch zu gleichfoermig und generisch
 
-Der aktuelle Text klingt zu foermlich/IT-maessig. Er wird komplett ersetzt durch eine lockere, moderne Version basierend auf dem Hero-Leitsatz:
+---
 
-**Erster Absatz (neu):**
-> "Technologie schafft Moeglichkeiten, Vertrauen entscheidet. Wir sorgen dafuer, dass KI dir vor allem eines bringt: Zeit fuer deine Kunden."
+### Neues Seitenkonzept
 
-**Zweiter Absatz (neu):**
-> "Kein Fachchinesisch, keine leeren Versprechen. Wir bauen Loesungen, die sich gut anfuehlen -- fuer euch und fuer eure Kunden. Auf Augenhoehe, mit Klarheit und echtem Interesse an eurem Erfolg."
+**1. Hero -- Neuer Subtitle**
 
-### 2. "Wofuer wir stehen" -- Premium Cards
+Der aktuelle Subtitle ist identisch mit dem Mission-Text. Neuer, kuerzerer Hero-Subtitle:
 
-Aktuell: Schlichte Karten mit `border border-border/10 rounded-2xl p-8` -- zu flach und langweilig.
+> "Euer Partner fuer KI-Loesungen, die wirklich funktionieren."
 
-**Neu:**
-- Glassmorphism-Hintergrund: `bg-white/[0.03] backdrop-blur-sm`
-- Subtiler Neon-Border auf Hover: `hover:border-accent/30` mit Transition
-- Groesserer Titel mit Accent-Farbe fuer die Nummer
-- Dezenter Glow-Effekt auf Hover via `box-shadow`
-- Scale-Animation auf Hover (`whileHover={{ scale: 1.02 }}`)
-- Ein grosses dekoratives Zitat/Icon pro Karte als visuelles Element (die Nummer wird gross und semi-transparent als Hintergrund-Element dargestellt)
+Kurz, selbstbewusst, kein Duplikat.
 
-### 3. "Warum wir" -- Premium Layout
+**2. Mission-Section -- Cleaner Look**
 
-Aktuell: Einfache Textzeilen mit Divider -- zu minimalistisch.
+- Text bleibt (der Leitsatz gehoert hierhin, nicht in den Hero)
+- Die horizontalen Linien oben/unten bleiben als elegante Trenner
+- Keine Aenderung noetig, da der Hero-Text sich jetzt unterscheidet
 
-**Neu:**
-- Jeder Reason bekommt eine eigene Card mit Glassmorphism-Hintergrund
-- Horizontales Layout bleibt, aber mit mehr visueller Tiefe
-- Grosse Nummer als dekoratives Element (halbtransparent, ueberlappt den Content leicht)
-- Neon-Akzent-Linie links an jeder Karte statt oben (`border-l-2 border-accent/40`)
-- Hover-Effekt mit leichtem Glow
-- Beschreibungstexte etwas laenger und lockerer formuliert:
-  - "Persoenlich statt anonym" -- "Bei uns landet ihr nicht in einer Warteschleife. Ihr arbeitet direkt mit den Leuten, die eure Loesung bauen."
-  - "Ergebnisorientiert" -- "Wir zaehlen keine Features -- wir messen, wie viel Zeit ihr zurueckbekommt."
-  - "Langfristig gedacht" -- "Unsere Loesungen wachsen mit euch. Kein Vendor Lock-in, keine boesen Ueberraschungen."
+**3. Werte-Section -- Nur grosse dekorative Nummer**
+
+Die kleine Accent-Nummer (`<span className="text-sm text-accent">01</span>`) wird entfernt. Nur die grosse dekorative Hintergrund-Nummer bleibt -- aber deutlich sichtbarer als visuelles Statement (von `text-white/[0.03]` auf `text-white/[0.04]`). Titel bekommt eine feine Accent-Linie darueber als visuellen Anker.
+
+Ausserdem: Section bekommt eine Subtitle-Zeile unter der Ueberschrift fuer mehr Kontext.
+
+**4. Warum-Wir-Section -- Komplett neu**
+
+Statt 3 Cards die fast gleich aussehen wie die Values-Cards, wird das Layout komplett anders:
+- Grosses fortlaufendes Layout statt Grid
+- Jeder Punkt besteht aus: grosse Nummer links (Accent-Farbe, `text-6xl`), Titel + Beschreibung rechts
+- Getrennt durch subtile Linien
+- Kein Card-Hintergrund, kein Border -- bewusster Kontrast zur Values-Section
+- Hover-Effekt: Text slidet leicht nach rechts
+
+**5. Trust-Zahlen -- Premium Upgrade**
+
+- Section bekommt einen eigenen Titel: "In Zahlen."
+- Jede Zahl steht in einem glassmorphen Container mit Border
+- Zahlen werden deutlich groesser (`text-6xl md:text-7xl`)
+- Dezenter Glow-Ring um jede Zahl auf Hover
+- Trennlinie zwischen Label und Zahl
+
+---
 
 ### Technische Details
 
-**Datei:** `src/pages/AboutUs.tsx` -- einzige Datei
+**Datei:** `src/pages/AboutUs.tsx` (einzige Datei)
 
-**Mission (Zeilen 165-170):**
-- Beide `<p>` Texte ersetzen durch die neuen lockeren Formulierungen
+**Hero (Zeilen 144-152):**
+- Subtitle-Text aendern zu: "Euer Partner fuer KI-Loesungen, die wirklich funktionieren."
 
-**Values Cards (Zeilen 188-202):**
-- Card-Klassen erweitern: `bg-white/[0.03] backdrop-blur-sm border border-border/10 rounded-2xl p-8 hover:border-accent/30 transition-all duration-500 relative overflow-hidden group`
-- `motion.div` bekommt `whileHover={{ scale: 1.02, y: -4 }}`
-- Grosse dekorative Nummer als Hintergrund-Element: `<span className="absolute -top-4 -right-2 text-[8rem] font-bold text-white/[0.03] select-none pointer-events-none group-hover:text-accent/[0.05] transition-colors duration-500">`
-- Kleine Nummer bekommt `text-accent` statt nur `text-accent`
+**Values Cards (Zeilen 188-206):**
+- Zeile 202 entfernen (kleine `<span>` mit Nummer)
+- Grosse Hintergrund-Nummer von `text-white/[0.03]` auf `text-white/[0.04]` aendern
+- Accent-Linie als `<div>` vor dem Titel hinzufuegen (`w-8 h-[2px] bg-accent/40 mb-4`)
+- Subtitle unter Section-Titel hinzufuegen
 
-**Reasons (Zeilen 218-235):**
-- Von Divider-Layout zu Card-Layout wechseln: `grid grid-cols-1 md:grid-cols-3 gap-6`
-- Jede Reason-Card: `bg-white/[0.03] backdrop-blur-sm border border-border/10 rounded-2xl p-8 border-l-2 border-l-accent/40 hover:border-accent/30 transition-all duration-500 relative overflow-hidden group`
-- `whileHover={{ scale: 1.02, y: -4 }}`
-- Grosse dekorative Nummer im Hintergrund wie bei Values
-- Beschreibungstexte aktualisieren (lockerer, laenger)
-- `reasons`-Array (Zeilen 33-49) mit neuen Texten aktualisieren
+**Reasons Section (Zeilen 211-243):**
+- Grid-Layout komplett ersetzen durch vertikales Flex-Layout
+- Jeder Reason: `flex items-start gap-8` mit grosser Nummer links
+- Cards entfernen, stattdessen cleane Zeilen mit Divider
+- Grosse dekorative Hintergrund-Nummer und kleine Nummer beide entfernen
+- Stattdessen eine prominente Accent-farbene Nummer als eigenstaendiges Element
+
+**Trust Section (Zeilen 246-266):**
+- Titel "In Zahlen." hinzufuegen mit Blur-Animation
+- Jede Stat bekommt eigene glassmorphe Card: `bg-white/[0.03] backdrop-blur-sm border border-border/10 rounded-2xl p-8`
+- Zahlen groesser: `text-6xl md:text-7xl`
+- Hover-Glow wie bei den Values-Cards
+- Grid bleibt `grid-cols-3` aber mit `gap-6`
 
