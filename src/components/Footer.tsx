@@ -1,4 +1,4 @@
-import { Instagram, Linkedin, Mail, Phone, MapPin } from "lucide-react";
+import { Instagram, Linkedin, Mail, Phone, MapPin, Heart } from "lucide-react";
 import { Link } from "react-router-dom";
 import logo from "@/assets/logo-2.png";
 
@@ -63,8 +63,18 @@ const Footer = () => {
 
       {/* Copyright */}
       <div className="border-t border-border/10">
-        <div className="container mx-auto px-6 py-5 text-center">
+        <div className="container mx-auto px-6 py-5 flex flex-col items-center gap-2">
           <span className="text-muted-foreground text-xs">© 2025 MTM Studios</span>
+          <span className="text-muted-foreground text-xs flex items-center gap-1">
+            Mit <Heart className="w-3 h-3 text-accent fill-accent" /> für den Mittelstand.
+          </span>
+          <div className="flex items-center gap-2 text-muted-foreground text-xs">
+            <Link to="/impressum" className="hover:text-foreground transition-opacity duration-200">Impressum</Link>
+            <span>·</span>
+            <Link to="/datenschutz" className="hover:text-foreground transition-opacity duration-200">Datenschutz</Link>
+            <span>·</span>
+            <Link to="/agb" className="hover:text-foreground transition-opacity duration-200">AGB</Link>
+          </div>
         </div>
       </div>
     </footer>
