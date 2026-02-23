@@ -3,7 +3,7 @@ import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
 import BlurText from "@/components/BlurText";
 import { motion, useInView } from "motion/react";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const appleEase = [0.16, 1, 0.3, 1] as const;
 
@@ -23,23 +23,69 @@ const values = [
     title: "Partnerschaft",
     description: "Wir sind kein Dienstleister — wir sind Teil eures Teams. Euer Erfolg ist unser Antrieb.",
   },
+  {
+    num: "04",
+    title: "Vertrauen",
+    description: "Transparenz in jedem Schritt. Ihr wisst immer, was wir tun, warum wir es tun — und was es euch bringt.",
+  },
 ];
 
-const team = [
-  { name: "Max Mustermann", role: "Gründer & CEO" },
-  { name: "Tom Technik", role: "Co-Founder & CTO" },
-  { name: "Marie Marketing", role: "Co-Founder & CMO" },
+const reasons = [
+  {
+    num: "01",
+    title: "Persönlich statt anonym",
+    description: "Ihr arbeitet direkt mit uns — nicht mit einem Support-Ticket.",
+  },
+  {
+    num: "02",
+    title: "Ergebnisorientiert",
+    description: "Wir messen Erfolg nicht in Features, sondern in eingesparter Zeit.",
+  },
+  {
+    num: "03",
+    title: "Langfristig gedacht",
+    description: "Unsere Lösungen wachsen mit eurem Unternehmen — ohne Vendor Lock-in.",
+  },
 ];
+
+const trustStats = [
+  { target: 50, suffix: "+", label: "automatisierte Prozesse" },
+  { target: 12, suffix: "h+", label: "eingesparte Zeit pro Woche" },
+  { target: 100, suffix: "%", label: "Transparenz" },
+];
+
+const CountUp = ({ target, suffix = "" }: { target: number; suffix?: string }) => {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true });
+  const [value, setValue] = useState(0);
+
+  useEffect(() => {
+    if (!inView) return;
+    const duration = 2000;
+    const start = performance.now();
+    const step = (now: number) => {
+      const t = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - t, 3);
+      setValue(Math.round(eased * target));
+      if (t < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }, [inView, target]);
+
+  return <span ref={ref}>{value}{suffix}</span>;
+};
 
 const AboutUs = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const missionRef = useRef(null);
   const valuesRef = useRef(null);
-  const teamRef = useRef(null);
+  const reasonsRef = useRef(null);
+  const trustRef = useRef(null);
 
   const missionInView = useInView(missionRef, { once: true, margin: "-100px" });
   const valuesInView = useInView(valuesRef, { once: true, margin: "-100px" });
-  const teamInView = useInView(teamRef, { once: true, margin: "-100px" });
+  const reasonsInView = useInView(reasonsRef, { once: true, margin: "-100px" });
+  const trustInView = useInView(trustRef, { once: true, margin: "-100px" });
 
   useEffect(() => {
     const handleScroll = () => {
@@ -99,10 +145,10 @@ const AboutUs = () => {
             initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ duration: 0.8, delay: 0.6, ease: appleEase }}
-            className="mt-6 text-lg md:text-xl text-foreground/70 max-w-xl text-center leading-relaxed"
+            className="mt-6 text-lg md:text-xl text-foreground/70 max-w-2xl text-center leading-relaxed"
             style={{ textShadow: '0 2px 20px rgba(0,0,0,0.9), 0 0 40px rgba(0,0,0,0.6)' }}
           >
-            Wir bauen intelligente Automatisierung, die Unternehmen Zeit zurückgibt — für das, was wirklich zählt.
+            Technologie schafft Möglichkeiten, Vertrauen entscheidet. Wir sorgen dafür, dass KI dir vor allem eines bringt: Zeit für deine Kunden.
           </motion.p>
         </section>
 
@@ -110,14 +156,19 @@ const AboutUs = () => {
         <section ref={missionRef} className="py-32 px-6">
           <div className="max-w-3xl mx-auto">
             <div className="border-t border-border/10" />
-            <motion.p
+            <motion.div
               initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
               animate={missionInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
               transition={{ duration: 0.8, ease: appleEase }}
-              className="text-xl md:text-2xl text-muted-foreground leading-relaxed text-center py-20"
+              className="py-20 space-y-8"
             >
-              Wir glauben, dass Technologie unsichtbar sein sollte — sie soll im Hintergrund arbeiten, damit Menschen im Vordergrund glänzen können. Deshalb entwickeln wir KI-Lösungen, die sich anfühlen, als wären sie schon immer da gewesen.
-            </motion.p>
+              <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed text-center">
+                Wir glauben, dass Technologie unsichtbar sein sollte — sie soll im Hintergrund arbeiten, damit Menschen im Vordergrund glänzen können. Deshalb entwickeln wir KI-Lösungen, die sich anfühlen, als wären sie schon immer da gewesen.
+              </p>
+              <p className="text-lg md:text-xl text-muted-foreground/80 leading-relaxed text-center">
+                Unser Versprechen: Keine Black-Box-Lösungen, keine leeren Buzzwords. Sondern Technologie, die ihr versteht, der ihr vertraut — und die ab Tag eins Ergebnisse liefert.
+              </p>
+            </motion.div>
             <div className="border-t border-border/10" />
           </div>
         </section>
@@ -134,14 +185,14 @@ const AboutUs = () => {
               Wofür wir stehen
             </motion.h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 md:divide-x md:divide-border/10">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {values.map((v, i) => (
                 <motion.div
                   key={v.num}
                   initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
                   animate={valuesInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
                   transition={{ duration: 0.8, delay: 0.15 * i, ease: appleEase }}
-                  className="px-8 py-8 md:py-0 text-center md:text-left"
+                  className="border border-border/10 rounded-2xl p-8"
                 >
                   <span className="text-sm font-medium text-accent tracking-widest">{v.num}</span>
                   <h3 className="text-2xl font-bold text-foreground mt-2 mb-3">{v.title}</h3>
@@ -152,30 +203,55 @@ const AboutUs = () => {
           </div>
         </section>
 
-        {/* Team */}
-        <section ref={teamRef} className="py-32 px-6">
-          <div className="max-w-4xl mx-auto text-center">
+        {/* Warum wir */}
+        <section ref={reasonsRef} className="py-32 px-6">
+          <div className="max-w-4xl mx-auto">
             <motion.h2
               initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
-              animate={teamInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
+              animate={reasonsInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
               transition={{ duration: 0.8, ease: appleEase }}
-              className="text-3xl md:text-5xl font-bold text-foreground mb-20"
+              className="text-3xl md:text-5xl font-bold text-foreground text-center mb-20"
             >
-              Die Köpfe dahinter
+              Warum wir
             </motion.h2>
 
-            <div className="flex flex-col md:flex-row items-center justify-center gap-16">
-              {team.map((member, i) => (
+            <div className="space-y-0">
+              {reasons.map((r, i) => (
                 <motion.div
-                  key={member.name}
+                  key={r.num}
                   initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
-                  animate={teamInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
+                  animate={reasonsInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
                   transition={{ duration: 0.8, delay: 0.15 * i, ease: appleEase }}
-                  className="flex flex-col items-center"
+                  className="border-t border-border/10 py-10 flex flex-col md:flex-row md:items-baseline gap-4 md:gap-12"
                 >
-                  <div className="w-28 h-28 rounded-full bg-accent/10 mb-5" />
-                  <span className="text-foreground font-semibold">{member.name}</span>
-                  <span className="text-sm text-muted-foreground mt-1">{member.role}</span>
+                  <span className="text-sm font-medium text-accent tracking-widest shrink-0">{r.num}</span>
+                  <div>
+                    <h3 className="text-xl font-bold text-foreground mb-2">{r.title}</h3>
+                    <p className="text-muted-foreground leading-relaxed">{r.description}</p>
+                  </div>
+                </motion.div>
+              ))}
+              <div className="border-t border-border/10" />
+            </div>
+          </div>
+        </section>
+
+        {/* Trust-Zahlen */}
+        <section ref={trustRef} className="py-32 px-6">
+          <div className="max-w-4xl mx-auto">
+            <div className="grid grid-cols-3 gap-8">
+              {trustStats.map((stat, i) => (
+                <motion.div
+                  key={stat.label}
+                  className="text-center"
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={trustInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.8, delay: i * 0.1, ease: appleEase }}
+                >
+                  <div className="text-4xl md:text-5xl font-bold text-accent mb-2">
+                    <CountUp target={stat.target} suffix={stat.suffix} />
+                  </div>
+                  <p className="text-sm text-muted-foreground">{stat.label}</p>
                 </motion.div>
               ))}
             </div>
