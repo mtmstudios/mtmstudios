@@ -94,8 +94,8 @@ const ContactFunnel = () => {
                 transition={{ duration: 0.4, ease: appleEase }}
                 className="flex flex-col flex-1"
               >
-                <h3 className="text-2xl font-bold text-foreground mb-2">Was braucht ihr?</h3>
-                <p className="text-muted-foreground text-sm mb-6">Wählt alles aus, was euch interessiert.</p>
+                <h3 className="text-2xl font-bold text-foreground mb-2 text-center">Was braucht ihr?</h3>
+                <p className="text-muted-foreground text-sm mb-6 text-center">Wählt alles aus, was euch interessiert.</p>
 
                 <div className="grid grid-cols-2 gap-3 mb-8">
                   {services.map((service, i) => {
@@ -108,7 +108,7 @@ const ContactFunnel = () => {
                         animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                         transition={{ duration: 0.4, delay: i * 0.07, ease: appleEase }}
                         onClick={() => toggleService(service.id)}
-                        className="relative group text-left p-4 rounded-2xl border transition-colors duration-300 cursor-pointer"
+                        className="relative group text-center p-4 rounded-2xl border transition-colors duration-300 cursor-pointer"
                         style={{
                           borderColor: isSelected ? "hsl(var(--accent) / 0.6)" : "hsl(var(--border) / 0.15)",
                           backgroundColor: isSelected ? "hsl(var(--accent) / 0.06)" : "hsl(var(--foreground) / 0.02)",
@@ -119,7 +119,7 @@ const ContactFunnel = () => {
                           style={{ boxShadow: "inset 0 1px 0 hsl(var(--foreground) / 0.06)" }}
                         />
                         <Icon
-                          className="w-5 h-5 mb-3 transition-colors duration-300"
+                          className="w-5 h-5 mb-3 mx-auto transition-colors duration-300"
                           style={{ color: isSelected ? "hsl(var(--accent))" : "hsl(var(--muted-foreground))" }}
                         />
                         <span className="text-sm font-medium text-foreground block">{service.label}</span>
@@ -161,8 +161,8 @@ const ContactFunnel = () => {
                 transition={{ duration: 0.4, ease: appleEase }}
                 className="flex flex-col flex-1"
               >
-                <h3 className="text-2xl font-bold text-foreground mb-2">Wie erreichen wir euch?</h3>
-                <p className="text-muted-foreground text-sm mb-6">Wir melden uns schnellstmöglich.</p>
+                <h3 className="text-2xl font-bold text-foreground mb-2 text-center">Wie erreichen wir euch?</h3>
+                <p className="text-muted-foreground text-sm mb-6 text-center">Wir melden uns schnellstmöglich.</p>
 
                 <div className="space-y-4 mb-8">
                   {[
@@ -220,7 +220,7 @@ const ContactFunnel = () => {
                   </motion.div>
                 </div>
 
-                <div className="mt-auto flex gap-3">
+                <div className="mt-auto flex gap-3 justify-center">
                   <Button
                     variant="ghost"
                     onClick={() => setStep(1)}
