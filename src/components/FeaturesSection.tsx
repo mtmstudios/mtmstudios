@@ -464,7 +464,7 @@ const FeaturesSection = () => {
               >
                 {/* Demo area */}
                 <div
-                  className={`h-[280px] md:h-[340px] rounded-2xl bg-white/[0.03] backdrop-blur-md overflow-hidden relative ${
+                  className={`h-[280px] md:h-[340px] rounded-2xl bg-white/[0.03] backdrop-blur-md overflow-hidden relative border border-white/[0.06] shadow-[0_0_40px_-10px_hsl(var(--neon)/0.15)] ${
                     isEven ? "md:order-2" : ""
                   }`}
                 >
