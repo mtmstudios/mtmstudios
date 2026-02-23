@@ -1,66 +1,67 @@
 
 
-## Zwei Upgrades: Demo-Karten-Styling + Automations Hero Visual
+## Automations Hero: Premium n8n-Style Workflow Visual
 
-### 1. Subtiler Border + Glow auf den Demo-Bereichen (Startseite)
+### Problem
+Das aktuelle "Neural Flow Network" besteht nur aus abstrakten Kreisen und Linien -- es sieht aus wie ein einfaches Netzwerk-Diagramm, nicht wie ein intelligenter Workflow. Es fehlt Kontext, Persoenlichkeit und visuelle Tiefe. Es kommuniziert nicht "Automatisierung".
 
-Die drei Demo-Container in `FeaturesSection.tsx` (Zeile 467) haben aktuell nur `bg-white/[0.03] backdrop-blur-md` -- sie verschmelzen mit dem dunklen Hintergrund und wirken "schwebend ohne Rahmen".
+### Loesung: Animierter n8n-Style Workflow
 
-**Aenderung an der Container-CSS-Klasse (Zeile 467):**
-
-Aktuell:
-```
-h-[280px] md:h-[340px] rounded-2xl bg-white/[0.03] backdrop-blur-md overflow-hidden relative
-```
-
-Neu:
-```
-h-[280px] md:h-[340px] rounded-2xl bg-white/[0.03] backdrop-blur-md overflow-hidden relative
-border border-white/[0.06] shadow-[0_0_40px_-10px_hsl(var(--neon)/0.15)]
-```
-
-Das gibt jedem Demo-Bereich:
-- Einen hauchduennen weissen Border (6% Opacity)
-- Einen subtilen Neon-Glow als Box-Shadow (15% Opacity, 40px Spread)
+Ersetzt `NeuralFlowVisual` komplett durch ein hochwertiges Workflow-Diagramm mit echten Nodes, Icons und animierten Datenfluss-Partikeln.
 
 ---
 
-### 2. Automations Hero: Zahnraeder durch ein hochwertiges "Neural Network / Flow" Visual ersetzen
+### Visual-Konzept
 
-Die Zahnraeder sehen altmodisch und billig aus -- sie passen nicht zum modernen KI-Thema. Stattdessen ein abstraktes, animiertes Netzwerk-Visual das "intelligente Automatisierung" kommuniziert.
+**Workflow-Nodes (5-6 Stueck):**
+Jeder Node ist ein abgerundetes Rechteck (nicht nur ein Kreis) mit:
+- Glassmorphism-Hintergrund (`bg-white/[0.06]`, `backdrop-blur` via SVG filter)
+- Subtiler neon-farbiger Border
+- Ein kleines SVG-Icon oben (Trigger, Mail, Database, AI, Webhook, Output)
+- Kurzer Label-Text darunter (z.B. "Trigger", "GPT-4", "CRM", "E-Mail")
+- Nodes werden mit staggered Scale+Fade eingeblendet
 
-**Neues Visual -- "Neural Flow Network":**
+**Verbindungslinien:**
+- Curved Bezier-Pfade (nicht gerade Linien) zwischen den Nodes -- wie in n8n
+- Stroke-Animation (pathLength 0 nach 1) mit stagger
+- Kleine Pfeilspitzen an den Enden
 
-Ersetzt `GearFlowVisual` in `AutomationsHero.tsx` komplett. Das neue Visual zeigt:
+**Animierte Daten-Partikel:**
+- Leuchtende Punkte (mit Glow-Filter) die entlang der Bezier-Kurven wandern
+- Nutzen `animateMotion` mit `mpath` auf den Bezier-Pfaden
+- Verschiedene Geschwindigkeiten fuer organisches Gefuehl
 
-- **Animierte Knoten (Nodes)**: 6-8 leuchtende Kreise, die sich in einem organischen Netzwerk-Muster anordnen
-- **Verbindungslinien**: Duenne Linien zwischen den Nodes mit Stroke-Animation (pathLength 0 -> 1)
-- **Pulsierende Datenpunkte**: Leuchtende Punkte die entlang der Verbindungen wandern (wie Daten die durch ein System fliessen)
-- **Zentrale Hub-Node**: Ein groesserer Kreis in der Mitte mit staerkerem Glow -- repraesentiert die KI
-- **Pulsierender Ring-Effekt**: Der zentrale Hub hat einen sanft pulsierenden Ring (aehnlich dem Call-Button auf der Telefon-Seite)
-- **Staggered Einblendung**: Nodes erscheinen nacheinander (wie ein Netzwerk das sich aufbaut), Verbindungen werden danach gezeichnet
+**Layout (von links nach rechts):**
+```text
+[Trigger] ---> [Daten laden] ---> [KI verarbeiten] ---> [CRM Update]
+                                        |
+                                        v
+                                  [E-Mail senden]
+```
 
-Viewbox bleibt bei 320x200, Groesse des Containers bleibt gleich. Alle Animationen nutzen die `appleEase` Kurve und `useInView`.
+Ein Haupt-Pfad von links nach rechts mit einer Verzweigung -- wie ein echter Workflow.
+
+**Zusaetzliche Details fuer Premium-Look:**
+- Subtile Grid-Linien im Hintergrund (wie n8n Canvas) mit sehr niedriger Opacity
+- Der "KI"-Node in der Mitte hat einen staerkeren Glow und pulsierenden Ring
+- Nodes haben einen minimalen Schatten/Glow nach unten
 
 ---
 
 ### Technische Details
 
-**Datei 1: `src/components/FeaturesSection.tsx`**
-- Zeile 467: CSS-Klasse des Demo-Containers um `border` und `shadow` erweitern
-- Nur 1 Zeile aendern, kein Logik-Change
+**Datei: `src/components/automations/AutomationsHero.tsx`**
 
-**Datei 2: `src/components/automations/AutomationsHero.tsx`**
-- `Gear`, `DataDot` und `GearFlowVisual` Komponenten komplett entfernen (Zeilen 8-98)
-- Neue `NeuralFlowVisual` Komponente einfuegen mit:
-  - Array von Node-Positionen (x, y, radius)
-  - Array von Connection-Paaren (index-basiert)
-  - SVG mit `<defs>` fuer Glow-Filter
-  - `motion.circle` fuer jeden Node mit staggered scale-in
-  - `motion.line` fuer jede Connection mit pathLength-Animation
-  - `animateMotion` Datenpunkte auf den Verbindungspfaden
-  - Zentraler Hub-Node mit pulsierendem Ring
+Die `NeuralFlowVisual` Komponente wird komplett ersetzt durch `WorkflowVisual`:
+
+- Viewbox wird breiter: `0 0 600 300` (um einen horizontalen Flow darzustellen)
+- Container wird groesser: `max-w-[600px] h-[300px] sm:h-[380px]`
+- Jeder Node wird als `<g>` mit `<rect>` (abgerundet), Icon-Symbol (`<path>` oder simple Shapes) und `<text>` gerendert
+- Verbindungen als `<path d="M... C...">` (kubische Bezier-Kurven)
+- Daten-Partikel mit `<circle>` + `<animateMotion>` auf den Bezier-Pfaden
+- Grid-Hintergrund als wiederholendes `<pattern>` Element
+- Alle Animationen mit `motion/react`, `useInView`, und `appleEase`
+- Stagger-Reihenfolge: Grid erscheint -> Nodes skalieren rein (links nach rechts) -> Verbindungen werden gezeichnet -> Daten-Partikel starten
 
 ### Ergebnis
-- Die Demo-Karten auf der Startseite heben sich sauber vom Hintergrund ab mit elegantem Glow
-- Die Automations-Seite hat ein modernes, KI-wuerdiges Hero-Visual statt billiger Zahnraeder
+Ein professionelles, n8n-inspiriertes Workflow-Diagramm das sofort "intelligente Automatisierung" kommuniziert -- mit echten Nodes, Bezier-Verbindungen und fliessenden Daten-Partikeln. Apple-like smooth durch staggered Animationen und weiche Easing-Kurven.
