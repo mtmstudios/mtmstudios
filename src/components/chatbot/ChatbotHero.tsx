@@ -13,6 +13,42 @@ const messages = [
   { from: "bot", text: "Perfekt! Dein Termin ist gebucht:\nMorgen, 14:30 Uhr\nHaare + Bart. Bis dann! ✓" },
 ];
 
+const TypingDots = ({ delay }: { delay: number }) => (
+  <motion.div
+    style={{
+      display: "flex",
+      gap: "4px",
+      padding: "7px 10px",
+      maxWidth: "60px",
+      borderRadius: "4px 14px 14px 14px",
+      backgroundColor: "hsl(var(--accent) / 0.1)",
+      border: "1px solid hsl(var(--accent) / 0.2)",
+    }}
+    initial={{ opacity: 0, scale: 0.8 }}
+    animate={{ opacity: [0, 1, 1, 0], scale: [0.8, 1, 1, 0.8] }}
+    transition={{ duration: 0.6, delay, ease: "easeInOut" }}
+  >
+    {[0, 1, 2].map((d) => (
+      <motion.div
+        key={d}
+        style={{
+          width: 5,
+          height: 5,
+          borderRadius: "50%",
+          backgroundColor: "hsl(var(--accent) / 0.5)",
+        }}
+        animate={{ opacity: [0.3, 1, 0.3] }}
+        transition={{
+          duration: 0.8,
+          delay: delay + d * 0.15,
+          repeat: 0,
+          ease: "easeInOut",
+        }}
+      />
+    ))}
+  </motion.div>
+);
+
 const WhatsAppPhoneVisual = () => {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true });
@@ -21,7 +57,6 @@ const WhatsAppPhoneVisual = () => {
   const msgInterval = 0.8;
   const typingDuration = 0.6;
 
-  // Calculate delay for each message, adding typing pause before bot messages
   const getMessageDelay = (index: number) => {
     let delay = msgStartDelay;
     for (let i = 0; i < index; i++) {
@@ -36,6 +71,12 @@ const WhatsAppPhoneVisual = () => {
   return (
     <div ref={ref} className="relative w-full h-full flex items-center justify-center">
       <svg viewBox="0 0 320 580" className="w-full h-full max-w-[380px]" fill="none">
+        {/* Solid background inside phone */}
+        <rect
+          x="20" y="10" width="280" height="560" rx="40"
+          fill="hsl(var(--background))"
+        />
+
         {/* Phone frame */}
         <motion.rect
           x="20" y="10" width="280" height="560" rx="40"
@@ -58,17 +99,9 @@ const WhatsAppPhoneVisual = () => {
           transition={{ delay: 1.3, duration: 0.4 }}
         />
 
-        {/* WhatsApp Header background */}
+        {/* WhatsApp Header background - flat rect below phone curve */}
         <motion.rect
-          x="20" y="10" width="280" height="70" rx="40"
-          fill="hsl(var(--accent)/0.08)"
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.6, delay: 1.5, ease: appleEase }}
-        />
-        {/* Clip bottom corners of header */}
-        <motion.rect
-          x="20" y="50" width="280" height="30"
+          x="20" y="40" width="280" height="40" rx="0"
           fill="hsl(var(--accent)/0.08)"
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
@@ -120,15 +153,15 @@ const WhatsAppPhoneVisual = () => {
         </motion.text>
 
         {/* Chat messages via foreignObject */}
-        <foreignObject x="30" y="90" width="260" height="460">
+        <foreignObject x="30" y="85" width="260" height="470">
           <div
             style={{
               display: "flex",
               flexDirection: "column",
-              gap: "6px",
-              padding: "8px 4px",
+              gap: "8px",
+              padding: "12px 6px",
               fontFamily: "system-ui, -apple-system, sans-serif",
-              fontSize: "10px",
+              fontSize: "11px",
               lineHeight: "1.4",
             }}
           >
@@ -136,76 +169,59 @@ const WhatsAppPhoneVisual = () => {
               const isBot = msg.from === "bot";
               const isLast = i === messages.length - 1;
               const delay = getMessageDelay(i);
+              const typingDelay = delay - typingDuration;
 
               return (
-                <motion.div
-                  key={i}
-                  style={{
-                    display: "flex",
-                    justifyContent: isBot ? "flex-start" : "flex-end",
-                  }}
-                  initial={{ opacity: 0, scale: 0.8, y: 12 }}
-                  animate={inView ? { opacity: 1, scale: 1, y: 0 } : {}}
-                  transition={{ duration: 0.5, delay, ease: appleEase }}
-                >
-                  <div
+                <div key={i}>
+                  {/* Inline typing dots before bot messages */}
+                  {isBot && inView && (
+                    <div style={{ marginBottom: "6px" }}>
+                      <TypingDots delay={typingDelay} />
+                    </div>
+                  )}
+                  <motion.div
                     style={{
-                      maxWidth: "82%",
-                      padding: "7px 10px",
-                      borderRadius: isBot
-                        ? "4px 14px 14px 14px"
-                        : "14px 14px 4px 14px",
-                      backgroundColor: isBot
-                        ? "hsl(var(--accent) / 0.1)"
-                        : "hsl(var(--secondary))",
-                      color: isBot
-                        ? "hsl(var(--accent))"
-                        : "hsl(var(--foreground))",
-                      border: isBot
-                        ? "1px solid hsl(var(--accent) / 0.2)"
-                        : "none",
-                      whiteSpace: "pre-line",
-                      boxShadow: isLast
-                        ? "0 0 20px hsl(var(--accent) / 0.2)"
-                        : "none",
+                      display: "flex",
+                      justifyContent: isBot ? "flex-start" : "flex-end",
                     }}
+                    initial={{ opacity: 0, scale: 0.8, y: 12 }}
+                    animate={inView ? { opacity: 1, scale: 1, y: 0 } : {}}
+                    transition={{ duration: 0.5, delay, ease: appleEase }}
                   >
-                    {msg.text}
-                  </div>
-                </motion.div>
+                    <div
+                      style={{
+                        maxWidth: "82%",
+                        padding: "7px 10px",
+                        borderRadius: isBot
+                          ? "4px 14px 14px 14px"
+                          : "14px 14px 4px 14px",
+                        backgroundColor: isBot
+                          ? "hsl(var(--accent) / 0.1)"
+                          : "hsl(var(--secondary))",
+                        color: isBot
+                          ? "hsl(var(--accent))"
+                          : "hsl(var(--foreground))",
+                        border: isBot
+                          ? "1px solid hsl(var(--accent) / 0.2)"
+                          : "none",
+                        whiteSpace: "pre-line",
+                        boxShadow: isLast
+                          ? "0 0 20px hsl(var(--accent) / 0.2)"
+                          : "none",
+                      }}
+                    >
+                      {msg.text}
+                    </div>
+                  </motion.div>
+                </div>
               );
             })}
           </div>
         </foreignObject>
 
-        {/* Typing dots (appear before each bot message) */}
-        {messages.map((msg, i) => {
-          if (msg.from !== "bot") return null;
-          const typingDelay = getMessageDelay(i) - typingDuration;
-          const yPos = 100 + i * 58;
-          return [0, 1, 2].map((d) => (
-            <motion.circle
-              key={`typing-${i}-${d}`}
-              cx={46 + d * 10} cy={yPos}
-              r="3"
-              fill="hsl(var(--accent)/0.4)"
-              initial={{ opacity: 0, scale: 0 }}
-              animate={inView ? {
-                opacity: [0, 0.7, 0.7, 0],
-                scale: [0, 1, 1, 0],
-              } : {}}
-              transition={{
-                duration: typingDuration,
-                delay: typingDelay + d * 0.1,
-                ease: "easeInOut",
-              }}
-            />
-          ));
-        })}
-
         {/* Glow behind last message */}
         <motion.ellipse
-          cx="160" cy="480" rx="100" ry="30"
+          cx="160" cy="510" rx="100" ry="30"
           fill="hsl(var(--accent)/0.06)"
           filter="blur(20px)"
           initial={{ opacity: 0 }}
