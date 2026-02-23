@@ -1,0 +1,312 @@
+import { useState, useCallback } from "react";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import { useContactFunnel } from "@/contexts/ContactFunnelContext";
+import { motion, AnimatePresence } from "motion/react";
+import { Phone, MessageSquare, Zap, HelpCircle, Check, ArrowLeft, ArrowRight, Send } from "lucide-react";
+import { z } from "zod";
+import { Button } from "@/components/ui/button";
+
+const appleEase = [0.16, 1, 0.3, 1] as const;
+
+const services = [
+  { id: "phone", label: "KI-Telefonassistent", icon: Phone },
+  { id: "chatbot", label: "WhatsApp & Chatbots", icon: MessageSquare },
+  { id: "automation", label: "Automatisierungen", icon: Zap },
+  { id: "unsure", label: "Ich weiß es noch nicht", icon: HelpCircle },
+] as const;
+
+const contactSchema = z.object({
+  name: z.string().trim().min(1, "Name ist erforderlich").max(100),
+  email: z.string().trim().email("Bitte gültige E-Mail eingeben").max(255),
+  phone: z.string().max(30).optional(),
+  message: z.string().max(1000).optional(),
+});
+
+type ContactData = z.infer<typeof contactSchema>;
+
+const ContactFunnel = () => {
+  const { isOpen, setIsOpen } = useContactFunnel();
+  const [step, setStep] = useState(1);
+  const [selected, setSelected] = useState<string[]>([]);
+  const [formData, setFormData] = useState<ContactData>({ name: "", email: "", phone: "", message: "" });
+  const [errors, setErrors] = useState<Partial<Record<keyof ContactData, string>>>({});
+
+  const reset = useCallback(() => {
+    setStep(1);
+    setSelected([]);
+    setFormData({ name: "", email: "", phone: "", message: "" });
+    setErrors({});
+  }, []);
+
+  const handleOpenChange = (open: boolean) => {
+    setIsOpen(open);
+    if (!open) setTimeout(reset, 300);
+  };
+
+  const toggleService = (id: string) => {
+    setSelected((prev) => prev.includes(id) ? prev.filter((s) => s !== id) : [...prev, id]);
+  };
+
+  const handleSubmit = () => {
+    const result = contactSchema.safeParse(formData);
+    if (!result.success) {
+      const fieldErrors: Partial<Record<keyof ContactData, string>> = {};
+      result.error.errors.forEach((e) => {
+        const field = e.path[0] as keyof ContactData;
+        if (!fieldErrors[field]) fieldErrors[field] = e.message;
+      });
+      setErrors(fieldErrors);
+      return;
+    }
+    setErrors({});
+    console.log("Funnel submission:", { services: selected, ...result.data });
+    setStep(3);
+  };
+
+  return (
+    <Dialog open={isOpen} onOpenChange={handleOpenChange}>
+      <DialogContent className="bg-background/95 backdrop-blur-xl border border-border/20 rounded-3xl max-w-xl p-0 gap-0 overflow-hidden shadow-[0_0_80px_hsl(var(--accent)/0.08)]">
+        <DialogTitle className="sr-only">Anfrage stellen</DialogTitle>
+
+        {/* Progress bar */}
+        <div className="flex gap-2 px-8 pt-8 pb-2">
+          {[1, 2, 3].map((s) => (
+            <div key={s} className="h-1 flex-1 rounded-full bg-border/20 overflow-hidden">
+              <motion.div
+                className="h-full rounded-full bg-accent"
+                initial={false}
+                animate={{ width: step >= s ? "100%" : "0%" }}
+                transition={{ duration: 0.5, ease: appleEase }}
+              />
+            </div>
+          ))}
+        </div>
+
+        {/* Steps */}
+        <div className="px-8 pb-8 pt-4 min-h-[400px] flex flex-col">
+          <AnimatePresence mode="wait">
+            {step === 1 && (
+              <motion.div
+                key="step1"
+                initial={{ opacity: 0, x: 40, filter: "blur(10px)" }}
+                animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+                exit={{ opacity: 0, x: -40, filter: "blur(10px)" }}
+                transition={{ duration: 0.4, ease: appleEase }}
+                className="flex flex-col flex-1"
+              >
+                <h3 className="text-2xl font-bold text-foreground mb-2">Was braucht ihr?</h3>
+                <p className="text-muted-foreground text-sm mb-6">Wählt alles aus, was euch interessiert.</p>
+
+                <div className="grid grid-cols-2 gap-3 mb-8">
+                  {services.map((service, i) => {
+                    const isSelected = selected.includes(service.id);
+                    const Icon = service.icon;
+                    return (
+                      <motion.button
+                        key={service.id}
+                        initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
+                        animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                        transition={{ duration: 0.4, delay: i * 0.07, ease: appleEase }}
+                        onClick={() => toggleService(service.id)}
+                        className="relative group text-left p-4 rounded-2xl border transition-colors duration-300 cursor-pointer"
+                        style={{
+                          borderColor: isSelected ? "hsl(var(--accent) / 0.6)" : "hsl(var(--border) / 0.15)",
+                          backgroundColor: isSelected ? "hsl(var(--accent) / 0.06)" : "hsl(var(--foreground) / 0.02)",
+                          boxShadow: isSelected ? "0 0 25px hsl(var(--accent) / 0.12), inset 0 1px 0 hsl(var(--accent) / 0.1)" : "none",
+                        }}
+                      >
+                        <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                          style={{ boxShadow: "inset 0 1px 0 hsl(var(--foreground) / 0.06)" }}
+                        />
+                        <Icon
+                          className="w-5 h-5 mb-3 transition-colors duration-300"
+                          style={{ color: isSelected ? "hsl(var(--accent))" : "hsl(var(--muted-foreground))" }}
+                        />
+                        <span className="text-sm font-medium text-foreground block">{service.label}</span>
+
+                        {/* Check indicator */}
+                        <motion.div
+                          className="absolute top-3 right-3 w-5 h-5 rounded-full flex items-center justify-center"
+                          style={{ backgroundColor: "hsl(var(--accent))" }}
+                          initial={false}
+                          animate={{ scale: isSelected ? 1 : 0, opacity: isSelected ? 1 : 0 }}
+                          transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                        >
+                          <Check className="w-3 h-3 text-background" />
+                        </motion.div>
+                      </motion.button>
+                    );
+                  })}
+                </div>
+
+                <div className="mt-auto">
+                  <Button
+                    onClick={() => setStep(2)}
+                    disabled={selected.length === 0}
+                    className="w-full bg-accent text-background hover:bg-accent/90 font-semibold rounded-full py-6 text-base transition-all duration-300 disabled:opacity-30"
+                  >
+                    Weiter
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                  </Button>
+                </div>
+              </motion.div>
+            )}
+
+            {step === 2 && (
+              <motion.div
+                key="step2"
+                initial={{ opacity: 0, x: 40, filter: "blur(10px)" }}
+                animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+                exit={{ opacity: 0, x: -40, filter: "blur(10px)" }}
+                transition={{ duration: 0.4, ease: appleEase }}
+                className="flex flex-col flex-1"
+              >
+                <h3 className="text-2xl font-bold text-foreground mb-2">Wie erreichen wir euch?</h3>
+                <p className="text-muted-foreground text-sm mb-6">Wir melden uns schnellstmöglich.</p>
+
+                <div className="space-y-4 mb-8">
+                  {[
+                    { key: "name" as const, label: "Name *", placeholder: "Max Mustermann", type: "text" },
+                    { key: "email" as const, label: "E-Mail *", placeholder: "max@firma.de", type: "email" },
+                    { key: "phone" as const, label: "Telefon (optional)", placeholder: "+49 ...", type: "tel" },
+                  ].map((field, i) => (
+                    <motion.div
+                      key={field.key}
+                      initial={{ opacity: 0, y: 15, filter: "blur(6px)" }}
+                      animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                      transition={{ duration: 0.35, delay: i * 0.06, ease: appleEase }}
+                    >
+                      <label className="text-sm text-muted-foreground mb-1.5 block">{field.label}</label>
+                      <input
+                        type={field.type}
+                        placeholder={field.placeholder}
+                        value={formData[field.key] || ""}
+                        onChange={(e) => {
+                          setFormData((prev) => ({ ...prev, [field.key]: e.target.value }));
+                          if (errors[field.key]) setErrors((prev) => ({ ...prev, [field.key]: undefined }));
+                        }}
+                        className="w-full rounded-xl border bg-foreground/[0.03] backdrop-blur-sm px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/50 outline-none transition-all duration-300 focus:border-accent/50 focus:shadow-[0_0_15px_hsl(var(--accent)/0.1)]"
+                        style={{
+                          borderColor: errors[field.key] ? "hsl(0 70% 50% / 0.6)" : "hsl(var(--border) / 0.15)",
+                        }}
+                      />
+                      {errors[field.key] && (
+                        <motion.p
+                          initial={{ opacity: 0, y: -5 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          className="text-xs mt-1.5"
+                          style={{ color: "hsl(0 70% 60%)" }}
+                        >
+                          {errors[field.key]}
+                        </motion.p>
+                      )}
+                    </motion.div>
+                  ))}
+
+                  <motion.div
+                    initial={{ opacity: 0, y: 15, filter: "blur(6px)" }}
+                    animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                    transition={{ duration: 0.35, delay: 0.18, ease: appleEase }}
+                  >
+                    <label className="text-sm text-muted-foreground mb-1.5 block">Nachricht (optional)</label>
+                    <textarea
+                      placeholder="Erzählt uns kurz, was ihr vorhabt..."
+                      rows={3}
+                      value={formData.message || ""}
+                      onChange={(e) => setFormData((prev) => ({ ...prev, message: e.target.value }))}
+                      className="w-full rounded-xl border bg-foreground/[0.03] backdrop-blur-sm px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/50 outline-none resize-none transition-all duration-300 focus:border-accent/50 focus:shadow-[0_0_15px_hsl(var(--accent)/0.1)]"
+                      style={{ borderColor: "hsl(var(--border) / 0.15)" }}
+                    />
+                  </motion.div>
+                </div>
+
+                <div className="mt-auto flex gap-3">
+                  <Button
+                    variant="ghost"
+                    onClick={() => setStep(1)}
+                    className="rounded-full px-6 py-6 text-muted-foreground hover:text-foreground"
+                  >
+                    <ArrowLeft className="w-4 h-4 mr-2" />
+                    Zurück
+                  </Button>
+                  <Button
+                    onClick={handleSubmit}
+                    className="flex-1 bg-accent text-background hover:bg-accent/90 font-semibold rounded-full py-6 text-base transition-all duration-300"
+                  >
+                    Absenden
+                    <Send className="w-4 h-4 ml-2" />
+                  </Button>
+                </div>
+              </motion.div>
+            )}
+
+            {step === 3 && (
+              <motion.div
+                key="step3"
+                initial={{ opacity: 0, scale: 0.95, filter: "blur(10px)" }}
+                animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+                transition={{ duration: 0.5, ease: appleEase }}
+                className="flex flex-col flex-1 items-center justify-center text-center py-8"
+              >
+                {/* Pulsing accent glow behind checkmark */}
+                <div className="relative mb-8">
+                  <motion.div
+                    className="absolute inset-0 rounded-full"
+                    style={{ background: "radial-gradient(circle, hsl(var(--accent) / 0.2) 0%, transparent 70%)" }}
+                    animate={{ scale: [1, 1.5, 1], opacity: [0.5, 0, 0.5] }}
+                    transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+                  />
+                  <motion.div
+                    className="relative w-20 h-20 rounded-full flex items-center justify-center"
+                    style={{
+                      background: "linear-gradient(135deg, hsl(var(--accent)), hsl(var(--accent) / 0.7))",
+                      boxShadow: "0 0 40px hsl(var(--accent) / 0.3)",
+                    }}
+                    initial={{ scale: 0 }}
+                    animate={{ scale: [0, 1.2, 1] }}
+                    transition={{ type: "spring", stiffness: 300, damping: 15, delay: 0.15 }}
+                  >
+                    <Check className="w-9 h-9 text-background" strokeWidth={3} />
+                  </motion.div>
+                </div>
+
+                <motion.h3
+                  className="text-2xl font-bold text-foreground mb-3"
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.3, ease: appleEase }}
+                >
+                  Geschafft!
+                </motion.h3>
+                <motion.p
+                  className="text-muted-foreground max-w-xs leading-relaxed mb-10"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.4, ease: appleEase }}
+                >
+                  Wir melden uns innerhalb von 24h bei euch. Bis bald!
+                </motion.p>
+
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.5 }}
+                >
+                  <Button
+                    onClick={() => handleOpenChange(false)}
+                    variant="ghost"
+                    className="rounded-full px-8 py-6 text-muted-foreground hover:text-foreground border border-border/20"
+                  >
+                    Schließen
+                  </Button>
+                </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+};
+
+export default ContactFunnel;

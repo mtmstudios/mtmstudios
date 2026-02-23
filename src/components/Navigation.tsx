@@ -1,12 +1,14 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
+import { useContactFunnel } from "@/contexts/ContactFunnelContext";
 import logo from "@/assets/logo-2.png";
 import whatsappLogo from "@/assets/whatsapp-logo.png";
 
 const Navigation = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { setIsOpen: openFunnel } = useContactFunnel();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -65,13 +67,12 @@ const Navigation = () => {
                 >
                   Das sind Wir
                 </Link>
-                <a
-                  href="#kontakt"
-                  className="text-lg text-foreground/80 hover:text-foreground transition-opacity duration-200"
-                  onClick={() => setMobileMenuOpen(false)}
+                <button
+                  className="text-lg text-foreground/80 hover:text-foreground transition-opacity duration-200 text-left"
+                  onClick={() => { setMobileMenuOpen(false); openFunnel(true); }}
                 >
                   Jetzt anfragen
-                </a>
+                </button>
               </div>
             </SheetContent>
           </Sheet>
@@ -96,9 +97,9 @@ const Navigation = () => {
           </a>
 
           {/* Right: Jetzt anfragen (tablet only) */}
-          <a href="#kontakt" className="z-10 hidden sm:flex lg:hidden text-sm text-foreground/80 hover:text-foreground transition-opacity duration-200">
+          <button onClick={() => openFunnel(true)} className="z-10 hidden sm:flex lg:hidden text-sm text-foreground/80 hover:text-foreground transition-opacity duration-200">
             Jetzt anfragen
-          </a>
+          </button>
         </div>
 
         {/* Desktop Layout */}
@@ -128,9 +129,9 @@ const Navigation = () => {
             </Link>
           </div>
 
-          <a href="#kontakt" className="text-sm text-foreground/80 hover:text-foreground transition-opacity duration-200">
+          <button onClick={() => openFunnel(true)} className="text-sm text-foreground/80 hover:text-foreground transition-opacity duration-200">
             Jetzt anfragen
-          </a>
+          </button>
         </div>
 
       </div>

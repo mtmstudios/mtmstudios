@@ -1,11 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { motion } from "motion/react";
 import BlurText from "./BlurText";
+import { useContactFunnel } from "@/contexts/ContactFunnelContext";
 import whatsappLogo from "@/assets/whatsapp-logo.png";
 
 const smoothEase = [0.25, 0.1, 0.25, 1] as const;
 
 const HeroSection = () => {
+  const { setIsOpen } = useContactFunnel();
   return (
     <section className="min-h-[70vh] flex items-start justify-center overflow-hidden pt-[15vh]">
       <div className="container mx-auto px-6 py-0 text-center">
@@ -86,11 +88,13 @@ const HeroSection = () => {
           delay: 0.7,
           ease: smoothEase
         }} className="flex flex-col items-center gap-4">
-          <a href="#kontakt">
-            <Button size="lg" className="bg-foreground text-background hover:bg-foreground/90 font-semibold text-lg px-10 py-6 rounded-full transition-all duration-200">
-              Jetzt beraten lassen
-            </Button>
-          </a>
+          <Button
+            size="lg"
+            onClick={() => setIsOpen(true)}
+            className="bg-foreground text-background hover:bg-foreground/90 font-semibold text-lg px-10 py-6 rounded-full transition-all duration-200"
+          >
+            Jetzt beraten lassen
+          </Button>
           <a
             href="https://wa.me/4915123456789"
             target="_blank"

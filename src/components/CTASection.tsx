@@ -1,12 +1,14 @@
 import { Button } from "@/components/ui/button";
 import { motion, useInView } from "motion/react";
 import { useRef } from "react";
+import { useContactFunnel } from "@/contexts/ContactFunnelContext";
 import whatsappLogo from "@/assets/whatsapp-logo.png";
 
 const appleEase = [0.16, 1, 0.3, 1] as const;
 
 const CTASection = () => {
   const ref = useRef(null);
+  const { setIsOpen } = useContactFunnel();
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
@@ -47,14 +49,13 @@ const CTASection = () => {
           transition={{ duration: 0.6, delay: 0.4, ease: appleEase }}
           className="flex flex-col items-center gap-4"
         >
-          <a href="#kontakt">
-            <Button
-              size="lg"
-              className="bg-foreground text-background hover:bg-foreground/90 font-semibold text-lg px-10 py-6 rounded-full transition-all duration-300 hover:shadow-[0_0_30px_hsl(var(--accent)/0.2)]"
-            >
-              Jetzt beraten lassen
-            </Button>
-          </a>
+          <Button
+            size="lg"
+            onClick={() => setIsOpen(true)}
+            className="bg-foreground text-background hover:bg-foreground/90 font-semibold text-lg px-10 py-6 rounded-full transition-all duration-300 hover:shadow-[0_0_30px_hsl(var(--accent)/0.2)]"
+          >
+            Jetzt beraten lassen
+          </Button>
           <a
             href="https://wa.me/4915123456789"
             target="_blank"
