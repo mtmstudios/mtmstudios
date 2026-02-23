@@ -7,8 +7,8 @@ const smoothEase = [0.25, 0.1, 0.25, 1] as const;
 
 const HeroSection = () => {
   return (
-    <section className="min-h-[70vh] flex items-center justify-center overflow-hidden pt-24">
-      <div className="container mx-auto px-6 py-16 text-center">
+    <section className="min-h-[70vh] flex items-start justify-center overflow-hidden pt-[15vh]">
+      <div className="container mx-auto px-6 py-0 text-center">
         <h1 className="text-4xl md:text-7xl lg:text-8xl font-bold text-foreground mb-2 leading-snug flex flex-col items-center">
           <span className="flex items-baseline gap-x-[0.3em]">
             <BlurText text="Wir bauen KI-Lösungen," delay={60} className="inline" animateBy="words" direction="bottom" stepDuration={0.5} animationFrom={{
