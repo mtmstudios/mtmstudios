@@ -1,65 +1,66 @@
 
 
-## Feature-Demos auf der Startseite aufwerten
+## Zwei Upgrades: Demo-Karten-Styling + Automations Hero Visual
 
-### Problem
-Die drei Demo-Animationen in der "Was wir fuer euch tun koennen"-Sektion sehen billig und generisch aus:
-- **Telefon**: Ein pulsierender Kreis mit Phone-Icon und Timer -- wirkt wie ein Platzhalter
-- **Chatbot**: Flache Chat-Blasen ohne Kontext -- kein Bezug zu WhatsApp oder einem echten Geraet
-- **Automatisierungen**: Drei Kreise mit Unicode-Pfeilen (Input/Process/Output) -- wirkt wie ein Wireframe
+### 1. Subtiler Border + Glow auf den Demo-Bereichen (Startseite)
 
-Auf den Unterseiten gibt es dagegen hochwertige SVG-Smartphone-Mockups (PhoneHero, ChatbotHero) und animierte Gear-Visuals (AutomationsHero), die deutlich professioneller wirken.
+Die drei Demo-Container in `FeaturesSection.tsx` (Zeile 467) haben aktuell nur `bg-white/[0.03] backdrop-blur-md` -- sie verschmelzen mit dem dunklen Hintergrund und wirken "schwebend ohne Rahmen".
 
-### Loesung
+**Aenderung an der Container-CSS-Klasse (Zeile 467):**
 
-Die drei Demo-Komponenten in `src/components/FeaturesSection.tsx` werden komplett ersetzt durch Mini-Versionen der Unterseiten-Visuals. Keine neuen Dateien noetig -- alles bleibt in FeaturesSection.tsx.
+Aktuell:
+```
+h-[280px] md:h-[340px] rounded-2xl bg-white/[0.03] backdrop-blur-md overflow-hidden relative
+```
 
----
+Neu:
+```
+h-[280px] md:h-[340px] rounded-2xl bg-white/[0.03] backdrop-blur-md overflow-hidden relative
+border border-white/[0.06] shadow-[0_0_40px_-10px_hsl(var(--neon)/0.15)]
+```
 
-**1. PhoneDemo -- Mini-Smartphone mit Waveform**
-
-Statt dem pulsierenden Kreis: Ein schlankes SVG-Smartphone (aehnlich wie auf `/telefonassistent`), mit:
-- Gezeichnetem Phone-Frame (abgerundetes Rechteck mit Stroke-Animation)
-- Notch oben
-- Avatar-Kreis + "KI-Telefonassistent" Text
-- Animierte Waveform-Bars in der Mitte (wie auf der Unterseite)
-- Kleiner pulsierender Status-Text "Bereit fuer Anrufe"
-
-Kein Call-Button noetig (ist ja nur eine Vorschau). Kompaktere Viewbox (z.B. 200x360 statt 320x580).
+Das gibt jedem Demo-Bereich:
+- Einen hauchduennen weissen Border (6% Opacity)
+- Einen subtilen Neon-Glow als Box-Shadow (15% Opacity, 40px Spread)
 
 ---
 
-**2. ChatDemo -- Mini-Smartphone mit WhatsApp-Chat**
+### 2. Automations Hero: Zahnraeder durch ein hochwertiges "Neural Network / Flow" Visual ersetzen
 
-Statt den flachen Blasen: Ein SVG-Smartphone (aehnlich wie auf `/chatbots`), mit:
-- Phone-Frame mit Stroke-Animation
-- WhatsApp-aehnlicher Header (Avatar + "KI-Assistent" + Online-Status)
-- 3-4 Chat-Nachrichten die nacheinander eingeblendet werden (mit Typing-Dots vor Bot-Antworten)
-- Gleicher Stil wie die ChatbotHero-Komponente, nur kompakter
+Die Zahnraeder sehen altmodisch und billig aus -- sie passen nicht zum modernen KI-Thema. Stattdessen ein abstraktes, animiertes Netzwerk-Visual das "intelligente Automatisierung" kommuniziert.
 
----
+**Neues Visual -- "Neural Flow Network":**
 
-**3. WorkflowDemo -- Animierte Gears mit Datenpunkten**
+Ersetzt `GearFlowVisual` in `AutomationsHero.tsx` komplett. Das neue Visual zeigt:
 
-Statt den drei Kreisen mit Unicode-Zeichen: Eine kompakte Version der Gear-Animation von `/automatisierungen`, mit:
-- 3 ineinandergreifende SVG-Zahnraeder die sich langsam drehen
-- Leuchtende Datenpunkte die entlang der Verbindungslinien wandern
-- Subtiler Glow-Effekt
-- Gleicher technischer Ansatz wie GearFlowVisual in AutomationsHero
+- **Animierte Knoten (Nodes)**: 6-8 leuchtende Kreise, die sich in einem organischen Netzwerk-Muster anordnen
+- **Verbindungslinien**: Duenne Linien zwischen den Nodes mit Stroke-Animation (pathLength 0 -> 1)
+- **Pulsierende Datenpunkte**: Leuchtende Punkte die entlang der Verbindungen wandern (wie Daten die durch ein System fliessen)
+- **Zentrale Hub-Node**: Ein groesserer Kreis in der Mitte mit staerkerem Glow -- repraesentiert die KI
+- **Pulsierender Ring-Effekt**: Der zentrale Hub hat einen sanft pulsierenden Ring (aehnlich dem Call-Button auf der Telefon-Seite)
+- **Staggered Einblendung**: Nodes erscheinen nacheinander (wie ein Netzwerk das sich aufbaut), Verbindungen werden danach gezeichnet
+
+Viewbox bleibt bei 320x200, Groesse des Containers bleibt gleich. Alle Animationen nutzen die `appleEase` Kurve und `useInView`.
 
 ---
 
 ### Technische Details
 
-Alle Aenderungen in einer einzigen Datei: `src/components/FeaturesSection.tsx`
+**Datei 1: `src/components/FeaturesSection.tsx`**
+- Zeile 467: CSS-Klasse des Demo-Containers um `border` und `shadow` erweitern
+- Nur 1 Zeile aendern, kein Logik-Change
 
-Die drei bestehenden Komponenten (`PhoneDemo`, `ChatDemo`, `WorkflowDemo`) werden durch neue ersetzt. Die Feature-Daten und das Layout der Section bleiben identisch.
-
-Verwendete Technologien:
-- SVG fuer die Smartphone-Frames und Gear-Shapes
-- `motion/react` (Framer Motion) fuer alle Animationen (pathLength, opacity, y-Transforms, rotate)
-- `useInView` fuer Scroll-getriggerte Animationen
-- Die `appleEase` Easing-Kurve `[0.16, 1, 0.3, 1]` fuer butterweiche Uebergaenge
+**Datei 2: `src/components/automations/AutomationsHero.tsx`**
+- `Gear`, `DataDot` und `GearFlowVisual` Komponenten komplett entfernen (Zeilen 8-98)
+- Neue `NeuralFlowVisual` Komponente einfuegen mit:
+  - Array von Node-Positionen (x, y, radius)
+  - Array von Connection-Paaren (index-basiert)
+  - SVG mit `<defs>` fuer Glow-Filter
+  - `motion.circle` fuer jeden Node mit staggered scale-in
+  - `motion.line` fuer jede Connection mit pathLength-Animation
+  - `animateMotion` Datenpunkte auf den Verbindungspfaden
+  - Zentraler Hub-Node mit pulsierendem Ring
 
 ### Ergebnis
-Alle drei Demos sehen wie hochwertige Previews der jeweiligen Unterseite aus -- konsistent im Stil, Apple-like in der Animation, und ein klarer visueller Anreiz zum Weiterklicken.
+- Die Demo-Karten auf der Startseite heben sich sauber vom Hintergrund ab mit elegantem Glow
+- Die Automations-Seite hat ein modernes, KI-wuerdiges Hero-Visual statt billiger Zahnraeder
