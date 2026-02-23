@@ -34,17 +34,17 @@ const reasons = [
   {
     num: "01",
     title: "Persönlich statt anonym",
-    description: "Ihr arbeitet direkt mit uns — nicht mit einem Support-Ticket.",
+    description: "Bei uns landet ihr nicht in einer Warteschleife. Ihr arbeitet direkt mit den Leuten, die eure Lösung bauen.",
   },
   {
     num: "02",
     title: "Ergebnisorientiert",
-    description: "Wir messen Erfolg nicht in Features, sondern in eingesparter Zeit.",
+    description: "Wir zählen keine Features — wir messen, wie viel Zeit ihr zurückbekommt.",
   },
   {
     num: "03",
     title: "Langfristig gedacht",
-    description: "Unsere Lösungen wachsen mit eurem Unternehmen — ohne Vendor Lock-in.",
+    description: "Unsere Lösungen wachsen mit euch. Kein Vendor Lock-in, keine bösen Überraschungen.",
   },
 ];
 
@@ -163,10 +163,10 @@ const AboutUs = () => {
               className="py-20 space-y-8"
             >
               <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed text-center">
-                Wir glauben, dass Technologie unsichtbar sein sollte — sie soll im Hintergrund arbeiten, damit Menschen im Vordergrund glänzen können. Deshalb entwickeln wir KI-Lösungen, die sich anfühlen, als wären sie schon immer da gewesen.
+                Technologie schafft Möglichkeiten, Vertrauen entscheidet. Wir sorgen dafür, dass KI dir vor allem eines bringt: Zeit für deine Kunden.
               </p>
               <p className="text-lg md:text-xl text-muted-foreground/80 leading-relaxed text-center">
-                Unser Versprechen: Keine Black-Box-Lösungen, keine leeren Buzzwords. Sondern Technologie, die ihr versteht, der ihr vertraut — und die ab Tag eins Ergebnisse liefert.
+                Kein Fachchinesisch, keine leeren Versprechen. Wir bauen Lösungen, die sich gut anfühlen — für euch und für eure Kunden. Auf Augenhöhe, mit Klarheit und echtem Interesse an eurem Erfolg.
               </p>
             </motion.div>
             <div className="border-t border-border/10" />
@@ -192,11 +192,16 @@ const AboutUs = () => {
                   initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
                   animate={valuesInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
                   transition={{ duration: 0.8, delay: 0.15 * i, ease: appleEase }}
-                  className="border border-border/10 rounded-2xl p-8"
+                  whileHover={{ scale: 1.02, y: -4 }}
+                  className="bg-white/[0.03] backdrop-blur-sm border border-border/10 rounded-2xl p-8 hover:border-accent/30 transition-all duration-500 relative overflow-hidden group cursor-default"
+                  style={{ boxShadow: "0 0 0 transparent" }}
+                  onMouseEnter={(e) => { e.currentTarget.style.boxShadow = "0 0 30px hsl(174 72% 48% / 0.08)"; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "0 0 0 transparent"; }}
                 >
+                  <span className="absolute -top-4 -right-2 text-[8rem] font-bold text-white/[0.03] select-none pointer-events-none group-hover:text-accent/[0.05] transition-colors duration-500">{v.num}</span>
                   <span className="text-sm font-medium text-accent tracking-widest">{v.num}</span>
                   <h3 className="text-2xl font-bold text-foreground mt-2 mb-3">{v.title}</h3>
-                  <p className="text-muted-foreground leading-relaxed">{v.description}</p>
+                  <p className="text-muted-foreground leading-relaxed relative z-10">{v.description}</p>
                 </motion.div>
               ))}
             </div>
@@ -215,23 +220,25 @@ const AboutUs = () => {
               Warum wir
             </motion.h2>
 
-            <div className="space-y-0">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {reasons.map((r, i) => (
                 <motion.div
                   key={r.num}
                   initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
                   animate={reasonsInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
                   transition={{ duration: 0.8, delay: 0.15 * i, ease: appleEase }}
-                  className="border-t border-border/10 py-10 flex flex-col md:flex-row md:items-baseline gap-4 md:gap-12"
+                  whileHover={{ scale: 1.02, y: -4 }}
+                  className="bg-white/[0.03] backdrop-blur-sm border border-border/10 border-l-2 border-l-accent/40 rounded-2xl p-8 hover:border-accent/30 hover:border-l-accent/60 transition-all duration-500 relative overflow-hidden group cursor-default"
+                  style={{ boxShadow: "0 0 0 transparent" }}
+                  onMouseEnter={(e) => { e.currentTarget.style.boxShadow = "0 0 30px hsl(174 72% 48% / 0.08)"; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "0 0 0 transparent"; }}
                 >
-                  <span className="text-sm font-medium text-accent tracking-widest shrink-0">{r.num}</span>
-                  <div>
-                    <h3 className="text-xl font-bold text-foreground mb-2">{r.title}</h3>
-                    <p className="text-muted-foreground leading-relaxed">{r.description}</p>
-                  </div>
+                  <span className="absolute -top-6 -right-2 text-[7rem] font-bold text-white/[0.03] select-none pointer-events-none group-hover:text-accent/[0.05] transition-colors duration-500">{r.num}</span>
+                  <span className="text-sm font-medium text-accent tracking-widest">{r.num}</span>
+                  <h3 className="text-xl font-bold text-foreground mt-2 mb-3">{r.title}</h3>
+                  <p className="text-muted-foreground leading-relaxed relative z-10">{r.description}</p>
                 </motion.div>
               ))}
-              <div className="border-t border-border/10" />
             </div>
           </div>
         </section>
