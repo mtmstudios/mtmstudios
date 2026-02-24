@@ -145,6 +145,28 @@ const RegionalPage = ({ context }: RegionalPageProps) => {
           </motion.div>
         </section>
 
+        {/* Detailed Content */}
+        {content.detailedContent && (
+          <section className="py-20 px-6">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.8, ease: appleEase }}
+              className="max-w-3xl mx-auto"
+            >
+              <h2 className="text-2xl md:text-4xl font-bold text-foreground text-center mb-8">
+                So profitieren Unternehmen in {city.charAt(0).toUpperCase() + city.slice(1)}
+              </h2>
+              <div className="text-base md:text-lg text-muted-foreground leading-relaxed space-y-4 text-center">
+                {content.detailedContent.split('\n\n').map((paragraph, i) => (
+                  <p key={i}>{paragraph}</p>
+                ))}
+              </div>
+            </motion.div>
+          </section>
+        )}
+
         {/* Pain Points */}
         <section className="py-20 px-6">
           <div className="max-w-5xl mx-auto">
