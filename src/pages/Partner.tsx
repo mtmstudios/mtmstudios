@@ -140,7 +140,7 @@ const Partner = () => {
 
       <div style={{ position: "relative", zIndex: 10 }}>
         {/* Hero */}
-        <section className="min-h-[75vh] flex flex-col items-center justify-center px-6">
+        <section className="min-h-[70vh] flex flex-col items-center pt-[15vh] px-6">
           <BlurText
             text="Euer Angebot. Unsere Technologie."
             className="text-4xl sm:text-5xl md:text-7xl font-bold text-foreground tracking-tight"
