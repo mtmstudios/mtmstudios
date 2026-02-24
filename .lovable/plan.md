@@ -1,52 +1,68 @@
 
 
-# Partner-Seite: Design-Differenzierung und Animationen
+# "Was ihr davon habt" -- Redesign als Bento-Grid mit Glassmorphism-Cards
 
-## Aktuelles Problem
-Alle drei Sektionen (Schritte, "Wir uebernehmen", "Was ihr davon habt") nutzen dasselbe Glassmorphism-Card-Design. Das wirkt repetitiv und langweilig.
+## Problem
+Die aktuelle Benefits-Sektion ist eine einfache vertikale Liste mit feinen Trennlinien und kleinen Akzent-Strichen. Das wirkt zu dezent und geht zwischen der Problem-Sektion (ebenfalls vertikale Liste) und den Trust-Zahlen (Cards) unter. Partner-Agenturen muessen die Vorteile sofort erkennen.
 
-## Aenderungen
+## Vorschlag: Bento-Grid Layout
 
-### 1. Schritte-Sektion ("Wir uebernehmen. Ihr glaenzt.") -- Anpassen an "So funktioniert's"-Design
-Aktuell: 3 Glassmorphism-Cards im Grid.
-Neu: Vertikales zentriertes Layout wie in `HowItWorks.tsx` und `AutomationsHowItWorks.tsx`:
-- Grosse halbtransparente Nummern (01, 02, 03) zentriert ueber dem Text
-- Titel und Beschreibung zentriert darunter
-- Feine Trennlinien zwischen den Schritten
-- Spring-Animation auf den Nummern, blur-in auf dem Text
-- Hover: `y: -4` und Nummer-Farbe wechselt zu `accent/40`
-- `whileInView` statt `useInView`-Ref (konsistent mit den anderen Seiten)
+Ein asymmetrisches Bento-Grid mit Glassmorphism-Cards, bei dem die ersten zwei Vorteile groesser dargestellt werden (sie sind die wichtigsten: "Neue Umsatzquelle" und "100% White-Label") und die unteren zwei kompakter daneben stehen.
 
-### 2. "Was ihr davon habt" -- Neues horizontales Fullwidth-Design
-Aktuell: 2x2 Glassmorphism-Card-Grid (identisch zu Schritte).
-Neu: Fullwidth gestapelte Bloecke mit animiertem Akzent-Streifen:
-- Jeder Benefit ist ein volle-Breite-Block mit linkem Accent-Border
-- Links ein animierter vertikaler Accent-Streifen (2px), der sich auf Hover verbreitert
-- Titel gross und prominent, Beschreibung darunter
-- Zentrierter Text, subtiler Background-Gradient auf Hover
-- Staggered fade-in von links (`x: -20` statt `y: 30`)
-- Trennlinien zwischen den Bloecken (aehnlich Problem-Sektion, aber mit anderem Feel)
+### Desktop (ab md)
+```text
++-------------------------------+-------------------------------+
+|                               |                               |
+|     Neue Umsatzquelle         |     100% White-Label          |
+|     (grosse Card, Icon)       |     (grosse Card, Icon)       |
+|                               |                               |
++---------------+---------------+-------------------------------+
+|               |               |                               |
+|   Schnelle    |  Persoenl.    |                               |
+|   Umsetzung   |  Ansprechp.   |                               |
+|               |               |                               |
++---------------+---------------+-------------------------------+
+```
+- 2 Spalten oben (je 50%), 2 Spalten unten (je 50%)
+- Glassmorphism-Background: `bg-white/[0.03] backdrop-blur-sm border border-border/10`
+- Hover: Border wird `accent/30`, subtiler Glow-Schatten, Card hebt sich leicht (`y: -6, scale: 1.02`)
+- Jede Card hat einen grossen Accent-farbenen Icon-Kreis oben
+- Titel in `text-2xl font-bold`, Beschreibung darunter
 
-### 3. Zusaetzliche smooth Animationen
-- **Hero**: Subtiler Scale-Effekt auf der Subline (von 0.98 auf 1)
-- **Problem-Nummern**: Sanfter Puls auf den Nummern beim ersten Einblenden (opacity pulse)
-- **Trust-Zahlen**: Leichter rotate3d auf Hover fuer Tiefe (`rotateX: 2deg`)
-- **Sektions-Uebergaenge**: Sanfte Divider-Animation -- die Trennlinien wachsen von der Mitte nach aussen (`scaleX: 0 -> 1`)
+### Tablet (md)
+- 2x2 Grid gleichmaessig
+- Etwas kompakter, aber gleiche Card-Struktur
+
+### Mobil (unter md)
+- Volle Breite, vertikal gestapelt
+- Jede Card nimmt die volle Breite ein
+- Kompaktere Innenabstaende (`p-6` statt `p-8`)
+
+### Animationen
+- Staggered fade-in von unten (`y: 30`) mit blur
+- Hover: `scale: 1.02`, `y: -6`, Border-Farbe wechselt zu `accent/30`
+- Subtiler Glow-Effekt auf Hover (box-shadow mit accent-Farbe)
+- Icons haben einen sanften Pulse beim ersten Erscheinen
+
+### Icons (Lucide)
+- Neue Umsatzquelle: `TrendingUp`
+- 100% White-Label: `Eye` (oder `EyeOff` fuer "unsichtbar")
+- Schnelle Umsetzung: `Zap`
+- Persoenlicher Ansprechpartner: `UserCheck`
 
 ## Technische Details
 
 ### Datei: `src/pages/Partner.tsx`
 
-**Schritte-Sektion (Zeilen 210-253)**: Komplett ersetzen mit dem vertikalen HowItWorks-Layout:
-- `whileInView` / `viewport={{ once: true }}` statt `useInView`-Ref
-- Vertikale Liste statt Grid
-- `bg-muted/20` als Section-Background fuer visuelle Trennung
-- Nummer mit `type: "spring"` Animation
+**Imports ergaenzen**: `TrendingUp, EyeOff, Zap, UserCheck` aus `lucide-react`
 
-**Benefits-Sektion (Zeilen 255-290)**: Komplett ersetzen mit neuem horizontal-gestapeltem Design:
-- Volle Breite, keine Cards, kein Grid
-- Linker Accent-Border pro Item
-- `initial: { opacity: 0, x: -20 }` statt `y: 30`
-- Hover-Effekt: Border verbreitert sich, subtiler Background-Shift
+**Benefits-Array erweitern**: Jedes Benefit-Objekt bekommt ein `icon`-Feld mit der entsprechenden Lucide-Komponente.
 
-**Refs bereinigen**: `solutionRef` und `solutionInView` koennen entfernt werden (ersetzt durch `whileInView`). `benefitsRef` bleibt fuer die Headline-Animation.
+**Sektion (Zeilen 276-327)**: Komplett ersetzen mit:
+- `max-w-5xl` Container statt `max-w-4xl`
+- CSS Grid: `grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6`
+- Jede Card: Glassmorphism-Styling mit `rounded-2xl`, `p-6 md:p-8`
+- Icon in einem `w-12 h-12 rounded-xl bg-accent/10` Container
+- Hover-Interaktion ueber `motion.div` mit `whileHover`
+- `onMouseEnter/Leave` fuer den Glow-Effekt (wie bei Trust-Zahlen)
+
