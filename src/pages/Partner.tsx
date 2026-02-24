@@ -89,14 +89,12 @@ const CountUp = ({ target, suffix = "", prefix = "" }: { target: number; suffix?
 const Partner = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const problemRef = useRef(null);
-  const solutionRef = useRef(null);
-  const benefitsRef = useRef(null);
   const trustRef = useRef(null);
+  const benefitsRef = useRef(null);
 
   const problemInView = useInView(problemRef, { once: true, margin: "-100px" });
-  const solutionInView = useInView(solutionRef, { once: true, margin: "-100px" });
-  const benefitsInView = useInView(benefitsRef, { once: true, margin: "-100px" });
   const trustInView = useInView(trustRef, { once: true, margin: "-100px" });
+  const benefitsInView = useInView(benefitsRef, { once: true, margin: "-100px" });
 
   useEffect(() => {
     const handleScroll = () => {
@@ -136,12 +134,10 @@ const Partner = () => {
         </video>
       </div>
 
-      {/* Navbar */}
       <div style={{ position: "relative", zIndex: 50 }}>
         <Navigation />
       </div>
 
-      {/* Content */}
       <div style={{ position: "relative", zIndex: 10 }}>
         {/* Hero */}
         <section className="min-h-[75vh] flex flex-col items-center justify-center px-6">
@@ -153,8 +149,8 @@ const Partner = () => {
             delay={120}
           />
           <motion.p
-            initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
-            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            initial={{ opacity: 0, y: 20, filter: "blur(10px)", scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)", scale: 1 }}
             transition={{ duration: 0.8, delay: 0.6, ease: appleEase }}
             className="mt-6 text-lg md:text-xl text-foreground/70 max-w-xl text-center leading-relaxed"
             style={{ textShadow: '0 2px 20px rgba(0,0,0,0.9), 0 0 40px rgba(0,0,0,0.6)' }}
@@ -207,54 +203,79 @@ const Partner = () => {
           </div>
         </section>
 
-        {/* Lösung */}
-        <section ref={solutionRef} className="py-32 px-6">
+        {/* Lösung — HowItWorks vertical style */}
+        <section className="py-20 md:py-28 lg:py-32 px-6 bg-muted/20">
           <div className="max-w-5xl mx-auto">
             <motion.h2
-              initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
-              animate={solutionInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
-              transition={{ duration: 0.8, ease: appleEase }}
               className="text-3xl md:text-5xl font-bold text-foreground text-center mb-4"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, ease: appleEase }}
             >
               Wir übernehmen. Ihr glänzt.
             </motion.h2>
             <motion.p
-              initial={{ opacity: 0, y: 10, filter: "blur(8px)" }}
-              animate={solutionInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
-              transition={{ duration: 0.8, delay: 0.1, ease: appleEase }}
               className="text-muted-foreground text-center mb-20 text-lg"
+              initial={{ opacity: 0, y: 10, filter: "blur(8px)" }}
+              whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.1, ease: appleEase }}
             >
               In drei Schritten zur fertigen KI-Lösung.
             </motion.p>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="max-w-4xl mx-auto">
               {steps.map((s, i) => (
                 <motion.div
                   key={s.title}
-                  initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
-                  animate={solutionInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
-                  transition={{ duration: 0.8, delay: 0.15 * i, ease: appleEase }}
-                  whileHover={{ scale: 1.02, y: -4 }}
-                  className="bg-white/[0.03] backdrop-blur-sm border border-border/10 rounded-2xl p-8 hover:border-accent/30 transition-all duration-500 relative overflow-hidden group cursor-default text-center"
-                  style={{ boxShadow: "0 0 0 transparent" }}
-                  onMouseEnter={(e) => { e.currentTarget.style.boxShadow = "0 0 30px hsl(174 72% 48% / 0.08)"; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "0 0 0 transparent"; }}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.8, delay: i * 0.15, ease: appleEase }}
+                  whileHover={{ y: -4 }}
+                  className="group flex flex-col items-center text-center py-8 md:py-12 cursor-default"
                 >
-                  <span className="absolute -top-4 -right-2 text-[8rem] font-bold text-white/[0.04] select-none pointer-events-none group-hover:text-accent/[0.06] transition-colors duration-500">
+                  <motion.span
+                    className="text-4xl md:text-5xl lg:text-6xl font-bold text-accent/15 select-none mb-3 transition-colors duration-300 group-hover:text-accent/40"
+                    initial={{ opacity: 0, scale: 0.85 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ type: "spring", stiffness: 200, damping: 20, delay: i * 0.15 }}
+                  >
                     {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <div className="w-8 h-[2px] bg-accent/40 mb-6 mx-auto group-hover:w-12 group-hover:bg-accent/60 transition-all duration-500" />
-                  <h3 className="text-xl font-bold text-foreground mb-3">{s.title}</h3>
-                  <p className="text-muted-foreground leading-relaxed relative z-10">{s.description}</p>
+                  </motion.span>
+                  <motion.div
+                    initial={{ opacity: 0, y: 20, filter: "blur(6px)" }}
+                    whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8, delay: i * 0.15 + 0.1, ease: appleEase }}
+                  >
+                    <h3 className="text-lg md:text-xl lg:text-2xl font-bold text-foreground mb-2 transition-colors duration-300 group-hover:text-accent">
+                      {s.title}
+                    </h3>
+                    <p className="text-sm md:text-base text-muted-foreground leading-relaxed max-w-md mx-auto">
+                      {s.description}
+                    </p>
+                  </motion.div>
+                  {i < steps.length - 1 && (
+                    <motion.div
+                      className="w-full max-w-[120px] mx-auto h-px bg-border/10 mt-8 md:mt-12 origin-center"
+                      initial={{ scaleX: 0 }}
+                      whileInView={{ scaleX: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.8, delay: i * 0.15 + 0.3, ease: appleEase }}
+                    />
+                  )}
                 </motion.div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* Vorteile */}
+        {/* Vorteile — Fullwidth stacked with accent border */}
         <section ref={benefitsRef} className="py-32 px-6">
-          <div className="max-w-5xl mx-auto">
+          <div className="max-w-4xl mx-auto">
             <motion.h2
               initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
               animate={benefitsInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
@@ -264,27 +285,43 @@ const Partner = () => {
               Was ihr davon habt.
             </motion.h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-0">
               {benefits.map((b, i) => (
                 <motion.div
                   key={b.title}
-                  initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
-                  animate={benefitsInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
+                  initial={{ opacity: 0, x: -20, filter: "blur(8px)" }}
+                  whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+                  viewport={{ once: true, margin: "-50px" }}
                   transition={{ duration: 0.8, delay: 0.12 * i, ease: appleEase }}
-                  whileHover={{ scale: 1.02, y: -4 }}
-                  className="bg-white/[0.03] backdrop-blur-sm border border-border/10 rounded-2xl p-8 hover:border-accent/30 transition-all duration-500 relative overflow-hidden group cursor-default text-center"
-                  style={{ boxShadow: "0 0 0 transparent" }}
-                  onMouseEnter={(e) => { e.currentTarget.style.boxShadow = "0 0 30px hsl(174 72% 48% / 0.08)"; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "0 0 0 transparent"; }}
+                  className="group cursor-default"
                 >
-                  <span className="absolute -top-4 -right-2 text-[8rem] font-bold text-white/[0.04] select-none pointer-events-none group-hover:text-accent/[0.06] transition-colors duration-500">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <div className="w-8 h-[2px] bg-accent/40 mb-4 mx-auto group-hover:w-12 group-hover:bg-accent/60 transition-all duration-500" />
-                  <h3 className="text-2xl font-bold text-foreground mb-3">{b.title}</h3>
-                  <p className="text-muted-foreground leading-relaxed relative z-10">{b.description}</p>
+                  <motion.div
+                    className="h-px bg-border/10 origin-center"
+                    initial={{ scaleX: 0 }}
+                    whileInView={{ scaleX: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: 0.12 * i, ease: appleEase }}
+                  />
+                  <motion.div
+                    whileHover={{ x: 8 }}
+                    transition={{ duration: 0.4, ease: appleEase }}
+                    className="relative py-10 md:py-12 pl-6 md:pl-8 text-center md:text-left"
+                  >
+                    <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[2px] h-8 bg-accent/30 group-hover:h-16 group-hover:bg-accent/60 transition-all duration-500 rounded-full" />
+                    <h3 className="text-xl md:text-2xl font-bold text-foreground mb-2 group-hover:text-accent transition-colors duration-500">
+                      {b.title}
+                    </h3>
+                    <p className="text-muted-foreground leading-relaxed max-w-lg mx-auto md:mx-0">{b.description}</p>
+                  </motion.div>
                 </motion.div>
               ))}
+              <motion.div
+                className="h-px bg-border/10 origin-center"
+                initial={{ scaleX: 0 }}
+                whileInView={{ scaleX: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.5, ease: appleEase }}
+              />
             </div>
           </div>
         </section>
@@ -309,8 +346,8 @@ const Partner = () => {
                   initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
                   animate={trustInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
                   transition={{ duration: 0.8, delay: i * 0.12, ease: appleEase }}
-                  whileHover={{ scale: 1.03, y: -4 }}
-                  style={{ boxShadow: "0 0 0 transparent" }}
+                  whileHover={{ scale: 1.03, y: -4, rotateX: 2 }}
+                  style={{ boxShadow: "0 0 0 transparent", perspective: "800px" }}
                   onMouseEnter={(e) => { e.currentTarget.style.boxShadow = "0 0 40px hsl(174 72% 48% / 0.1)"; }}
                   onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "0 0 0 transparent"; }}
                 >
@@ -329,7 +366,6 @@ const Partner = () => {
           </div>
         </section>
 
-        {/* CTA + Footer */}
         <CTASection />
         <Footer />
       </div>
