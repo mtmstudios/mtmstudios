@@ -148,9 +148,11 @@ const Datenschutz = () => {
             <p className="mt-3">Weitere Informationen: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">Google Datenschutzerklärung</a></p>
           </Section>
 
-          <Section title="9. Kontaktformular">
-            <p>Wenn du uns per Kontaktformular Anfragen zukommen lässt, werden deine Angaben aus dem Anfrageformular inklusive der von dir dort angegebenen Kontaktdaten zwecks Bearbeitung der Anfrage und für den Fall von Anschlussfragen bei uns gespeichert.</p>
-            <p className="mt-3"><strong className="text-foreground">Verarbeitete Daten:</strong></p>
+          <Section title="9. Kontakt- und Bewerbungsformulare">
+            <p>Wenn du uns per Kontaktformular oder Bewerbungsformular Anfragen zukommen lässt, werden deine Angaben aus dem jeweiligen Formular inklusive der von dir dort angegebenen Kontaktdaten zwecks Bearbeitung der Anfrage und für den Fall von Anschlussfragen bei uns gespeichert.</p>
+            <p className="mt-3 font-medium text-foreground">Technische Verarbeitung:</p>
+            <p>Die Formulardaten werden über <strong className="text-foreground">n8n</strong> (Self-hosted Workflow-Automatisierung) verarbeitet. n8n und alle Formulardaten werden <strong className="text-foreground">ausschließlich auf Servern in Deutschland</strong> gehostet und verarbeitet. Eine Datenübermittlung in Drittländer findet nicht statt.</p>
+            <h3 className="text-foreground font-medium mt-4 mb-2">Kontaktformular — Verarbeitete Daten:</h3>
             <BulletList items={[
               "Name",
               "E-Mail-Adresse",
@@ -158,9 +160,18 @@ const Datenschutz = () => {
               "Nachricht / Anfrage",
               "Gewählte Lösung und Herausforderung",
             ]} />
-            <p className="mt-3"><strong className="text-foreground">Zweck:</strong> Bearbeitung deiner Anfrage und Kontaktaufnahme.</p>
+            <h3 className="text-foreground font-medium mt-4 mb-2">Bewerbungsformular — Verarbeitete Daten:</h3>
+            <BulletList items={[
+              "Name",
+              "E-Mail-Adresse",
+              "Telefonnummer (optional)",
+              "Gewünschte Position",
+              "Lebenslauf / Anschreiben",
+              "Weitere von dir angegebene Informationen",
+            ]} />
+            <p className="mt-3"><strong className="text-foreground">Zweck:</strong> Bearbeitung deiner Kontaktanfrage bzw. deiner Bewerbung und entsprechende Kontaktaufnahme.</p>
             <p><strong className="text-foreground">Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. b DSGVO (vorvertragliche Maßnahmen) bzw. Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse).</p>
-            <p><strong className="text-foreground">Speicherdauer:</strong> Wir speichern deine Anfrage, bis der Zweck der Speicherung entfällt (i.d.R. nach Abschluss der Kommunikation).</p>
+            <p><strong className="text-foreground">Speicherdauer:</strong> Wir speichern deine Anfrage bzw. Bewerbung, bis der Zweck der Speicherung entfällt (i.d.R. nach Abschluss der Kommunikation bzw. des Bewerbungsverfahrens).</p>
           </Section>
 
           <Section title="10. Terminbuchung (Calendly)">
