@@ -20,7 +20,7 @@ const Impressum = () => {
           </section>
           <section>
             <h2 className="text-foreground font-semibold text-lg mb-2">Kontakt</h2>
-            <p>Telefon: [+49 XXX XXXXXXX]<br />E-Mail: info@mtmstudios.de</p>
+            <p>Telefon: [+49 XXX XXXXXXX]<br />E-Mail: hallo@mtmstudios.de</p>
           </section>
           <section>
             <h2 className="text-foreground font-semibold text-lg mb-2">Handelsregister</h2>
