@@ -1,98 +1,52 @@
 
 
-# Karriere-Seite: Apple-Style Statement-Sektionen
+# Regionale SEO-Sektion: "Auch in deiner Region"
 
 ## Konzept
 
-Zwischen Hero und Benefits werden 2-3 grosse, zentrierte Statement-Sektionen eingefuegt -- jeweils eine provokante Frage als fette Headline, darunter ein kurzer erklarender Text in `muted-foreground`. Genau wie im Referenzbild: Grosser weisser Text, darunter grauer Subtext, zentriert, viel Freiraum.
+Eine dezente, wiederverwendbare Komponente wird erstellt und auf 4 Seiten direkt oberhalb des Footers platziert. Sie zeigt regionale Staedte als Pill-Chips an -- einige aktiv (verlinkt auf zukuenftige SEO-Unterseiten), andere mit einem "Bald"-Badge (noch nicht live). Die Sektion soll sich visuell zuruecknehmen und nicht vom Hauptinhalt ablenken.
 
-Der Besucher scrollt durch und nickt bei jeder Frage: "Ja, das will ich."
+## Design (angelehnt an Referenzbild)
 
-## Die 3 Statements
+- Kleine zentrierte Headline mit MapPin-Icon: "Auch in deiner Region"
+- Darunter Chips in einer `flex-wrap` Zeile, zentriert
+- Aktive Chips: `rounded-full border border-white/10 bg-white/[0.03] text-foreground/70 text-sm px-5 py-2.5`
+- "Bald"-Chips: Gleicher Stil, aber mit kleinem `Bald`-Badge rechts (`text-xs bg-white/[0.06] rounded-full px-2 py-0.5 text-foreground/30`)
+- Hover auf aktiven Chips: `border-white/20 bg-white/[0.06]` -- subtiler Lift
+- Kein Tuerkis, kein Accent -- komplett neutral/grau gehalten
+- Dezenter `py-16` Abstand, keine grosse Headline -- bewusst zurueckhaltend
+- `text-foreground/40` fuer die Headline (sehr gedimmt)
 
-**Statement 1:**
-- Headline: "Du willst mit den neusten KI-Tools arbeiten?"
-- Subtext: "Wir setzen auf Claude, ChatGPT, N8N und alles, was morgen Standard ist -- heute schon."
+## Staedte (Initial)
 
-**Statement 2:**
-- Headline: "Du willst KI wirklich verstehen?"
-- Subtext: "Nicht nur anwenden, sondern durchdringen. Bei uns baust du Loesungen, die Unternehmen transformieren."
+Kontextbezogen pro Seite die gleiche Liste (kann spaeter pro Seite variiert werden):
 
-**Statement 3:**
-- Headline: "Du willst kein Konzern-Hamsterrad?"
-- Subtext: "Flache Hierarchien, echte Verantwortung, Remote-first. Dein Impact zaehlt ab Tag eins."
+| Stadt | Status |
+|-------|--------|
+| Stuttgart | aktiv (Link zu `/ki-telefonassistent-stuttgart` etc.) |
+| Ulm | aktiv |
+| Muenchen | bald |
+| Augsburg | bald |
+| Reutlingen | bald |
 
-## Layout pro Statement
-
-Jede Sektion bekommt:
-- `py-[20vh]` fuer massiven Freiraum (wie Apple)
-- Headline: `text-3xl sm:text-4xl md:text-5xl font-bold text-foreground text-center`
-- Subtext: `text-lg sm:text-xl text-muted-foreground text-center max-w-lg mx-auto mt-6`
-- BlurText-Animation fuer die Headline (Signature-Effekt)
-- Fade+Blur fuer den Subtext
-
-## Seitenstruktur (neu)
-
-```text
-+---------------------------+
-|       Navigation          |
-+---------------------------+
-|                           |
-|    Hero (bestehend)       |
-|    "Bock auf Zukunft?"    |
-|                           |
-+---------------------------+
-|                           |
-|                           |
-|  Statement 1 (neu)       |
-|  "Du willst mit den      |
-|   neusten KI-Tools..."   |
-|                           |
-|                           |
-+---------------------------+
-|                           |
-|                           |
-|  Statement 2 (neu)       |
-|  "Du willst KI wirklich  |
-|   verstehen?"            |
-|                           |
-|                           |
-+---------------------------+
-|                           |
-|                           |
-|  Statement 3 (neu)       |
-|  "Du willst kein         |
-|   Konzern-Hamsterrad?"   |
-|                           |
-|                           |
-+---------------------------+
-|                           |
-|    Benefits (bestehend,   |
-|    mit groesseren Icons)  |
-|                           |
-+---------------------------+
-|                           |
-|    Bottom CTA             |
-|                           |
-+---------------------------+
-|       Footer              |
-+---------------------------+
-```
-
-## Zusaetzliche Verbesserungen
-
-- **Benefits-Icons**: Von `w-4 h-4` auf `w-6 h-6` vergroessert, Icon-Container `w-12 h-12 rounded-xl bg-white/[0.04]`
-- **Benefits-Layout**: Von Chips zu `grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4` Karten mit `p-6 rounded-2xl`
-- **Benefits-Headline**: Von `text-2xl` auf `text-3xl md:text-4xl`, `mb-16` statt `mb-8`
-- **Hero**: Mehr Padding `pt-[18vh] pb-[12vh]`, Headline auf `text-5xl sm:text-6xl md:text-7xl`
-- **Bottom CTA**: `py-32`, groesserer Text `text-2xl md:text-3xl`
+Die Links werden vorerst auf `#` gesetzt (Seiten existieren noch nicht). Spaeter werden die regionalen Unterseiten erstellt und die Links aktualisiert.
 
 ## Technische Umsetzung
 
-### Datei: `src/pages/Karriere.tsx`
+### Neue Datei: `src/components/RegionalSection.tsx`
 
-- `statements` Array mit 3 Objekten (headline, subtext)
-- Mapping ueber statements mit `motion.section` und BlurText fuer Headlines
-- Benefits-Bereich: Grid-Layout mit Icon-Karten statt Chips
-- Hero/CTA: Mehr Whitespace und groessere Typo
+- Wiederverwendbare Komponente mit Props:
+  - `contextPath?: string` (z.B. "ki-telefonassistent") -- wird fuer die Link-Generierung genutzt
+- Staedte-Array intern definiert mit `{ name, slug, available }`
+- Aktive Staedte rendern als `<Link>`, "Bald"-Staedte als `<span>`
+- Subtle fade-in Animation mit `motion`
+
+### Geaenderte Dateien (jeweils 1 Import + 1 Zeile einfuegen):
+
+| Datei | Position | contextPath |
+|-------|----------|-------------|
+| `src/pages/Index.tsx` | Vor `<Footer />` | keiner (allgemein) |
+| `src/pages/PhoneAssistant.tsx` | Vor `<Footer />` | "ki-telefonassistent" |
+| `src/pages/Chatbots.tsx` | Vor `<Footer />` | "ki-chatbot" |
+| `src/pages/Automations.tsx` | Vor `<Footer />` | "automatisierungen" |
 
