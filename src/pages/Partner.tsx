@@ -190,7 +190,7 @@ const Partner = () => {
                       {p.num}
                     </span>
                     <div>
-                      <h3 className="text-xl md:text-2xl font-bold text-foreground mb-3 group-hover:text-accent transition-colors duration-500">
+                      <h3 className="text-xl md:text-2xl font-bold text-foreground mb-3 group-hover:text-destructive/80 group-active:text-destructive/80 transition-colors duration-500">
                         {p.title}
                       </h3>
                       <p className="text-muted-foreground leading-relaxed max-w-lg">{p.description}</p>
