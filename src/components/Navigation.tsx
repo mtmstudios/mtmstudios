@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
 import { useContactFunnel } from "@/contexts/ContactFunnelContext";
@@ -39,6 +39,19 @@ const Navigation = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { setIsOpen: openFunnel } = useContactFunnel();
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleLogoClick = (e: React.MouseEvent) => {
+    if (location.pathname === "/") {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      e.preventDefault();
+      navigate("/");
+      setTimeout(() => window.scrollTo({ top: 0, behavior: "smooth" }), 50);
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -113,7 +126,7 @@ const Navigation = () => {
           </Sheet>
 
           {/* Center: Logo */}
-          <Link to="/" className="absolute left-1/2 -translate-x-1/2">
+          <Link to="/" onClick={handleLogoClick} className="absolute left-1/2 -translate-x-1/2">
             <img
               src={logo}
               alt="MTM Studios Logo"
@@ -141,7 +154,7 @@ const Navigation = () => {
 
         {/* Desktop Layout */}
         <div className="hidden lg:flex items-center justify-between">
-          <Link to="/" className="flex items-center">
+          <Link to="/" onClick={handleLogoClick} className="flex items-center">
             <img
               src={logo}
               alt="MTM Studios Logo"
