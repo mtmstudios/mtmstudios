@@ -7,6 +7,7 @@ import UseCases from "@/components/phone-assistant/UseCases";
 import PhoneTestimonial from "@/components/phone-assistant/PhoneTestimonial";
 import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
+import RegionalSection from "@/components/RegionalSection";
 import { useEffect, useRef } from "react";
 
 const PhoneAssistant = () => {
@@ -68,6 +69,7 @@ const PhoneAssistant = () => {
         <UseCases />
         <PhoneTestimonial />
         <CTASection />
+        <RegionalSection contextPath="ki-telefonassistent" />
         <Footer />
       </div>
     </div>

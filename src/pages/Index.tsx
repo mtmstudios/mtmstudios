@@ -7,6 +7,7 @@ import ProcessSection from "@/components/ProcessSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
+import RegionalSection from "@/components/RegionalSection";
 
 import { useEffect, useRef } from "react";
 
@@ -66,6 +67,7 @@ const Index = () => {
         <ProcessSection />
         <TestimonialsSection />
         <CTASection />
+        <RegionalSection />
         <Footer />
       </div>
     </div>

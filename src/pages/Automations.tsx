@@ -8,6 +8,7 @@ import TrustSection from "@/components/automations/TrustSection";
 import AutomationsTestimonial from "@/components/automations/AutomationsTestimonial";
 import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
+import RegionalSection from "@/components/RegionalSection";
 import { useEffect, useRef } from "react";
 
 const Automations = () => {
@@ -70,6 +71,7 @@ const Automations = () => {
         <TrustSection />
         <AutomationsTestimonial />
         <CTASection />
+        <RegionalSection contextPath="automatisierungen" />
         <Footer />
       </div>
     </div>
