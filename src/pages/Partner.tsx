@@ -186,7 +186,7 @@ const Partner = () => {
                     transition={{ duration: 0.4, ease: appleEase }}
                     className="flex items-start gap-8 md:gap-12 py-12"
                   >
-                    <span className="text-5xl md:text-6xl font-bold text-accent/20 group-hover:text-accent/50 transition-colors duration-500 select-none shrink-0 leading-none pt-1">
+                    <span className="text-5xl md:text-6xl font-bold text-destructive/40 group-hover:text-destructive group-active:text-destructive transition-colors duration-500 select-none shrink-0 leading-none pt-1">
                       {p.num}
                     </span>
                     <div>
