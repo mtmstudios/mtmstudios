@@ -28,7 +28,13 @@ const experienceLevels = [
   { id: "senior", label: "Senior", sub: "5+ Jahre", icon: Award },
 ] as const;
 
-const tools = ["N8N", "Zapier", "Claude", "ChatGPT", "Gemini"] as const;
+const tools = [
+  { id: "n8n", label: "N8N", logo: "https://cdn.simpleicons.org/n8n/white" },
+  { id: "zapier", label: "Zapier", logo: "https://cdn.simpleicons.org/zapier/white" },
+  { id: "claude", label: "Claude", logo: "https://cdn.simpleicons.org/anthropic/white" },
+  { id: "chatgpt", label: "ChatGPT", logo: "https://cdn.simpleicons.org/openai/white" },
+  { id: "gemini", label: "Gemini", logo: "https://cdn.simpleicons.org/googlegemini/white" },
+] as const;
 
 const hourOptions = ["8–12h", "12–16h", "16–20h"] as const;
 const startOptions = ["Sofort", "In 1–3 Monaten", "Später"] as const;
@@ -310,9 +316,36 @@ const CareerFunnel = ({ open, onOpenChange }: CareerFunnelProps) => {
                 <h3 className="text-2xl font-bold text-foreground mb-2 text-center">Welche Tools kennst du?</h3>
                 <p className="text-muted-foreground text-sm mb-6 text-center">Wähl alle aus, mit denen du schon gearbeitet hast.</p>
                 <div className="flex flex-wrap justify-center gap-3 mb-8">
-                  {tools.map((t, i) => (
-                    <Chip key={t} label={t} selected={selectedTools.includes(t)} onClick={() => toggleTool(t)} index={i} />
-                  ))}
+                  {tools.map((t, i) => {
+                    const isSelected = selectedTools.includes(t.id);
+                    return (
+                      <motion.button
+                        key={t.id}
+                        initial={{ opacity: 0, y: 10, filter: "blur(6px)" }}
+                        animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                        transition={{ duration: 0.35, delay: i * 0.05, ease: appleEase }}
+                        onClick={() => toggleTool(t.id)}
+                        className="relative flex flex-col items-center justify-center w-20 h-20 rounded-2xl border transition-all duration-300 cursor-pointer"
+                        style={{
+                          borderColor: isSelected ? "hsl(var(--accent) / 0.6)" : "hsl(var(--border) / 0.15)",
+                          backgroundColor: isSelected ? "hsl(var(--accent) / 0.06)" : "hsl(var(--foreground) / 0.02)",
+                          boxShadow: isSelected ? "0 0 25px hsl(var(--accent) / 0.12), inset 0 1px 0 hsl(var(--accent) / 0.1)" : "none",
+                        }}
+                      >
+                        <img src={t.logo} alt={t.label} className="w-8 h-8 mb-1.5" />
+                        <span className="text-xs text-muted-foreground">{t.label}</span>
+                        <motion.div
+                          className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full flex items-center justify-center"
+                          style={{ backgroundColor: "hsl(var(--accent))" }}
+                          initial={false}
+                          animate={{ scale: isSelected ? 1 : 0, opacity: isSelected ? 1 : 0 }}
+                          transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                        >
+                          <Check className="w-3 h-3 text-background" />
+                        </motion.div>
+                      </motion.button>
+                    );
+                  })}
                   <Chip label="Keins davon" selected={selectedTools.includes("none")} onClick={() => setSelectedTools(["none"])} index={tools.length} />
                 </div>
                 <div className="mt-auto flex gap-3">
@@ -333,8 +366,8 @@ const CareerFunnel = ({ open, onOpenChange }: CareerFunnelProps) => {
                 <p className="text-muted-foreground text-sm mb-6 text-center">Wir melden uns schnellstmöglich.</p>
                 <div className="space-y-4 mb-8">
                   {[
-                    { key: "name" as const, label: "Name *", placeholder: "Max Mustermann", type: "text" },
-                    { key: "email" as const, label: "E-Mail *", placeholder: "max@email.de", type: "email" },
+                    { key: "name" as const, label: "Name *", placeholder: "MTM Studios", type: "text" },
+                    { key: "email" as const, label: "E-Mail *", placeholder: "hallo@mtmstudios.de", type: "email" },
                     { key: "phone" as const, label: "Telefon (optional)", placeholder: "+49 ...", type: "tel" },
                   ].map((field, i) => (
                     <motion.div key={field.key} initial={{ opacity: 0, y: 15, filter: "blur(6px)" }} animate={{ opacity: 1, y: 0, filter: "blur(0px)" }} transition={{ duration: 0.35, delay: i * 0.06, ease: appleEase }}>
