@@ -3,6 +3,7 @@ import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
 import BlurText from "@/components/BlurText";
 import { motion, useInView } from "motion/react";
+import { TrendingUp, EyeOff, Zap, UserCheck } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
 const appleEase = [0.16, 1, 0.3, 1] as const;
@@ -44,18 +45,22 @@ const benefits = [
   {
     title: "Neue Umsatzquelle",
     description: "Erweitert euer Portfolio ohne eigenes Investment in Technologie oder Personal.",
+    icon: TrendingUp,
   },
   {
     title: "100% White-Label",
     description: "Euer Branding, unsere Technik. Eure Kunden sehen nur euch.",
+    icon: EyeOff,
   },
   {
     title: "Schnelle Umsetzung",
     description: "Keine Wartezeiten, keine langen Onboardings. Wir starten sofort.",
+    icon: Zap,
   },
   {
     title: "Persönlicher Ansprechpartner",
     description: "Ein fester Kontakt, der euer Geschäft versteht — kein anonymes Ticket-System.",
+    icon: UserCheck,
   },
 ];
 
@@ -273,55 +278,48 @@ const Partner = () => {
           </div>
         </section>
 
-        {/* Vorteile — Fullwidth stacked with accent border */}
+        {/* Vorteile — Bento-Grid mit Glassmorphism-Cards */}
         <section ref={benefitsRef} className="py-32 px-6">
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-5xl mx-auto">
             <motion.h2
               initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
               animate={benefitsInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
               transition={{ duration: 0.8, ease: appleEase }}
-              className="text-3xl md:text-5xl font-bold text-foreground text-center mb-20"
+              className="text-3xl md:text-5xl font-bold text-foreground text-center mb-16"
             >
               Was ihr davon habt.
             </motion.h2>
 
-            <div className="space-y-0">
-              {benefits.map((b, i) => (
-                <motion.div
-                  key={b.title}
-                  initial={{ opacity: 0, x: -20, filter: "blur(8px)" }}
-                  whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  transition={{ duration: 0.8, delay: 0.12 * i, ease: appleEase }}
-                  className="group cursor-default"
-                >
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+              {benefits.map((b, i) => {
+                const Icon = b.icon;
+                return (
                   <motion.div
-                    className="h-px bg-border/10 origin-center"
-                    initial={{ scaleX: 0 }}
-                    whileInView={{ scaleX: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: 0.12 * i, ease: appleEase }}
-                  />
-                  <motion.div
-                    whileHover={{ y: -4 }}
-                    transition={{ duration: 0.4, ease: appleEase }}
-                    className="relative py-10 md:py-12 text-center"
+                    key={b.title}
+                    className="group cursor-default bg-white/[0.03] backdrop-blur-sm border border-border/10 rounded-2xl p-6 md:p-8 hover:border-accent/30 transition-all duration-500"
+                    initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
+                    animate={benefitsInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
+                    transition={{ duration: 0.8, delay: i * 0.12, ease: appleEase }}
+                    whileHover={{ scale: 1.02, y: -6 }}
+                    style={{ boxShadow: "0 0 0 transparent" }}
+                    onMouseEnter={(e) => { e.currentTarget.style.boxShadow = "0 0 40px hsl(174 72% 48% / 0.1)"; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "0 0 0 transparent"; }}
                   >
-                    <div className="w-8 h-[2px] bg-accent/30 mx-auto mb-4 group-hover:w-12 group-hover:bg-accent/60 transition-all duration-500 rounded-full" />
+                    <motion.div
+                      className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-5"
+                      initial={{ scale: 0.8, opacity: 0 }}
+                      animate={benefitsInView ? { scale: 1, opacity: 1 } : {}}
+                      transition={{ duration: 0.6, delay: i * 0.12 + 0.2, ease: appleEase }}
+                    >
+                      <Icon className="w-6 h-6 text-accent" />
+                    </motion.div>
                     <h3 className="text-xl md:text-2xl font-bold text-foreground mb-2 group-hover:text-accent transition-colors duration-500">
                       {b.title}
                     </h3>
-                    <p className="text-muted-foreground leading-relaxed max-w-lg mx-auto">{b.description}</p>
+                    <p className="text-muted-foreground leading-relaxed">{b.description}</p>
                   </motion.div>
-                </motion.div>
-              ))}
-              <motion.div
-                className="h-px bg-border/10 origin-center"
-                initial={{ scaleX: 0 }}
-                whileInView={{ scaleX: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.5, ease: appleEase }}
-              />
+                );
+              })}
             </div>
           </div>
         </section>
