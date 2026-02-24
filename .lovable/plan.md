@@ -1,77 +1,39 @@
 
 
-# Plan: Regionale SEO-Seiten mit deutlich mehr Content
+# Plan: E-Mail und WhatsApp-Nummer ueberall aktualisieren
 
-## Problem
-
-Die aktuellen regionalen Seiten haben ca. 400-500 Woerter. Fuer wettbewerbsfaehige regionale Rankings (z.B. "KI Agentur Stuttgart") braucht es 800-1.500 Woerter pro Seite.
+Alle Stellen im Projekt werden auf die korrekten Kontaktdaten umgestellt.
 
 ---
 
-## Loesung: Content-Erweiterung in 3 Bereichen
+## Aenderungen
 
-### 1. Neuer Fliesstext-Abschnitt pro Seite
+### E-Mail: `info@mtmstudios.de` wird zu `hallo@mtmstudios.de`
 
-Jede Seite bekommt einen neuen Abschnitt zwischen "Lokaler Kontext" und "Pain Points" mit dem Arbeitstitel **"So profitieren Unternehmen in [Stadt]"**. Dieser Abschnitt enthaelt:
-
-- 200-400 Woerter Fliesstext
-- Natuerliche Keyword-Integration (Haupt-Keyword 2-3x erwaehnt)
-- Konkrete Branchen-Beispiele der jeweiligen Stadt
-- Lokale Bezuege (Stadtteile, Wirtschaftsstruktur, regionale Besonderheiten)
-
-Beispiel Stuttgart/KI-Agentur: Bezug auf Automobilzulieferer, Handwerk im Kessel, Agenturen in der Innenstadt, B2B-Dienstleister im Neckartal.
-
-Beispiel Ulm: Bezug auf Wissenschaftsstadt, Innovationsregion Ulm/Neu-Ulm, Handwerk, mittelstaendische Fertigung, Donau-Region.
-
-### 2. FAQ-Antworten verlaengern
-
-Jede FAQ-Antwort wird von 1-2 Saetzen auf 3-5 Saetze erweitert. Das verbessert:
-- Chance auf Google Featured Snippets
-- Gesamtwoerteranzahl pro Seite
-- Nutzwert fuer Besucher
-
-### 3. Lokaler Kontext erweitern
-
-Der kurze Absatz "localContext" wird von 3 auf 5-7 Saetze erweitert mit:
-- Konkreten Stadtteilen und Branchen
-- Regionalen Wirtschaftsdaten/Bezuegen
-- Staerkerer Verknuepfung von Stadt + Service
-
----
-
-## Technische Umsetzung
-
-### Datei: `src/data/regionalContent.ts`
-
-- Neues Feld `detailedContent: string` im Interface `RegionalContentData` hinzufuegen
-- Alle 8 Kombinationen (4 Services x 2 Staedte) mit ausfuehrlichem, einzigartigem Fliesstext befuellen
-- Bestehende `localContext`-Texte verlaengern
-- Alle `faqs[].answer`-Texte auf 3-5 Saetze erweitern
-
-### Datei: `src/components/regional/RegionalPage.tsx`
-
-- Neuen Abschnitt `<section>` fuer den Fliesstext einfuegen (nach dem lokalen Kontext, vor den Pain Points)
-- Styling: `max-w-3xl mx-auto`, normaler Fliesstext mit Absaetzen, H2-Ueberschrift mit Keyword
-
----
-
-## Erwartetes Ergebnis pro Seite
-
-| Bereich | Vorher | Nachher |
-|---------|--------|---------|
-| Lokaler Kontext | ~50 Woerter | ~120 Woerter |
-| Neuer Fliesstext | 0 | 250-350 Woerter |
-| FAQ-Antworten (gesamt) | ~120 Woerter | ~300 Woerter |
-| **Gesamt pro Seite** | **~450 Woerter** | **~900-1.200 Woerter** |
-
----
-
-## Dateien
-
-| Datei | Aktion |
+| Datei | Stelle |
 |-------|--------|
-| `src/data/regionalContent.ts` | AENDERN -- neues Feld + erweiterte Texte fuer alle 8 Seiten |
-| `src/components/regional/RegionalPage.tsx` | AENDERN -- neue Fliesstext-Section einfuegen |
+| `src/components/Footer.tsx` | `mailto:info@mtmstudios.de` |
+| `src/pages/Impressum.tsx` | "E-Mail: info@mtmstudios.de" |
+| `src/pages/Datenschutz.tsx` | 2x info@mtmstudios.de (Verantwortlicher + Rechte der Betroffenen) |
 
-**2 Dateien aendern, keine neuen Dateien**
+### WhatsApp-Nummer: alle wa.me-Links auf `4915567077414`
+
+| Datei | Alter Link | Neu |
+|-------|-----------|-----|
+| `src/components/HeroSection.tsx` | `wa.me/4915123456789` | `wa.me/4915567077414` |
+| `src/components/CTASection.tsx` | `wa.me/4915123456789` | `wa.me/4915567077414` |
+| `src/components/Footer.tsx` | `wa.me/4912345678` | `wa.me/4915567077414` |
+| `src/components/regional/RegionalPage.tsx` | `wa.me/4915510027986` (2x) | `wa.me/4915567077414` |
+
+### Telefon-Testbot (PhoneAssistant)
+
+| Datei | Alter Wert | Neu |
+|-------|-----------|-----|
+| `src/pages/PhoneAssistant.tsx` | `+491234567890` | `+4915567077414` |
+
+---
+
+## Zusammenfassung
+
+**7 Dateien aendern, 8 Ersetzungen insgesamt.** Keine neuen Dateien.
 
