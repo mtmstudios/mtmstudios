@@ -69,7 +69,7 @@ const Navigation = () => {
                 </Link>
                 <div className="mt-2 pt-6 border-t border-border/10">
                   <button
-                    className="w-full py-3 rounded-xl bg-accent/10 border border-accent/20 text-accent text-base font-medium text-center hover:bg-accent/20 transition-all duration-300"
+                    className="w-full py-3 rounded-xl bg-white/[0.06] border border-white/[0.08] text-foreground/90 text-base font-medium text-center hover:bg-white/[0.10] transition-all duration-300"
                     onClick={() => { setMobileMenuOpen(false); openFunnel(true); }}
                   >
                     Jetzt anfragen
@@ -101,7 +101,7 @@ const Navigation = () => {
           </a>
 
           {/* Right: Jetzt anfragen (tablet only) */}
-          <button onClick={() => openFunnel(true)} className="z-10 hidden sm:flex lg:hidden px-4 py-2 rounded-xl bg-accent/10 border border-accent/20 text-accent text-sm font-medium hover:bg-accent/20 backdrop-blur-sm transition-all duration-300">
+          <button onClick={() => openFunnel(true)} className="z-10 hidden sm:flex lg:hidden px-4 py-2 rounded-xl bg-white/[0.06] border border-white/[0.08] text-foreground/90 text-sm font-medium hover:bg-white/[0.10] backdrop-blur-sm transition-all duration-300">
             Jetzt anfragen
           </button>
         </div>
