@@ -1,29 +1,19 @@
 
+## Footer anpassen
 
-## "Jetzt anfragen" Button als echten CTA stylen
+### Aenderungen in `src/components/Footer.tsx`
 
-Der Button sieht aktuell identisch wie die Menue-Links aus (gleiche Farbe, Groesse, kein Hintergrund). Er soll sich klar als Call-to-Action abheben.
+1. **Kontakt-Spalte komplett entfernen** -- die dritte Spalte (Mail, Telefon, Deutschland) faellt weg. Grid wird `md:grid-cols-2`.
 
-### Aenderungen
+2. **LinkedIn-Icon durch WhatsApp ersetzen** -- Import von `Linkedin` entfernen, stattdessen das WhatsApp-Logo (`src/assets/whatsapp-logo.png`) als kleines Bild (gleiche Groesse wie die Icons, `w-5 h-5`) einbinden. Link geht auf `https://wa.me/4912345678`.
 
-**1. Tablet-Header (Zeile 102):**
-Aktuell: `text-sm text-foreground/80 hover:text-foreground` -- sieht aus wie ein Link.
-Neu: Accent-Button mit Glassmorphism-Stil:
-- `px-4 py-2 rounded-xl bg-accent/10 border border-accent/20 text-accent text-sm font-medium hover:bg-accent/20 backdrop-blur-sm transition-all duration-300`
+3. **"Beratung" und "Ueber uns" entfernen** -- nur noch die drei Kernleistungen bleiben (KI-Telefonassistent, WhatsApp & Chatbots, Automatisierungen).
 
-**2. Mobile Slide-out-Menue (Zeile 70-75):**
-Aktuell: `text-lg text-foreground/80` -- identisch mit den anderen Menue-Eintraegen.
-Neu: Visuell abgesetzter Button am Ende der Liste mit Separator:
-- `mt-2 pt-6 border-t border-border/10` als Trennlinie
-- `w-full py-3 rounded-xl bg-accent/10 border border-accent/20 text-accent text-base font-medium text-center hover:bg-accent/20 transition-all duration-300`
+4. **Rechtlichen Hinweis einfuegen** (aus dem zuvor genehmigten Plan) -- im Copyright-Bereich:
+   > Es gelten die [AGB](/agb) von MTMstudios. Informationen zur Datenverarbeitung sowie zur Auftragsverarbeitung (AVV) finden Sie in unserer [Datenschutzerklaerung](/datenschutz).
+
+5. **Nicht mehr benoetigte Imports entfernen**: `Linkedin`, `Phone`, `MapPin` raus.
 
 ### Ergebnis
 
-Der CTA hebt sich auf Tablet (Header) und Mobile (Slide-out) klar von den normalen Navigationspunkten ab -- gleicher Glassmorphism-Stil wie der WhatsApp-Button, aber in Accent-Farbe.
-
-### Betroffene Datei
-
-| Datei | Aenderung |
-|---|---|
-| `src/components/Navigation.tsx` | Styling fuer "Jetzt anfragen" auf Zeile 70-75 (Mobile-Menue) und Zeile 102 (Tablet-Header) |
-
+Kompakterer Footer mit nur zwei Spalten (Brand + Leistungen), WhatsApp statt LinkedIn, und rechtlichem Hinweis unten.
