@@ -8,6 +8,7 @@ import ChatbotUseCases from "@/components/chatbot/ChatbotUseCases";
 import ChatbotTestimonial from "@/components/chatbot/ChatbotTestimonial";
 import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
+import RegionalSection from "@/components/RegionalSection";
 import { useEffect, useRef } from "react";
 
 const Chatbots = () => {
@@ -70,6 +71,7 @@ const Chatbots = () => {
         <ChatbotUseCases />
         <ChatbotTestimonial />
         <CTASection />
+        <RegionalSection contextPath="ki-chatbot" />
         <Footer />
       </div>
     </div>
