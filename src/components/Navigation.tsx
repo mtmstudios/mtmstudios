@@ -47,8 +47,8 @@ const Navigation = () => {
   }, []);
 
   const navLinks = [
-    { href: "/ki-telefonassistent", label: "KI-Telefonassistent" },
-    { href: "/ki-chatbot", label: "KI-Chatbot" },
+    { href: "/ki-telefonassistent", label: "Telefonassistent" },
+    { href: "/ki-chatbot", label: "Chatbot & WhatsApp" },
     { href: "/automatisierungen", label: "Automatisierungen" },
   ];
 
