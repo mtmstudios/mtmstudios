@@ -1,86 +1,49 @@
 
 
-# 404-Seite -- Apple-Style Redesign
+# Karriere-Seite -- Aktualisierter Plan
 
-## Konzept
+## Aenderung gegenueber vorherigem Plan
 
-Eine immersive, minimalistische 404-Seite im Apple-Stil mit einer grossen, animierten "404"-Zahl als Mittelpunkt. Kein visueller Ballast -- nur Typografie, Raum und Bewegung.
+Der Hero-Bereich bekommt einen staerkeren Einstieg, der das innovative Umfeld betont. Statt nur "kleines Team" wird direkt kommuniziert, dass man mit den neusten Tools und Technologien arbeitet.
 
-### Aufbau
+## Neuer Hero-Text
 
-```text
-+--------------------------------------------------+
-|  [Navigation -- wie auf allen Seiten]             |
-|                                                   |
-|                                                   |
-|                                                   |
-|              4  0  4                              |
-|         (riesig, Blur-In, Accent-Glow)            |
-|                                                   |
-|      Diese Seite existiert nicht.                  |
-|         (fade-in, dezent)                         |
-|                                                   |
-|      [ Zurueck zur Startseite ]                   |
-|         (Glassmorphism-Button, hover-glow)         |
-|                                                   |
-|                                                   |
-|         ~ dezente Partikel im Hintergrund ~       |
-|                                                   |
-+--------------------------------------------------+
-```
+**Headline:** "Bock auf Zukunft?" (BlurText, wie gehabt)
 
-### Design-Details
+**Subtext (neu):**
+"Arbeite mit den neusten KI-Tools und Technologien in einem Team, das Unternehmen in die Zukunft bringt. Kein Konzern, keine starren Strukturen -- dafuer echte Innovation, jeden Tag."
 
-**"404" Typografie**
-- Riesige Schriftgroesse: `text-[12rem] md:text-[18rem]`
-- `font-bold tracking-tighter`
-- Dezenter Accent-Glow per `text-shadow` in Tuerkis
-- Einblendung ueber den existierenden `BlurText`-Komponent (Blur-In von oben, Buchstabe fuer Buchstabe)
+Das trifft den Ton: zukunftsorientiert und innovativ, aber ohne Corporate-Buzzword-Overkill. Es ist ehrlich und passt zum Agentur-Stil.
 
-**Untertitel**
-- "Diese Seite existiert nicht."
-- `text-lg md:text-xl text-foreground/50`
-- Fade-in mit `motion.p` (verzoeert nach der 404-Animation)
+## Rest bleibt identisch
 
-**CTA-Button**
-- "Zurueck zur Startseite" als `Link` zu `/`
-- Glassmorphism: `bg-white/[0.06] border border-white/[0.08] backdrop-blur-sm`
-- Hover: `bg-white/[0.12]`, dezenter Glow-Schatten in Accent-Farbe
-- Fade-in mit `motion.div` (weitere Verzoegerung)
+Alles andere aus dem bereits genehmigten Plan bleibt bestehen:
 
-**Hintergrund**
-- Schwarzer Hintergrund (`bg-background`) -- konsistent mit dem Rest der Seite
-- 2-3 sanft pulsierende, unscharfe Accent-Kreise (radial gradients) als dekorative Elemente
-- Keine Starfield-Animation (zu viel Ablenkung fuer eine Error-Seite)
-
-**Navigation**
-- Die Standard-Navigation wird eingebunden (wie auf allen anderen Seiten)
-
-### Animationsablauf (Timeline)
-
-1. **0ms**: Seite laedt, Hintergrund-Glow-Kreise faden sanft ein
-2. **100ms**: "404" blendet per BlurText Buchstabe fuer Buchstabe ein (blur-in von oben)
-3. **800ms**: Untertitel fadet ein (`opacity: 0 -> 1, y: 10 -> 0`)
-4. **1200ms**: Button fadet ein (`opacity: 0 -> 1, y: 10 -> 0`)
-
-### Responsive
-
-- **Desktop**: 404 in `text-[18rem]`, viel vertikaler Raum
-- **Tablet**: 404 in `text-[12rem]`
-- **Mobil**: 404 in `text-[7rem]`, kompaktere Abstande
+- Benefits-Chips (Wellpass, Remote, etc.)
+- 6-Step Bewerbungsfunnel mit Verzweigung (Minijob/Werkstudent vs. Teilzeit/Vollzeit)
+- Tool-Auswahl (N8N, Zapier, Claude, ChatGPT, Gemini)
+- Glassmorphism-Design, BlurText-Animationen, appleEase-Transitions
 
 ## Technische Umsetzung
 
-### Datei: `src/pages/NotFound.tsx`
+### Neue Dateien
 
-- Komplettes Rewrite der Komponente
-- **Imports**: `Link` aus `react-router-dom`, `motion` aus `motion/react`, `BlurText`, `Navigation`
-- **Layout**: `min-h-screen bg-background flex flex-col` mit Navigation oben und zentriertem Content
-- **Dekorative Elemente**: 2 `div`-Elemente mit `absolute`, `rounded-full`, `bg-accent/10`, `blur-3xl` als Hintergrund-Glow
-- **404-Text**: `BlurText` Komponente mit `animateBy="characters"`
-- **Untertitel + Button**: `motion.p` und `motion.div` mit gestaffeltem `delay`
-- **Button**: `Link to="/"` mit Glassmorphism-Klassen und `whileHover`-Animation
+**`src/pages/Karriere.tsx`**
+- Navigation + Footer
+- Hero: BlurText "Bock auf Zukunft?", neuer Subtext (siehe oben), CTA-Button
+- Benefits-Bereich mit animierten Glassmorphism-Chips
+- Zweiter CTA am Ende
+- Lokaler State fuer CareerFunnel Dialog
 
-### Datei: `src/App.tsx`
+**`src/components/career/CareerFunnel.tsx`**
+- 6-Step Dialog-Funnel im ContactFunnel-Design
+- Step 1: Beschaeftigungsart (Minijob, Werkstudent, Teilzeit, Vollzeit)
+- Step 2: Rolle (Sales, Automatisierungsspezialist)
+- Step 3: Verzweigung -- Studenten-Pfad (Studiengang, Stunden, Start) vs. Erfahrungs-Pfad (Einsteiger/Erfahren/Senior)
+- Step 4: Tool-Kenntnisse (Multi-Select Chips)
+- Step 5: Kontaktdaten
+- Step 6: Erfolg
 
-- Keine Aenderungen noetig (Route `*` zeigt bereits `NotFound`)
+**`src/App.tsx`**
+- Neue Route `/karriere` hinzufuegen
+
