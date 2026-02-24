@@ -1,9 +1,39 @@
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
 import { useContactFunnel } from "@/contexts/ContactFunnelContext";
 import logo from "@/assets/logo-2.png";
 
+const MoreDropdown = () => {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  return (
+    <div ref={ref} className="relative">
+      <button
+        onClick={() => setOpen(!open)}
+        className="text-sm text-foreground/80 hover:text-foreground transition-opacity duration-200 flex items-center gap-1"
+      >
+        Mehr
+        <svg className={`w-3.5 h-3.5 transition-transform duration-200 ${open ? "rotate-180" : ""}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+      </button>
+      {open && (
+        <div className="absolute top-full right-0 mt-2 w-44 rounded-xl bg-background/95 backdrop-blur-md border border-border/20 shadow-lg py-2">
+          <Link to="/karriere" className="block px-4 py-2 text-sm text-foreground/80 hover:text-foreground hover:bg-white/[0.05] transition-all duration-200" onClick={() => setOpen(false)}>Karriere</Link>
+          <Link to="/partner" className="block px-4 py-2 text-sm text-foreground/80 hover:text-foreground hover:bg-white/[0.05] transition-all duration-200" onClick={() => setOpen(false)}>Partner werden</Link>
+        </div>
+      )}
+    </div>
+  );
+};
 
 const Navigation = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -66,6 +96,20 @@ const Navigation = () => {
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Das sind Wir
+                </Link>
+                <Link
+                  to="/karriere"
+                  className="text-lg text-foreground/80 hover:text-foreground transition-opacity duration-200"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Karriere
+                </Link>
+                <Link
+                  to="/partner"
+                  className="text-lg text-foreground/80 hover:text-foreground transition-opacity duration-200"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Partner werden
                 </Link>
                 <div className="mt-2 pt-6 border-t border-border/10">
                   <button
@@ -131,6 +175,7 @@ const Navigation = () => {
             <Link to="/about" className="text-sm text-foreground/80 hover:text-foreground transition-opacity duration-200">
               Das sind Wir
             </Link>
+            <MoreDropdown />
           </div>
 
           <button onClick={() => openFunnel(true)} className="text-sm text-foreground/80 hover:text-foreground transition-opacity duration-200">
