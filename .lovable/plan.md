@@ -1,77 +1,149 @@
 
 
-# Karriere-Seite: Hero, Benefits & CTA Upgrade
+# Erweiterter Gesamtplan: Regionale SEO-Seiten + Meta-Optimierung + Mobile-Zentrierung
 
-## 1. Hero-Text -- Cooler & lockerer
-
-**Aktuell:** "Bock auf Zukunft?" + generischer Subtext
-
-**Neu:**
-- Headline: **"Mach KI. Nicht Meetings."**
-- Subtext: **"Wir bauen KI-Loesungen, die Unternehmen veraendern. Kein Corporate-Bullshit, keine endlosen Abstimmungsrunden -- einfach bauen."**
-
-Frech, direkt, bleibt haengen.
+Dieser Plan fasst alle genehmigten Aufgaben zusammen, inklusive der neuen Anforderung: **alle Texte, Karten, Icons und Symbole auf den regionalen Unterseiten sind zentriert und mobil vollstaendig optimiert**.
 
 ---
 
-## 2. Benefits-Section -- Gleichmaessig & visuell ansprechend
+## 1. SEO-Infrastruktur
 
-### Problem
-- 7 Benefits = ungleichmaessiges Grid (4+3 auf Desktop)
-- Kleine Icons, kein Subtext -- langweilig
+### Neue Datei: `src/components/SEOHead.tsx`
 
-### Loesung
-- **8 Benefits** (neues: "Startup-Vibes" mit Rocket-Icon) fuer ein perfekt gleichmaessiges Grid
-- Jede Karte bekommt einen **kurzen Subtext** in `text-xs text-foreground/40`
-- Groessere Icon-Container: `w-14 h-14 rounded-2xl`
-- Icons: `w-7 h-7 text-foreground/60` (neutraler statt Tuerkis)
-- Mehr Padding pro Karte: `p-8`
-- Desktop: 4x2 Grid, Tablet: 2x4, Mobile: 2x4
+Wiederverwendbare Komponente, die per `useEffect` den `document.title` und `<meta>`-Tags (description, canonical) dynamisch setzt.
 
-**Benefits mit Subtexten:**
+### `index.html` aktualisieren
 
-| Benefit | Subtext |
-|---------|---------|
-| Wellpass | Fitness & Wellness |
-| 100% Remote | Arbeite von ueberall |
-| Vertrauensarbeitszeit | Keine Stechuhr |
-| Teamausfluege | Zusammen unterwegs |
-| Weiterbildungsbudget | Lerne was du willst |
-| Neuste Tools & Hardware | Top-Setup ab Tag 1 |
-| Flache Hierarchien | Deine Meinung zaehlt |
-| Startup-Vibes | Klein, schnell, direkt |
+Fallback-Title: `MTM Studios | KI-Agentur fuer Telefonassistenten, Chatbots & Automatisierungen`
+Fallback-Description: Startseiten-Text.
 
 ---
 
-## 3. Bottom CTA -- Persoenlicher & einladender
+## 2. Meta-Tags fuer alle bestehenden Seiten
 
-**Aktuell:** "Bereit fuer was Neues?"
+`<SEOHead>` wird in jede der 10+ Seiten integriert:
 
-**Neu:**
-- Headline: **"Ueberzeugt? Dann melde dich."**
-- Subtext darunter: **"Kein Anschreiben noetig. Erzaehl uns einfach, worauf du Lust hast."** in `text-lg text-muted-foreground`
-- Button-Text bleibt "Jetzt bewerben"
+| Seite | Title Tag |
+|-------|-----------|
+| Startseite | KI-Agentur fuer Telefonassistenten, Chatbots & Automatisierungen \| MTM Studios |
+| Telefonassistent | KI-Telefonassistent \| Anrufe automatisieren \| MTM Studios |
+| Chatbot | KI-Chatbot fuer WhatsApp & Website \| MTM Studios |
+| Automatisierungen | KI-Automatisierung fuer Unternehmen \| MTM Studios |
+| Ueber uns | Ueber MTM Studios \| KI-Agentur fuer Unternehmen |
+| Partner | Partner werden \| White-Label KI-Loesungen \| MTM Studios |
+| Karriere | Karriere bei MTM Studios \| Jobs in KI & Automatisierung |
+| Impressum | Impressum \| MTM Studios |
+| Datenschutz | Datenschutzerklaerung \| MTM Studios |
+| AGB | AGB \| MTM Studios |
 
 ---
 
-## Technische Umsetzung
+## 3. RegionalSection auf Subdirectory-URLs
 
-### Datei: `src/pages/Karriere.tsx`
+### `src/components/RegionalSection.tsx`
 
-**Imports (Zeile 7):** `Rocket` hinzufuegen
+`buildLink` aendern: `/${contextPath}-${slug}` wird zu `/${contextPath}/${slug}`
 
-**Benefits-Array (Zeilen 29-37):** 8 Eintraege mit `{ label, icon, sub }` Struktur
+### `src/pages/Index.tsx`
 
-**Hero (Zeilen 53-64):**
-- BlurText text: "Mach KI. Nicht Meetings."
-- Subtext: Neue freche Copy
+`<RegionalSection contextPath="ki-agentur" />` setzen (statt ohne contextPath).
 
-**Benefits-Grid (Zeilen 117-142):**
-- Grid: `grid-cols-2 lg:grid-cols-4 gap-5`
-- Karten: `p-8`, groessere Icons (`w-14 h-14`), Subtext-Zeile
-- Icon-Farbe: `text-foreground/60` statt `text-accent`
+---
 
-**Bottom CTA (Zeilen 148-170):**
-- Headline: "Ueberzeugt? Dann melde dich."
-- Neuer Subtext-Paragraph darunter
+## 4. Acht regionale SEO-Seiten
+
+### Neue Datei: `src/data/regionalContent.ts`
+
+Content-Daten fuer alle 8 Kombinationen (Stuttgart/Ulm x 4 Services). Jede Kombination mit einzigartigem Content: Title, Description, H1, Subtext, lokaler Kontext, Pain Points, Features, FAQ-Fragen.
+
+### Neue Datei: `src/components/regional/RegionalPage.tsx`
+
+Template-Komponente, die den Content aus `regionalContent.ts` rendert:
+
+```text
+Seitenstruktur:
+1. SEOHead (Title + Meta)
+2. Navigation
+3. Hero (H1 mit Stadt + Service, Subtext, CTA + WhatsApp)
+4. Lokaler Kontext-Absatz
+5. Problem-Section (3 Pain Points)
+6. Features/Leistungen (3-4 Karten)
+7. Lokale Vorteile (warum MTM in dieser Region)
+8. FAQ-Section (4-5 Fragen, Accordion)
+9. CTA-Section (Anfrage-Funnel + WhatsApp-Button)
+10. RegionalSection (Links zu anderen Staedten)
+11. Footer
+```
+
+### Neue Routes in `src/App.tsx`
+
+```text
+/ki-agentur/:city
+/ki-telefonassistent/:city
+/ki-chatbot/:city
+/automatisierungen/:city
+```
+
+Ungueltige Staedte werden auf 404 umgeleitet.
+
+---
+
+## 5. Mobile-Zentrierung auf allen regionalen Seiten (NEU)
+
+Alle Sections der `RegionalPage.tsx` werden von Grund auf mobile-first und zentriert gebaut:
+
+### Grundprinzipien
+
+- **Alle Container**: `text-center` als Standard, `px-6` fuer Mobile-Padding
+- **Alle Headings (H1, H2, H3)**: `text-center` auf allen Breakpoints
+- **Alle Subtexte/Paragraphen**: `text-center mx-auto max-w-...` fuer zentrierte, lesbare Breiten
+- **Icon-Container**: `mx-auto` fuer horizontale Zentrierung
+- **Feature-Karten**: `items-center text-center` innerhalb jeder Karte, Icons zentriert mit `mx-auto`
+- **Pain-Point-Karten**: Gleicher Ansatz -- Icon oben zentriert, Text zentriert
+- **FAQ-Accordion**: Volle Breite (`max-w-2xl mx-auto`), Text linksbuendig innerhalb (fuer Lesbarkeit), aber Container zentriert
+- **CTA-Buttons**: `flex flex-col items-center` -- Button und WhatsApp-Link zentriert gestapelt
+- **Grids**: `grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6` -- auf Mobile eine Spalte, alles zentriert
+
+### Konkrete CSS-Klassen pro Section
+
+| Section | Mobile-Klassen |
+|---------|---------------|
+| Hero | `text-center px-6`, H1: `text-3xl md:text-5xl`, Buttons: `flex flex-col items-center gap-4` |
+| Lokaler Kontext | `text-center max-w-2xl mx-auto px-6`, Text: `text-base md:text-lg` |
+| Problem/Pain Points | Karten: `text-center p-6 md:p-8`, Icons: `mx-auto mb-4`, Grid: `grid-cols-1 md:grid-cols-3 gap-5` |
+| Features | Karten: `text-center p-6 md:p-8`, Icons: `w-12 h-12 mx-auto mb-4 rounded-xl`, Grid: `grid-cols-1 md:grid-cols-2 gap-5` |
+| Lokale Vorteile | Wie Features, `grid-cols-1 md:grid-cols-3` |
+| FAQ | Container: `max-w-2xl mx-auto`, Accordion volle Breite |
+| CTA | `text-center`, Buttons: `flex flex-col items-center gap-4` |
+
+### Kein horizontales Overflow
+
+- Alle Elemente bleiben innerhalb des Viewports
+- Keine festen Breiten, nur `max-w-*` mit `mx-auto`
+- Padding: `px-6` auf allen Containern
+
+---
+
+## Zusammenfassung: Alle Dateien
+
+| Datei | Aktion |
+|-------|--------|
+| `src/components/SEOHead.tsx` | NEU |
+| `src/data/regionalContent.ts` | NEU |
+| `src/components/regional/RegionalPage.tsx` | NEU (mobile-zentriert von Anfang an) |
+| `index.html` | AENDERN |
+| `src/App.tsx` | AENDERN (4 neue Routes) |
+| `src/components/RegionalSection.tsx` | AENDERN (Subdirectory-URLs) |
+| `src/pages/Index.tsx` | AENDERN (SEOHead + contextPath) |
+| `src/pages/PhoneAssistant.tsx` | AENDERN (SEOHead) |
+| `src/pages/Chatbots.tsx` | AENDERN (SEOHead) |
+| `src/pages/Automations.tsx` | AENDERN (SEOHead) |
+| `src/pages/AboutUs.tsx` | AENDERN (SEOHead) |
+| `src/pages/Partner.tsx` | AENDERN (SEOHead) |
+| `src/pages/Karriere.tsx` | AENDERN (SEOHead) |
+| `src/pages/Impressum.tsx` | AENDERN (SEOHead) |
+| `src/pages/Datenschutz.tsx` | AENDERN (SEOHead) |
+| `src/pages/AGB.tsx` | AENDERN (SEOHead) |
+
+**3 neue Dateien, 13 geaenderte Dateien**
 
