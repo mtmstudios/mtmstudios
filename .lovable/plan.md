@@ -1,65 +1,52 @@
 
-# Partner werden -- Neue Seite
 
-## Konzept
-Eine Apple-style Seite, die Agenturen und Dienstleister anspricht, die KI-Leistungen (Telefonassistenten, Chatbots, Automatisierungen) nicht selbst umsetzen koennen -- und MTM Studios als White-Label-Partner im Hintergrund nutzen moechten. Alles zentriert, mobile-first, im bestehenden Design-System.
+# Partner-Seite: Design-Differenzierung und Animationen
 
-## Seitenstruktur (Sektionen)
+## Aktuelles Problem
+Alle drei Sektionen (Schritte, "Wir uebernehmen", "Was ihr davon habt") nutzen dasselbe Glassmorphism-Card-Design. Das wirkt repetitiv und langweilig.
 
-### 1. Hero
-- BlurText-Headline: "Euer Angebot. Unsere Technologie."
-- Subline: "Wir sind der Partner, den eure Kunden nie sehen -- aber immer spueren."
-- Minimalistisch, viel Whitespace, zentriert
+## Aenderungen
 
-### 2. Problem-Sektion
-- Headline: "Nicht jede Agentur kann alles."
-- 3 Pain-Points als zentrierte Text-Bloecke mit Nummern (01, 02, 03):
-  - KI-Kompetenz aufbauen kostet Zeit und Geld
-  - Kunden erwarten fertige Loesungen, nicht Experimente
-  - Chancen gehen verloren, weil das Know-how fehlt
-- Gleicher Stil wie "Warum wir"-Sektion auf AboutUs (nummerierte Divider-Bloecke)
+### 1. Schritte-Sektion ("Wir uebernehmen. Ihr glaenzt.") -- Anpassen an "So funktioniert's"-Design
+Aktuell: 3 Glassmorphism-Cards im Grid.
+Neu: Vertikales zentriertes Layout wie in `HowItWorks.tsx` und `AutomationsHowItWorks.tsx`:
+- Grosse halbtransparente Nummern (01, 02, 03) zentriert ueber dem Text
+- Titel und Beschreibung zentriert darunter
+- Feine Trennlinien zwischen den Schritten
+- Spring-Animation auf den Nummern, blur-in auf dem Text
+- Hover: `y: -4` und Nummer-Farbe wechselt zu `accent/40`
+- `whileInView` statt `useInView`-Ref (konsistent mit den anderen Seiten)
 
-### 3. Loesung / So funktioniert es
-- Headline: "Wir uebernehmen. Ihr glaenzt."
-- 3 Schritte als glassmorphism-Cards (wie Werte-Cards auf AboutUs):
-  - 01: Ihr bringt den Kunden -- wir analysieren den Bedarf
-  - 02: Wir bauen die Loesung -- unter eurem Namen
-  - 03: Ihr liefert Ergebnisse -- wir bleiben im Hintergrund
-- Hover-Effekte mit accent-glow, staggered blur-in Animation
+### 2. "Was ihr davon habt" -- Neues horizontales Fullwidth-Design
+Aktuell: 2x2 Glassmorphism-Card-Grid (identisch zu Schritte).
+Neu: Fullwidth gestapelte Bloecke mit animiertem Akzent-Streifen:
+- Jeder Benefit ist ein volle-Breite-Block mit linkem Accent-Border
+- Links ein animierter vertikaler Accent-Streifen (2px), der sich auf Hover verbreitert
+- Titel gross und prominent, Beschreibung darunter
+- Zentrierter Text, subtiler Background-Gradient auf Hover
+- Staggered fade-in von links (`x: -20` statt `y: 30`)
+- Trennlinien zwischen den Bloecken (aehnlich Problem-Sektion, aber mit anderem Feel)
 
-### 4. Vorteile / Was ihr bekommt
-- Headline: "Was ihr davon habt."
-- 2x2 Grid (mobile: 1 Spalte) glassmorphism-Cards:
-  - Neue Umsatzquelle ohne Invest
-  - White-Label -- euer Branding, unsere Technik
-  - Schnelle Umsetzung -- keine Wartezeiten
-  - Persoenlicher Ansprechpartner
+### 3. Zusaetzliche smooth Animationen
+- **Hero**: Subtiler Scale-Effekt auf der Subline (von 0.98 auf 1)
+- **Problem-Nummern**: Sanfter Puls auf den Nummern beim ersten Einblenden (opacity pulse)
+- **Trust-Zahlen**: Leichter rotate3d auf Hover fuer Tiefe (`rotateX: 2deg`)
+- **Sektions-Uebergaenge**: Sanfte Divider-Animation -- die Trennlinien wachsen von der Mitte nach aussen (`scaleX: 0 -> 1`)
 
-### 5. Trust-Zahlen
-- Aehnlich wie AboutUs Trust-Sektion mit CountUp-Animationen
-- z.B.: "X+ Partner-Projekte", "100% White-Label", "< 48h Reaktionszeit"
+## Technische Details
 
-### 6. CTA
-- Bestehende CTASection mit angepasstem Text oder Standard-CTA
-- Plus Footer
+### Datei: `src/pages/Partner.tsx`
 
-## Technische Umsetzung
+**Schritte-Sektion (Zeilen 210-253)**: Komplett ersetzen mit dem vertikalen HowItWorks-Layout:
+- `whileInView` / `viewport={{ once: true }}` statt `useInView`-Ref
+- Vertikale Liste statt Grid
+- `bg-muted/20` als Section-Background fuer visuelle Trennung
+- Nummer mit `type: "spring"` Animation
 
-### Neue Dateien
-1. **`src/pages/Partner.tsx`** -- Hauptseite, gleiche Struktur wie AboutUs.tsx:
-   - Video-Background, Navigation, Content-Sektionen, CTASection, Footer
-   - Alle Sektionen inline (keine separaten Komponenten noetig, da einmalig)
-   - motion/react fuer Animationen (useInView, staggered blur-in)
-   - BlurText fuer Hero-Headline
-   - CountUp-Logik fuer Trust-Zahlen (aus AboutUs uebernommen)
+**Benefits-Sektion (Zeilen 255-290)**: Komplett ersetzen mit neuem horizontal-gestapeltem Design:
+- Volle Breite, keine Cards, kein Grid
+- Linker Accent-Border pro Item
+- `initial: { opacity: 0, x: -20 }` statt `y: 30`
+- Hover-Effekt: Border verbreitert sich, subtiler Background-Shift
 
-### Aenderungen an bestehenden Dateien
-2. **`src/App.tsx`** -- Neue Route `/partner` mit Import der Partner-Seite
-
-### Design-Prinzipien
-- Alles `text-center` und zentriert
-- Mobile-first: `grid-cols-1 md:grid-cols-2` fuer Cards
-- Glassmorphism-Cards: `bg-white/[0.03] backdrop-blur-sm border border-border/10 rounded-2xl`
-- Apple-Ease `[0.16, 1, 0.3, 1]` fuer alle Animationen
-- Blur-in als Signature-Effekt
-- Accent-Glow auf Hover
+**Refs bereinigen**: `solutionRef` und `solutionInView` koennen entfernt werden (ersetzt durch `whileInView`). `benefitsRef` bleibt fuer die Headline-Animation.
