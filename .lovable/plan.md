@@ -1,68 +1,86 @@
 
 
-# "Was ihr davon habt" -- Redesign als Bento-Grid mit Glassmorphism-Cards
+# 404-Seite -- Apple-Style Redesign
 
-## Problem
-Die aktuelle Benefits-Sektion ist eine einfache vertikale Liste mit feinen Trennlinien und kleinen Akzent-Strichen. Das wirkt zu dezent und geht zwischen der Problem-Sektion (ebenfalls vertikale Liste) und den Trust-Zahlen (Cards) unter. Partner-Agenturen muessen die Vorteile sofort erkennen.
+## Konzept
 
-## Vorschlag: Bento-Grid Layout
+Eine immersive, minimalistische 404-Seite im Apple-Stil mit einer grossen, animierten "404"-Zahl als Mittelpunkt. Kein visueller Ballast -- nur Typografie, Raum und Bewegung.
 
-Ein asymmetrisches Bento-Grid mit Glassmorphism-Cards, bei dem die ersten zwei Vorteile groesser dargestellt werden (sie sind die wichtigsten: "Neue Umsatzquelle" und "100% White-Label") und die unteren zwei kompakter daneben stehen.
+### Aufbau
 
-### Desktop (ab md)
 ```text
-+-------------------------------+-------------------------------+
-|                               |                               |
-|     Neue Umsatzquelle         |     100% White-Label          |
-|     (grosse Card, Icon)       |     (grosse Card, Icon)       |
-|                               |                               |
-+---------------+---------------+-------------------------------+
-|               |               |                               |
-|   Schnelle    |  Persoenl.    |                               |
-|   Umsetzung   |  Ansprechp.   |                               |
-|               |               |                               |
-+---------------+---------------+-------------------------------+
++--------------------------------------------------+
+|  [Navigation -- wie auf allen Seiten]             |
+|                                                   |
+|                                                   |
+|                                                   |
+|              4  0  4                              |
+|         (riesig, Blur-In, Accent-Glow)            |
+|                                                   |
+|      Diese Seite existiert nicht.                  |
+|         (fade-in, dezent)                         |
+|                                                   |
+|      [ Zurueck zur Startseite ]                   |
+|         (Glassmorphism-Button, hover-glow)         |
+|                                                   |
+|                                                   |
+|         ~ dezente Partikel im Hintergrund ~       |
+|                                                   |
++--------------------------------------------------+
 ```
-- 2 Spalten oben (je 50%), 2 Spalten unten (je 50%)
-- Glassmorphism-Background: `bg-white/[0.03] backdrop-blur-sm border border-border/10`
-- Hover: Border wird `accent/30`, subtiler Glow-Schatten, Card hebt sich leicht (`y: -6, scale: 1.02`)
-- Jede Card hat einen grossen Accent-farbenen Icon-Kreis oben
-- Titel in `text-2xl font-bold`, Beschreibung darunter
 
-### Tablet (md)
-- 2x2 Grid gleichmaessig
-- Etwas kompakter, aber gleiche Card-Struktur
+### Design-Details
 
-### Mobil (unter md)
-- Volle Breite, vertikal gestapelt
-- Jede Card nimmt die volle Breite ein
-- Kompaktere Innenabstaende (`p-6` statt `p-8`)
+**"404" Typografie**
+- Riesige Schriftgroesse: `text-[12rem] md:text-[18rem]`
+- `font-bold tracking-tighter`
+- Dezenter Accent-Glow per `text-shadow` in Tuerkis
+- Einblendung ueber den existierenden `BlurText`-Komponent (Blur-In von oben, Buchstabe fuer Buchstabe)
 
-### Animationen
-- Staggered fade-in von unten (`y: 30`) mit blur
-- Hover: `scale: 1.02`, `y: -6`, Border-Farbe wechselt zu `accent/30`
-- Subtiler Glow-Effekt auf Hover (box-shadow mit accent-Farbe)
-- Icons haben einen sanften Pulse beim ersten Erscheinen
+**Untertitel**
+- "Diese Seite existiert nicht."
+- `text-lg md:text-xl text-foreground/50`
+- Fade-in mit `motion.p` (verzoeert nach der 404-Animation)
 
-### Icons (Lucide)
-- Neue Umsatzquelle: `TrendingUp`
-- 100% White-Label: `Eye` (oder `EyeOff` fuer "unsichtbar")
-- Schnelle Umsetzung: `Zap`
-- Persoenlicher Ansprechpartner: `UserCheck`
+**CTA-Button**
+- "Zurueck zur Startseite" als `Link` zu `/`
+- Glassmorphism: `bg-white/[0.06] border border-white/[0.08] backdrop-blur-sm`
+- Hover: `bg-white/[0.12]`, dezenter Glow-Schatten in Accent-Farbe
+- Fade-in mit `motion.div` (weitere Verzoegerung)
 
-## Technische Details
+**Hintergrund**
+- Schwarzer Hintergrund (`bg-background`) -- konsistent mit dem Rest der Seite
+- 2-3 sanft pulsierende, unscharfe Accent-Kreise (radial gradients) als dekorative Elemente
+- Keine Starfield-Animation (zu viel Ablenkung fuer eine Error-Seite)
 
-### Datei: `src/pages/Partner.tsx`
+**Navigation**
+- Die Standard-Navigation wird eingebunden (wie auf allen anderen Seiten)
 
-**Imports ergaenzen**: `TrendingUp, EyeOff, Zap, UserCheck` aus `lucide-react`
+### Animationsablauf (Timeline)
 
-**Benefits-Array erweitern**: Jedes Benefit-Objekt bekommt ein `icon`-Feld mit der entsprechenden Lucide-Komponente.
+1. **0ms**: Seite laedt, Hintergrund-Glow-Kreise faden sanft ein
+2. **100ms**: "404" blendet per BlurText Buchstabe fuer Buchstabe ein (blur-in von oben)
+3. **800ms**: Untertitel fadet ein (`opacity: 0 -> 1, y: 10 -> 0`)
+4. **1200ms**: Button fadet ein (`opacity: 0 -> 1, y: 10 -> 0`)
 
-**Sektion (Zeilen 276-327)**: Komplett ersetzen mit:
-- `max-w-5xl` Container statt `max-w-4xl`
-- CSS Grid: `grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6`
-- Jede Card: Glassmorphism-Styling mit `rounded-2xl`, `p-6 md:p-8`
-- Icon in einem `w-12 h-12 rounded-xl bg-accent/10` Container
-- Hover-Interaktion ueber `motion.div` mit `whileHover`
-- `onMouseEnter/Leave` fuer den Glow-Effekt (wie bei Trust-Zahlen)
+### Responsive
 
+- **Desktop**: 404 in `text-[18rem]`, viel vertikaler Raum
+- **Tablet**: 404 in `text-[12rem]`
+- **Mobil**: 404 in `text-[7rem]`, kompaktere Abstande
+
+## Technische Umsetzung
+
+### Datei: `src/pages/NotFound.tsx`
+
+- Komplettes Rewrite der Komponente
+- **Imports**: `Link` aus `react-router-dom`, `motion` aus `motion/react`, `BlurText`, `Navigation`
+- **Layout**: `min-h-screen bg-background flex flex-col` mit Navigation oben und zentriertem Content
+- **Dekorative Elemente**: 2 `div`-Elemente mit `absolute`, `rounded-full`, `bg-accent/10`, `blur-3xl` als Hintergrund-Glow
+- **404-Text**: `BlurText` Komponente mit `animateBy="characters"`
+- **Untertitel + Button**: `motion.p` und `motion.div` mit gestaffeltem `delay`
+- **Button**: `Link to="/"` mit Glassmorphism-Klassen und `whileHover`-Animation
+
+### Datei: `src/App.tsx`
+
+- Keine Aenderungen noetig (Route `*` zeigt bereits `NotFound`)
