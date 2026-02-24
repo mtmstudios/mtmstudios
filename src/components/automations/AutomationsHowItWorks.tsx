@@ -22,7 +22,7 @@ const steps = [
 
 const AutomationsHowItWorks = () => {
   return (
-    <section className="py-32 px-4 bg-muted/20">
+    <section className="py-20 md:py-28 lg:py-32 px-6 bg-muted/20">
       <div className="max-w-5xl mx-auto">
         <motion.h2
           className="text-4xl md:text-5xl font-bold text-foreground text-center mb-20"
@@ -38,26 +38,39 @@ const AutomationsHowItWorks = () => {
           {steps.map((step, index) => (
             <motion.div
               key={step.number}
-              initial={{ opacity: 0, y: 30, filter: "blur(8px)" }}
-              whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.8, delay: index * 0.15, ease: appleEase }}
-              whileHover={{ x: 8 }}
-              className={`group flex items-start gap-6 md:gap-10 py-8 md:py-10 border-t border-border/10 cursor-default ${
-                index === steps.length - 1 ? "border-b border-border/10" : ""
-              }`}
+              whileHover={{ y: -4 }}
+              whileTap={{ scale: 0.98 }}
+              className="group flex flex-col items-center text-center py-8 md:py-12 cursor-default"
             >
-              <span className="text-5xl md:text-6xl font-bold text-accent/20 select-none transition-colors duration-300 group-hover:text-accent/50 shrink-0 leading-none pt-1">
+              <motion.span
+                className="text-4xl md:text-5xl lg:text-6xl font-bold text-accent/15 select-none mb-3 transition-colors duration-300 group-hover:text-accent/40"
+                initial={{ opacity: 0, scale: 0.85 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ type: "spring", stiffness: 200, damping: 20, delay: index * 0.15 }}
+              >
                 {step.number}
-              </span>
-              <div>
-                <h3 className="text-xl md:text-2xl font-bold text-foreground mb-2 transition-colors duration-300 group-hover:text-accent">
+              </motion.span>
+              <motion.div
+                initial={{ opacity: 0, y: 20, filter: "blur(6px)" }}
+                whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: index * 0.15 + 0.1, ease: appleEase }}
+              >
+                <h3 className="text-lg md:text-xl lg:text-2xl font-bold text-foreground mb-2 transition-colors duration-300 group-hover:text-accent">
                   {step.title}
                 </h3>
-                <p className="text-muted-foreground leading-relaxed">
+                <p className="text-sm md:text-base text-muted-foreground leading-relaxed max-w-md mx-auto">
                   {step.description}
                 </p>
-              </div>
+              </motion.div>
+              {index < steps.length - 1 && (
+                <div className="w-full max-w-[120px] mx-auto h-px bg-border/10 mt-8 md:mt-12" />
+              )}
             </motion.div>
           ))}
         </div>
