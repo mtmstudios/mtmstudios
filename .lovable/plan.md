@@ -1,93 +1,64 @@
 
 
-## Premium Animation Upgrades -- Chatbot und Phone Assistant
+## Zwei Aufgaben: Sektionen zentrieren + Channels erweitern
 
-### Ueberblick
+### 1. "So funktioniert's" Sektionen zentrieren (alle 4 Seiten)
 
-Die aktuellen Animationen sind funktional, aber zu einfach fuer eine Premium-Agentur. Hier die konkreten Upgrades fuer jede Animation:
+Alle vier Prozess-Sektionen werden von links-ausgerichtet auf zentriert umgebaut.
 
----
+**Neues Layout pro Step:**
 
-### 1. Sofortige Antworten (MessageBurstAnimation)
+```text
+         01
+   Kunde schreibt
+  Ueber WhatsApp, Website-Chat
+  oder andere Kanaele...
+    ──────────────
+         02
+   KI versteht und handelt
+  Beantwortet Fragen, bucht
+  Termine und uebergibt...
+```
 
-**Aktuell:** Einfache Chat-Bubbles die nacheinander erscheinen.
+**Design-Details:**
+- Nummer: `text-4xl md:text-5xl lg:text-6xl font-bold text-accent/15`, zentriert ueber dem Text, mit Spring-Scale-Animation (`scale 0.85 -> 1`)
+- Titel: `text-lg md:text-xl lg:text-2xl font-bold`, zentriert, Hover -> `text-accent`
+- Beschreibung: `text-sm md:text-base text-muted-foreground max-w-md mx-auto`, zentriert
+- Trennlinien: kurz und zentriert (`max-w-[120px] mx-auto h-px bg-border/10`)
+- Hover: `whileHover={{ y: -4 }}` (leichtes Anheben), `whileTap={{ scale: 0.98 }}`
+- Responsive Spacing: `py-20 md:py-28 lg:py-32 px-6`
+- Steps: `flex flex-col items-center text-center py-8 md:py-12`
 
-**Upgrade:**
-- Typing-Indikator (drei pulsierende Punkte) bevor die Bot-Antwort erscheint
-- Kleine Avatar-Kreise (Bot-Icon / User-Icon) links/rechts neben den Nachrichten
-- Zeitstempel unter jeder Nachricht (z.B. "gerade eben")
-- Subtiler Glow-Effekt beim Erscheinen neuer Nachrichten
-- Glassmorphism-Hintergrund fuer den gesamten Chat-Container mit feinem Border
-
----
-
-### 2. Kontextverstaendnis (BrainNetworkAnimation)
-
-**Aktuell:** Statische SVG-Knoten die nacheinander aufleuchten.
-
-**Upgrade:**
-- Animierte Datenpartikel (kleine leuchtende Punkte) die entlang der Verbindungslinien wandern
-- Labels an den Knoten (z.B. "Absicht", "Kontext", "Antwort", "Verlauf", "Wissen", "Aktion")
-- Pulsierender Glow-Ring um den aktiven Knoten
-- Verbindungslinien werden als animierte gestrichelte Linien dargestellt (strokeDasharray + strokeDashoffset Animation)
-- Zentraler "Gehirn"-Knoten der groesser ist und staerker leuchtet
-
----
-
-### 3. Nahtlose Uebergabe (HandoffAnimation)
-
-**Aktuell:** Zwei Icons mit einem wandernden Punkt dazwischen -- sehr minimalistisch.
-
-**Upgrade:**
-- Drei Phasen-Animation: (1) Bot bearbeitet Anfragen, (2) Erkennung einer komplexen Frage, (3) Uebergabe mit Kontext-Paket
-- Mini-Chat-Verlauf der visuell vom Bot zum Menschen "uebergleitet" (Kontext-Karte die sich bewegt)
-- Status-Labels unter den Icons die sich aendern ("Aktiv" -> "Uebergibt..." -> "Uebernommen")
-- Fortschrittsbalken zwischen den beiden Knoten statt nur eines wandernden Punktes
-- Checkmark-Animation beim erfolgreichen Handoff
-
----
-
-### 4. Multi-Channel (ChannelIconsAnimation)
-
-**Aktuell:** Icons im Kreis um einen Bot, nacheinander hervorgehoben.
-
-**Upgrade:**
-- Orbiting-Effekt: Die Channel-Icons rotieren langsam um den zentralen Bot
-- Animierte Nachrichtenlinien (gestrichelt, pulsierend) von jedem Kanal zum Zentrum
-- Kleine Benachrichtigungs-Badges (z.B. "3", "12") die bei Aktivierung an den Icons aufpoppen
-- Der zentrale Bot-Knoten pulsiert rhythmisch
-- Beim aktiven Kanal: kurze Mini-Nachricht die eingeblendet wird (z.B. "Neue Nachricht via WhatsApp")
-
----
-
-### 5. Intelligente Weiterleitung (FlowDotsAnimation -- Phone)
-
-**Aktuell:** Drei Knoten mit Emojis und einem wandernden Punkt.
-
-**Upgrade:**
-- Verzweigungsdiagramm: Der Punkt kommt bei "KI" an, eine Entscheidungsanimation zeigt zwei Wege (direkt antworten ODER weiterleiten)
-- Animierte Pfade die aufleuchten wenn der Punkt sie passiert
-- Die Knoten bekommen Lucide-Icons statt Emojis (Bot, GitBranch, User)
-- Pulsierende Ringe am Entscheidungsknoten
-- Beschriftete Pfade ("Einfach" / "Komplex") die kurz eingeblendet werden
-
----
-
-### Betroffene Dateien
-
+**Betroffene Dateien:**
 | Datei | Aenderung |
 |---|---|
-| `src/components/chatbot/MessageBurstAnimation.tsx` | Komplett ueberarbeitet -- Typing-Indikator, Avatare, Timestamps, Glow |
-| `src/components/chatbot/BrainNetworkAnimation.tsx` | Komplett ueberarbeitet -- Partikel, Labels, animierte Linien, zentraler Knoten |
-| `src/components/chatbot/HandoffAnimation.tsx` | Komplett ueberarbeitet -- 3-Phasen-Flow, Kontext-Karte, Status-Labels |
-| `src/components/chatbot/ChannelIconsAnimation.tsx` | Komplett ueberarbeitet -- Orbit, Notification-Badges, Mini-Nachrichten |
-| `src/components/phone-assistant/FlowDotsAnimation.tsx` | Komplett ueberarbeitet -- Verzweigung, Lucide-Icons, beschriftete Pfade |
+| `src/components/ProcessSection.tsx` | Zentriertes Layout |
+| `src/components/phone-assistant/HowItWorks.tsx` | Zentriertes Layout |
+| `src/components/chatbot/ChatbotHowItWorks.tsx` | Zentriertes Layout |
+| `src/components/automations/AutomationsHowItWorks.tsx` | Zentriertes Layout |
 
-### Design-Prinzipien
+---
 
-- Alle Animationen nutzen weiterhin `appleEase` und `motion/react`
-- Accent-Farbe als primaere Highlight-Farbe
-- Glassmorphism-Stil (bg-white/[0.03], backdrop-blur, feine Borders)
-- Smooth, nicht hektisch -- jede Animation laeuft in 4-6 Sekunden Zyklen
-- Keine externen Dependencies noetig -- alles mit Framer Motion + SVG + Tailwind
+### 2. ChannelsSection: Instagram + Messenger hinzufuegen (4 Karten total)
+
+Aktuell gibt es nur WhatsApp und Website-Chat. Es werden zwei weitere Karten hinzugefuegt:
+
+**Neue Karte 3 -- Instagram DMs:**
+- Instagram-Logo (SVG) in Pink (#E1306C)
+- Mini-Chat-Mockup im Instagram-Stil (DM-Bubbles)
+- Titel: "Instagram DMs"
+- Beschreibung: "Antwortet automatisch auf Direktnachrichten -- auch ausserhalb eurer Geschaeftszeiten."
+
+**Neue Karte 4 -- Facebook Messenger:**
+- Messenger-Logo (SVG) in Blau (#0084FF)
+- Mini-Chat-Mockup im Messenger-Stil
+- Titel: "Facebook Messenger"
+- Beschreibung: "Euer Bot beantwortet Anfragen direkt im Messenger -- schnell und persoenlich."
+
+**Layout:** Das Grid bleibt `grid-cols-1 md:grid-cols-2` -- damit werden es 2x2 Karten auf Desktop und 4 einzelne auf Mobile. Jede Karte bekommt einen gestaffelten `delay` (0, 0.15, 0.3, 0.45).
+
+**Betroffene Datei:**
+| Datei | Aenderung |
+|---|---|
+| `src/components/chatbot/ChannelsSection.tsx` | 2 neue Channel-Karten (Instagram, Messenger) |
 
