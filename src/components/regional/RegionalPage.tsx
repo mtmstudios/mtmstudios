@@ -119,7 +119,7 @@ const RegionalPage = ({ context }: RegionalPageProps) => {
               Kostenlos beraten lassen
             </button>
             <a
-              href="https://wa.me/4915510027986"
+              href="https://wa.me/4915567077414"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 text-sm text-foreground/50 hover:text-foreground/70 transition-colors"
@@ -348,7 +348,7 @@ const RegionalPage = ({ context }: RegionalPageProps) => {
               Jetzt Gespräch vereinbaren
             </button>
             <a
-              href="https://wa.me/4915510027986"
+              href="https://wa.me/4915567077414"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 text-sm text-foreground/50 hover:text-foreground/70 transition-colors"

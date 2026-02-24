@@ -96,7 +96,7 @@ const HeroSection = () => {
             Jetzt beraten lassen
           </Button>
           <a
-            href="https://wa.me/4915123456789"
+            href="https://wa.me/4915567077414"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-opacity duration-200"

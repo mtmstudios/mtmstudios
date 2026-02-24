@@ -12,7 +12,7 @@ const Datenschutz = () => {
         <div className="space-y-6 text-muted-foreground text-sm leading-relaxed">
           <section>
             <h2 className="text-foreground font-semibold text-lg mb-2">1. Verantwortlicher</h2>
-            <p>[Firmenname]<br />[Straße und Hausnummer]<br />[PLZ Ort]<br />E-Mail: info@mtmstudios.de</p>
+            <p>[Firmenname]<br />[Straße und Hausnummer]<br />[PLZ Ort]<br />E-Mail: hallo@mtmstudios.de</p>
           </section>
           <section>
             <h2 className="text-foreground font-semibold text-lg mb-2">2. Erhebung und Speicherung personenbezogener Daten</h2>
@@ -32,7 +32,7 @@ const Datenschutz = () => {
           </section>
           <section>
             <h2 className="text-foreground font-semibold text-lg mb-2">6. Rechte der Betroffenen</h2>
-            <p>Sie haben das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit sowie Widerspruch. Bitte wenden Sie sich hierzu an info@mtmstudios.de.</p>
+            <p>Sie haben das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit sowie Widerspruch. Bitte wenden Sie sich hierzu an hallo@mtmstudios.de.</p>
           </section>
           <section>
             <h2 className="text-foreground font-semibold text-lg mb-2">7. Aktualität und Änderung dieser Datenschutzerklärung</h2>
