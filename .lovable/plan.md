@@ -1,48 +1,79 @@
 
+# Beide Funnels aufwerten -- Attraktiver, weniger Tuerkis
 
-# Tool-Logos im Karriere-Funnel + Witzige Platzhalter in allen Funnels
+## Problem
 
-## Aenderung 1: Tool-Logos statt Text (CareerFunnel Step 4)
+Aktuell sind beide Funnels funktional, aber visuell etwas flach. Der Accent (Tuerkis) wird zu dominant eingesetzt -- bei selected States, Buttons, Progress-Bar, Check-Badges, Icons. Das wirkt ueberladen. 
 
-Die Text-Chips "N8N", "Zapier", "Claude", "ChatGPT", "Gemini" werden durch klickbare Logo-Karten ersetzt. Jedes Tool bekommt sein offizielles Logo als Bild (`<img>`), angezeigt in einem Glassmorphism-Button mit dem gleichen Select-Stil (Accent-Border + Check-Badge bei Auswahl).
+## Design-Verbesserungen fuer beide Funnels
 
-Die Logos werden als SVGs von offiziellen CDN-Quellen geladen (simpleicons.org oder aehnlich), mit `filter: brightness(0) invert(1)` fuer den Dark-Mode-Look. Darunter steht der Tool-Name klein als Text.
+### 1. Progress-Bar: Subtiler Gradient statt volles Tuerkis
 
-**Datei:** `src/components/career/CareerFunnel.tsx`
-- `tools` Array wird erweitert zu Objekten mit `id`, `label` und `logo` (URL)
-- Die Chip-Komponente in Step 4 wird durch eine Logo-Card ersetzt (aehnlich wie SelectCard, aber mit Bild statt Icon)
-- "Keins davon" bleibt als Text-Chip
+Statt `bg-accent` bekommt die Progress-Bar einen sanften Gradient von `white/20` zu `white/60`. Dezenter, eleganter, kein Tuerkis-Overkill.
 
-## Aenderung 2: Witzige Platzhalter in beiden Funnels
+### 2. Selectable Cards: Weissere Hover-Aesthetik
 
-In beiden Funnels werden die Placeholder-Texte geaendert:
+- **Unselected**: Bleibt `bg-foreground/[0.02]` mit `border-border/15`
+- **Hover**: Neuer subtiler Glassmorphism-Shine (`bg-foreground/[0.05]`) + leichter Border-Lift
+- **Selected**: Border wird `white/30` statt Accent, Hintergrund `white/[0.06]` statt Accent. Nur das Check-Badge bleibt Accent (einziger Tuerkis-Punkt pro Card)
+- **Icon bei Selected**: Wird weiss statt Tuerkis
 
-| Feld | Alt | Neu |
-|------|-----|-----|
-| Name | Max Mustermann | MTM Studios |
-| E-Mail | max@firma.de / max@email.de | hallo@mtmstudios.de |
+### 3. Buttons: Dezenterer Primaer-Button
 
-**Dateien:**
-- `src/components/ContactFunnel.tsx` -- Zeile 192: Placeholder aendern
-- `src/components/career/CareerFunnel.tsx` -- Zeile 336: Placeholder aendern
+- "Weiter"-Buttons: Statt `bg-accent` wird ein `bg-foreground/90` (fast weiss) mit `text-background` (schwarz) verwendet. Cleaner, weniger Tuerkis
+- "Zurueck"-Buttons: Bleiben Ghost, kein Aenderungsbedarf
+- Nur der finale "Absenden"-Button behalt den Accent als besondere Hervorhebung
 
-## Technische Details
+### 4. Input-Felder: Subtilerer Focus-State
 
-### Tool-Logos (SVG URLs)
+- Focus-Border: `white/30` statt `accent/50`
+- Focus-Shadow: `white/5` statt `accent/10`
+- Generell waermere, neutralere Erscheinung
 
-Die Logos werden ueber Simple Icons CDN (`cdn.simpleicons.org`) geladen:
-- N8N: `https://cdn.simpleicons.org/n8n/white`
-- Zapier: `https://cdn.simpleicons.org/zapier/white`
-- Claude (Anthropic): `https://cdn.simpleicons.org/anthropic/white`
-- ChatGPT (OpenAI): `https://cdn.simpleicons.org/openai/white`
-- Gemini (Google): `https://cdn.simpleicons.org/googlegemini/white`
+### 5. Success-Screen: Eleganterer Check
 
-### Logo-Card Komponente
+- Der grosse Check-Kreis bekommt einen Gradient von Weiss zu `white/70` statt den vollen Accent-Gradient
+- Der Pulse-Glow wird `white/10` statt `accent/20`
+- Wirkt edler und weniger "schreierisch"
 
-Jede Logo-Card ist ein `motion.button` mit:
-- 80x80px oder aehnlich, `rounded-2xl`
-- Logo zentriert (ca. 32px)
-- Tool-Name darunter als `text-xs`
-- Gleicher Accent-Border/Glow und Check-Badge bei Selektion wie die anderen Cards
-- Flex-Wrap Layout statt Grid fuer lockere Anordnung
+### 6. Step-Headlines: Dezenter Subtext-Stil
 
+- Subtext bekommt `tracking-wide uppercase text-xs` fuer einen moderneren Look (wie "SCHRITT 1 VON 4")
+- Optional: Kleine Step-Nummer als Badge ueber der Headline
+
+### 7. Chips (Career Funnel): Subtilere Selection
+
+- Selected: `border-white/25` + `bg-white/[0.08]` + weisse Textfarbe
+- Statt Tuerkis-Border und Tuerkis-Text
+
+### 8. Tool-Logo-Cards: Hover-Effekt
+
+- Hover: Leichtes Scale (1.03) + Border-Lift auf `white/20`
+- Selected: Behaelt Check-Badge in Accent (einziger Tuerkis-Punkt)
+
+## Zusammenfassung Tuerkis-Einsatz
+
+Tuerkis bleibt NUR an diesen Stellen:
+- Check-Badges (kleiner Kreis mit Haekchen)
+- Der finale "Absenden"-Button
+- Success-Screen Check-Icon (dezent)
+
+Alles andere wird neutral-weiss/grau gehalten. Das gibt dem Accent seine Wirkung zurueck.
+
+## Technische Umsetzung
+
+### Dateien die geaendert werden
+
+**`src/components/ContactFunnel.tsx`**
+- SelectableCardGrid: Selected-Styles aendern (weiss statt accent)
+- Progress-Bar: Gradient statt bg-accent
+- Buttons: bg-foreground/90 statt bg-accent (ausser Absenden)
+- Input Focus-Styles: white statt accent
+- Success-Screen: Neutralere Farben
+
+**`src/components/career/CareerFunnel.tsx`**
+- SelectCard: Gleiche Aenderungen wie oben
+- Chip: Selected-Styles neutral
+- Tool-Logo-Cards: Hover-Effekt, neutralere Selected-Styles
+- Progress-Bar, Buttons, Inputs, Success: Gleich wie ContactFunnel
+- Step-Counter Badge hinzufuegen (optional)
