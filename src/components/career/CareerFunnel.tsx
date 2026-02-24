@@ -74,16 +74,16 @@ const SelectCard = ({
     animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
     transition={{ duration: 0.4, delay: index * 0.07, ease: appleEase }}
     onClick={onClick}
-    className="relative group text-center p-4 rounded-2xl border transition-colors duration-300 cursor-pointer"
+    className="relative group text-center p-4 rounded-2xl border transition-all duration-300 cursor-pointer hover:bg-foreground/[0.05] hover:border-foreground/20"
     style={{
-      borderColor: selected ? "hsl(var(--accent) / 0.6)" : "hsl(var(--border) / 0.15)",
-      backgroundColor: selected ? "hsl(var(--accent) / 0.06)" : "hsl(var(--foreground) / 0.02)",
-      boxShadow: selected ? "0 0 25px hsl(var(--accent) / 0.12), inset 0 1px 0 hsl(var(--accent) / 0.1)" : "none",
+      borderColor: selected ? "hsl(var(--foreground) / 0.3)" : "hsl(var(--border) / 0.15)",
+      backgroundColor: selected ? "hsl(var(--foreground) / 0.06)" : "hsl(var(--foreground) / 0.02)",
+      boxShadow: selected ? "0 0 25px hsl(var(--foreground) / 0.06), inset 0 1px 0 hsl(var(--foreground) / 0.08)" : "none",
     }}
   >
     <Icon
       className="w-5 h-5 mb-2 mx-auto transition-colors duration-300"
-      style={{ color: selected ? "hsl(var(--accent))" : "hsl(var(--muted-foreground))" }}
+      style={{ color: selected ? "hsl(var(--foreground))" : "hsl(var(--muted-foreground))" }}
     />
     <span className="text-sm font-medium text-foreground block">{label}</span>
     {sub && <span className="text-xs text-muted-foreground block mt-0.5">{sub}</span>}
@@ -99,7 +99,7 @@ const SelectCard = ({
   </motion.button>
 );
 
-/* ── Chip (for tools, hours, start) ───────────────── */
+/* ── Chip (for hours, start) ───────────────── */
 const Chip = ({
   label,
   selected,
@@ -118,9 +118,9 @@ const Chip = ({
     onClick={onClick}
     className="px-5 py-2.5 rounded-full border text-sm font-medium transition-all duration-300 cursor-pointer"
     style={{
-      borderColor: selected ? "hsl(var(--accent) / 0.6)" : "hsl(var(--border) / 0.15)",
-      backgroundColor: selected ? "hsl(var(--accent) / 0.1)" : "hsl(var(--foreground) / 0.02)",
-      color: selected ? "hsl(var(--accent))" : "hsl(var(--foreground))",
+      borderColor: selected ? "hsl(var(--foreground) / 0.25)" : "hsl(var(--border) / 0.15)",
+      backgroundColor: selected ? "hsl(var(--foreground) / 0.08)" : "hsl(var(--foreground) / 0.02)",
+      color: selected ? "hsl(var(--foreground))" : "hsl(var(--foreground) / 0.7)",
     }}
   >
     {label}
@@ -195,7 +195,7 @@ const CareerFunnel = ({ open, onOpenChange }: CareerFunnelProps) => {
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogContent className="bg-background/95 backdrop-blur-xl border border-border/20 rounded-3xl max-w-xl p-0 gap-0 overflow-hidden shadow-[0_0_80px_hsl(var(--accent)/0.08)]">
+      <DialogContent className="bg-background/95 backdrop-blur-xl border border-border/20 rounded-3xl max-w-xl p-0 gap-0 overflow-hidden shadow-[0_0_80px_hsl(var(--foreground)/0.04)]">
         <DialogTitle className="sr-only">Bewerbung</DialogTitle>
 
         {/* Progress */}
@@ -203,7 +203,8 @@ const CareerFunnel = ({ open, onOpenChange }: CareerFunnelProps) => {
           {Array.from({ length: totalSteps }).map((_, i) => (
             <div key={i} className="h-1 flex-1 rounded-full bg-border/20 overflow-hidden">
               <motion.div
-                className="h-full rounded-full bg-accent"
+                className="h-full rounded-full"
+                style={{ background: "linear-gradient(90deg, hsl(var(--foreground) / 0.2), hsl(var(--foreground) / 0.6))" }}
                 initial={false}
                 animate={{ width: step >= i + 1 ? "100%" : "0%" }}
                 transition={{ duration: 0.5, ease: appleEase }}
@@ -217,6 +218,7 @@ const CareerFunnel = ({ open, onOpenChange }: CareerFunnelProps) => {
             {/* Step 1 – Employment Type */}
             {step === 1 && (
               <motion.div key="s1" {...stepMotion} className="flex flex-col flex-1">
+                <p className="text-xs tracking-widest uppercase text-muted-foreground text-center mb-3">Schritt 1 von 6</p>
                 <h3 className="text-2xl font-bold text-foreground mb-2 text-center">Was suchst du?</h3>
                 <p className="text-muted-foreground text-sm mb-6 text-center">Wähl aus, was am besten passt.</p>
                 <div className="grid grid-cols-2 gap-3 mb-8">
@@ -225,7 +227,7 @@ const CareerFunnel = ({ open, onOpenChange }: CareerFunnelProps) => {
                   ))}
                 </div>
                 <div className="mt-auto">
-                  <Button onClick={() => setStep(2)} disabled={!employment} className="w-full bg-accent text-background hover:bg-accent/90 font-semibold rounded-full py-6 text-base disabled:opacity-30">
+                  <Button onClick={() => setStep(2)} disabled={!employment} className="w-full bg-foreground/90 text-background hover:bg-foreground font-semibold rounded-full py-6 text-base disabled:opacity-30">
                     Weiter <ArrowRight className="w-4 h-4 ml-2" />
                   </Button>
                 </div>
@@ -235,6 +237,7 @@ const CareerFunnel = ({ open, onOpenChange }: CareerFunnelProps) => {
             {/* Step 2 – Role */}
             {step === 2 && (
               <motion.div key="s2" {...stepMotion} className="flex flex-col flex-1">
+                <p className="text-xs tracking-widest uppercase text-muted-foreground text-center mb-3">Schritt 2 von 6</p>
                 <h3 className="text-2xl font-bold text-foreground mb-2 text-center">Was willst du machen?</h3>
                 <p className="text-muted-foreground text-sm mb-6 text-center">Wähl deine Rolle.</p>
                 <div className="grid grid-cols-2 gap-3 mb-8">
@@ -246,7 +249,7 @@ const CareerFunnel = ({ open, onOpenChange }: CareerFunnelProps) => {
                   <Button variant="ghost" onClick={() => setStep(1)} className="rounded-full px-6 py-6 text-muted-foreground hover:text-foreground">
                     <ArrowLeft className="w-4 h-4 mr-2" /> Zurück
                   </Button>
-                  <Button onClick={() => setStep(3)} disabled={!role} className="flex-1 bg-accent text-background hover:bg-accent/90 font-semibold rounded-full py-6 text-base disabled:opacity-30">
+                  <Button onClick={() => setStep(3)} disabled={!role} className="flex-1 bg-foreground/90 text-background hover:bg-foreground font-semibold rounded-full py-6 text-base disabled:opacity-30">
                     Weiter <ArrowRight className="w-4 h-4 ml-2" />
                   </Button>
                 </div>
@@ -256,6 +259,7 @@ const CareerFunnel = ({ open, onOpenChange }: CareerFunnelProps) => {
             {/* Step 3 – Branch */}
             {step === 3 && (
               <motion.div key="s3" {...stepMotion} className="flex flex-col flex-1">
+                <p className="text-xs tracking-widest uppercase text-muted-foreground text-center mb-3">Schritt 3 von 6</p>
                 {isStudentPath ? (
                   <>
                     <h3 className="text-2xl font-bold text-foreground mb-2 text-center">Erzähl uns kurz von dir</h3>
@@ -266,7 +270,7 @@ const CareerFunnel = ({ open, onOpenChange }: CareerFunnelProps) => {
                         <input
                           type="text" placeholder="z.B. Wirtschaftsinformatik" value={studiengang}
                           onChange={(e) => setStudiengang(e.target.value)}
-                          className="w-full rounded-xl border bg-foreground/[0.03] backdrop-blur-sm px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/50 outline-none transition-all duration-300 focus:border-accent/50 focus:shadow-[0_0_15px_hsl(var(--accent)/0.1)]"
+                          className="w-full rounded-xl border bg-foreground/[0.03] backdrop-blur-sm px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/50 outline-none transition-all duration-300 focus:border-foreground/30 focus:shadow-[0_0_15px_hsl(var(--foreground)/0.05)]"
                           style={{ borderColor: "hsl(var(--border) / 0.15)" }}
                         />
                       </motion.div>
@@ -303,7 +307,7 @@ const CareerFunnel = ({ open, onOpenChange }: CareerFunnelProps) => {
                   <Button variant="ghost" onClick={() => setStep(2)} className="rounded-full px-6 py-6 text-muted-foreground hover:text-foreground">
                     <ArrowLeft className="w-4 h-4 mr-2" /> Zurück
                   </Button>
-                  <Button onClick={() => setStep(4)} disabled={!canProceedStep3} className="flex-1 bg-accent text-background hover:bg-accent/90 font-semibold rounded-full py-6 text-base disabled:opacity-30">
+                  <Button onClick={() => setStep(4)} disabled={!canProceedStep3} className="flex-1 bg-foreground/90 text-background hover:bg-foreground font-semibold rounded-full py-6 text-base disabled:opacity-30">
                     Weiter <ArrowRight className="w-4 h-4 ml-2" />
                   </Button>
                 </div>
@@ -313,6 +317,7 @@ const CareerFunnel = ({ open, onOpenChange }: CareerFunnelProps) => {
             {/* Step 4 – Tools */}
             {step === 4 && (
               <motion.div key="s4" {...stepMotion} className="flex flex-col flex-1">
+                <p className="text-xs tracking-widest uppercase text-muted-foreground text-center mb-3">Schritt 4 von 6</p>
                 <h3 className="text-2xl font-bold text-foreground mb-2 text-center">Welche Tools kennst du?</h3>
                 <p className="text-muted-foreground text-sm mb-6 text-center">Wähl alle aus, mit denen du schon gearbeitet hast.</p>
                 <div className="flex flex-wrap justify-center gap-3 mb-8">
@@ -325,11 +330,12 @@ const CareerFunnel = ({ open, onOpenChange }: CareerFunnelProps) => {
                         animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                         transition={{ duration: 0.35, delay: i * 0.05, ease: appleEase }}
                         onClick={() => toggleTool(t.id)}
+                        whileHover={{ scale: 1.03 }}
                         className="relative flex flex-col items-center justify-center w-20 h-20 rounded-2xl border transition-all duration-300 cursor-pointer"
                         style={{
-                          borderColor: isSelected ? "hsl(var(--accent) / 0.6)" : "hsl(var(--border) / 0.15)",
-                          backgroundColor: isSelected ? "hsl(var(--accent) / 0.06)" : "hsl(var(--foreground) / 0.02)",
-                          boxShadow: isSelected ? "0 0 25px hsl(var(--accent) / 0.12), inset 0 1px 0 hsl(var(--accent) / 0.1)" : "none",
+                          borderColor: isSelected ? "hsl(var(--foreground) / 0.3)" : "hsl(var(--border) / 0.15)",
+                          backgroundColor: isSelected ? "hsl(var(--foreground) / 0.06)" : "hsl(var(--foreground) / 0.02)",
+                          boxShadow: isSelected ? "0 0 25px hsl(var(--foreground) / 0.06), inset 0 1px 0 hsl(var(--foreground) / 0.08)" : "none",
                         }}
                       >
                         <img src={t.logo} alt={t.label} className="w-8 h-8 mb-1.5" />
@@ -352,7 +358,7 @@ const CareerFunnel = ({ open, onOpenChange }: CareerFunnelProps) => {
                   <Button variant="ghost" onClick={() => setStep(3)} className="rounded-full px-6 py-6 text-muted-foreground hover:text-foreground">
                     <ArrowLeft className="w-4 h-4 mr-2" /> Zurück
                   </Button>
-                  <Button onClick={() => setStep(5)} disabled={selectedTools.length === 0} className="flex-1 bg-accent text-background hover:bg-accent/90 font-semibold rounded-full py-6 text-base disabled:opacity-30">
+                  <Button onClick={() => setStep(5)} disabled={selectedTools.length === 0} className="flex-1 bg-foreground/90 text-background hover:bg-foreground font-semibold rounded-full py-6 text-base disabled:opacity-30">
                     Weiter <ArrowRight className="w-4 h-4 ml-2" />
                   </Button>
                 </div>
@@ -362,6 +368,7 @@ const CareerFunnel = ({ open, onOpenChange }: CareerFunnelProps) => {
             {/* Step 5 – Contact */}
             {step === 5 && (
               <motion.div key="s5" {...stepMotion} className="flex flex-col flex-1">
+                <p className="text-xs tracking-widest uppercase text-muted-foreground text-center mb-3">Schritt 5 von 6</p>
                 <h3 className="text-2xl font-bold text-foreground mb-2 text-center">Wie erreichen wir dich?</h3>
                 <p className="text-muted-foreground text-sm mb-6 text-center">Wir melden uns schnellstmöglich.</p>
                 <div className="space-y-4 mb-8">
@@ -375,7 +382,7 @@ const CareerFunnel = ({ open, onOpenChange }: CareerFunnelProps) => {
                       <input
                         type={field.type} placeholder={field.placeholder} value={formData[field.key] || ""}
                         onChange={(e) => { setFormData((p) => ({ ...p, [field.key]: e.target.value })); if (errors[field.key]) setErrors((p) => ({ ...p, [field.key]: undefined })); }}
-                        className="w-full rounded-xl border bg-foreground/[0.03] backdrop-blur-sm px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/50 outline-none transition-all duration-300 focus:border-accent/50 focus:shadow-[0_0_15px_hsl(var(--accent)/0.1)]"
+                        className="w-full rounded-xl border bg-foreground/[0.03] backdrop-blur-sm px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/50 outline-none transition-all duration-300 focus:border-foreground/30 focus:shadow-[0_0_15px_hsl(var(--foreground)/0.05)]"
                         style={{ borderColor: errors[field.key] ? "hsl(0 70% 50% / 0.6)" : "hsl(var(--border) / 0.15)" }}
                       />
                       {errors[field.key] && (
@@ -386,7 +393,7 @@ const CareerFunnel = ({ open, onOpenChange }: CareerFunnelProps) => {
                   <motion.div initial={{ opacity: 0, y: 15, filter: "blur(6px)" }} animate={{ opacity: 1, y: 0, filter: "blur(0px)" }} transition={{ duration: 0.35, delay: 0.18, ease: appleEase }}>
                     <label className="text-sm text-muted-foreground mb-1.5 block">Nachricht (optional)</label>
                     <textarea placeholder="Erzähl uns kurz, was dich motiviert..." rows={3} value={formData.message || ""} onChange={(e) => setFormData((p) => ({ ...p, message: e.target.value }))}
-                      className="w-full rounded-xl border bg-foreground/[0.03] backdrop-blur-sm px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/50 outline-none resize-none transition-all duration-300 focus:border-accent/50 focus:shadow-[0_0_15px_hsl(var(--accent)/0.1)]"
+                      className="w-full rounded-xl border bg-foreground/[0.03] backdrop-blur-sm px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/50 outline-none resize-none transition-all duration-300 focus:border-foreground/30 focus:shadow-[0_0_15px_hsl(var(--foreground)/0.05)]"
                       style={{ borderColor: "hsl(var(--border) / 0.15)" }}
                     />
                   </motion.div>
@@ -406,8 +413,8 @@ const CareerFunnel = ({ open, onOpenChange }: CareerFunnelProps) => {
             {step === 6 && (
               <motion.div key="s6" initial={{ opacity: 0, scale: 0.95, filter: "blur(10px)" }} animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }} transition={{ duration: 0.5, ease: appleEase }} className="flex flex-col flex-1 items-center justify-center text-center py-8">
                 <div className="relative mb-8">
-                  <motion.div className="absolute inset-0 rounded-full" style={{ background: "radial-gradient(circle, hsl(var(--accent) / 0.2) 0%, transparent 70%)" }} animate={{ scale: [1, 1.5, 1], opacity: [0.5, 0, 0.5] }} transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }} />
-                  <motion.div className="relative w-20 h-20 rounded-full flex items-center justify-center" style={{ background: "linear-gradient(135deg, hsl(var(--accent)), hsl(var(--accent) / 0.7))", boxShadow: "0 0 40px hsl(var(--accent) / 0.3)" }} initial={{ scale: 0 }} animate={{ scale: [0, 1.2, 1] }} transition={{ type: "spring", stiffness: 300, damping: 15, delay: 0.15 }}>
+                  <motion.div className="absolute inset-0 rounded-full" style={{ background: "radial-gradient(circle, hsl(var(--foreground) / 0.1) 0%, transparent 70%)" }} animate={{ scale: [1, 1.5, 1], opacity: [0.5, 0, 0.5] }} transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }} />
+                  <motion.div className="relative w-20 h-20 rounded-full flex items-center justify-center" style={{ background: "linear-gradient(135deg, hsl(var(--foreground)), hsl(var(--foreground) / 0.7))", boxShadow: "0 0 40px hsl(var(--foreground) / 0.15)" }} initial={{ scale: 0 }} animate={{ scale: [0, 1.2, 1] }} transition={{ type: "spring", stiffness: 300, damping: 15, delay: 0.15 }}>
                     <Check className="w-9 h-9 text-background" strokeWidth={3} />
                   </motion.div>
                 </div>
