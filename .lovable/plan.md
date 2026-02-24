@@ -1,17 +1,29 @@
 
 
-## WhatsApp-Icons vereinheitlichen: SVG statt PNG
+## "Jetzt anfragen" Button als echten CTA stylen
 
-Beide verbleibenden Stellen (`HeroSection.tsx` und `CTASection.tsx`) verwenden noch das alte `whatsapp-logo.png` als `<img>`-Tag. Diese werden auf das gleiche scharfe Inline-SVG umgestellt -- ohne Container/Rand, nur das reine Icon neben dem Text.
+Der Button sieht aktuell identisch wie die Menue-Links aus (gleiche Farbe, Groesse, kein Hintergrund). Er soll sich klar als Call-to-Action abheben.
 
 ### Aenderungen
 
-| Datei | Was passiert |
-|---|---|
-| `src/components/HeroSection.tsx` | `import whatsappLogo` entfernen, `<img>` durch Inline-SVG ersetzen (`w-4 h-4 fill="#25D366"`) |
-| `src/components/CTASection.tsx` | Identische Aenderung |
+**1. Tablet-Header (Zeile 102):**
+Aktuell: `text-sm text-foreground/80 hover:text-foreground` -- sieht aus wie ein Link.
+Neu: Accent-Button mit Glassmorphism-Stil:
+- `px-4 py-2 rounded-xl bg-accent/10 border border-accent/20 text-accent text-sm font-medium hover:bg-accent/20 backdrop-blur-sm transition-all duration-300`
+
+**2. Mobile Slide-out-Menue (Zeile 70-75):**
+Aktuell: `text-lg text-foreground/80` -- identisch mit den anderen Menue-Eintraegen.
+Neu: Visuell abgesetzter Button am Ende der Liste mit Separator:
+- `mt-2 pt-6 border-t border-border/10` als Trennlinie
+- `w-full py-3 rounded-xl bg-accent/10 border border-accent/20 text-accent text-base font-medium text-center hover:bg-accent/20 transition-all duration-300`
 
 ### Ergebnis
 
-Alle WhatsApp-Icons auf der gesamten Website nutzen dasselbe Inline-SVG in `#25D366` -- scharf auf allen Auflösungen, ohne Rand/Hintergrund, einheitlicher Look.
+Der CTA hebt sich auf Tablet (Header) und Mobile (Slide-out) klar von den normalen Navigationspunkten ab -- gleicher Glassmorphism-Stil wie der WhatsApp-Button, aber in Accent-Farbe.
+
+### Betroffene Datei
+
+| Datei | Aenderung |
+|---|---|
+| `src/components/Navigation.tsx` | Styling fuer "Jetzt anfragen" auf Zeile 70-75 (Mobile-Menue) und Zeile 102 (Tablet-Header) |
 
