@@ -25,21 +25,17 @@ const ChannelsSection = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease: appleEase }}
           >
-            {/* WhatsApp Chat Mockup */}
             <div className="mb-8 rounded-xl bg-white/[0.02] border border-white/[0.06] p-4 space-y-3">
-              {/* Bot bubble */}
               <div className="flex justify-start">
                 <div className="px-4 py-2.5 rounded-2xl rounded-bl-md bg-[#25D366]/10 border border-[#25D366]/20 text-sm text-foreground/80 max-w-[80%]">
                   Hallo! Wie kann ich helfen? 👋
                 </div>
               </div>
-              {/* User bubble */}
               <div className="flex justify-end">
                 <div className="px-4 py-2.5 rounded-2xl rounded-br-md bg-secondary text-sm text-foreground/80 max-w-[80%]">
                   Ich möchte einen Termin buchen
                 </div>
               </div>
-              {/* Bot reply */}
               <div className="flex justify-start">
                 <div className="px-4 py-2.5 rounded-2xl rounded-bl-md bg-[#25D366]/10 border border-[#25D366]/20 text-sm text-foreground/80 max-w-[80%]">
                   Klar! Wann passt es euch? 📅
@@ -66,9 +62,7 @@ const ChannelsSection = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.15, ease: appleEase }}
           >
-            {/* Website Chat Mockup */}
             <div className="mb-8 rounded-xl bg-white/[0.02] border border-white/[0.06] p-4">
-              {/* Chat widget header */}
               <div className="flex items-center gap-2 mb-3 pb-3 border-b border-white/[0.06]">
                 <div className="w-2.5 h-2.5 rounded-full bg-accent/60" />
                 <span className="text-xs text-foreground/60">Online</span>
@@ -97,6 +91,80 @@ const ChannelsSection = () => {
             </div>
             <p className="text-muted-foreground leading-relaxed">
               Besucher direkt auf eurer Website betreuen — ohne Wartezeit.
+            </p>
+          </motion.div>
+
+          {/* Instagram DMs Card */}
+          <motion.div
+            className="bg-white/[0.03] backdrop-blur-md rounded-2xl p-8 md:p-10 border border-white/[0.06]"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.3, ease: appleEase }}
+          >
+            <div className="mb-8 rounded-xl bg-white/[0.02] border border-white/[0.06] p-4 space-y-3">
+              <div className="flex justify-start">
+                <div className="px-4 py-2.5 rounded-2xl rounded-bl-md bg-[#E1306C]/10 border border-[#E1306C]/20 text-sm text-foreground/80 max-w-[80%]">
+                  Hey! 👋 Wie können wir helfen?
+                </div>
+              </div>
+              <div className="flex justify-end">
+                <div className="px-4 py-2.5 rounded-2xl rounded-br-md bg-secondary text-sm text-foreground/80 max-w-[80%]">
+                  Habt ihr noch freie Termine?
+                </div>
+              </div>
+              <div className="flex justify-start">
+                <div className="px-4 py-2.5 rounded-2xl rounded-bl-md bg-[#E1306C]/10 border border-[#E1306C]/20 text-sm text-foreground/80 max-w-[80%]">
+                  Klar, morgen um 14 Uhr? ✨
+                </div>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3 mb-4">
+              <svg viewBox="0 0 24 24" className="w-7 h-7" fill="#E1306C">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+              </svg>
+              <h3 className="text-2xl font-semibold text-foreground">Instagram DMs</h3>
+            </div>
+            <p className="text-muted-foreground leading-relaxed">
+              Antwortet automatisch auf Direktnachrichten — auch außerhalb eurer Geschäftszeiten.
+            </p>
+          </motion.div>
+
+          {/* Facebook Messenger Card */}
+          <motion.div
+            className="bg-white/[0.03] backdrop-blur-md rounded-2xl p-8 md:p-10 border border-white/[0.06]"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.45, ease: appleEase }}
+          >
+            <div className="mb-8 rounded-xl bg-white/[0.02] border border-white/[0.06] p-4 space-y-3">
+              <div className="flex justify-start">
+                <div className="px-4 py-2.5 rounded-2xl rounded-bl-md bg-[#0084FF]/10 border border-[#0084FF]/20 text-sm text-foreground/80 max-w-[80%]">
+                  Hi! Was kann ich für euch tun? 💬
+                </div>
+              </div>
+              <div className="flex justify-end">
+                <div className="px-4 py-2.5 rounded-2xl rounded-br-md bg-secondary text-sm text-foreground/80 max-w-[80%]">
+                  Ich brauche Infos zu eurem Angebot
+                </div>
+              </div>
+              <div className="flex justify-start">
+                <div className="px-4 py-2.5 rounded-2xl rounded-bl-md bg-[#0084FF]/10 border border-[#0084FF]/20 text-sm text-foreground/80 max-w-[80%]">
+                  Gerne! Hier ist eine Übersicht 📋
+                </div>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3 mb-4">
+              <svg viewBox="0 0 24 24" className="w-7 h-7" fill="#0084FF">
+                <path d="M12 0C5.373 0 0 4.974 0 11.111c0 3.498 1.744 6.614 4.469 8.654V24l4.088-2.242c1.092.301 2.246.464 3.443.464 6.627 0 12-4.975 12-11.111C24 4.974 18.627 0 12 0zm1.191 14.963l-3.055-3.26-5.963 3.26L10.732 8.2l3.131 3.259L19.752 8.2l-6.561 6.763z" />
+              </svg>
+              <h3 className="text-2xl font-semibold text-foreground">Facebook Messenger</h3>
+            </div>
+            <p className="text-muted-foreground leading-relaxed">
+              Euer Bot beantwortet Anfragen direkt im Messenger — schnell und persönlich.
             </p>
           </motion.div>
         </div>
