@@ -4,7 +4,7 @@ import Footer from "@/components/Footer";
 import BlurText from "@/components/BlurText";
 import { motion } from "motion/react";
 import {
-  Dumbbell, Wifi, Clock, MapPin, BookOpen, Wrench, Users,
+  Dumbbell, Wifi, Clock, MapPin, BookOpen, Wrench, Users, Rocket,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import CareerFunnel from "@/components/career/CareerFunnel";
@@ -27,13 +27,14 @@ const statements = [
 ];
 
 const benefits = [
-  { label: "Wellpass", icon: Dumbbell },
-  { label: "100% Remote", icon: Wifi },
-  { label: "Vertrauensarbeitszeit", icon: Clock },
-  { label: "Teamausflüge", icon: MapPin },
-  { label: "Weiterbildungsbudget", icon: BookOpen },
-  { label: "Neuste Tools & Hardware", icon: Wrench },
-  { label: "Flache Hierarchien", icon: Users },
+  { label: "Wellpass", icon: Dumbbell, sub: "Fitness & Wellness" },
+  { label: "100% Remote", icon: Wifi, sub: "Arbeite von überall" },
+  { label: "Vertrauensarbeitszeit", icon: Clock, sub: "Keine Stechuhr" },
+  { label: "Teamausflüge", icon: MapPin, sub: "Zusammen unterwegs" },
+  { label: "Weiterbildungsbudget", icon: BookOpen, sub: "Lerne was du willst" },
+  { label: "Neuste Tools & Hardware", icon: Wrench, sub: "Top-Setup ab Tag 1" },
+  { label: "Flache Hierarchien", icon: Users, sub: "Deine Meinung zählt" },
+  { label: "Startup-Vibes", icon: Rocket, sub: "Klein, schnell, direkt" },
 ];
 
 const Karriere = () => {
@@ -51,7 +52,7 @@ const Karriere = () => {
 
         <div className="relative z-10 max-w-2xl mx-auto">
           <BlurText
-            text="Bock auf Zukunft?"
+            text="Mach KI. Nicht Meetings."
             className="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight text-foreground mb-6"
             delay={80}
           />
@@ -61,7 +62,7 @@ const Karriere = () => {
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ duration: 0.6, delay: 0.4, ease: appleEase }}
           >
-            Arbeite mit den neusten KI-Tools und Technologien in einem Team, das Unternehmen in die Zukunft bringt.
+            Wir bauen KI-Lösungen, die Unternehmen verändern. Kein Corporate-Bullshit, keine endlosen Abstimmungsrunden – einfach bauen.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 15 }}
@@ -114,13 +115,13 @@ const Karriere = () => {
           >
             Was dich erwartet
           </motion.h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
             {benefits.map((b, i) => {
               const Icon = b.icon;
               return (
                 <motion.div
                   key={b.label}
-                  className="flex flex-col items-center gap-3 p-6 rounded-2xl transition-transform duration-200 hover:-translate-y-0.5"
+                  className="flex flex-col items-center gap-3 p-8 rounded-2xl transition-all duration-200 hover:scale-[1.02]"
                   style={{
                     backgroundColor: "hsl(var(--foreground) / 0.03)",
                     border: "1px solid hsl(var(--border) / 0.1)",
@@ -131,12 +132,13 @@ const Karriere = () => {
                   transition={{ duration: 0.4, delay: i * 0.06, ease: appleEase }}
                 >
                   <div
-                    className="w-12 h-12 rounded-xl flex items-center justify-center"
-                    style={{ backgroundColor: "hsl(var(--foreground) / 0.04)" }}
+                    className="w-14 h-14 rounded-2xl flex items-center justify-center"
+                    style={{ backgroundColor: "hsl(var(--foreground) / 0.05)" }}
                   >
-                    <Icon className="w-6 h-6 text-accent" />
+                    <Icon className="w-7 h-7 text-foreground/60" />
                   </div>
-                  <span className="text-sm font-medium text-foreground">{b.label}</span>
+                  <span className="text-base font-medium text-foreground">{b.label}</span>
+                  <span className="text-xs text-foreground/40">{b.sub}</span>
                 </motion.div>
               );
             })}
@@ -147,12 +149,21 @@ const Karriere = () => {
       {/* Bottom CTA */}
       <section className="py-32 px-6 text-center">
         <motion.p
-          className="text-2xl md:text-3xl font-semibold text-foreground mb-8"
+          className="text-2xl md:text-3xl font-semibold text-foreground mb-4"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
         >
-          Bereit für was Neues?
+          Überzeugt? Dann melde dich.
+        </motion.p>
+        <motion.p
+          className="text-lg text-muted-foreground mb-8"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.1 }}
+        >
+          Kein Anschreiben nötig. Erzähl uns einfach, worauf du Lust hast.
         </motion.p>
         <motion.div
           initial={{ opacity: 0, y: 10 }}
