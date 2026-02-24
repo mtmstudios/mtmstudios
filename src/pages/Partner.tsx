@@ -2,6 +2,7 @@ import Navigation from "@/components/Navigation";
 import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
 import BlurText from "@/components/BlurText";
+import SEOHead from "@/components/SEOHead";
 import { motion, useInView } from "motion/react";
 import { TrendingUp, EyeOff, Zap, UserCheck } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
@@ -116,6 +117,7 @@ const Partner = () => {
 
   return (
     <div className="relative min-h-screen bg-background">
+      <SEOHead title="Partner werden | White-Label KI-Lösungen | MTM Studios" description="Werdet Partner von MTM Studios. White-Label KI-Lösungen für Agenturen und Dienstleister — euer Angebot, unsere Technologie." />
       {/* Video Background */}
       <div className="fixed inset-0 w-screen h-screen overflow-hidden" style={{ isolation: "isolate", zIndex: 0 }}>
         <video

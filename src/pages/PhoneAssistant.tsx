@@ -1,4 +1,5 @@
 import Navigation from "@/components/Navigation";
+import SEOHead from "@/components/SEOHead";
 import PhoneHero from "@/components/phone-assistant/PhoneHero";
 import ProblemSection from "@/components/phone-assistant/ProblemSection";
 import HowItWorks from "@/components/phone-assistant/HowItWorks";
@@ -32,6 +33,7 @@ const PhoneAssistant = () => {
 
   return (
     <div className="relative min-h-screen bg-background">
+      <SEOHead title="KI-Telefonassistent | Anrufe automatisieren | MTM Studios" description="KI-Telefonassistent von MTM Studios. Automatische Anrufannahme, Terminbuchung und Weiterleitung — 24/7 erreichbar." />
       <div
         className="fixed inset-0 w-screen h-screen overflow-hidden"
         style={{ isolation: "isolate", zIndex: 0 }}

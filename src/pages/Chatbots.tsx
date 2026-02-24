@@ -1,4 +1,5 @@
 import Navigation from "@/components/Navigation";
+import SEOHead from "@/components/SEOHead";
 import ChatbotHero from "@/components/chatbot/ChatbotHero";
 import ChatbotProblem from "@/components/chatbot/ChatbotProblem";
 import ChatbotHowItWorks from "@/components/chatbot/ChatbotHowItWorks";
@@ -33,6 +34,7 @@ const Chatbots = () => {
 
   return (
     <div className="relative min-h-screen bg-background">
+      <SEOHead title="KI-Chatbot für WhatsApp & Website | MTM Studios" description="KI-Chatbot von MTM Studios. Automatisierte Kundenkommunikation auf WhatsApp, Website und mehr — rund um die Uhr." />
       <div
         className="fixed inset-0 w-screen h-screen overflow-hidden"
         style={{ isolation: "isolate", zIndex: 0 }}
