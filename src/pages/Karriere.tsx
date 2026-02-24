@@ -11,6 +11,21 @@ import CareerFunnel from "@/components/career/CareerFunnel";
 
 const appleEase = [0.16, 1, 0.3, 1] as const;
 
+const statements = [
+  {
+    headline: "Du willst mit den neusten KI-Tools arbeiten?",
+    subtext: "Wir setzen auf Claude, ChatGPT, N8N und alles, was morgen Standard ist – heute schon.",
+  },
+  {
+    headline: "Du willst KI wirklich verstehen?",
+    subtext: "Nicht nur anwenden, sondern durchdringen. Bei uns baust du Lösungen, die Unternehmen transformieren.",
+  },
+  {
+    headline: "Du willst kein Konzern-Hamsterrad?",
+    subtext: "Flache Hierarchien, echte Verantwortung, Remote-first. Dein Impact zählt ab Tag eins.",
+  },
+];
+
 const benefits = [
   { label: "Wellpass", icon: Dumbbell },
   { label: "100% Remote", icon: Wifi },
@@ -29,7 +44,7 @@ const Karriere = () => {
       <Navigation />
 
       {/* Hero */}
-      <section className="relative pt-32 pb-20 px-6 flex flex-col items-center text-center">
+      <section className="relative pt-[18vh] pb-[12vh] px-6 flex flex-col items-center text-center">
         <div className="absolute inset-0 pointer-events-none" style={{
           background: "radial-gradient(ellipse 60% 40% at 50% 0%, hsl(var(--accent) / 0.08) 0%, transparent 70%)",
         }} />
@@ -37,7 +52,7 @@ const Karriere = () => {
         <div className="relative z-10 max-w-2xl mx-auto">
           <BlurText
             text="Bock auf Zukunft?"
-            className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-foreground mb-6"
+            className="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight text-foreground mb-6"
             delay={80}
           />
           <motion.p
@@ -46,7 +61,7 @@ const Karriere = () => {
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ duration: 0.6, delay: 0.4, ease: appleEase }}
           >
-            Arbeite mit den neusten KI-Tools und Technologien in einem Team, das Unternehmen in die Zukunft bringt. Kein Konzern, keine starren Strukturen – dafür echte Innovation, jeden Tag.
+            Arbeite mit den neusten KI-Tools und Technologien in einem Team, das Unternehmen in die Zukunft bringt.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 15 }}
@@ -63,11 +78,35 @@ const Karriere = () => {
         </div>
       </section>
 
+      {/* Apple-Style Statement Sections */}
+      {statements.map((s, i) => (
+        <section key={i} className="py-[18vh] sm:py-[20vh] px-6 flex items-center justify-center">
+          <div className="max-w-2xl mx-auto text-center">
+            <BlurText
+              text={s.headline}
+              className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-foreground"
+              delay={60}
+              animateBy="words"
+              direction="bottom"
+            />
+            <motion.p
+              className="text-lg sm:text-xl text-muted-foreground leading-relaxed max-w-lg mx-auto mt-6"
+              initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
+              whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.7, delay: 0.3, ease: appleEase }}
+            >
+              {s.subtext}
+            </motion.p>
+          </div>
+        </section>
+      ))}
+
       {/* Benefits */}
-      <section className="py-16 px-6">
-        <div className="max-w-2xl mx-auto text-center">
+      <section className="py-24 sm:py-32 px-6">
+        <div className="max-w-4xl mx-auto text-center">
           <motion.h2
-            className="text-2xl font-bold text-foreground mb-8"
+            className="text-3xl md:text-4xl font-bold text-foreground mb-16"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
@@ -75,24 +114,29 @@ const Karriere = () => {
           >
             Was dich erwartet
           </motion.h2>
-          <div className="flex flex-wrap justify-center gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
             {benefits.map((b, i) => {
               const Icon = b.icon;
               return (
                 <motion.div
                   key={b.label}
-                  className="flex items-center gap-2 px-5 py-2.5 rounded-full border text-sm font-medium text-foreground"
+                  className="flex flex-col items-center gap-3 p-6 rounded-2xl transition-transform duration-200 hover:-translate-y-0.5"
                   style={{
                     backgroundColor: "hsl(var(--foreground) / 0.03)",
-                    borderColor: "hsl(var(--border) / 0.1)",
+                    border: "1px solid hsl(var(--border) / 0.1)",
                   }}
-                  initial={{ opacity: 0, y: 15, filter: "blur(6px)" }}
+                  initial={{ opacity: 0, y: 20, filter: "blur(6px)" }}
                   whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: i * 0.06, ease: appleEase }}
                 >
-                  <Icon className="w-4 h-4 text-accent" />
-                  {b.label}
+                  <div
+                    className="w-12 h-12 rounded-xl flex items-center justify-center"
+                    style={{ backgroundColor: "hsl(var(--foreground) / 0.04)" }}
+                  >
+                    <Icon className="w-6 h-6 text-accent" />
+                  </div>
+                  <span className="text-sm font-medium text-foreground">{b.label}</span>
                 </motion.div>
               );
             })}
@@ -101,14 +145,14 @@ const Karriere = () => {
       </section>
 
       {/* Bottom CTA */}
-      <section className="py-16 px-6 text-center">
+      <section className="py-32 px-6 text-center">
         <motion.p
-          className="text-lg text-muted-foreground mb-6"
+          className="text-2xl md:text-3xl font-semibold text-foreground mb-8"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
         >
-          Klingt gut? Dann lass uns reden.
+          Bereit für was Neues?
         </motion.p>
         <motion.div
           initial={{ opacity: 0, y: 10 }}
