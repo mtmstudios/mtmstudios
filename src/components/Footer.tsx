@@ -36,6 +36,8 @@ const Footer = () => {
               <li><Link to="/chatbots" className="text-muted-foreground hover:text-foreground transition-opacity duration-200 text-sm">Chatbots & WhatsApp</Link></li>
               <li><Link to="/automatisierungen" className="text-muted-foreground hover:text-foreground transition-opacity duration-200 text-sm">Automatisierungen</Link></li>
               <li><Link to="/about" className="text-muted-foreground hover:text-foreground transition-opacity duration-200 text-sm">Das sind Wir</Link></li>
+              <li><Link to="/karriere" className="text-muted-foreground hover:text-foreground transition-opacity duration-200 text-sm">Karriere</Link></li>
+              <li><Link to="/partner" className="text-muted-foreground hover:text-foreground transition-opacity duration-200 text-sm">Partner werden</Link></li>
             </ul>
           </div>
         </div>
