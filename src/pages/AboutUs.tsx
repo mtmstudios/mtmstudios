@@ -2,6 +2,7 @@ import Navigation from "@/components/Navigation";
 import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
 import BlurText from "@/components/BlurText";
+import SEOHead from "@/components/SEOHead";
 import { motion, useInView } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 
@@ -98,6 +99,7 @@ const AboutUs = () => {
 
   return (
     <div className="relative min-h-screen bg-background">
+      <SEOHead title="Über MTM Studios | KI-Agentur für Unternehmen" description="Wir sind MTM Studios — euer Partner für KI-Lösungen, die wirklich funktionieren. Klarheit, Geschwindigkeit und Vertrauen." />
       {/* Video Background */}
       <div className="fixed inset-0 w-screen h-screen overflow-hidden" style={{ isolation: "isolate", zIndex: 0 }}>
         <video

@@ -2,6 +2,7 @@ import { useState } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import BlurText from "@/components/BlurText";
+import SEOHead from "@/components/SEOHead";
 import { motion } from "motion/react";
 import {
   Dumbbell, Wifi, Clock, MapPin, BookOpen, Wrench, Users, Rocket,
@@ -42,6 +43,7 @@ const Karriere = () => {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
+      <SEOHead title="Karriere bei MTM Studios | Jobs in KI & Automatisierung" description="Arbeite bei MTM Studios an KI-Lösungen, die Unternehmen verändern. Remote-first, neueste Tools, echte Verantwortung." />
       <Navigation />
 
       {/* Hero */}

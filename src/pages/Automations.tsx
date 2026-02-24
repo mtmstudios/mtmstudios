@@ -1,4 +1,5 @@
 import Navigation from "@/components/Navigation";
+import SEOHead from "@/components/SEOHead";
 import AutomationsHero from "@/components/automations/AutomationsHero";
 import AutomationsProblem from "@/components/automations/AutomationsProblem";
 import AutomationsSpectrum from "@/components/automations/AutomationsSpectrum";
@@ -33,6 +34,7 @@ const Automations = () => {
 
   return (
     <div className="relative min-h-screen bg-background">
+      <SEOHead title="KI-Automatisierung für Unternehmen | MTM Studios" description="KI-Automatisierung von MTM Studios. Wir automatisieren eure Geschäftsprozesse — effizient, skalierbar und DSGVO-konform." />
       <div
         className="fixed inset-0 w-screen h-screen overflow-hidden"
         style={{ isolation: "isolate", zIndex: 0 }}

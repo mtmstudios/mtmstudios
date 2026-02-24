@@ -8,6 +8,7 @@ import TestimonialsSection from "@/components/TestimonialsSection";
 import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
 import RegionalSection from "@/components/RegionalSection";
+import SEOHead from "@/components/SEOHead";
 
 import { useEffect, useRef } from "react";
 
@@ -30,6 +31,7 @@ const Index = () => {
 
   return (
     <div className="relative min-h-screen bg-background">
+      <SEOHead title="KI-Agentur für Telefonassistenten, Chatbots & Automatisierungen | MTM Studios" description="MTM Studios ist eure KI-Agentur. Wir entwickeln Telefonassistenten, Chatbots und Automatisierungen für Unternehmen." />
       <div 
         className="fixed inset-0 w-screen h-screen overflow-hidden" 
         style={{ isolation: 'isolate', zIndex: 0 }}
@@ -67,7 +69,7 @@ const Index = () => {
         <ProcessSection />
         <TestimonialsSection />
         <CTASection />
-        <RegionalSection />
+        <RegionalSection contextPath="ki-agentur" />
         <Footer />
       </div>
     </div>

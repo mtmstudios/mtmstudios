@@ -16,6 +16,7 @@ import AGB from "./pages/AGB";
 import Partner from "./pages/Partner";
 import Karriere from "./pages/Karriere";
 import NotFound from "./pages/NotFound";
+import RegionalPage from "./components/regional/RegionalPage";
 
 const queryClient = new QueryClient();
 
@@ -38,6 +39,10 @@ const App = () => (
             <Route path="/agb" element={<AGB />} />
             <Route path="/partnerwerden" element={<Partner />} />
             <Route path="/karriere" element={<Karriere />} />
+            <Route path="/ki-agentur/:city" element={<RegionalPage context="ki-agentur" />} />
+            <Route path="/ki-telefonassistent/:city" element={<RegionalPage context="ki-telefonassistent" />} />
+            <Route path="/ki-chatbot/:city" element={<RegionalPage context="ki-chatbot" />} />
+            <Route path="/automatisierungen/:city" element={<RegionalPage context="automatisierungen" />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

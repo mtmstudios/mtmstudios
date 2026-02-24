@@ -22,7 +22,7 @@ interface RegionalSectionProps {
 
 const RegionalSection = ({ contextPath }: RegionalSectionProps) => {
   const buildLink = (slug: string) =>
-    contextPath ? `/${contextPath}-${slug}` : `/#`;
+    contextPath ? `/${contextPath}/${slug}` : `/#`;
 
   return (
     <motion.section

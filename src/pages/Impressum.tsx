@@ -1,9 +1,11 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import SEOHead from "@/components/SEOHead";
 
 const Impressum = () => {
   return (
     <div className="min-h-screen bg-background text-foreground">
+      <SEOHead title="Impressum | MTM Studios" description="Impressum von MTM Studios — Angaben gemäß § 5 TMG." />
       <Navigation />
       <main className="container mx-auto px-6 pt-32 pb-20 max-w-3xl">
         <h1 className="text-3xl font-bold mb-8">Impressum</h1>
