@@ -32,12 +32,12 @@ const Footer = () => {
           <div className="text-center md:text-right">
             <h4 className="text-foreground font-semibold mb-3 text-sm uppercase tracking-wider">Navigation</h4>
             <ul className="space-y-2">
-              <li><Link to="/telefonassistent" className="text-muted-foreground hover:text-foreground transition-opacity duration-200 text-sm">KI-Telefonassistent</Link></li>
-              <li><Link to="/chatbots" className="text-muted-foreground hover:text-foreground transition-opacity duration-200 text-sm">Chatbots & WhatsApp</Link></li>
+              <li><Link to="/ki-telefonassistent" className="text-muted-foreground hover:text-foreground transition-opacity duration-200 text-sm">KI-Telefonassistent</Link></li>
+              <li><Link to="/ki-chatbot" className="text-muted-foreground hover:text-foreground transition-opacity duration-200 text-sm">KI-Chatbot</Link></li>
               <li><Link to="/automatisierungen" className="text-muted-foreground hover:text-foreground transition-opacity duration-200 text-sm">Automatisierungen</Link></li>
-              <li><Link to="/about" className="text-muted-foreground hover:text-foreground transition-opacity duration-200 text-sm">Das sind Wir</Link></li>
+              <li><Link to="/dassindwir" className="text-muted-foreground hover:text-foreground transition-opacity duration-200 text-sm">Das sind Wir</Link></li>
               <li><Link to="/karriere" className="text-muted-foreground hover:text-foreground transition-opacity duration-200 text-sm">Karriere</Link></li>
-              <li><Link to="/partner" className="text-muted-foreground hover:text-foreground transition-opacity duration-200 text-sm">Partner werden</Link></li>
+              <li><Link to="/partnerwerden" className="text-muted-foreground hover:text-foreground transition-opacity duration-200 text-sm">Partner werden</Link></li>
             </ul>
           </div>
         </div>

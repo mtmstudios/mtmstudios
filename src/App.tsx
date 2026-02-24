@@ -28,14 +28,14 @@ const App = () => (
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
-            <Route path="/about" element={<AboutUs />} />
-            <Route path="/telefonassistent" element={<PhoneAssistant />} />
-            <Route path="/chatbots" element={<Chatbots />} />
+            <Route path="/dassindwir" element={<AboutUs />} />
+            <Route path="/ki-telefonassistent" element={<PhoneAssistant />} />
+            <Route path="/ki-chatbot" element={<Chatbots />} />
             <Route path="/automatisierungen" element={<Automations />} />
             <Route path="/impressum" element={<Impressum />} />
             <Route path="/datenschutz" element={<Datenschutz />} />
             <Route path="/agb" element={<AGB />} />
-            <Route path="/partner" element={<Partner />} />
+            <Route path="/partnerwerden" element={<Partner />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

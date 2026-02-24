@@ -416,14 +416,14 @@ const features = [
     description:
       "Nimmt Anrufe entgegen, beantwortet Fragen und leitet Gespräche weiter – rund um die Uhr, ohne Wartezeit.",
     Demo: PhoneDemo,
-    href: "/telefonassistent",
+    href: "/ki-telefonassistent",
   },
   {
     title: "WhatsApp & Chatbots",
     description:
       "Automatisierte Chatbots, die Kundenanfragen sofort beantworten und euer Team spürbar entlasten.",
     Demo: ChatDemo,
-    href: "/chatbots",
+    href: "/ki-chatbot",
   },
   {
     title: "Automatisierungen",
