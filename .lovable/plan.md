@@ -1,64 +1,62 @@
 
 
-## Zwei Aufgaben: Sektionen zentrieren + Channels erweitern
+## Funnel-Upgrade: Labels, Icons und neuer Herausforderungs-Schritt
 
-### 1. "So funktioniert's" Sektionen zentrieren (alle 4 Seiten)
+### 1. Aenderungen an Step 1 (Service-Auswahl)
 
-Alle vier Prozess-Sektionen werden von links-ausgerichtet auf zentriert umgebaut.
+**"Ich weiss es noch nicht" wird zu "Vollumfaengliche Beratung":**
+- Label: `"Vollumfängliche Beratung"`
+- Icon: `Compass` (aus lucide-react) -- steht fuer Orientierung und ganzheitliche Begleitung
 
-**Neues Layout pro Step:**
+**"Automatisierungen" bekommt ein n8n-Icon:**
+- Da n8n kein Lucide-Icon hat, wird ein inline-SVG des n8n-Logos verwendet (der bekannte gruene Knoten-Stil)
+- Alternativ wird `Workflow` aus lucide-react genutzt, das dem n8n-Look sehr nahe kommt (verbundene Knoten)
+- Empfehlung: `Workflow`-Icon, da es sauber ins bestehende Lucide-System passt und visuell an n8n erinnert
+
+### 2. Neuer Step 2: "Was ist eure Herausforderung?" (zwischen Service-Wahl und Kontaktformular)
+
+Der Funnel wird von 3 auf 4 Schritte erweitert:
 
 ```text
-         01
-   Kunde schreibt
-  Ueber WhatsApp, Website-Chat
-  oder andere Kanaele...
-    ──────────────
-         02
-   KI versteht und handelt
-  Beantwortet Fragen, bucht
-  Termine und uebergibt...
+Step 1: Was braucht ihr? (Services)
+Step 2: Was ist eure Herausforderung? (NEU)
+Step 3: Kontaktdaten
+Step 4: Erfolg
 ```
 
-**Design-Details:**
-- Nummer: `text-4xl md:text-5xl lg:text-6xl font-bold text-accent/15`, zentriert ueber dem Text, mit Spring-Scale-Animation (`scale 0.85 -> 1`)
-- Titel: `text-lg md:text-xl lg:text-2xl font-bold`, zentriert, Hover -> `text-accent`
-- Beschreibung: `text-sm md:text-base text-muted-foreground max-w-md mx-auto`, zentriert
-- Trennlinien: kurz und zentriert (`max-w-[120px] mx-auto h-px bg-border/10`)
-- Hover: `whileHover={{ y: -4 }}` (leichtes Anheben), `whileTap={{ scale: 0.98 }}`
-- Responsive Spacing: `py-20 md:py-28 lg:py-32 px-6`
-- Steps: `flex flex-col items-center text-center py-8 md:py-12`
+**6 Herausforderungen zur Auswahl (Multi-Select, wie Step 1):**
 
-**Betroffene Dateien:**
+| Herausforderung | Icon | Warum relevant |
+|---|---|---|
+| "Zu viele manuelle Aufgaben" | `Repeat` | Passt zu Automatisierung + Chatbot |
+| "Kundenanfragen gehen verloren" | `MessageSquareOff` (oder `MessagesSquare`) | Passt zu Chatbot + Telefon |
+| "Kein 24/7 Erreichbarkeit" | `Clock` | Passt zu Telefon + Chatbot |
+| "Skalierung ohne mehr Personal" | `TrendingUp` | Passt zu allen drei Services |
+| "Daten und Systeme nicht verbunden" | `Unplug` | Passt zu Automatisierung |
+| "Zu langsame Reaktionszeiten" | `Timer` | Passt zu Chatbot + Telefon |
+
+**Design:** Gleicher Stil wie Step 1 -- 2x3 Grid auf Desktop, 2-Spalten auf Mobile. Multi-Select mit Checkmark-Badges. Ueberschrift: "Was ist aktuell eure groesste Herausforderung?" mit Untertitel "Waehlt alles aus, was zutrifft."
+
+### 3. Technische Anpassungen
+
+**Progress Bar:** Von 3 auf 4 Segmente erweitern (`[1, 2, 3, 4].map(...)`)
+
+**State:** Neuer State `selectedChallenges: string[]` fuer die Herausforderungs-Auswahl
+
+**Step-Navigation:**
+- Step 1 -> "Weiter" -> Step 2
+- Step 2 -> "Weiter" -> Step 3 (Kontaktformular)
+- Step 2 -> "Zurueck" -> Step 1
+- Step 3 -> "Absenden" -> Step 4 (Erfolg)
+- Step 3 -> "Zurueck" -> Step 2
+
+**Submission:** `console.log` wird um `challenges: selectedChallenges` erweitert
+
+**Container-Hoehe:** `min-h-[400px]` wird zu `min-h-[440px]` damit der neue Step mit 6 Karten genug Platz hat
+
+### Betroffene Datei
+
 | Datei | Aenderung |
 |---|---|
-| `src/components/ProcessSection.tsx` | Zentriertes Layout |
-| `src/components/phone-assistant/HowItWorks.tsx` | Zentriertes Layout |
-| `src/components/chatbot/ChatbotHowItWorks.tsx` | Zentriertes Layout |
-| `src/components/automations/AutomationsHowItWorks.tsx` | Zentriertes Layout |
-
----
-
-### 2. ChannelsSection: Instagram + Messenger hinzufuegen (4 Karten total)
-
-Aktuell gibt es nur WhatsApp und Website-Chat. Es werden zwei weitere Karten hinzugefuegt:
-
-**Neue Karte 3 -- Instagram DMs:**
-- Instagram-Logo (SVG) in Pink (#E1306C)
-- Mini-Chat-Mockup im Instagram-Stil (DM-Bubbles)
-- Titel: "Instagram DMs"
-- Beschreibung: "Antwortet automatisch auf Direktnachrichten -- auch ausserhalb eurer Geschaeftszeiten."
-
-**Neue Karte 4 -- Facebook Messenger:**
-- Messenger-Logo (SVG) in Blau (#0084FF)
-- Mini-Chat-Mockup im Messenger-Stil
-- Titel: "Facebook Messenger"
-- Beschreibung: "Euer Bot beantwortet Anfragen direkt im Messenger -- schnell und persoenlich."
-
-**Layout:** Das Grid bleibt `grid-cols-1 md:grid-cols-2` -- damit werden es 2x2 Karten auf Desktop und 4 einzelne auf Mobile. Jede Karte bekommt einen gestaffelten `delay` (0, 0.15, 0.3, 0.45).
-
-**Betroffene Datei:**
-| Datei | Aenderung |
-|---|---|
-| `src/components/chatbot/ChannelsSection.tsx` | 2 neue Channel-Karten (Instagram, Messenger) |
+| `src/components/ContactFunnel.tsx` | Service-Labels/Icons aendern, neuen Herausforderungs-Step einfuegen, Progress Bar auf 4 Schritte, State erweitern |
 
