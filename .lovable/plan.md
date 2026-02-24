@@ -1,52 +1,77 @@
 
 
-# Regionale SEO-Sektion: "Auch in deiner Region"
+# Karriere-Seite: Hero, Benefits & CTA Upgrade
 
-## Konzept
+## 1. Hero-Text -- Cooler & lockerer
 
-Eine dezente, wiederverwendbare Komponente wird erstellt und auf 4 Seiten direkt oberhalb des Footers platziert. Sie zeigt regionale Staedte als Pill-Chips an -- einige aktiv (verlinkt auf zukuenftige SEO-Unterseiten), andere mit einem "Bald"-Badge (noch nicht live). Die Sektion soll sich visuell zuruecknehmen und nicht vom Hauptinhalt ablenken.
+**Aktuell:** "Bock auf Zukunft?" + generischer Subtext
 
-## Design (angelehnt an Referenzbild)
+**Neu:**
+- Headline: **"Mach KI. Nicht Meetings."**
+- Subtext: **"Wir bauen KI-Loesungen, die Unternehmen veraendern. Kein Corporate-Bullshit, keine endlosen Abstimmungsrunden -- einfach bauen."**
 
-- Kleine zentrierte Headline mit MapPin-Icon: "Auch in deiner Region"
-- Darunter Chips in einer `flex-wrap` Zeile, zentriert
-- Aktive Chips: `rounded-full border border-white/10 bg-white/[0.03] text-foreground/70 text-sm px-5 py-2.5`
-- "Bald"-Chips: Gleicher Stil, aber mit kleinem `Bald`-Badge rechts (`text-xs bg-white/[0.06] rounded-full px-2 py-0.5 text-foreground/30`)
-- Hover auf aktiven Chips: `border-white/20 bg-white/[0.06]` -- subtiler Lift
-- Kein Tuerkis, kein Accent -- komplett neutral/grau gehalten
-- Dezenter `py-16` Abstand, keine grosse Headline -- bewusst zurueckhaltend
-- `text-foreground/40` fuer die Headline (sehr gedimmt)
+Frech, direkt, bleibt haengen.
 
-## Staedte (Initial)
+---
 
-Kontextbezogen pro Seite die gleiche Liste (kann spaeter pro Seite variiert werden):
+## 2. Benefits-Section -- Gleichmaessig & visuell ansprechend
 
-| Stadt | Status |
-|-------|--------|
-| Stuttgart | aktiv (Link zu `/ki-telefonassistent-stuttgart` etc.) |
-| Ulm | aktiv |
-| Muenchen | bald |
-| Augsburg | bald |
-| Reutlingen | bald |
+### Problem
+- 7 Benefits = ungleichmaessiges Grid (4+3 auf Desktop)
+- Kleine Icons, kein Subtext -- langweilig
 
-Die Links werden vorerst auf `#` gesetzt (Seiten existieren noch nicht). Spaeter werden die regionalen Unterseiten erstellt und die Links aktualisiert.
+### Loesung
+- **8 Benefits** (neues: "Startup-Vibes" mit Rocket-Icon) fuer ein perfekt gleichmaessiges Grid
+- Jede Karte bekommt einen **kurzen Subtext** in `text-xs text-foreground/40`
+- Groessere Icon-Container: `w-14 h-14 rounded-2xl`
+- Icons: `w-7 h-7 text-foreground/60` (neutraler statt Tuerkis)
+- Mehr Padding pro Karte: `p-8`
+- Desktop: 4x2 Grid, Tablet: 2x4, Mobile: 2x4
+
+**Benefits mit Subtexten:**
+
+| Benefit | Subtext |
+|---------|---------|
+| Wellpass | Fitness & Wellness |
+| 100% Remote | Arbeite von ueberall |
+| Vertrauensarbeitszeit | Keine Stechuhr |
+| Teamausfluege | Zusammen unterwegs |
+| Weiterbildungsbudget | Lerne was du willst |
+| Neuste Tools & Hardware | Top-Setup ab Tag 1 |
+| Flache Hierarchien | Deine Meinung zaehlt |
+| Startup-Vibes | Klein, schnell, direkt |
+
+---
+
+## 3. Bottom CTA -- Persoenlicher & einladender
+
+**Aktuell:** "Bereit fuer was Neues?"
+
+**Neu:**
+- Headline: **"Ueberzeugt? Dann melde dich."**
+- Subtext darunter: **"Kein Anschreiben noetig. Erzaehl uns einfach, worauf du Lust hast."** in `text-lg text-muted-foreground`
+- Button-Text bleibt "Jetzt bewerben"
+
+---
 
 ## Technische Umsetzung
 
-### Neue Datei: `src/components/RegionalSection.tsx`
+### Datei: `src/pages/Karriere.tsx`
 
-- Wiederverwendbare Komponente mit Props:
-  - `contextPath?: string` (z.B. "ki-telefonassistent") -- wird fuer die Link-Generierung genutzt
-- Staedte-Array intern definiert mit `{ name, slug, available }`
-- Aktive Staedte rendern als `<Link>`, "Bald"-Staedte als `<span>`
-- Subtle fade-in Animation mit `motion`
+**Imports (Zeile 7):** `Rocket` hinzufuegen
 
-### Geaenderte Dateien (jeweils 1 Import + 1 Zeile einfuegen):
+**Benefits-Array (Zeilen 29-37):** 8 Eintraege mit `{ label, icon, sub }` Struktur
 
-| Datei | Position | contextPath |
-|-------|----------|-------------|
-| `src/pages/Index.tsx` | Vor `<Footer />` | keiner (allgemein) |
-| `src/pages/PhoneAssistant.tsx` | Vor `<Footer />` | "ki-telefonassistent" |
-| `src/pages/Chatbots.tsx` | Vor `<Footer />` | "ki-chatbot" |
-| `src/pages/Automations.tsx` | Vor `<Footer />` | "automatisierungen" |
+**Hero (Zeilen 53-64):**
+- BlurText text: "Mach KI. Nicht Meetings."
+- Subtext: Neue freche Copy
+
+**Benefits-Grid (Zeilen 117-142):**
+- Grid: `grid-cols-2 lg:grid-cols-4 gap-5`
+- Karten: `p-8`, groessere Icons (`w-14 h-14`), Subtext-Zeile
+- Icon-Farbe: `text-foreground/60` statt `text-accent`
+
+**Bottom CTA (Zeilen 148-170):**
+- Headline: "Ueberzeugt? Dann melde dich."
+- Neuer Subtext-Paragraph darunter
 
