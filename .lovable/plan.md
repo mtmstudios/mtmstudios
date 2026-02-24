@@ -1,63 +1,98 @@
 
-# Beide Funnels aufwerten -- Attraktiver, weniger Tuerkis
 
-## Problem
+# Karriere-Seite: Apple-Style Statement-Sektionen
 
-Aktuell sind beide Funnels funktional, aber visuell etwas flach. Der Accent (Tuerkis) wird zu dominant eingesetzt -- bei selected States, Buttons, Progress-Bar, Check-Badges, Icons. Das wirkt ueberladen. 
+## Konzept
 
-## Design-Verbesserungen fuer beide Funnels
+Zwischen Hero und Benefits werden 2-3 grosse, zentrierte Statement-Sektionen eingefuegt -- jeweils eine provokante Frage als fette Headline, darunter ein kurzer erklarender Text in `muted-foreground`. Genau wie im Referenzbild: Grosser weisser Text, darunter grauer Subtext, zentriert, viel Freiraum.
 
-### 1. Progress-Bar: Subtiler Gradient statt volles Tuerkis
+Der Besucher scrollt durch und nickt bei jeder Frage: "Ja, das will ich."
 
-Statt `bg-accent` bekommt die Progress-Bar einen sanften Gradient von `white/20` zu `white/60`. Dezenter, eleganter, kein Tuerkis-Overkill.
+## Die 3 Statements
 
-### 2. Selectable Cards: Weissere Hover-Aesthetik
+**Statement 1:**
+- Headline: "Du willst mit den neusten KI-Tools arbeiten?"
+- Subtext: "Wir setzen auf Claude, ChatGPT, N8N und alles, was morgen Standard ist -- heute schon."
 
-- **Unselected**: Bleibt `bg-foreground/[0.02]` mit `border-border/15`
-- **Hover**: Neuer subtiler Glassmorphism-Shine (`bg-foreground/[0.05]`) + leichter Border-Lift
-- **Selected**: Border wird `white/30` statt Accent, Hintergrund `white/[0.06]` statt Accent. Nur das Check-Badge bleibt Accent (einziger Tuerkis-Punkt pro Card)
-- **Icon bei Selected**: Wird weiss statt Tuerkis
+**Statement 2:**
+- Headline: "Du willst KI wirklich verstehen?"
+- Subtext: "Nicht nur anwenden, sondern durchdringen. Bei uns baust du Loesungen, die Unternehmen transformieren."
 
-### 3. Buttons: Dezenterer Primaer-Button
+**Statement 3:**
+- Headline: "Du willst kein Konzern-Hamsterrad?"
+- Subtext: "Flache Hierarchien, echte Verantwortung, Remote-first. Dein Impact zaehlt ab Tag eins."
 
-- "Weiter"-Buttons: Statt `bg-accent` wird ein `bg-foreground/90` (fast weiss) mit `text-background` (schwarz) verwendet. Cleaner, weniger Tuerkis
-- "Zurueck"-Buttons: Bleiben Ghost, kein Aenderungsbedarf
-- Nur der finale "Absenden"-Button behalt den Accent als besondere Hervorhebung
+## Layout pro Statement
 
-### 4. Input-Felder: Subtilerer Focus-State
+Jede Sektion bekommt:
+- `py-[20vh]` fuer massiven Freiraum (wie Apple)
+- Headline: `text-3xl sm:text-4xl md:text-5xl font-bold text-foreground text-center`
+- Subtext: `text-lg sm:text-xl text-muted-foreground text-center max-w-lg mx-auto mt-6`
+- BlurText-Animation fuer die Headline (Signature-Effekt)
+- Fade+Blur fuer den Subtext
 
-- Focus-Border: `white/30` statt `accent/50`
-- Focus-Shadow: `white/5` statt `accent/10`
-- Generell waermere, neutralere Erscheinung
+## Seitenstruktur (neu)
 
-### 5. Success-Screen: Eleganterer Check
+```text
++---------------------------+
+|       Navigation          |
++---------------------------+
+|                           |
+|    Hero (bestehend)       |
+|    "Bock auf Zukunft?"    |
+|                           |
++---------------------------+
+|                           |
+|                           |
+|  Statement 1 (neu)       |
+|  "Du willst mit den      |
+|   neusten KI-Tools..."   |
+|                           |
+|                           |
++---------------------------+
+|                           |
+|                           |
+|  Statement 2 (neu)       |
+|  "Du willst KI wirklich  |
+|   verstehen?"            |
+|                           |
+|                           |
++---------------------------+
+|                           |
+|                           |
+|  Statement 3 (neu)       |
+|  "Du willst kein         |
+|   Konzern-Hamsterrad?"   |
+|                           |
+|                           |
++---------------------------+
+|                           |
+|    Benefits (bestehend,   |
+|    mit groesseren Icons)  |
+|                           |
++---------------------------+
+|                           |
+|    Bottom CTA             |
+|                           |
++---------------------------+
+|       Footer              |
++---------------------------+
+```
 
-- Der grosse Check-Kreis bekommt einen Gradient von Weiss zu `white/70` statt den vollen Accent-Gradient
-- Der Pulse-Glow wird `white/10` statt `accent/20`
-- Wirkt edler und weniger "schreierisch"
+## Zusaetzliche Verbesserungen
 
-### 6. Step-Headlines: Dezenter Subtext-Stil
+- **Benefits-Icons**: Von `w-4 h-4` auf `w-6 h-6` vergroessert, Icon-Container `w-12 h-12 rounded-xl bg-white/[0.04]`
+- **Benefits-Layout**: Von Chips zu `grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4` Karten mit `p-6 rounded-2xl`
+- **Benefits-Headline**: Von `text-2xl` auf `text-3xl md:text-4xl`, `mb-16` statt `mb-8`
+- **Hero**: Mehr Padding `pt-[18vh] pb-[12vh]`, Headline auf `text-5xl sm:text-6xl md:text-7xl`
+- **Bottom CTA**: `py-32`, groesserer Text `text-2xl md:text-3xl`
 
-- Subtext bekommt `tracking-wide uppercase text-xs` fuer einen moderneren Look (wie "SCHRITT 1 VON 4")
-- Optional: Kleine Step-Nummer als Badge ueber der Headline
+## Technische Umsetzung
 
-### 7. Chips (Career Funnel): Subtilere Selection
+### Datei: `src/pages/Karriere.tsx`
 
-- Selected: `border-white/25` + `bg-white/[0.08]` + weisse Textfarbe
-- Statt Tuerkis-Border und Tuerkis-Text
+- `statements` Array mit 3 Objekten (headline, subtext)
+- Mapping ueber statements mit `motion.section` und BlurText fuer Headlines
+- Benefits-Bereich: Grid-Layout mit Icon-Karten statt Chips
+- Hero/CTA: Mehr Whitespace und groessere Typo
 
-### 8. Tool-Logo-Cards: Hover-Effekt
-
-- Hover: Leichtes Scale (1.03) + Border-Lift auf `white/20`
-- Selected: Behaelt Check-Badge in Accent (einziger Tuerkis-Punkt)
-
-## Zusammenfassung Tuerkis-Einsatz
-
-Tuerkis bleibt NUR an diesen Stellen:
-- Check-Badges (kleiner Kreis mit Haekchen)
-- Der finale "Absenden"-Button
-- Success-Screen Check-Icon (dezent)
-
-Alles andere wird neutral-weiss/grau gehalten. Das gibt dem Accent seine Wirkung zurueck.
-
-## Status: ✅ UMGESETZT
