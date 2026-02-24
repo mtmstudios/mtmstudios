@@ -189,8 +189,8 @@ const ContactFunnel = () => {
                 <p className="text-muted-foreground text-sm mb-6 text-center">Wir melden uns schnellstmöglich.</p>
                 <div className="space-y-4 mb-8">
                   {[
-                    { key: "name" as const, label: "Name *", placeholder: "Max Mustermann", type: "text" },
-                    { key: "email" as const, label: "E-Mail *", placeholder: "max@firma.de", type: "email" },
+                    { key: "name" as const, label: "Name *", placeholder: "MTM Studios", type: "text" },
+                    { key: "email" as const, label: "E-Mail *", placeholder: "hallo@mtmstudios.de", type: "email" },
                     { key: "phone" as const, label: "Telefon (optional)", placeholder: "+49 ...", type: "tel" },
                   ].map((field, i) => (
                     <motion.div key={field.key} initial={{ opacity: 0, y: 15, filter: "blur(6px)" }} animate={{ opacity: 1, y: 0, filter: "blur(0px)" }} transition={{ duration: 0.35, delay: i * 0.06, ease: appleEase }}>
