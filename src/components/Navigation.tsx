@@ -67,12 +67,14 @@ const Navigation = () => {
                 >
                   Das sind Wir
                 </Link>
-                <button
-                  className="text-lg text-foreground/80 hover:text-foreground transition-opacity duration-200 text-left"
-                  onClick={() => { setMobileMenuOpen(false); openFunnel(true); }}
-                >
-                  Jetzt anfragen
-                </button>
+                <div className="mt-2 pt-6 border-t border-border/10">
+                  <button
+                    className="w-full py-3 rounded-xl bg-accent/10 border border-accent/20 text-accent text-base font-medium text-center hover:bg-accent/20 transition-all duration-300"
+                    onClick={() => { setMobileMenuOpen(false); openFunnel(true); }}
+                  >
+                    Jetzt anfragen
+                  </button>
+                </div>
               </div>
             </SheetContent>
           </Sheet>
@@ -99,7 +101,7 @@ const Navigation = () => {
           </a>
 
           {/* Right: Jetzt anfragen (tablet only) */}
-          <button onClick={() => openFunnel(true)} className="z-10 hidden sm:flex lg:hidden text-sm text-foreground/80 hover:text-foreground transition-opacity duration-200">
+          <button onClick={() => openFunnel(true)} className="z-10 hidden sm:flex lg:hidden px-4 py-2 rounded-xl bg-accent/10 border border-accent/20 text-accent text-sm font-medium hover:bg-accent/20 backdrop-blur-sm transition-all duration-300">
             Jetzt anfragen
           </button>
         </div>
