@@ -184,9 +184,9 @@ const Partner = () => {
                   <motion.div
                     whileHover={{ x: 8 }}
                     transition={{ duration: 0.4, ease: appleEase }}
-                    className="flex items-start gap-8 md:gap-12 py-12"
+                    className="flex flex-col items-center text-center gap-4 py-12"
                   >
-                    <span className="text-5xl md:text-6xl font-bold text-destructive/40 group-hover:text-destructive group-active:text-destructive transition-colors duration-500 select-none shrink-0 leading-none pt-1">
+                    <span className="text-5xl md:text-6xl font-bold text-destructive/40 group-hover:text-destructive group-active:text-destructive transition-colors duration-500 select-none leading-none">
                       {p.num}
                     </span>
                     <div>
@@ -303,15 +303,15 @@ const Partner = () => {
                     transition={{ duration: 0.6, delay: 0.12 * i, ease: appleEase }}
                   />
                   <motion.div
-                    whileHover={{ x: 8 }}
+                    whileHover={{ y: -4 }}
                     transition={{ duration: 0.4, ease: appleEase }}
-                    className="relative py-10 md:py-12 pl-6 md:pl-8 text-center md:text-left"
+                    className="relative py-10 md:py-12 text-center"
                   >
-                    <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[2px] h-8 bg-accent/30 group-hover:h-16 group-hover:bg-accent/60 transition-all duration-500 rounded-full" />
+                    <div className="w-8 h-[2px] bg-accent/30 mx-auto mb-4 group-hover:w-12 group-hover:bg-accent/60 transition-all duration-500 rounded-full" />
                     <h3 className="text-xl md:text-2xl font-bold text-foreground mb-2 group-hover:text-accent transition-colors duration-500">
                       {b.title}
                     </h3>
-                    <p className="text-muted-foreground leading-relaxed max-w-lg mx-auto md:mx-0">{b.description}</p>
+                    <p className="text-muted-foreground leading-relaxed max-w-lg mx-auto">{b.description}</p>
                   </motion.div>
                 </motion.div>
               ))}
