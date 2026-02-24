@@ -60,20 +60,4 @@ Tuerkis bleibt NUR an diesen Stellen:
 
 Alles andere wird neutral-weiss/grau gehalten. Das gibt dem Accent seine Wirkung zurueck.
 
-## Technische Umsetzung
-
-### Dateien die geaendert werden
-
-**`src/components/ContactFunnel.tsx`**
-- SelectableCardGrid: Selected-Styles aendern (weiss statt accent)
-- Progress-Bar: Gradient statt bg-accent
-- Buttons: bg-foreground/90 statt bg-accent (ausser Absenden)
-- Input Focus-Styles: white statt accent
-- Success-Screen: Neutralere Farben
-
-**`src/components/career/CareerFunnel.tsx`**
-- SelectCard: Gleiche Aenderungen wie oben
-- Chip: Selected-Styles neutral
-- Tool-Logo-Cards: Hover-Effekt, neutralere Selected-Styles
-- Progress-Bar, Buttons, Inputs, Success: Gleich wie ContactFunnel
-- Step-Counter Badge hinzufuegen (optional)
+## Status: ✅ UMGESETZT

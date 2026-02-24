@@ -54,11 +54,11 @@ const SelectableCardGrid = ({ items, selected, onToggle }: SelectableCardGridPro
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           transition={{ duration: 0.4, delay: i * 0.07, ease: appleEase }}
           onClick={() => onToggle(item.id)}
-          className="relative group text-center p-4 rounded-2xl border transition-colors duration-300 cursor-pointer"
+          className="relative group text-center p-4 rounded-2xl border transition-all duration-300 cursor-pointer hover:bg-foreground/[0.05] hover:border-foreground/20"
           style={{
-            borderColor: isSelected ? "hsl(var(--accent) / 0.6)" : "hsl(var(--border) / 0.15)",
-            backgroundColor: isSelected ? "hsl(var(--accent) / 0.06)" : "hsl(var(--foreground) / 0.02)",
-            boxShadow: isSelected ? "0 0 25px hsl(var(--accent) / 0.12), inset 0 1px 0 hsl(var(--accent) / 0.1)" : "none",
+            borderColor: isSelected ? "hsl(var(--foreground) / 0.3)" : "hsl(var(--border) / 0.15)",
+            backgroundColor: isSelected ? "hsl(var(--foreground) / 0.06)" : "hsl(var(--foreground) / 0.02)",
+            boxShadow: isSelected ? "0 0 25px hsl(var(--foreground) / 0.06), inset 0 1px 0 hsl(var(--foreground) / 0.08)" : "none",
           }}
         >
           <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
@@ -66,7 +66,7 @@ const SelectableCardGrid = ({ items, selected, onToggle }: SelectableCardGridPro
           />
           <Icon
             className="w-5 h-5 mb-3 mx-auto transition-colors duration-300"
-            style={{ color: isSelected ? "hsl(var(--accent))" : "hsl(var(--muted-foreground))" }}
+            style={{ color: isSelected ? "hsl(var(--foreground))" : "hsl(var(--muted-foreground))" }}
           />
           <span className="text-sm font-medium text-foreground block">{item.label}</span>
           <motion.div
@@ -134,7 +134,7 @@ const ContactFunnel = () => {
 
   return (
     <Dialog open={isOpen} onOpenChange={handleOpenChange}>
-      <DialogContent className="bg-background/95 backdrop-blur-xl border border-border/20 rounded-3xl max-w-xl p-0 gap-0 overflow-hidden shadow-[0_0_80px_hsl(var(--accent)/0.08)]">
+      <DialogContent className="bg-background/95 backdrop-blur-xl border border-border/20 rounded-3xl max-w-xl p-0 gap-0 overflow-hidden shadow-[0_0_80px_hsl(var(--foreground)/0.04)]">
         <DialogTitle className="sr-only">Anfrage stellen</DialogTitle>
 
         {/* Progress bar */}
@@ -142,7 +142,8 @@ const ContactFunnel = () => {
           {[1, 2, 3, 4].map((s) => (
             <div key={s} className="h-1 flex-1 rounded-full bg-border/20 overflow-hidden">
               <motion.div
-                className="h-full rounded-full bg-accent"
+                className="h-full rounded-full"
+                style={{ background: "linear-gradient(90deg, hsl(var(--foreground) / 0.2), hsl(var(--foreground) / 0.6))" }}
                 initial={false}
                 animate={{ width: step >= s ? "100%" : "0%" }}
                 transition={{ duration: 0.5, ease: appleEase }}
@@ -156,11 +157,12 @@ const ContactFunnel = () => {
           <AnimatePresence mode="wait">
             {step === 1 && (
               <motion.div key="step1" {...stepMotion} className="flex flex-col flex-1">
+                <p className="text-xs tracking-widest uppercase text-muted-foreground text-center mb-3">Schritt 1 von 3</p>
                 <h3 className="text-2xl font-bold text-foreground mb-2 text-center">Was braucht ihr?</h3>
                 <p className="text-muted-foreground text-sm mb-6 text-center">Wählt alles aus, was euch interessiert.</p>
                 <SelectableCardGrid items={services as any} selected={selected} onToggle={(id) => toggle(selected, setSelected, id)} />
                 <div className="mt-auto">
-                  <Button onClick={() => setStep(2)} disabled={selected.length === 0} className="w-full bg-accent text-background hover:bg-accent/90 font-semibold rounded-full py-6 text-base transition-all duration-300 disabled:opacity-30">
+                  <Button onClick={() => setStep(2)} disabled={selected.length === 0} className="w-full bg-foreground/90 text-background hover:bg-foreground font-semibold rounded-full py-6 text-base transition-all duration-300 disabled:opacity-30">
                     Weiter <ArrowRight className="w-4 h-4 ml-2" />
                   </Button>
                 </div>
@@ -169,6 +171,7 @@ const ContactFunnel = () => {
 
             {step === 2 && (
               <motion.div key="step2" {...stepMotion} className="flex flex-col flex-1">
+                <p className="text-xs tracking-widest uppercase text-muted-foreground text-center mb-3">Schritt 2 von 3</p>
                 <h3 className="text-2xl font-bold text-foreground mb-2 text-center">Was ist aktuell eure größte Herausforderung?</h3>
                 <p className="text-muted-foreground text-sm mb-6 text-center">Wählt alles aus, was zutrifft.</p>
                 <SelectableCardGrid items={challenges as any} selected={selectedChallenges} onToggle={(id) => toggle(selectedChallenges, setSelectedChallenges, id)} />
@@ -176,7 +179,7 @@ const ContactFunnel = () => {
                   <Button variant="ghost" onClick={() => setStep(1)} className="rounded-full px-6 py-6 text-muted-foreground hover:text-foreground">
                     <ArrowLeft className="w-4 h-4 mr-2" /> Zurück
                   </Button>
-                  <Button onClick={() => setStep(3)} disabled={selectedChallenges.length === 0} className="flex-1 bg-accent text-background hover:bg-accent/90 font-semibold rounded-full py-6 text-base transition-all duration-300 disabled:opacity-30">
+                  <Button onClick={() => setStep(3)} disabled={selectedChallenges.length === 0} className="flex-1 bg-foreground/90 text-background hover:bg-foreground font-semibold rounded-full py-6 text-base transition-all duration-300 disabled:opacity-30">
                     Weiter <ArrowRight className="w-4 h-4 ml-2" />
                   </Button>
                 </div>
@@ -185,6 +188,7 @@ const ContactFunnel = () => {
 
             {step === 3 && (
               <motion.div key="step3" {...stepMotion} className="flex flex-col flex-1">
+                <p className="text-xs tracking-widest uppercase text-muted-foreground text-center mb-3">Schritt 3 von 3</p>
                 <h3 className="text-2xl font-bold text-foreground mb-2 text-center">Wie erreichen wir euch?</h3>
                 <p className="text-muted-foreground text-sm mb-6 text-center">Wir melden uns schnellstmöglich.</p>
                 <div className="space-y-4 mb-8">
@@ -198,7 +202,7 @@ const ContactFunnel = () => {
                       <input
                         type={field.type} placeholder={field.placeholder} value={formData[field.key] || ""}
                         onChange={(e) => { setFormData((prev) => ({ ...prev, [field.key]: e.target.value })); if (errors[field.key]) setErrors((prev) => ({ ...prev, [field.key]: undefined })); }}
-                        className="w-full rounded-xl border bg-foreground/[0.03] backdrop-blur-sm px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/50 outline-none transition-all duration-300 focus:border-accent/50 focus:shadow-[0_0_15px_hsl(var(--accent)/0.1)]"
+                        className="w-full rounded-xl border bg-foreground/[0.03] backdrop-blur-sm px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/50 outline-none transition-all duration-300 focus:border-foreground/30 focus:shadow-[0_0_15px_hsl(var(--foreground)/0.05)]"
                         style={{ borderColor: errors[field.key] ? "hsl(0 70% 50% / 0.6)" : "hsl(var(--border) / 0.15)" }}
                       />
                       {errors[field.key] && (
@@ -209,7 +213,7 @@ const ContactFunnel = () => {
                   <motion.div initial={{ opacity: 0, y: 15, filter: "blur(6px)" }} animate={{ opacity: 1, y: 0, filter: "blur(0px)" }} transition={{ duration: 0.35, delay: 0.18, ease: appleEase }}>
                     <label className="text-sm text-muted-foreground mb-1.5 block">Nachricht (optional)</label>
                     <textarea placeholder="Erzählt uns kurz, was ihr vorhabt..." rows={3} value={formData.message || ""} onChange={(e) => setFormData((prev) => ({ ...prev, message: e.target.value }))}
-                      className="w-full rounded-xl border bg-foreground/[0.03] backdrop-blur-sm px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/50 outline-none resize-none transition-all duration-300 focus:border-accent/50 focus:shadow-[0_0_15px_hsl(var(--accent)/0.1)]"
+                      className="w-full rounded-xl border bg-foreground/[0.03] backdrop-blur-sm px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/50 outline-none resize-none transition-all duration-300 focus:border-foreground/30 focus:shadow-[0_0_15px_hsl(var(--foreground)/0.05)]"
                       style={{ borderColor: "hsl(var(--border) / 0.15)" }}
                     />
                   </motion.div>
@@ -228,8 +232,8 @@ const ContactFunnel = () => {
             {step === 4 && (
               <motion.div key="step4" initial={{ opacity: 0, scale: 0.95, filter: "blur(10px)" }} animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }} transition={{ duration: 0.5, ease: appleEase }} className="flex flex-col flex-1 items-center justify-center text-center py-8">
                 <div className="relative mb-8">
-                  <motion.div className="absolute inset-0 rounded-full" style={{ background: "radial-gradient(circle, hsl(var(--accent) / 0.2) 0%, transparent 70%)" }} animate={{ scale: [1, 1.5, 1], opacity: [0.5, 0, 0.5] }} transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }} />
-                  <motion.div className="relative w-20 h-20 rounded-full flex items-center justify-center" style={{ background: "linear-gradient(135deg, hsl(var(--accent)), hsl(var(--accent) / 0.7))", boxShadow: "0 0 40px hsl(var(--accent) / 0.3)" }} initial={{ scale: 0 }} animate={{ scale: [0, 1.2, 1] }} transition={{ type: "spring", stiffness: 300, damping: 15, delay: 0.15 }}>
+                  <motion.div className="absolute inset-0 rounded-full" style={{ background: "radial-gradient(circle, hsl(var(--foreground) / 0.1) 0%, transparent 70%)" }} animate={{ scale: [1, 1.5, 1], opacity: [0.5, 0, 0.5] }} transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }} />
+                  <motion.div className="relative w-20 h-20 rounded-full flex items-center justify-center" style={{ background: "linear-gradient(135deg, hsl(var(--foreground)), hsl(var(--foreground) / 0.7))", boxShadow: "0 0 40px hsl(var(--foreground) / 0.15)" }} initial={{ scale: 0 }} animate={{ scale: [0, 1.2, 1] }} transition={{ type: "spring", stiffness: 300, damping: 15, delay: 0.15 }}>
                     <Check className="w-9 h-9 text-background" strokeWidth={3} />
                   </motion.div>
                 </div>
