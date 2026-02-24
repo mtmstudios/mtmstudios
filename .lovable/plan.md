@@ -1,39 +1,42 @@
 
+# Plan: Datenschutz -- Kontaktformular und Bewerbungsformular auf n8n aktualisieren
 
-# Plan: E-Mail und WhatsApp-Nummer ueberall aktualisieren
+## Aenderungen in `src/pages/Datenschutz.tsx`
 
-Alle Stellen im Projekt werden auf die korrekten Kontaktdaten umgestellt.
+### Abschnitt 9: "Kontaktformular" erweitern (Zeilen 151-164)
 
----
+Der bestehende Abschnitt wird umgeschrieben zu **"Kontakt- und Bewerbungsformulare"** mit folgenden Anpassungen:
 
-## Aenderungen
+- **Titel**: "9. Kontakt- und Bewerbungsformulare" (statt nur "Kontaktformular")
+- **Technische Verarbeitung**: Hinweis, dass die Formulardaten ueber **n8n** (Workflow-Automatisierung) verarbeitet werden
+- **Hosting-Hinweis**: Klarer Vermerk, dass n8n und alle Formulardaten **ausschliesslich auf Servern in Deutschland** gehostet und verarbeitet werden -- keine Datenuebermittlung in Drittlaender
+- **Bewerbungsformular ergaenzen**: Zusaetzliche verarbeitete Daten fuer Bewerbungen auflisten (z.B. Lebenslauf, Anschreiben, gewuenschte Position)
+- **Rechtsgrundlage**: Art. 6 Abs. 1 lit. b DSGVO fuer Kontaktanfragen und Bewerbungen (vorvertragliche Massnahmen)
 
-### E-Mail: `info@mtmstudios.de` wird zu `hallo@mtmstudios.de`
+### Konkrete Inhalte
 
-| Datei | Stelle |
-|-------|--------|
-| `src/components/Footer.tsx` | `mailto:info@mtmstudios.de` |
-| `src/pages/Impressum.tsx` | "E-Mail: info@mtmstudios.de" |
-| `src/pages/Datenschutz.tsx` | 2x info@mtmstudios.de (Verantwortlicher + Rechte der Betroffenen) |
+**Verarbeitete Daten Kontaktformular:**
+- Name
+- E-Mail-Adresse
+- Telefonnummer (optional)
+- Nachricht / Anfrage
+- Gewaehlte Loesung und Herausforderung
 
-### WhatsApp-Nummer: alle wa.me-Links auf `4915567077414`
+**Verarbeitete Daten Bewerbungsformular:**
+- Name
+- E-Mail-Adresse
+- Telefonnummer (optional)
+- Gewuenschte Position
+- Lebenslauf / Anschreiben
+- Weitere von dir angegebene Informationen
 
-| Datei | Alter Link | Neu |
-|-------|-----------|-----|
-| `src/components/HeroSection.tsx` | `wa.me/4915123456789` | `wa.me/4915567077414` |
-| `src/components/CTASection.tsx` | `wa.me/4915123456789` | `wa.me/4915567077414` |
-| `src/components/Footer.tsx` | `wa.me/4912345678` | `wa.me/4915567077414` |
-| `src/components/regional/RegionalPage.tsx` | `wa.me/4915510027986` (2x) | `wa.me/4915567077414` |
-
-### Telefon-Testbot (PhoneAssistant)
-
-| Datei | Alter Wert | Neu |
-|-------|-----------|-----|
-| `src/pages/PhoneAssistant.tsx` | `+491234567890` | `+4915567077414` |
+**Technischer Hinweis:**
+- Anbieter der Formularverarbeitung: n8n (Self-hosted)
+- Serverstandort: Deutschland
+- Keine Datenuebermittlung in Drittlaender
 
 ---
 
 ## Zusammenfassung
 
-**7 Dateien aendern, 8 Ersetzungen insgesamt.** Keine neuen Dateien.
-
+**1 Datei aendern** (`src/pages/Datenschutz.tsx`), **1 Abschnitt** ueberarbeiten und erweitern.
