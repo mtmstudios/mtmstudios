@@ -56,7 +56,6 @@ const Index = () => {
           // @ts-ignore
           webkit-playsinline=""
           preload="auto"
-          src="/videos/hero-background.mp4"
           onLoadedData={(e) => {
             const video = e.currentTarget;
             video.play().catch(() => {});
@@ -67,7 +66,11 @@ const Index = () => {
             width: '100%', height: '100%', filter: 'brightness(0.7) contrast(2)',
             pointerEvents: 'none',
           }}
-        />
+        >
+          <source src="/videos/hero-background.webm" type="video/webm" media="(min-width: 768px)" />
+          <source src="/videos/hero-background-mobile.mp4" type="video/mp4" media="(max-width: 767px)" />
+          <source src="/videos/hero-background.mp4" type="video/mp4" />
+        </video>
       </div>
       <div style={{ position: 'relative', zIndex: 50 }}><Navigation /></div>
       <div style={{ position: 'relative', zIndex: 10 }}>
