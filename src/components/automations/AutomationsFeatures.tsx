@@ -56,7 +56,7 @@ const AutomationsFeatures = () => {
                 className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center"
               >
                 <div
-                  className={`h-[280px] md:h-[340px] rounded-2xl bg-white/[0.03] backdrop-blur-md overflow-hidden relative ${
+                  className={`h-[280px] md:h-[340px] rounded-2xl bg-white/[0.03] border border-white/[0.06] backdrop-blur-md overflow-hidden relative ${
                     isEven ? "md:order-2" : ""
                   }`}
                 >

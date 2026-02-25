@@ -69,7 +69,7 @@ const AutomationsSpectrum = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: index * 0.15, ease: appleEase }}
-              className={`relative z-10 rounded-2xl p-8 md:p-10 transition-all duration-300 hover:translate-y-[-2px] ${
+              className={`relative z-10 rounded-2xl p-8 md:p-10 transition-all duration-300 ${
                 tier.highlight
                   ? "bg-neon/5 backdrop-blur-md border border-neon/20 shadow-[0_0_40px_hsl(var(--neon)/0.08)]"
                   : "bg-white/[0.03] backdrop-blur-md hover:bg-white/[0.06]"

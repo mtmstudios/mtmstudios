@@ -17,7 +17,7 @@ const ChatbotTestimonial = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: appleEase }}
         >
-          „Unser WhatsApp-Bot beantwortet 80% der Kundenanfragen automatisch. Das Team kann sich endlich auf die komplexen Fälle konzentrieren."
+          Unser WhatsApp-Bot beantwortet 80% der Kundenanfragen automatisch. Das Team kann sich endlich auf die komplexen Fälle konzentrieren.
         </motion.blockquote>
 
         <motion.div
