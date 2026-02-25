@@ -154,17 +154,15 @@ const AboutUs = () => {
                   initial={{ opacity: 0, y: 30 }}
                   animate={valuesInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.8, delay: 0.15 * i, ease: appleEase }}
-                  className="bg-white/[0.03] backdrop-blur-sm border border-border/10 rounded-2xl p-8 hover:border-accent/30 transition-all duration-500 relative overflow-hidden group cursor-default text-center"
+                  className="bg-white/[0.03] backdrop-blur-sm border border-border/10 rounded-2xl p-10 hover:border-accent/30 transition-all duration-500 relative overflow-hidden group cursor-default text-center"
                 >
                   <span 
-                    className="absolute inset-0 flex items-center justify-center font-bold text-white/[0.06] select-none pointer-events-none group-hover:text-accent/[0.10] transition-colors duration-500 leading-none uppercase px-2"
-                    style={{ fontSize: `clamp(1.5rem, ${Math.max(5, 28 / v.title.length)}vw, 5rem)` }}
+                    className="absolute inset-0 flex items-center justify-center font-bold text-white/[0.10] select-none pointer-events-none group-hover:text-accent/[0.15] transition-colors duration-500 leading-none uppercase tracking-widest px-2"
+                    style={{ fontSize: `clamp(2.5rem, ${Math.max(8, 42 / v.title.length)}vw, 8rem)` }}
                   >
                     {v.title}
                   </span>
-                  <div className="w-8 h-[2px] bg-accent/40 mb-4 mx-auto group-hover:w-12 group-hover:bg-accent/60 transition-all duration-500" />
-                  <h3 className="text-2xl font-bold text-foreground mb-3">{v.title}</h3>
-                  <p className="text-muted-foreground leading-relaxed relative z-10">{v.description}</p>
+                  <p className="text-lg text-muted-foreground leading-relaxed relative z-10">{v.description}</p>
                 </motion.div>
               ))}
             </div>
