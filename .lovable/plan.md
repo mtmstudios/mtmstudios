@@ -1,71 +1,33 @@
 
 
-# Video-Optimierung: WebM-Fallback und Mobile-Komprimierung
+# Standbild an Video-Look anpassen
 
-## Aktuelle Situation
+## Problem
 
-Alle 4 Hauptseiten laden eine einzelne MP4-Datei (`/videos/hero-background.mp4`). WebM ist typischerweise 30-50% kleiner bei gleicher Qualitaet und wird von allen modernen Browsern unterstuetzt (Safari seit iOS 15 / macOS Big Sur).
+Das aktuell generierte Standbild (`hero-background-still.jpg`) basiert auf dem farbigen `earth-hero.jpg`. Obwohl die CSS-Filter `brightness(0.7) contrast(2)` und `mixBlendMode: hard-light` draufliegen, sieht es auf Mobile immer noch zu bunt aus — vor allem die blaue Erde sticht heraus.
+
+Das Desktop-Video hingegen wirkt fast monochrom: dunkel, hochkontrastig, mit einer dezenten grauen/weissen Erde und Sternen im Hintergrund.
 
 ## Loesung
 
-### 1. Neue Video-Dateien erstellen (manuell)
+Das Standbild mit der Bildgenerierung neu erstellen. Dabei wird das bestehende `earth-hero.jpg` als Basis genommen, aber mit klaren Anweisungen:
 
-Du musst das Originalvideo in zwei zusaetzliche Formate konvertieren (z.B. mit FFmpeg oder einem Online-Tool wie CloudConvert):
+- **Komplett entsaettigt / monochrom** — keine Blautöne, keine Farbe
+- **Sehr dunkel** mit hohem Kontrast
+- **Gleiche Komposition**: Erde von oben, Weltraum, Sterne
+- Das Ergebnis soll so aussehen, als hätte man einen Frame aus dem Video genommen
 
-```text
-/public/videos/
-  hero-background.mp4       (bestehend)
-  hero-background.webm      (NEU: VP9, ~30-50% kleiner)
-  hero-background-mobile.mp4 (NEU: niedrigere Aufloesung, z.B. 720p, hoehere Kompression)
-```
+Das neue Bild wird als `/public/videos/hero-background-still.jpg` gespeichert und ersetzt das aktuelle.
 
-Empfohlene FFmpeg-Befehle:
+## Betroffene Dateien
 
-```text
-# WebM (VP9)
-ffmpeg -i hero-background.mp4 -c:v libvpx-vp9 -crf 35 -b:v 0 -an hero-background.webm
-
-# Mobile MP4 (720p, staerker komprimiert)
-ffmpeg -i hero-background.mp4 -vf scale=-2:720 -c:v libx264 -crf 28 -an hero-background-mobile.mp4
-```
-
-### 2. Code-Aenderung: `<source>` statt `src`
-
-Auf allen 4 Seiten das `src`-Attribut durch `<source>`-Elemente ersetzen. Der Browser waehlt automatisch das erste unterstuetzte Format:
-
-```text
-<video ref={videoRef} autoPlay loop muted playsInline ...>
-  <source
-    src="/videos/hero-background.webm"
-    type="video/webm"
-    media="(min-width: 768px)"
-  />
-  <source
-    src="/videos/hero-background-mobile.mp4"
-    type="video/mp4"
-    media="(max-width: 767px)"
-  />
-  <source
-    src="/videos/hero-background.mp4"
-    type="video/mp4"
-  />
-</video>
-```
-
-- Desktop-Browser die WebM unterstuetzen → laden die kleinere WebM
-- Mobile Geraete → laden die komprimierte 720p-Version
-- Fallback → die bestehende MP4
-
-### 3. Betroffene Dateien
+Nur eine Datei wird ersetzt — kein Code muss geaendert werden:
 
 | Datei | Aenderung |
 |-------|-----------|
-| `src/pages/Index.tsx` | `src` durch `<source>` Elemente ersetzen |
-| `src/pages/PhoneAssistant.tsx` | Gleiche Aenderung |
-| `src/pages/Chatbots.tsx` | Gleiche Aenderung |
-| `src/pages/Automations.tsx` | Gleiche Aenderung |
+| `public/videos/hero-background-still.jpg` | Neues, monochromes Standbild |
 
-### Wichtig
+## Technischer Hinweis
 
-Die Code-Aenderung allein reicht nicht — du musst die WebM- und Mobile-MP4-Dateien zuerst erstellen und in `/public/videos/` ablegen. Ohne die Dateien faellt der Browser auf die bestehende MP4 zurueck (funktioniert also trotzdem, nur ohne Optimierung).
+Die CSS-Filter (`brightness(0.7) contrast(2)` + `hard-light` Blend-Mode) werden weiterhin auf das Bild angewandt. Das neue Quellbild muss also bereits dunkel und entsaettigt sein, damit das Endergebnis dem Video-Look auf Desktop entspricht.
 
