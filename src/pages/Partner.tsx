@@ -120,7 +120,7 @@ const Partner = () => {
       <SEOHead title="Partner werden | White-Label KI-Lösungen | MTM Studios" description="Werdet Partner von MTM Studios. White-Label KI-Lösungen für Agenturen und Dienstleister — euer Angebot, unsere Technologie." />
       {/* Video Background */}
       <div className="fixed inset-0 w-screen h-screen overflow-hidden" style={{ isolation: "isolate", zIndex: 0 }}>
-        <img src="/videos/hero-background-still.jpg" alt="" className="md:hidden w-full h-full object-cover absolute inset-0" style={{ mixBlendMode: "hard-light", filter: "brightness(0.7) contrast(2)", pointerEvents: "none" }} />
+        <img src="/videos/hero-background-still.jpg" alt="" className="md:hidden w-full h-full object-cover absolute inset-0" style={{ mixBlendMode: "hard-light", filter: "brightness(0.5) contrast(2)", pointerEvents: "none", transform: "translateY(30%)" }} />
         <video
           ref={videoRef}
           autoPlay
