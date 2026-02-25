@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "motion/react";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 const appleEase = [0.16, 1, 0.3, 1] as const;
 
@@ -28,7 +28,24 @@ const testimonials = [
 
 const TestimonialsSection = () => {
   const [current, setCurrent] = useState(0);
+  const touchStartX = useRef<number | null>(null);
 
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const diff = touchStartX.current - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) {
+        setCurrent((prev) => (prev + 1) % testimonials.length);
+      } else {
+        setCurrent((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+      }
+    }
+    touchStartX.current = null;
+  };
 
   const t = testimonials[current];
 
@@ -45,7 +62,11 @@ const TestimonialsSection = () => {
           Was unsere Kunden sagen
         </motion.h2>
 
-        <div className="min-h-[200px] flex flex-col items-center justify-center">
+        <div
+          className="min-h-[200px] flex flex-col items-center justify-center"
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+        >
           <AnimatePresence mode="wait">
             <motion.div
               key={current}

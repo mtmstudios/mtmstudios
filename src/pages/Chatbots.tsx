@@ -11,8 +11,10 @@ import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
 import RegionalSection from "@/components/RegionalSection";
 import { useEffect, useRef } from "react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const Chatbots = () => {
+  const isMobile = useIsMobile();
   const videoRef = useRef<HTMLVideoElement>(null);
   const bgRef = useRef<HTMLDivElement>(null);
 
@@ -37,14 +39,16 @@ const Chatbots = () => {
         if (bgRef.current) {
           const scrollPosition = window.scrollY;
           const maxScroll = 300;
-          const opacity = Math.max(0.1, 1 - (scrollPosition / maxScroll) * 0.9);
+          const opacity = isMobile
+            ? Math.max(0.25, 1 - (scrollPosition / maxScroll) * 0.75)
+            : Math.max(0.1, 1 - (scrollPosition / maxScroll) * 0.9);
           bgRef.current.style.opacity = opacity.toString();
         }
       });
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => { window.removeEventListener("scroll", handleScroll); cancelAnimationFrame(rafId); };
-  }, []);
+  }, [isMobile]);
 
   return (
     <div className="relative min-h-screen bg-background">
