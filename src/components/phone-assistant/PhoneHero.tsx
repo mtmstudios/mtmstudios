@@ -209,7 +209,7 @@ const PhoneHero = ({ testPhoneNumber }: PhoneHeroProps) => {
     <section className="min-h-[70vh] flex flex-col items-center justify-start px-6 pt-[15vh] pb-16">
       <div className="max-w-4xl mx-auto text-center flex flex-col items-center gap-8">
         <BlurText
-          text="Euer KI-Telefonassistent"
+          text="Dein KI-Telefonassistent"
           className="text-3xl sm:text-5xl md:text-7xl font-bold text-foreground tracking-tight"
           delay={80}
           animateBy="words"
