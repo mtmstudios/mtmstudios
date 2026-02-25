@@ -158,8 +158,8 @@ const Partner = () => {
             delay={120}
           />
           <motion.p
-            initial={{ opacity: 0, y: 20, filter: "blur(10px)", scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, filter: "blur(0px)", scale: 1 }}
+            initial={{ opacity: 0, y: 20, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.6, ease: appleEase }}
             className="mt-6 text-lg md:text-xl text-foreground/70 max-w-xl text-center leading-relaxed"
             style={{ textShadow: '0 2px 20px rgba(0,0,0,0.9), 0 0 40px rgba(0,0,0,0.6)' }}
@@ -172,8 +172,8 @@ const Partner = () => {
         <section ref={problemRef} className="py-32 px-6">
           <div className="max-w-4xl mx-auto">
             <motion.h2
-              initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
-              animate={problemInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
+              initial={{ opacity: 0, y: 20 }}
+              animate={problemInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, ease: appleEase }}
               className="text-3xl md:text-5xl font-bold text-foreground text-center mb-20"
             >
@@ -184,8 +184,8 @@ const Partner = () => {
               {painPoints.map((p, i) => (
                 <motion.div
                   key={p.num}
-                  initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
-                  animate={problemInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={problemInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.8, delay: 0.15 * i, ease: appleEase }}
                   className="group cursor-default"
                 >
@@ -225,8 +225,8 @@ const Partner = () => {
             </motion.h2>
             <motion.p
               className="text-muted-foreground text-center mb-20 text-lg"
-              initial={{ opacity: 0, y: 10, filter: "blur(8px)" }}
-              whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.1, ease: appleEase }}
             >
@@ -253,8 +253,8 @@ const Partner = () => {
                     {String(i + 1).padStart(2, "0")}
                   </motion.span>
                   <motion.div
-                    initial={{ opacity: 0, y: 20, filter: "blur(6px)" }}
-                    whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.8, delay: i * 0.15 + 0.1, ease: appleEase }}
                   >
@@ -284,8 +284,8 @@ const Partner = () => {
         <section ref={benefitsRef} className="py-32 px-6">
           <div className="max-w-5xl mx-auto">
             <motion.h2
-              initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
-              animate={benefitsInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
+              initial={{ opacity: 0, y: 20 }}
+              animate={benefitsInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, ease: appleEase }}
               className="text-3xl md:text-5xl font-bold text-foreground text-center mb-16"
             >
@@ -299,8 +299,8 @@ const Partner = () => {
                   <motion.div
                     key={b.title}
                     className="group cursor-default bg-white/[0.03] backdrop-blur-sm border border-border/10 rounded-2xl p-6 md:p-8 hover:border-accent/30 transition-all duration-500"
-                    initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
-                    animate={benefitsInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={benefitsInView ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 0.8, delay: i * 0.12, ease: appleEase }}
                   >
                     <motion.div
@@ -326,8 +326,8 @@ const Partner = () => {
         <section ref={trustRef} className="py-32 px-6">
           <div className="max-w-5xl mx-auto">
             <motion.h2
-              initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
-              animate={trustInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
+              initial={{ opacity: 0, y: 20 }}
+              animate={trustInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, ease: appleEase }}
               className="text-3xl md:text-5xl font-bold text-foreground text-center mb-20"
             >
@@ -339,8 +339,8 @@ const Partner = () => {
                 <motion.div
                   key={stat.label}
                   className="bg-white/[0.03] backdrop-blur-sm border border-border/10 rounded-2xl p-8 text-center group cursor-default hover:border-accent/30 transition-all duration-500"
-                  initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
-                  animate={trustInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={trustInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.8, delay: i * 0.12, ease: appleEase }}
                 >
                   <div className="text-5xl md:text-6xl lg:text-7xl font-bold text-accent mb-4 tracking-tight">
