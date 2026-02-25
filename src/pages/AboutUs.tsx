@@ -155,7 +155,10 @@ const AboutUs = () => {
                   transition={{ duration: 0.8, delay: 0.15 * i, ease: appleEase }}
                   className="bg-white/[0.03] backdrop-blur-sm border border-border/10 rounded-2xl p-8 hover:border-accent/30 transition-all duration-500 relative overflow-hidden group cursor-default text-center"
                 >
-                  <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[2.5rem] sm:text-[3.5rem] md:text-[4rem] lg:text-[5rem] font-bold text-white/[0.06] select-none pointer-events-none group-hover:text-accent/[0.10] transition-colors duration-500 leading-none uppercase tracking-widest">
+                  <span 
+                    className="absolute inset-0 flex items-center justify-center font-bold text-white/[0.06] select-none pointer-events-none group-hover:text-accent/[0.10] transition-colors duration-500 leading-none uppercase"
+                    style={{ fontSize: `clamp(1.2rem, ${Math.max(4, 18 / v.title.length)}vw, 3.5rem)` }}
+                  >
                     {v.title}
                   </span>
                   <div className="w-8 h-[2px] bg-accent/40 mb-4 mx-auto group-hover:w-12 group-hover:bg-accent/60 transition-all duration-500" />
