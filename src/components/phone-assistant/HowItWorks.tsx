@@ -54,8 +54,8 @@ const HowItWorks = () => {
                 {step.number}
               </motion.span>
               <motion.div
-                initial={{ opacity: 0, y: 20, filter: "blur(6px)" }}
-                whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: index * 0.15 + 0.1, ease: appleEase }}
               >
