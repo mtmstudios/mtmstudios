@@ -8,7 +8,7 @@ import RegionalSection from "@/components/RegionalSection";
 import SEOHead from "@/components/SEOHead";
 import { useContactFunnel } from "@/contexts/ContactFunnelContext";
 import { getRegionalContent, getServiceLabel, validCities } from "@/data/regionalContent";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import {
   Accordion,
   AccordionContent,
@@ -26,24 +26,10 @@ interface RegionalPageProps {
 const RegionalPage = ({ context }: RegionalPageProps) => {
   const { city } = useParams<{ city: string }>();
   const { setIsOpen } = useContactFunnel();
-  const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [city]);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (videoRef.current) {
-        const scrollPosition = window.scrollY;
-        const maxScroll = 300;
-        const opacity = Math.max(0.3, 1 - (scrollPosition / maxScroll) * 0.7);
-        videoRef.current.style.opacity = opacity.toString();
-      }
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   if (!city || !validCities.includes(city as any)) {
     return <Navigate to="/404" replace />;
@@ -58,17 +44,6 @@ const RegionalPage = ({ context }: RegionalPageProps) => {
     <div className="relative min-h-screen bg-background">
       <SEOHead title={content.title} description={content.description} />
 
-      {/* Video Background */}
-      <div className="fixed inset-0 w-screen h-screen overflow-hidden" style={{ isolation: "isolate", zIndex: 0 }}>
-        <video
-          ref={videoRef}
-          autoPlay loop muted playsInline
-          className="w-full h-full object-cover transition-opacity duration-300"
-          style={{ mixBlendMode: "hard-light", position: "absolute", top: 0, left: 0, width: "100%", height: "100%", filter: "brightness(0.7) contrast(2)" }}
-        >
-          <source src="/videos/hero-background.mp4" type="video/mp4" />
-        </video>
-      </div>
 
       <div style={{ position: "relative", zIndex: 50 }}>
         <Navigation />
