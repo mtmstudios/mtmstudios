@@ -17,7 +17,7 @@ const AutomationsTestimonial = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: appleEase }}
         >
-          „MTM Studios hat unseren kompletten Sales-Prozess automatisiert. Was früher Stunden gedauert hat, läuft jetzt im Hintergrund — fehlerfrei und rund um die Uhr."
+          MTM Studios hat unseren kompletten Sales-Prozess automatisiert. Was früher Stunden gedauert hat, läuft jetzt im Hintergrund — fehlerfrei und rund um die Uhr.
         </motion.blockquote>
 
         <motion.div

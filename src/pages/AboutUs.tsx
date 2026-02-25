@@ -198,11 +198,7 @@ const AboutUs = () => {
                   initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
                   animate={valuesInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
                   transition={{ duration: 0.8, delay: 0.15 * i, ease: appleEase }}
-                  whileHover={{ scale: 1.02, y: -4 }}
                   className="bg-white/[0.03] backdrop-blur-sm border border-border/10 rounded-2xl p-8 hover:border-accent/30 transition-all duration-500 relative overflow-hidden group cursor-default"
-                  style={{ boxShadow: "0 0 0 transparent" }}
-                  onMouseEnter={(e) => { e.currentTarget.style.boxShadow = "0 0 30px hsl(174 72% 48% / 0.08)"; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "0 0 0 transparent"; }}
                 >
                   <span className="absolute -top-4 -right-2 text-[8rem] font-bold text-white/[0.04] select-none pointer-events-none group-hover:text-accent/[0.06] transition-colors duration-500">
                     {String(i + 1).padStart(2, "0")}
@@ -239,7 +235,6 @@ const AboutUs = () => {
                 >
                   <div className="border-t border-border/10" />
                   <motion.div
-                    whileHover={{ x: 8 }}
                     transition={{ duration: 0.4, ease: appleEase }}
                     className="flex items-start gap-8 md:gap-12 py-12"
                   >
@@ -280,10 +275,6 @@ const AboutUs = () => {
                   initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
                   animate={trustInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
                   transition={{ duration: 0.8, delay: i * 0.12, ease: appleEase }}
-                  whileHover={{ scale: 1.03, y: -4 }}
-                  style={{ boxShadow: "0 0 0 transparent" }}
-                  onMouseEnter={(e) => { e.currentTarget.style.boxShadow = "0 0 40px hsl(174 72% 48% / 0.1)"; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "0 0 0 transparent"; }}
                 >
                   <div className="text-5xl md:text-6xl lg:text-7xl font-bold text-accent mb-4 tracking-tight">
                     <CountUp target={stat.target} suffix={stat.suffix} />
