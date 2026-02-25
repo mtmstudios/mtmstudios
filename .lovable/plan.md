@@ -1,64 +1,77 @@
 
 
-# Problem: Play-Button auf dem Handy & Ladezeit
+# Video auf Mobile ersetzen & Scroll-Blinken beheben
 
-## Ursache
+## Probleme
 
-Das Video hat zwar `autoPlay`, `muted` und `playsInline` gesetzt — das ist korrekt. Aber iOS Safari blockiert Autoplay trotzdem manchmal, wenn:
-
-1. **Das Video zu gross ist** und noch nicht geladen wurde, wenn der Browser `play()` aufruft
-2. **Der Data-Saver-Modus** aktiv ist
-3. **Low Power Mode** aktiv ist
-
-Der sichtbare Play-Button ist der native Browser-Fallback, wenn Autoplay fehlschlaegt.
-
-Zusaetzlich: Das Video wird als `hero-background.mp4` ohne Komprimierung geladen — je nach Dateigroesse (vermutlich mehrere MB) ist das auf Mobilfunk ein Problem fuer die Ladezeit.
+1. **Video spielt auf Mobile nicht ab** — iOS Safari blockiert Autoplay trotz aller Fixes. Das fuehrt zu einem schwarzen Hintergrund oder einem sichtbaren Play-Button.
+2. **Sections blinken beim Scrollen** — Der Scroll-Handler aendert die Video-Opacity per `style.opacity` bei jedem Scroll-Event. Das verursacht Repaints auf dem `fixed`-Video-Layer, was auf Mobilgeraeten zu Flickering fuehrt.
 
 ## Loesung
 
-### 1. JavaScript-Autoplay-Fallback (alle 4 Seiten)
+### 1. Bedingtes Video vs. Standbild
 
-Statt sich nur auf das HTML-Attribut `autoPlay` zu verlassen, wird per `useEffect` ein expliziter `video.play()` Aufruf gemacht. Falls dieser fehlschlaegt, wird das Video nochmal gemutet und erneut versucht. So wird der native Play-Button vermieden.
+Den bestehenden `useIsMobile()` Hook nutzen, um auf Mobile ein statisches Hintergrundbild (`earth-hero.jpg`, bereits vorhanden) statt des Videos anzuzeigen. Video nur auf Tablet/Desktop laden.
 
-### 2. Video-Optimierung fuer Ladezeit
+```text
+Mobile (<768px):
+  <img src="/assets/earth-hero.jpg" /> mit gleichen Filtern
 
-- `preload="auto"` hinzufuegen, damit der Browser das Video sofort laedt
-- Das `<source>`-Element durch ein direktes `src`-Attribut ersetzen (zuverlaessiger fuer Autoplay auf iOS)
-- CSS `pointer-events: none` auf das Video setzen, damit der native Play-Button nicht klickbar/sichtbar ist
+Tablet/Desktop (≥768px):
+  <video ... /> wie bisher
+```
 
-### 3. Optional: Video-Poster als Fallback
+Vorteil: Kein Video-Download auf Mobile (spart mehrere MB), kein Play-Button-Problem, sofortige Anzeige.
 
-Ein statisches Standbild (`poster`) setzen, das sofort angezeigt wird waehrend das Video laedt.
+### 2. Scroll-Blinken beheben
 
-## Betroffene Dateien
+Das Flickering entsteht durch direkte DOM-Manipulation (`element.style.opacity`) im Scroll-Handler. Fix:
+
+- `requestAnimationFrame` um den Scroll-Handler wrappen — verhindert mehrfache Repaints pro Frame
+- `will-change: opacity` auf den Hintergrund-Container setzen — GPU-Compositing aktivieren
+
+### Betroffene Dateien
 
 | Datei | Aenderung |
 |-------|-----------|
-| `src/pages/Index.tsx` | `useEffect` mit `play()` Fallback, `preload`, `pointer-events: none` |
+| `src/pages/Index.tsx` | `useIsMobile()` → Video oder Bild, rAF im Scroll-Handler |
 | `src/pages/PhoneAssistant.tsx` | Gleiche Aenderung |
 | `src/pages/Chatbots.tsx` | Gleiche Aenderung |
-| `src/pages/Automations.tsx` | Gleiche Aenderung (falls Video dort auch verwendet wird) |
+| `src/pages/Automations.tsx` | Gleiche Aenderung |
 
-## Technisches Detail
+### Technisches Detail
 
 ```text
-Aktuell:
-  <video autoPlay muted playsInline>  ← Browser ignoriert autoPlay manchmal
-    <source src="...mp4" />
-  </video>
+// Hintergrund-Container (alle 4 Seiten):
 
-Neu:
-  <video ref={ref} muted playsInline preload="auto" src="...mp4"
-         style={{ pointerEvents: 'none' }}>   ← kein nativer Play-Button
-  </video>
+const isMobile = useIsMobile();
 
-  useEffect → ref.current.play().catch(() => {
-    ref.current.muted = true;
-    ref.current.play();
-  })
+<div className="fixed inset-0 ..." style={{ willChange: 'opacity' }}>
+  {isMobile ? (
+    <img src="/assets/earth-hero.jpg"
+         className="w-full h-full object-cover"
+         style={{ filter: 'brightness(0.7) contrast(2)' }} />
+  ) : (
+    <video ref={videoRef} loop muted playsInline
+           preload="auto" src="/videos/hero-background.mp4" ... />
+  )}
+</div>
+
+// Scroll-Handler mit rAF:
+useEffect(() => {
+  let rafId: number;
+  const handleScroll = () => {
+    rafId = requestAnimationFrame(() => {
+      // opacity-Berechnung
+    });
+  };
+  window.addEventListener('scroll', handleScroll, { passive: true });
+  return () => {
+    window.removeEventListener('scroll', handleScroll);
+    cancelAnimationFrame(rafId);
+  };
+}, []);
 ```
 
-Die Aenderung wird als wiederverwendbare Logik in allen 4 Seiten-Komponenten angewendet, da sie identischen Video-Code haben.
-
-**Zur Ladezeit**: Das Video selbst sollte idealerweise auf unter 2 MB komprimiert werden (z.B. mit HandBrake oder ffmpeg). Das kann ich im Code nicht machen, aber ich kann `preload="auto"` und `poster` setzen um die wahrgenommene Ladezeit zu verbessern.
+Das Bild `earth-hero.jpg` wird aus `src/assets/` importiert (bereits im Projekt vorhanden). Es wird mit denselben CSS-Filtern (`brightness(0.7) contrast(2)`) versehen, damit der Look konsistent bleibt.
 
