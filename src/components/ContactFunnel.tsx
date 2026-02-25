@@ -170,8 +170,8 @@ const ContactFunnel = () => {
             {step === 1 && (
               <motion.div key="step1" {...stepMotion} className="flex flex-col flex-1">
                 <p className="text-xs tracking-widest uppercase text-muted-foreground text-center mb-3">Schritt 1 von 3</p>
-                <h3 className="text-2xl font-bold text-foreground mb-2 text-center">Was braucht ihr?</h3>
-                <p className="text-muted-foreground text-sm mb-6 text-center">Wählt alles aus, was euch interessiert.</p>
+                <h3 className="text-2xl font-bold text-foreground mb-2 text-center">Was brauchst du?</h3>
+                <p className="text-muted-foreground text-sm mb-6 text-center">Wähle alles aus, was dich interessiert.</p>
                 <SelectableCardGrid items={services as any} selected={selected} onToggle={(id) => toggle(selected, setSelected, id)} />
                 <div className="mt-auto">
                   <Button onClick={() => setStep(2)} disabled={selected.length === 0} className="w-full bg-foreground/90 text-background hover:bg-foreground font-semibold rounded-full py-6 text-base transition-colors duration-200 disabled:opacity-30">
@@ -184,8 +184,8 @@ const ContactFunnel = () => {
             {step === 2 && (
               <motion.div key="step2" {...stepMotion} className="flex flex-col flex-1">
                 <p className="text-xs tracking-widest uppercase text-muted-foreground text-center mb-3">Schritt 2 von 3</p>
-                <h3 className="text-2xl font-bold text-foreground mb-2 text-center">Was ist aktuell eure größte Herausforderung?</h3>
-                <p className="text-muted-foreground text-sm mb-6 text-center">Wählt alles aus, was zutrifft.</p>
+                <h3 className="text-2xl font-bold text-foreground mb-2 text-center">Was ist aktuell deine größte Herausforderung?</h3>
+                <p className="text-muted-foreground text-sm mb-6 text-center">Wähle alles aus, was zutrifft.</p>
                 <SelectableCardGrid items={challenges as any} selected={selectedChallenges} onToggle={(id) => toggle(selectedChallenges, setSelectedChallenges, id)} />
                 <div className="mt-auto flex gap-3 justify-center">
                   <Button variant="ghost" onClick={() => setStep(1)} className="rounded-full px-6 py-6 text-muted-foreground hover:text-foreground">
@@ -201,7 +201,7 @@ const ContactFunnel = () => {
             {step === 3 && (
               <motion.div key="step3" {...stepMotion} className="flex flex-col flex-1">
                 <p className="text-xs tracking-widest uppercase text-muted-foreground text-center mb-3">Schritt 3 von 3</p>
-                <h3 className="text-2xl font-bold text-foreground mb-2 text-center">Wie erreichen wir euch?</h3>
+                <h3 className="text-2xl font-bold text-foreground mb-2 text-center">Wie erreichen wir dich?</h3>
                 <p className="text-muted-foreground text-sm mb-6 text-center">Wir melden uns schnellstmöglich.</p>
                 <div className="space-y-4 mb-4">
                   {[
@@ -224,7 +224,7 @@ const ContactFunnel = () => {
                   ))}
                   <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.25, delay: 0.15, ease: appleEase }}>
                     <label className="text-sm text-muted-foreground mb-1.5 block text-center">Nachricht (optional)</label>
-                    <textarea placeholder="Erzählt uns kurz, was ihr vorhabt..." rows={3} value={formData.message || ""} onChange={(e) => setFormData((prev) => ({ ...prev, message: e.target.value }))}
+                    <textarea placeholder="Erzähl uns kurz, was du vorhast..." rows={3} value={formData.message || ""} onChange={(e) => setFormData((prev) => ({ ...prev, message: e.target.value }))}
                       className="w-full rounded-xl border bg-foreground/[0.03] px-4 py-3.5 text-sm text-foreground text-center placeholder:text-muted-foreground/50 outline-none resize-none transition-colors duration-200 focus:border-foreground/30"
                       style={{ borderColor: "hsl(var(--border) / 0.15)" }}
                     />
@@ -287,7 +287,7 @@ const ContactFunnel = () => {
                   </div>
                 </div>
                 <h3 className="text-2xl font-bold text-foreground mb-3">Geschafft!</h3>
-                <p className="text-muted-foreground max-w-xs leading-relaxed mb-10">Wir melden uns innerhalb von 24h bei euch. Bis bald!</p>
+                <p className="text-muted-foreground max-w-xs leading-relaxed mb-10">Wir melden uns innerhalb von 24h bei dir. Bis bald!</p>
                 <Button onClick={() => handleOpenChange(false)} variant="ghost" className="rounded-full px-8 py-6 text-muted-foreground hover:text-foreground border border-border/20">Schließen</Button>
               </motion.div>
             )}

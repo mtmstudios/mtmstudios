@@ -45,7 +45,7 @@ const Index = () => {
 
   return (
     <div className="relative min-h-screen bg-background">
-      <SEOHead title="KI-Agentur für Telefonassistenten, Chatbots & Automatisierungen | MTM Studios" description="MTM Studios ist eure KI-Agentur. Wir entwickeln Telefonassistenten, Chatbots und Automatisierungen für Unternehmen." />
+      <SEOHead title="KI-Agentur für Telefonassistenten, Chatbots & Automatisierungen | MTM Studios" description="MTM Studios ist deine KI-Agentur. Wir entwickeln Telefonassistenten, Chatbots und Automatisierungen für Unternehmen." />
       <div ref={bgRef} className="fixed inset-0 w-screen h-screen overflow-hidden" style={{ isolation: 'isolate', zIndex: 0, willChange: 'opacity' }}>
         <img
           src="/videos/hero-background-still.jpg"

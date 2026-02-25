@@ -8,7 +8,7 @@ const AutomationsHero = () => {
     <section className="min-h-[70vh] flex flex-col items-center justify-start px-4 sm:px-6 pt-[15vh] pb-16">
       <div className="max-w-4xl mx-auto text-center flex flex-col items-center gap-8">
         <BlurText
-          text="Automatisierung, die mit euch wächst."
+          text="Automatisierung, die mit dir wächst."
           className="text-3xl sm:text-5xl md:text-7xl font-bold text-foreground"
           delay={100}
         />
@@ -22,7 +22,7 @@ const AutomationsHero = () => {
         >
           Vom ersten kleinen Workflow bis zur kompletten Prozesslandschaft.
           <br />
-          Euer Partner im Zeitalter der KI.
+          Dein Partner im Zeitalter der KI.
         </motion.p>
       </div>
     </section>

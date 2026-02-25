@@ -15,15 +15,15 @@ const values = [
   },
   {
     title: "Geschwindigkeit",
-    description: "Schnelle Ergebnisse ohne Kompromisse bei Qualität. Weil eure Zeit zu wertvoll ist.",
+    description: "Schnelle Ergebnisse ohne Kompromisse bei Qualität. Weil deine Zeit zu wertvoll ist.",
   },
   {
     title: "Partnerschaft",
-    description: "Wir sind kein Dienstleister — wir sind Teil eures Teams. Euer Erfolg ist unser Antrieb.",
+    description: "Wir sind kein Dienstleister — wir sind Teil deines Teams. Dein Erfolg ist unser Antrieb.",
   },
   {
     title: "Vertrauen",
-    description: "Transparenz in jedem Schritt. Ihr wisst immer, was wir tun, warum wir es tun — und was es euch bringt.",
+    description: "Transparenz in jedem Schritt. Du weißt immer, was wir tun, warum wir es tun — und was es dir bringt.",
   },
 ];
 
@@ -53,7 +53,7 @@ const AboutUs = () => {
 
   return (
     <div className="relative min-h-screen bg-background">
-      <SEOHead title="Über MTM Studios | KI-Agentur für Unternehmen" description="Wir sind MTM Studios — euer Partner für KI-Lösungen, die wirklich funktionieren. Klarheit, Geschwindigkeit und Vertrauen." />
+      <SEOHead title="Über MTM Studios | KI-Agentur für Unternehmen" description="Wir sind MTM Studios — dein Partner für KI-Lösungen, die wirklich funktionieren. Klarheit, Geschwindigkeit und Vertrauen." />
       {/* Video Background */}
       <div ref={bgRef} className="fixed inset-0 w-screen h-screen overflow-hidden" style={{ isolation: "isolate", zIndex: 0, willChange: "opacity" }}>
         <img src="/videos/hero-background-still.jpg" alt="" className="md:hidden w-full h-full object-cover absolute inset-0" style={{ mixBlendMode: "hard-light", filter: "brightness(0.5) contrast(2)", pointerEvents: "none" }} />
@@ -102,7 +102,7 @@ const AboutUs = () => {
             className="mt-6 text-lg md:text-xl text-foreground/70 max-w-2xl text-center leading-relaxed"
             style={{ textShadow: '0 2px 20px rgba(0,0,0,0.9), 0 0 40px rgba(0,0,0,0.6)' }}
           >
-            Euer Partner für KI-Lösungen, die wirklich funktionieren.
+            Dein Partner für KI-Lösungen, die wirklich funktionieren.
           </motion.p>
         </section>
 
@@ -188,7 +188,7 @@ const AboutUs = () => {
                 transition={{ duration: 0.8, delay: 0.1, ease: appleEase }}
                 className="text-xl md:text-2xl text-foreground/90 leading-relaxed"
               >
-                Wir arbeiten direkt mit euch —<br />
+                Wir arbeiten direkt mit dir —<br />
                 persönlich, vor Ort oder remote.
               </motion.p>
 
@@ -223,7 +223,7 @@ const AboutUs = () => {
                 transition={{ duration: 0.8, delay: 0.5, ease: appleEase }}
                 className="text-xl md:text-2xl text-foreground/90 leading-relaxed"
               >
-                Unsere Lösungen wachsen mit euch.<br />
+                Unsere Lösungen wachsen mit dir.<br />
                 Weil wir miteinander wachsen wollen.
               </motion.p>
             </div>

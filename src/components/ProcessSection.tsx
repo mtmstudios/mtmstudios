@@ -7,17 +7,17 @@ const steps = [
   {
     number: "01",
     title: "Analyse & Strategie",
-    description: "Wir verstehen euer Business, identifizieren Potenziale und entwickeln einen klaren Plan.",
+    description: "Wir verstehen dein Business, identifizieren Potenziale und entwickeln einen klaren Plan.",
   },
   {
     number: "02",
     title: "Entwicklung & Launch",
-    description: "Von der Umsetzung bis zum Go-Live – wir bauen und testen eure maßgeschneiderte KI-Lösung.",
+    description: "Von der Umsetzung bis zum Go-Live – wir bauen und testen deine maßgeschneiderte KI-Lösung.",
   },
   {
     number: "03",
     title: "Langfristige Partnerschaft",
-    description: "Keine Einmal-Projekte. Wir optimieren, skalieren und wachsen mit euch – als euer KI-Partner.",
+    description: "Keine Einmal-Projekte. Wir optimieren, skalieren und wachsen mit dir – als dein KI-Partner.",
   },
 ];
 

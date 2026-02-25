@@ -50,7 +50,7 @@ const HeroSection = () => {
           delay: 0.5,
           ease: smoothEase
         }} className="text-lg md:text-xl text-foreground/70 max-w-2xl mx-auto mb-12 leading-relaxed" style={{ textShadow: '0 2px 20px rgba(0,0,0,0.9), 0 0 40px rgba(0,0,0,0.6)' }}>
-          Intelligente KI-Lösungen, die euer Team entlasten — rund um die Uhr.
+          Intelligente KI-Lösungen, die dein Team entlasten — rund um die Uhr.
         </motion.p>
 
         <motion.div initial={{

@@ -6,12 +6,12 @@ const steps = [
   {
     number: "01",
     title: "Analyse",
-    description: "Wir analysieren eure Prozesse und identifizieren die größten Automatisierungspotenziale.",
+    description: "Wir analysieren deine Prozesse und identifizieren die größten Automatisierungspotenziale.",
   },
   {
     number: "02",
     title: "Umsetzung",
-    description: "Maßgeschneiderte Workflows werden gebaut, getestet und nahtlos in eure Systeme integriert.",
+    description: "Maßgeschneiderte Workflows werden gebaut, getestet und nahtlos in deine Systeme integriert.",
   },
   {
     number: "03",

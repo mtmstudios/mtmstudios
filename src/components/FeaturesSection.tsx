@@ -13,13 +13,13 @@ const features = [
   {
     title: "WhatsApp & Chatbots",
     description:
-      "Automatisierte Chatbots, die Kundenanfragen sofort beantworten und euer Team spürbar entlasten.",
+      "Automatisierte Chatbots, die Kundenanfragen sofort beantworten und dein Team spürbar entlasten.",
     href: "/ki-chatbot",
   },
   {
     title: "Automatisierungen",
     description:
-      "Workflows optimieren und wertvolle Zeit sparen – mit maßgeschneiderten KI-Lösungen für eure Prozesse.",
+      "Workflows optimieren und wertvolle Zeit sparen – mit maßgeschneiderten KI-Lösungen für deine Prozesse.",
     href: "/automatisierungen",
   },
 ];
@@ -35,7 +35,7 @@ const FeaturesSection = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: appleEase }}
         >
-          Was wir für euch tun können
+          Was wir für dich tun können
         </motion.h2>
 
         <div className="flex flex-col">
