@@ -28,6 +28,7 @@ const values = [
 ];
 
 const AboutUs = () => {
+  const bgRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const missionRef = useRef(null);
   const valuesRef = useRef(null);
@@ -39,11 +40,11 @@ const AboutUs = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (videoRef.current) {
+      if (bgRef.current) {
         const scrollPosition = window.scrollY;
         const maxScroll = 300;
         const opacity = Math.max(0.3, 1 - (scrollPosition / maxScroll) * 0.7);
-        videoRef.current.style.opacity = opacity.toString();
+        bgRef.current.style.opacity = opacity.toString();
       }
     };
     window.addEventListener("scroll", handleScroll);
@@ -54,7 +55,7 @@ const AboutUs = () => {
     <div className="relative min-h-screen bg-background">
       <SEOHead title="Über MTM Studios | KI-Agentur für Unternehmen" description="Wir sind MTM Studios — euer Partner für KI-Lösungen, die wirklich funktionieren. Klarheit, Geschwindigkeit und Vertrauen." />
       {/* Video Background */}
-      <div className="fixed inset-0 w-screen h-screen overflow-hidden" style={{ isolation: "isolate", zIndex: 0 }}>
+      <div ref={bgRef} className="fixed inset-0 w-screen h-screen overflow-hidden" style={{ isolation: "isolate", zIndex: 0, willChange: "opacity" }}>
         <img src="/videos/hero-background-still.jpg" alt="" className="md:hidden w-full h-full object-cover absolute inset-0" style={{ mixBlendMode: "hard-light", filter: "brightness(0.5) contrast(2)", pointerEvents: "none" }} />
         <video
           ref={videoRef}
@@ -156,8 +157,8 @@ const AboutUs = () => {
                   className="bg-white/[0.03] backdrop-blur-sm border border-border/10 rounded-2xl p-8 hover:border-accent/30 transition-all duration-500 relative overflow-hidden group cursor-default text-center"
                 >
                   <span 
-                    className="absolute inset-0 flex items-center justify-center font-bold text-white/[0.06] select-none pointer-events-none group-hover:text-accent/[0.10] transition-colors duration-500 leading-none uppercase"
-                    style={{ fontSize: `clamp(1.2rem, ${Math.max(4, 18 / v.title.length)}vw, 3.5rem)` }}
+                    className="absolute inset-0 flex items-center justify-center font-bold text-white/[0.06] select-none pointer-events-none group-hover:text-accent/[0.10] transition-colors duration-500 leading-none uppercase px-2"
+                    style={{ fontSize: `clamp(1.5rem, ${Math.max(5, 28 / v.title.length)}vw, 5rem)` }}
                   >
                     {v.title}
                   </span>
