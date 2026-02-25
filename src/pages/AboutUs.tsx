@@ -154,15 +154,15 @@ const AboutUs = () => {
                   initial={{ opacity: 0, y: 30 }}
                   animate={valuesInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.8, delay: 0.15 * i, ease: appleEase }}
-                  className="bg-white/[0.03] backdrop-blur-sm border border-border/10 rounded-2xl p-10 hover:border-accent/30 transition-all duration-500 relative overflow-hidden group cursor-default text-center"
+                  className="bg-white/[0.03] backdrop-blur-sm border border-border/10 rounded-2xl p-10 hover:border-accent/30 transition-all duration-500 relative overflow-hidden group cursor-default text-center flex flex-col items-center justify-center gap-4"
                 >
                   <span 
-                    className="absolute inset-0 flex items-center justify-center font-bold text-white/[0.10] select-none pointer-events-none group-hover:text-accent/[0.15] transition-colors duration-500 leading-none uppercase tracking-widest px-2"
-                    style={{ fontSize: `clamp(1.8rem, ${42 / v.title.length}vw, 8rem)` }}
+                    className="font-bold text-white/[0.12] select-none group-hover:text-accent/[0.20] transition-colors duration-500 leading-none uppercase tracking-widest"
+                    style={{ fontSize: `clamp(1.8rem, ${42 / v.title.length}vw, 5rem)` }}
                   >
                     {v.title}
                   </span>
-                  <p className="text-lg text-muted-foreground leading-relaxed relative z-10">{v.description}</p>
+                  <p className="text-lg text-muted-foreground leading-relaxed">{v.description}</p>
                 </motion.div>
               ))}
             </div>
