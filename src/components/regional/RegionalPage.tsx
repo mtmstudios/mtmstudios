@@ -62,7 +62,7 @@ const RegionalPage = ({ context }: RegionalPageProps) => {
       <SEOHead title={content.title} description={content.description} />
 
       <div ref={bgRef} className="fixed inset-0 w-screen h-screen overflow-hidden" style={{ isolation: "isolate", zIndex: 0, willChange: "opacity" }}>
-        <img src="/videos/hero-background-still.jpg" alt="" className="w-full h-full object-cover absolute inset-0" style={{ mixBlendMode: "hard-light", filter: "brightness(0.7) contrast(2)", pointerEvents: "none" }} />
+        <img src="/videos/hero-background-still.jpg" alt="" className="w-full h-full object-cover absolute inset-0" style={{ mixBlendMode: "hard-light", filter: "brightness(0.7) contrast(2)", pointerEvents: "none", objectPosition: "center 60%" }} />
       </div>
 
       <div style={{ position: "relative", zIndex: 50 }}>
