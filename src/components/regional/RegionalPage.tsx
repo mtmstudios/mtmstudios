@@ -8,7 +8,7 @@ import RegionalSection from "@/components/RegionalSection";
 import SEOHead from "@/components/SEOHead";
 import { useContactFunnel } from "@/contexts/ContactFunnelContext";
 import { getRegionalContent, getServiceLabel, validCities } from "@/data/regionalContent";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import {
   Accordion,
   AccordionContent,
@@ -26,27 +26,9 @@ interface RegionalPageProps {
 const RegionalPage = ({ context }: RegionalPageProps) => {
   const { city } = useParams<{ city: string }>();
   const { setIsOpen } = useContactFunnel();
-  const bgRef = useRef<HTMLDivElement>(null);
-
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [city]);
-
-  useEffect(() => {
-    let rafId: number;
-    const handleScroll = () => {
-      rafId = requestAnimationFrame(() => {
-        if (bgRef.current) {
-          const scrollPosition = window.scrollY;
-          const maxScroll = 300;
-          const opacity = Math.max(0.3, 1 - (scrollPosition / maxScroll) * 0.7);
-          bgRef.current.style.opacity = opacity.toString();
-        }
-      });
-    };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => { window.removeEventListener("scroll", handleScroll); cancelAnimationFrame(rafId); };
-  }, []);
 
   if (!city || !validCities.includes(city as any)) {
     return <Navigate to="/404" replace />;
@@ -60,10 +42,6 @@ const RegionalPage = ({ context }: RegionalPageProps) => {
   return (
     <div className="relative min-h-screen bg-background">
       <SEOHead title={content.title} description={content.description} />
-
-      <div ref={bgRef} className="fixed inset-0 w-screen h-screen overflow-hidden" style={{ isolation: "isolate", zIndex: 0, willChange: "opacity" }}>
-        <img src="/videos/hero-background-still.jpg" alt="" className="w-full h-full object-cover absolute inset-0" style={{ mixBlendMode: "hard-light", filter: "brightness(0.7) contrast(2)", pointerEvents: "none", transform: "translateY(75%) scale(1.3)" }} />
-      </div>
 
       <div style={{ position: "relative", zIndex: 50 }}>
         <Navigation />

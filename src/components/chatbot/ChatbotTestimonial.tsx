@@ -12,8 +12,8 @@ const ChatbotTestimonial = () => {
 
         <motion.blockquote
           className="text-xl md:text-2xl lg:text-3xl font-light italic text-foreground leading-relaxed relative z-10"
-          initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
-          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: appleEase }}
         >

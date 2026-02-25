@@ -37,8 +37,8 @@ const TrustSection = () => {
       <div className="max-w-4xl mx-auto">
         <motion.h2
           className="text-3xl md:text-4xl font-bold text-foreground text-center mb-16"
-          initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
-          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: appleEase }}
         >
