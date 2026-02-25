@@ -52,11 +52,11 @@ const FeaturesSection = () => {
               }}
             >
               <Link to={feature.href} className="group block py-12 md:py-16">
-                <div className="text-center space-y-5">
-                  <h3 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground transition-colors duration-500 group-hover:text-accent">
+                <div className="text-center space-y-5 transition-transform duration-500 group-hover:scale-[1.02]">
+                  <h3 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground">
                     {feature.title}
                   </h3>
-                  <p className="text-lg text-muted-foreground leading-relaxed max-w-xl mx-auto">
+                  <p className="text-lg text-muted-foreground leading-relaxed max-w-xl mx-auto transition-colors duration-500 group-hover:text-foreground/80">
                     {feature.description}
                   </p>
                   <span className="inline-flex items-center gap-1.5 text-sm text-accent mt-2 group-hover:gap-2.5 transition-all duration-300">

@@ -45,7 +45,11 @@ const ProcessSection = () => {
               className="group flex flex-col items-center text-center py-8 md:py-12 cursor-default"
             >
               <motion.span
-                className="text-4xl md:text-5xl lg:text-6xl font-bold text-accent/15 select-none mb-3 transition-colors duration-300 group-hover:text-accent/40"
+                className={`text-4xl md:text-5xl lg:text-6xl font-bold select-none mb-3 transition-all duration-300 ${
+                  index === 2
+                    ? 'text-accent/15 group-hover:text-accent/60 group-hover:text-glow'
+                    : 'text-accent/15 group-hover:text-accent/40'
+                }`}
                 initial={{ opacity: 0, scale: 0.85 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
@@ -59,7 +63,9 @@ const ProcessSection = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: index * 0.15 + 0.1, ease: appleEase }}
               >
-                <h3 className="text-lg md:text-xl lg:text-2xl font-bold text-foreground mb-2">
+                <h3 className={`text-lg md:text-xl lg:text-2xl font-bold mb-2 transition-colors duration-300 ${
+                  index === 2 ? 'text-foreground group-hover:text-accent' : 'text-foreground'
+                }`}>
                   {step.title}
                 </h3>
                 <p className="text-sm md:text-base text-muted-foreground leading-relaxed max-w-md mx-auto">
