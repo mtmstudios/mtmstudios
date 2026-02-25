@@ -93,6 +93,7 @@ const CountUp = ({ target, suffix = "", prefix = "" }: { target: number; suffix?
 };
 
 const Partner = () => {
+  const bgRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const problemRef = useRef(null);
   const trustRef = useRef(null);
@@ -104,11 +105,11 @@ const Partner = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (videoRef.current) {
+      if (bgRef.current) {
         const scrollPosition = window.scrollY;
         const maxScroll = 300;
         const opacity = Math.max(0.3, 1 - (scrollPosition / maxScroll) * 0.7);
-        videoRef.current.style.opacity = opacity.toString();
+        bgRef.current.style.opacity = opacity.toString();
       }
     };
     window.addEventListener("scroll", handleScroll);
@@ -119,7 +120,7 @@ const Partner = () => {
     <div className="relative min-h-screen bg-background">
       <SEOHead title="Partner werden | White-Label KI-Lösungen | MTM Studios" description="Werdet Partner von MTM Studios. White-Label KI-Lösungen für Agenturen und Dienstleister — euer Angebot, unsere Technologie." />
       {/* Video Background */}
-      <div className="fixed inset-0 w-screen h-screen overflow-hidden" style={{ isolation: "isolate", zIndex: 0 }}>
+      <div ref={bgRef} className="fixed inset-0 w-screen h-screen overflow-hidden" style={{ isolation: "isolate", zIndex: 0, willChange: "opacity" }}>
         <img src="/videos/hero-background-still.jpg" alt="" className="md:hidden w-full h-full object-cover absolute inset-0" style={{ mixBlendMode: "hard-light", filter: "brightness(0.5) contrast(2)", pointerEvents: "none" }} />
         <video
           ref={videoRef}
