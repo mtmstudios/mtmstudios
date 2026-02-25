@@ -1,104 +1,61 @@
 
 
-# Plan: Hintergrundbild vereinheitlichen, Regional-Seiten schwarz, verschwommene Ueberschriften fixen
-
-## Ueberblick
-
-Drei zusammenhaengende Aenderungen:
-
-1. **Regionale Unterseiten: Hintergrundbild komplett entfernen** (schwarzer Hintergrund)
-2. **Alle anderen Seiten: Standbild auf Mobil identisch zur Startseite** (bereits der Fall -- nur Konsistenz pruefen)
-3. **Verschwommene Ueberschriften auf Mobil fixen** (CSS `filter: blur()` in Framer-Motion-Animationen verursacht das Problem)
-
----
-
-## Analyse
-
-### Hintergrundbild-Status aller Seiten
-
-| Seite | Mobil-Standbild | Problem |
-|---|---|---|
-| **Index** (Startseite) | `md:hidden`, kein transform | Referenz -- korrekt |
-| **Chatbots** | `md:hidden`, kein transform | Korrekt |
-| **PhoneAssistant** | `md:hidden`, kein transform | Korrekt |
-| **Automations** | `md:hidden`, kein transform | Korrekt |
-| **Karriere** | `md:hidden`, kein transform | Korrekt |
-| **AboutUs** | `md:hidden`, kein transform | Korrekt |
-| **Partner** | `md:hidden`, kein transform | Korrekt |
-| **RegionalPage** | Kein `md:hidden`, hat `transform: translateY(75%) scale(1.3)` | **Problem** -- Bild sichtbar aber verschoben |
-
-Alle Hauptseiten verwenden bereits exakt das gleiche Standbild-Pattern wie die Startseite. Nur die **RegionalPage** weicht ab.
-
-### Verschwommene Ueberschriften auf Mobil
-
-`filter: blur()` in CSS ist auf Mobilgeraeten problematisch -- es verursacht Rendering-Artefakte und Text bleibt manchmal dauerhaft unscharf. Betroffen sind **15 Dateien** mit Framer-Motion-Animationen die `filter: "blur(Xpx)"` verwenden:
-
-- `AutomationsProblem.tsx` -- h2
-- `AutomationsHowItWorks.tsx` -- step content
-- `AutomationsTestimonial.tsx` -- blockquote
-- `TrustSection.tsx` -- h2
-- `ChatbotProblem.tsx` -- h2
-- `ChatbotHowItWorks.tsx` -- step content
-- `ChatbotTestimonial.tsx` -- blockquote
-- `PhoneAssistant HowItWorks.tsx` -- step content
-- `TestimonialsSection.tsx` -- testimonial cards
-
-Die `BlurText`-Komponente hat bereits einen Mobile-Fix eingebaut (strippt blur auf Mobile). Aber alle anderen Komponenten verwenden `filter: "blur()"` direkt in ihren motion-Props ohne Mobile-Erkennung.
-
----
+# Redesign: "Das sind wir" Seite -- Werte, Warum wir, Zahlen entfernen
 
 ## Aenderungen
 
-### 1. RegionalPage.tsx -- Hintergrundbild entfernen
+### 1. "Wofuer wir stehen" -- Karten umgestalten
 
-Den gesamten Background-Container (`<div ref={bgRef}>` mit dem `<img>`) entfernen. Der `bg-background` auf dem aeusseren Container sorgt fuer den schwarzen Hintergrund. Auch den `bgRef`, den zugehoerigen scroll-useEffect und den `useRef`-Import entfernen.
+**Aktuell:** Grosse Zahl ("01", "02"...) im Hintergrund, Text linksbuendig.
 
-**Vorher (Zeile 64-66):**
-```tsx
-<div ref={bgRef} className="fixed inset-0 w-screen h-screen overflow-hidden" style={{ isolation: "isolate", zIndex: 0, willChange: "opacity" }}>
-  <img src="/videos/hero-background-still.jpg" ... />
-</div>
+**Neu:** Das Wort des Werts selbst (z.B. "Klarheit", "Vertrauen") als grosser Hintergrundtext statt der Nummer. Alle Inhalte zentriert (Text, Akzentlinie). Die Akzentlinie wird `mx-auto` zentriert.
+
+```
+Vorher:                          Nachher:
+┌─────────────────┐              ┌─────────────────┐
+│            01   │              │    Klarheit      │  <-- gross, subtle
+│ ──                             │       ──         │  <-- zentriert
+│ Klarheit        │              │    Klarheit      │
+│ Wir machen...   │              │  Wir machen...   │  <-- text-center
+└─────────────────┘              └─────────────────┘
 ```
 
-**Nachher:** Komplett entfernt.
+### 2. "Warum wir" -- Komplett neues Layout
 
-Ausserdem den `bgRef` useRef und den zugehoerigen scroll-Effekt (Zeilen 33-45) entfernen.
+**Aktuell:** Nummerierte Liste (01, 02, 03) mit border-top Trennlinien -- wirkt wie eine zweite Aufzaehlung nach den Werte-Karten.
 
-### 2. Blur-Animationen auf Mobil entfernen (8 Dateien)
+**Neu:** Ein grosser, zentrierter Textblock im Editorial-Stil. Kein Grid, keine Nummern. Stattdessen ein paar kraftvolle Saetze die folgende Inhalte vereinen:
+- Persoenlich statt anonym (bestehend)
+- Vor Ort oder remote (neu)
+- Ergebnisorientiert (bestehend)
+- Miteinander wachsen (neu)
+- Langfristig gedacht (bestehend)
 
-In jeder betroffenen Datei die `filter: "blur(Xpx)"` aus den `initial`/`whileInView`/`animate`/`exit`-Props der motion-Elemente entfernen. Die Opacity- und Y-Animationen bleiben erhalten -- nur der blur-Filter wird entfernt.
+Format: 3-4 kurze, zentrierte Absaetze mit unterschiedlicher Textgroesse fuer visuellen Rhythmus. Dazwischen eine dezente Akzentlinie. Kein Grid, keine Karten, keine Nummern.
 
-Betroffene Dateien und Stellen:
+```
+         Warum wir
 
-- **`src/components/automations/AutomationsProblem.tsx`** (Zeile 33-34): h2 blur entfernen
-- **`src/components/automations/AutomationsHowItWorks.tsx`** (Zeile 57-58): step div blur entfernen
-- **`src/components/automations/AutomationsTestimonial.tsx`** (Zeile 15-16): blockquote blur entfernen
-- **`src/components/automations/TrustSection.tsx`** (Zeile 40-41): h2 blur entfernen
-- **`src/components/chatbot/ChatbotProblem.tsx`** (Zeile 33): h2 blur entfernen
-- **`src/components/chatbot/ChatbotHowItWorks.tsx`** (Zeile 57-58): step div blur entfernen
-- **`src/components/chatbot/ChatbotTestimonial.tsx`** (Zeile 15-16): blockquote blur entfernen
-- **`src/components/phone-assistant/HowItWorks.tsx`** (Zeile 57-58): step div blur entfernen
-- **`src/components/TestimonialsSection.tsx`** (Zeile 52-54): testimonial blur entfernen
+   Wir arbeiten direkt mit euch —
+   persoenlich, vor Ort oder remote.
 
-**Beispiel-Aenderung (gleich fuer alle):**
+            ──
 
-Vorher:
-```tsx
-initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
-whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+   Wir zaehlen keine Features.
+   Wir messen, wie viel Zeit
+   ihr zurueckbekommt.
+
+            ──
+
+   Unsere Loesungen wachsen mit euch.
+   Weil wir miteinander wachsen wollen.
 ```
 
-Nachher:
-```tsx
-initial={{ opacity: 0, y: 30 }}
-whileInView={{ opacity: 1, y: 0 }}
-```
+### 3. "In Zahlen" Section -- Komplett entfernen
 
----
+Die gesamte Trust-Stats-Section (Zeilen 260-290) wird entfernt, inklusive der `trustStats`-Daten, `CountUp`-Komponente, `trustRef` und `trustInView`. Passt nicht zum persoenlichen Charakter der Seite.
 
-## Zusammenfassung
+## Betroffene Datei
 
-- **1 Datei** groessere Aenderung: `RegionalPage.tsx` (Hintergrundbild + scroll-Effekt entfernen)
-- **9 Dateien** kleine Aenderungen: blur-Filter aus motion-Animationen entfernen
-- Alle Hauptseiten (Index, Chatbots, PhoneAssistant, Automations, Karriere, AboutUs, Partner) behalten ihr Standbild unveraendert -- sie sind bereits identisch zur Startseite
+Nur `src/pages/AboutUs.tsx` -- alles in einer Datei.
 
