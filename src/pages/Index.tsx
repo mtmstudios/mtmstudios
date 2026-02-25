@@ -51,7 +51,7 @@ const Index = () => {
           src="/videos/hero-background-still.jpg"
           alt=""
           className="md:hidden w-full h-full object-cover absolute inset-0"
-          style={{ mixBlendMode: 'hard-light', filter: 'brightness(0.5) contrast(2)', pointerEvents: 'none', transform: 'translateY(30%)' }}
+          style={{ mixBlendMode: 'hard-light', filter: 'brightness(0.5) contrast(2)', pointerEvents: 'none' }}
         />
         <video
           ref={videoRef}
