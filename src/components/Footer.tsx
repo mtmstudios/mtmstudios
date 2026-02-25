@@ -1,8 +1,11 @@
 import { Instagram, Mail } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useCookieConsent } from "@/contexts/CookieConsentContext";
 import logo from "@/assets/logo-2.png";
 
 const Footer = () => {
+  const { openSettings } = useCookieConsent();
+
   return (
     <footer className="border-t border-border/20 bg-transparent">
       <div className="container mx-auto px-6 py-10 md:py-12">
@@ -52,12 +55,16 @@ const Footer = () => {
           <p className="text-muted-foreground text-xs text-center max-w-md mx-auto leading-relaxed">
             Es gelten die <Link to="/agb" className="underline hover:text-foreground transition-opacity duration-200">AGB</Link> von MTMstudios. Informationen zur Datenverarbeitung sowie zur Auftragsverarbeitung (AVV) finden Sie in unserer <Link to="/datenschutz" className="underline hover:text-foreground transition-opacity duration-200">Datenschutzerklärung</Link>.
           </p>
-          <div className="flex items-center gap-2 text-muted-foreground text-xs">
+          <div className="flex items-center gap-2 text-muted-foreground text-xs flex-wrap justify-center">
             <Link to="/impressum" className="hover:text-foreground transition-opacity duration-200">Impressum</Link>
             <span>·</span>
             <Link to="/datenschutz" className="hover:text-foreground transition-opacity duration-200">Datenschutz</Link>
             <span>·</span>
             <Link to="/agb" className="hover:text-foreground transition-opacity duration-200">AGB</Link>
+            <span>·</span>
+            <Link to="/barrierefreiheit" className="hover:text-foreground transition-opacity duration-200">Barrierefreiheit</Link>
+            <span>·</span>
+            <button onClick={openSettings} className="hover:text-foreground transition-opacity duration-200 underline">Cookie-Einstellungen</button>
           </div>
           <span className="text-muted-foreground text-xs">© 2026 MTM Studios</span>
         </div>
