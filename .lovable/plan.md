@@ -1,77 +1,45 @@
 
 
-# Video auf Mobile ersetzen & Scroll-Blinken beheben
+# Video auf Mobile pausiert anzeigen (erster Frame)
 
-## Probleme
+## Idee
 
-1. **Video spielt auf Mobile nicht ab** — iOS Safari blockiert Autoplay trotz aller Fixes. Das fuehrt zu einem schwarzen Hintergrund oder einem sichtbaren Play-Button.
-2. **Sections blinken beim Scrollen** — Der Scroll-Handler aendert die Video-Opacity per `style.opacity` bei jedem Scroll-Event. Das verursacht Repaints auf dem `fixed`-Video-Layer, was auf Mobilgeraeten zu Flickering fuehrt.
+Das Video auf Mobile laden, aber sofort pausieren — so wird der erste Frame als Standbild angezeigt und sieht identisch zum Desktop aus.
 
-## Loesung
+## Wichtiger Hinweis zur Ladezeit
 
-### 1. Bedingtes Video vs. Standbild
+Das Video wird trotzdem teilweise heruntergeladen, auch wenn es nicht abgespielt wird. Mit `preload="metadata"` laed der Browser nur die ersten paar KB (Header + erster Frame), nicht die gesamte Datei. Das ist ein guter Kompromiss.
 
-Den bestehenden `useIsMobile()` Hook nutzen, um auf Mobile ein statisches Hintergrundbild (`earth-hero.jpg`, bereits vorhanden) statt des Videos anzuzeigen. Video nur auf Tablet/Desktop laden.
+## Umsetzung
+
+Auf allen 4 Seiten wird der Mobile-Branch geaendert:
+
+- Statt `<img>` wird das gleiche `<video>` verwendet
+- Kein `autoPlay`, kein `loop`
+- `preload="metadata"` statt `preload="auto"` — laedt nur den ersten Frame
+- Der `useEffect` fuer `play()` wird nur auf Desktop ausgefuehrt (durch `if (isMobile) return;`)
+- Gleiche CSS-Filter wie auf Desktop (`mixBlendMode`, `brightness`, `contrast`)
 
 ```text
-Mobile (<768px):
-  <img src="/assets/earth-hero.jpg" /> mit gleichen Filtern
+Mobile:
+  <video muted playsInline preload="metadata"
+         src="/videos/hero-background.mp4"
+         style={{ mixBlendMode: 'hard-light', filter: '...', pointerEvents: 'none' }} />
+  // Kein play() — zeigt ersten Frame als Standbild
 
-Tablet/Desktop (≥768px):
-  <video ... /> wie bisher
+Desktop:
+  <video ... preload="auto" />
+  // useEffect → play()
 ```
 
-Vorteil: Kein Video-Download auf Mobile (spart mehrere MB), kein Play-Button-Problem, sofortige Anzeige.
-
-### 2. Scroll-Blinken beheben
-
-Das Flickering entsteht durch direkte DOM-Manipulation (`element.style.opacity`) im Scroll-Handler. Fix:
-
-- `requestAnimationFrame` um den Scroll-Handler wrappen — verhindert mehrfache Repaints pro Frame
-- `will-change: opacity` auf den Hintergrund-Container setzen — GPU-Compositing aktivieren
-
-### Betroffene Dateien
+## Betroffene Dateien
 
 | Datei | Aenderung |
 |-------|-----------|
-| `src/pages/Index.tsx` | `useIsMobile()` → Video oder Bild, rAF im Scroll-Handler |
+| `src/pages/Index.tsx` | Mobile: Video mit `preload="metadata"`, kein play() |
 | `src/pages/PhoneAssistant.tsx` | Gleiche Aenderung |
 | `src/pages/Chatbots.tsx` | Gleiche Aenderung |
 | `src/pages/Automations.tsx` | Gleiche Aenderung |
 
-### Technisches Detail
-
-```text
-// Hintergrund-Container (alle 4 Seiten):
-
-const isMobile = useIsMobile();
-
-<div className="fixed inset-0 ..." style={{ willChange: 'opacity' }}>
-  {isMobile ? (
-    <img src="/assets/earth-hero.jpg"
-         className="w-full h-full object-cover"
-         style={{ filter: 'brightness(0.7) contrast(2)' }} />
-  ) : (
-    <video ref={videoRef} loop muted playsInline
-           preload="auto" src="/videos/hero-background.mp4" ... />
-  )}
-</div>
-
-// Scroll-Handler mit rAF:
-useEffect(() => {
-  let rafId: number;
-  const handleScroll = () => {
-    rafId = requestAnimationFrame(() => {
-      // opacity-Berechnung
-    });
-  };
-  window.addEventListener('scroll', handleScroll, { passive: true });
-  return () => {
-    window.removeEventListener('scroll', handleScroll);
-    cancelAnimationFrame(rafId);
-  };
-}, []);
-```
-
-Das Bild `earth-hero.jpg` wird aus `src/assets/` importiert (bereits im Projekt vorhanden). Es wird mit denselben CSS-Filtern (`brightness(0.7) contrast(2)`) versehen, damit der Look konsistent bleibt.
+Der `earth-hero.jpg` Import kann danach entfernt werden, da er nicht mehr gebraucht wird.
 
