@@ -22,6 +22,7 @@ import Karriere from "./pages/Karriere";
 import Barrierefreiheit from "./pages/Barrierefreiheit";
 import NotFound from "./pages/NotFound";
 import RegionalPage from "./components/regional/RegionalPage";
+import ScrollToTop from "./components/ScrollToTop";
 
 const queryClient = new QueryClient();
 
@@ -34,6 +35,7 @@ const App = () => (
             <Toaster />
             <Sonner />
             <BrowserRouter>
+              <ScrollToTop />
               <ContactFunnel />
               <CookieBanner />
               <AccessibilityWidget />

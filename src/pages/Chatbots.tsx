@@ -18,7 +18,7 @@ const Chatbots = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const bgRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => { window.scrollTo(0, 0); }, []);
+  
 
   useEffect(() => {
     const video = videoRef.current;
