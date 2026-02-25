@@ -1,71 +1,114 @@
 
 
-# Design-Audit: KI-Telefonassistent & KI-Chatbot Leistungsseiten
+# Design-Audit: Automatisierungen, Das sind Wir, Karriere, Partner
 
-## Befunde nach Durchsicht beider Seiten
-
-Beide Seiten folgen demselben Aufbau: Hero → Problem → HowItWorks → Features → UseCases → Testimonial → CTA → Regional → Footer. Die Grundstruktur ist solide, aber es gibt mehrere Stellen, die nicht zum neuen Premium-Standard passen.
+Nach Durchsicht aller vier Seiten mit dem gleichen Premium-Standard.
 
 ---
 
-## 1. UseCases-Karten: `whileHover={{ y: -4 }}` auf nicht-klickbaren Elementen
+## 1. AutomationsTestimonial: doppeltes Anfuehrungszeichen
 
-**Betrifft:** `src/components/phone-assistant/UseCases.tsx` (Zeile 53) und `src/components/chatbot/ChatbotUseCases.tsx` (Zeile 53)
+**Betrifft:** `src/components/automations/AutomationsTestimonial.tsx` (Zeile 20)
 
-Genau das gleiche Problem, das wir bei den Prozess-Steps behoben haben. Die UseCases-Karten haben `whileHover={{ y: -4 }}`, obwohl sie nirgendwo hinlinken. Muss entfernt werden -- konsistent mit den bereits umgesetzten Aenderungen.
+Identisches Problem wie bei Phone/Chatbot: dekoratives „ als absolutes Element + nochmal „ im Text.
 
-**Aenderung:** `whileHover={{ y: -4 }}` entfernen in beiden Dateien.
-
----
-
-## 2. AutomationsSpectrum: `hover:translate-y-[-2px]` auf nicht-klickbaren Karten
-
-**Betrifft:** `src/components/automations/AutomationsSpectrum.tsx` (Zeile 72)
-
-Gleiches Problem, CSS-basiert statt Framer Motion. Die Tier-Karten sind nicht klickbar, haben aber `hover:translate-y-[-2px]` und `hover:bg-white/[0.06]`.
-
-**Aenderung:** `hover:translate-y-[-2px]` entfernen, `hover:bg-white/[0.06]` kann bleiben (subtil genug).
+**Aenderung:** Fuehrendes „ im blockquote-Text entfernen.
 
 ---
 
-## 3. Features-Sections: Demo-Boxen haben keine sichtbare Abgrenzung
+## 2. AboutUs -- Werte-Karten: `whileHover={{ scale: 1.02, y: -4 }}` + Glow auf nicht-klickbaren Elementen
 
-**Betrifft:** `PhoneFeatures.tsx` und `ChatbotFeatures.tsx` (und `AutomationsFeatures.tsx`)
+**Betrifft:** `src/pages/AboutUs.tsx` (Zeile 201-205)
 
-Die Demo-Animations-Boxen nutzen `bg-white/[0.03]` -- das ist so subtil, dass die Boxen auf dem dunklen Hintergrund fast unsichtbar wirken (wie im Screenshot zu sehen). Eine feine Border wuerde die Abgrenzung verbessern, ohne den cleanen Stil zu brechen.
+Die 4 Werte-Karten (Klarheit, Geschwindigkeit etc.) haben `whileHover={{ scale: 1.02, y: -4 }}` plus manuellen JS-basiertem Glow (`onMouseEnter/onMouseLeave` mit boxShadow). Sie sind nicht klickbar. Widerspricht unserem Standard: nur interaktive Elemente bewegen sich.
 
-**Aenderung:** `border border-white/[0.06]` zu den Demo-Boxen hinzufuegen, konsistent mit dem Rest der Seite (ChannelsSection, UseCases nutzen das bereits).
-
----
-
-## 4. ChannelsSection Karten: koennte konsistenter sein
-
-Die 4 Kanal-Karten in `ChannelsSection.tsx` sind bereits gut gestaltet -- sie haben Border, Backdrop-Blur, Chat-Previews. Kein Problem hier.
+**Aenderung:** `whileHover`, `onMouseEnter`, `onMouseLeave` und `style={{ boxShadow }}` entfernen. `hover:border-accent/30` kann bleiben (subtil genug).
 
 ---
 
-## 5. Testimonial-Section: doppeltes Anfuehrungszeichen
+## 3. AboutUs -- Trust-Zahlen-Karten: `whileHover={{ scale: 1.03, y: -4 }}` + Glow
 
-**Betrifft:** `PhoneTestimonial.tsx` und `ChatbotTestimonial.tsx`
+**Betrifft:** `src/pages/AboutUs.tsx` (Zeile 283-286)
 
-Das dekorative „ (grosses Anfuehrungszeichen) steht als absolut positioniertes Element oben, und dann beginnt das Zitat nochmal mit „. Das ergibt ein doppeltes Anfuehrungszeichen. Entweder das dekorative entfernen oder das „ im Text entfernen.
+Gleiche Situation bei den 3 Statistik-Karten: `whileHover={{ scale: 1.03, y: -4 }}` plus JS-Glow. Nicht klickbar.
 
-**Aenderung:** Das fuehrende „ im blockquote-Text entfernen (das dekorative bleibt).
+**Aenderung:** `whileHover`, `onMouseEnter`, `onMouseLeave` und `style={{ boxShadow }}` entfernen.
 
 ---
 
-## Zusammenfassung der Aenderungen
+## 4. AboutUs -- "Warum wir" Steps: `whileHover={{ x: 8 }}`
+
+**Betrifft:** `src/pages/AboutUs.tsx` (Zeile 242)
+
+Die 3 "Warum wir"-Eintraege haben `whileHover={{ x: 8 }}` -- sie verschieben sich nach rechts beim Hover. Sie sind nicht klickbar. Der horizontale Shift ist ausserdem inkonsistent mit dem Rest der Seite.
+
+**Aenderung:** `whileHover={{ x: 8 }}` entfernen.
+
+---
+
+## 5. Partner -- Pain Points: `whileHover={{ x: 8 }}` + Titel-Hover-Farbe
+
+**Betrifft:** `src/pages/Partner.tsx` (Zeile 192, 200)
+
+Die Pain-Point-Eintraege haben `whileHover={{ x: 8 }}` und der h3-Titel hat `group-hover:text-destructive/80`. Nicht klickbar -- gleicher Fix wie ueberall.
+
+**Aenderung:** `whileHover={{ x: 8 }}` entfernen. `group-hover:text-destructive/80 group-active:text-destructive/80` aus h3 entfernen.
+
+---
+
+## 6. Partner -- Steps: `whileHover={{ y: -4 }}`
+
+**Betrifft:** `src/pages/Partner.tsx` (Zeile 243)
+
+Die 3 "Wir uebernehmen"-Schritte haben `whileHover={{ y: -4 }}`. Nicht klickbar.
+
+**Aenderung:** `whileHover={{ y: -4 }}` entfernen.
+
+---
+
+## 7. Partner -- Benefits-Karten: `whileHover={{ scale: 1.02, y: -6 }}` + Glow + Titel-Hover
+
+**Betrifft:** `src/pages/Partner.tsx` (Zeile 305-308, 318)
+
+Die 4 Benefits-Karten haben `whileHover={{ scale: 1.02, y: -6 }}`, JS-Glow, und `group-hover:text-accent` auf dem Titel. Nicht klickbar.
+
+**Aenderung:** `whileHover`, `onMouseEnter`, `onMouseLeave`, `style={{ boxShadow }}` entfernen. `group-hover:text-accent` aus h3 entfernen. `hover:border-accent/30` kann bleiben.
+
+---
+
+## 8. Partner -- Trust-Zahlen: `whileHover={{ scale: 1.03, y: -4, rotateX: 2 }}` + Glow
+
+**Betrifft:** `src/pages/Partner.tsx` (Zeile 349-352)
+
+Die 3 Statistik-Karten haben `whileHover` mit scale, y UND rotateX plus JS-Glow. Nicht klickbar.
+
+**Aenderung:** `whileHover`, `onMouseEnter`, `onMouseLeave`, `style={{ boxShadow, perspective }}` entfernen.
+
+---
+
+## 9. Karriere -- Benefits-Karten: `hover:scale-[1.02]`
+
+**Betrifft:** `src/pages/Karriere.tsx` (Zeile 126)
+
+Die 8 Benefits-Karten haben `hover:scale-[1.02]`. Subtiler als die anderen, aber nach unserem Standard trotzdem inkonsistent -- nicht klickbar, sollte sich nicht bewegen.
+
+**Aenderung:** `hover:scale-[1.02]` entfernen.
+
+---
+
+## Zusammenfassung
 
 | # | Datei | Aenderung |
 |---|-------|-----------|
-| 1 | `phone-assistant/UseCases.tsx` | `whileHover={{ y: -4 }}` entfernen |
-| 2 | `chatbot/ChatbotUseCases.tsx` | `whileHover={{ y: -4 }}` entfernen |
-| 3 | `automations/AutomationsSpectrum.tsx` | `hover:translate-y-[-2px]` entfernen |
-| 4 | `phone-assistant/PhoneFeatures.tsx` | `border border-white/[0.06]` zur Demo-Box |
-| 5 | `chatbot/ChatbotFeatures.tsx` | `border border-white/[0.06]` zur Demo-Box |
-| 6 | `automations/AutomationsFeatures.tsx` | `border border-white/[0.06]` zur Demo-Box |
-| 7 | `phone-assistant/PhoneTestimonial.tsx` | Doppeltes „ im Zitat-Text fixen |
-| 8 | `chatbot/ChatbotTestimonial.tsx` | Doppeltes „ im Zitat-Text fixen |
+| 1 | `automations/AutomationsTestimonial.tsx` | Doppeltes „ fixen |
+| 2 | `AboutUs.tsx` | Werte-Karten: whileHover + Glow entfernen |
+| 3 | `AboutUs.tsx` | Trust-Karten: whileHover + Glow entfernen |
+| 4 | `AboutUs.tsx` | "Warum wir": whileHover x:8 entfernen |
+| 5 | `Partner.tsx` | Pain Points: whileHover x:8 + Titel-Hover entfernen |
+| 6 | `Partner.tsx` | Steps: whileHover y:-4 entfernen |
+| 7 | `Partner.tsx` | Benefits: whileHover + Glow + Titel-Hover entfernen |
+| 8 | `Partner.tsx` | Trust-Zahlen: whileHover + Glow entfernen |
+| 9 | `Karriere.tsx` | Benefits: hover:scale entfernen |
 
-8 Dateien, jeweils minimale Einzeiler-Aenderungen. Alles dient der Konsistenz mit dem neuen Premium-Standard.
+3 Dateien, 9 Einzelaenderungen. Alles konsistente Anwendung der Regel: nicht-klickbare Elemente bewegen sich nicht.
 
