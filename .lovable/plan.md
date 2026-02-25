@@ -1,14 +1,14 @@
 
 
-# Fix: Hintergrundbild auf regionalen Seiten (Tablet) nach unten verschieben
+# Fix: Hintergrundbild auf regionalen Seiten weiter nach unten
 
 ## Problem
 
-Auf dem Tablet (820x1180) ist das Hintergrundbild auf den regionalen Seiten zu hoch angesetzt — die Erde/der Globus nimmt den oberen Bereich stark ein und wirkt deplatziert im Vergleich zu anderen Seiten.
+Das Hintergrundbild auf den regionalen Seiten zeigt die Erde/den Globus zu hoch — trotz `objectPosition: "center 60%"`. Der Globus dominiert den Hero-Bereich und ueberlagert den Text. Die Erde muss deutlich weiter nach unten geschoben werden, sodass nur der obere Rand des Globus im unteren Drittel des Viewports sichtbar ist.
 
 ## Loesung
 
-In `src/components/regional/RegionalPage.tsx` wird dem `<img>` ein `objectPosition: 'center 60%'` hinzugefuegt. Das verschiebt den Fokuspunkt nach unten, sodass die Erde weiter im unteren Bereich des Viewports liegt — konsistent mit dem Eindruck auf Desktop und Mobile.
+`objectPosition` von `"center 60%"` auf `"center 85%"` aendern. Das verschiebt den Fokuspunkt des Bildes stark nach unten — die Erde erscheint dann nur noch als dezenter Bogen am unteren Bildschirmrand, wie auf den anderen Seiten (dort wird das Video genutzt, das denselben Effekt erzeugt).
 
 ## Aenderung
 
@@ -16,13 +16,13 @@ In `src/components/regional/RegionalPage.tsx` wird dem `<img>` ein `objectPositi
 
 Vorher:
 ```
-style={{ mixBlendMode: "hard-light", filter: "brightness(0.7) contrast(2)", pointerEvents: "none" }}
+objectPosition: "center 60%"
 ```
 
 Nachher:
 ```
-style={{ mixBlendMode: "hard-light", filter: "brightness(0.7) contrast(2)", pointerEvents: "none", objectPosition: "center 60%" }}
+objectPosition: "center 85%"
 ```
 
-Das ist eine einzeilige Aenderung in einer Datei.
+Eine einzeilige Aenderung in einer Datei.
 
