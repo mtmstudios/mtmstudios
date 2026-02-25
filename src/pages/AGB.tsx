@@ -3,6 +3,7 @@ import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { motion } from "motion/react";
 import { Link } from "react-router-dom";
+import { useEffect, useRef } from "react";
 
 const appleEase = [0.16, 1, 0.3, 1] as const;
 
@@ -42,143 +43,186 @@ const BulletList = ({ items }: { items: string[] }) => (
 );
 
 const AGB = () => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const bgRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    video.play().catch(() => {});
+  }, []);
+
+  useEffect(() => {
+    let rafId: number;
+    const handleScroll = () => {
+      rafId = requestAnimationFrame(() => {
+        if (bgRef.current) {
+          const scrollPosition = window.scrollY;
+          const maxScroll = 300;
+          const opacity = Math.max(0.3, 1 - (scrollPosition / maxScroll) * 0.7);
+          bgRef.current.style.opacity = opacity.toString();
+        }
+      });
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => { window.removeEventListener("scroll", handleScroll); cancelAnimationFrame(rafId); };
+  }, []);
+
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="relative min-h-screen bg-background text-foreground">
       <SEOHead title="AGB | MTM Studios" description="Allgemeine Geschäftsbedingungen von MTM Studios für KI-Automatisierung und digitale Lösungen." />
-      <Navigation />
-      <main className="container mx-auto px-6 pt-32 pb-20 max-w-4xl">
-        <motion.div
-          initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
-          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          transition={{ duration: 0.8, ease: appleEase }}
-          className="mb-12"
-        >
-          <h1 className="text-4xl md:text-5xl font-bold mb-3">Allgemeine Geschäftsbedingungen</h1>
-          <p className="text-muted-foreground text-base">Stand: Januar 2026</p>
-          <div className="mt-6 h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
-        </motion.div>
 
-        <div className="space-y-5">
-          <Section title="I. Geltungsbereich">
-            <NumberedList items={[
-              "Diese Allgemeinen Geschäftsbedingungen gelten für alle Verträge zwischen der MTMstudios (nachfolgend \u201EMTMstudios\u201C) und ihren Auftraggebern, soweit nicht ausdrücklich etwas anderes schriftlich vereinbart wurde.",
-              "Diese AGB gelten ausschließlich gegenüber Unternehmern im Sinne des § 14 BGB.",
-              "Die AGB gelten für sämtliche Leistungen von MTMstudios, insbesondere für Webdesign, Webhosting-nahe Leistungen, Online-Marketing, Automatisierungen, KI-Telefonie, KI-Chatbots sowie sonstige digitale Dienstleistungen.",
-              "Abweichende Bedingungen des Auftraggebers gelten nur, wenn MTMstudios ihrer Geltung ausdrücklich schriftlich zugestimmt hat.",
-            ]} />
-          </Section>
+      <div ref={bgRef} className="fixed inset-0 w-screen h-screen overflow-hidden" style={{ isolation: "isolate", zIndex: 0, willChange: "opacity" }}>
+        <img src="/videos/hero-background-still.jpg" alt="" className="md:hidden w-full h-full object-cover absolute inset-0" style={{ mixBlendMode: "hard-light", filter: "brightness(0.7) contrast(2)", pointerEvents: "none" }} />
+        <video ref={videoRef} autoPlay loop muted playsInline
+          // @ts-ignore
+          webkit-playsinline=""
+          preload="auto"
+          className="hidden md:block w-full h-full object-cover" style={{ mixBlendMode: "hard-light", position: "absolute", top: 0, left: 0, width: "100%", height: "100%", filter: "brightness(0.7) contrast(2)", pointerEvents: "none" }}>
+          <source src="/videos/hero-background.webm" type="video/webm" />
+          <source src="/videos/hero-background.mp4" type="video/mp4" />
+        </video>
+      </div>
 
-          <Section title="II. Vertragsinhalt und Vertragsschluss">
-            <NumberedList items={[
-              "Angebote von MTMstudios sind freibleibend und unverbindlich.",
-              "Ein Vertrag kommt durch schriftliche Bestätigung, Leistungsbeginn oder Rechnungsstellung zustande.",
-              "Mündliche Nebenabreden bedürfen der schriftlichen Bestätigung.",
-              "Leistungsbeschreibungen werden nur dann Vertragsbestandteil, wenn ausdrücklich Bezug genommen wird.",
-            ]} />
-          </Section>
+      <div style={{ position: "relative", zIndex: 50 }}>
+        <Navigation />
+      </div>
 
-          <Section title="III. Vertragsdauer und Kündigung">
-            <NumberedList items={[
-              "Die Vertragslaufzeit ergibt sich aus dem jeweiligen Vertrag.",
-              "Eine ordentliche Kündigung während der Laufzeit ist ausgeschlossen, sofern nichts anderes vereinbart wurde.",
-              "Das Recht zur außerordentlichen Kündigung aus wichtigem Grund bleibt unberührt.",
-            ]} />
-          </Section>
-
-          <Section title="IV. Vergütung und Zahlungsbedingungen">
-            <NumberedList items={[
-              "Es gelten die vereinbarten Preise zzgl. gesetzlicher Umsatzsteuer.",
-              "Rechnungen sind innerhalb von 14 Tagen fällig.",
-              "Bei Zahlungsverzug ist MTMstudios berechtigt, Verzugszinsen in Höhe von 9 Prozentpunkten über dem Basiszinssatz zu verlangen.",
-              "Eine Aufrechnung ist nur mit unbestrittenen oder rechtskräftig festgestellten Forderungen zulässig.",
-            ]} />
-          </Section>
-
-          <Section title="V. Mitwirkungspflichten">
-            <p>Der Auftraggeber verpflichtet sich, alle zur Leistungserbringung erforderlichen Inhalte und Informationen rechtzeitig bereitzustellen.</p>
-          </Section>
-
-          <Section title="VI. Gewährleistung">
-            <p>MTMstudios erbringt Leistungen nach dem Stand der Technik. Gewährleistungsansprüche verjähren innerhalb von 12 Monaten.</p>
-          </Section>
-
-          <Section title="VII. Haftung">
-            <p>MTMstudios haftet unbeschränkt bei Vorsatz, grober Fahrlässigkeit sowie bei Verletzung von Leben, Körper oder Gesundheit. Bei leicht fahrlässiger Verletzung wesentlicher Vertragspflichten ist die Haftung auf den vorhersehbaren Schaden begrenzt.</p>
-          </Section>
-
-          <Section title="VIII. Datenschutz">
-            <p>
-              Die Verarbeitung personenbezogener Daten erfolgt ausschließlich nach den geltenden Datenschutzgesetzen. Weitere Informationen ergeben sich aus der{" "}
-              <Link to="/datenschutz" className="text-accent hover:underline">Datenschutzerklärung</Link> von MTMstudios.
-            </p>
-          </Section>
-
-          <Section title="IX. Schlussbestimmungen">
-            <p>Es gilt deutsches Recht. Gerichtsstand ist — soweit zulässig — der Sitz von MTMstudios.</p>
-          </Section>
-
-          {/* AVV Section */}
+      <div style={{ position: "relative", zIndex: 10 }}>
+        <main className="container mx-auto px-6 pt-32 pb-20 max-w-4xl">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.7, ease: appleEase }}
-            className="mt-10 pt-8"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: appleEase }}
+            className="mb-12"
           >
-            <div className="mb-6">
-              <h2 className="text-2xl md:text-3xl font-bold text-foreground">Auftragsverarbeitungsvereinbarung (AVV)</h2>
-              <p className="text-muted-foreground text-sm mt-1">nach Art. 28 DSGVO</p>
-              <div className="mt-4 h-px bg-gradient-to-r from-transparent via-accent/20 to-transparent" />
-            </div>
+            <h1 className="text-4xl md:text-5xl font-bold mb-3">Allgemeine Geschäftsbedingungen</h1>
+            <p className="text-muted-foreground text-base">Stand: Januar 2026</p>
+            <div className="mt-6 h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
           </motion.div>
 
-          <Section title="Gegenstand der Verarbeitung">
-            <p>MTMstudios verarbeitet personenbezogene Daten ausschließlich im Auftrag des jeweiligen Kunden im Rahmen der vertraglich vereinbarten Leistungen.</p>
-            <p className="mt-3 font-medium text-foreground">Die Verarbeitung kann insbesondere folgende Tätigkeiten umfassen:</p>
-            <BulletList items={[
-              "Betrieb von Websites und Formularen",
-              "KI-gestützte Telefonie und Voicebots",
-              "Chatbots und automatisierte Kommunikation",
-              "Automationen (z. B. n8n)",
-              "Hosting-nahe technische Leistungen",
-            ]} />
-          </Section>
+          <div className="space-y-5">
+            <Section title="I. Geltungsbereich">
+              <NumberedList items={[
+                "Diese Allgemeinen Geschäftsbedingungen gelten für alle Verträge zwischen der MTMstudios (nachfolgend \u201EMTMstudios\u201C) und ihren Auftraggebern, soweit nicht ausdrücklich etwas anderes schriftlich vereinbart wurde.",
+                "Diese AGB gelten ausschließlich gegenüber Unternehmern im Sinne des § 14 BGB.",
+                "Die AGB gelten für sämtliche Leistungen von MTMstudios, insbesondere für Webdesign, Webhosting-nahe Leistungen, Online-Marketing, Automatisierungen, KI-Telefonie, KI-Chatbots sowie sonstige digitale Dienstleistungen.",
+                "Abweichende Bedingungen des Auftraggebers gelten nur, wenn MTMstudios ihrer Geltung ausdrücklich schriftlich zugestimmt hat.",
+              ]} />
+            </Section>
 
-          <Section title="Verarbeitete Daten">
-            <p>Verarbeitete Daten können u. a. sein:</p>
-            <BulletList items={[
-              "Kontakt- und Stammdaten",
-              "Kommunikationsinhalte (Telefon, Chat)",
-              "Bewerber- und Lead-Daten",
-              "Technische Metadaten",
-            ]} />
-          </Section>
+            <Section title="II. Vertragsinhalt und Vertragsschluss">
+              <NumberedList items={[
+                "Angebote von MTMstudios sind freibleibend und unverbindlich.",
+                "Ein Vertrag kommt durch schriftliche Bestätigung, Leistungsbeginn oder Rechnungsstellung zustande.",
+                "Mündliche Nebenabreden bedürfen der schriftlichen Bestätigung.",
+                "Leistungsbeschreibungen werden nur dann Vertragsbestandteil, wenn ausdrücklich Bezug genommen wird.",
+              ]} />
+            </Section>
 
-          <Section title="Technische und organisatorische Maßnahmen">
-            <p>MTMstudios setzt geeignete technische und organisatorische Maßnahmen gemäß Art. 32 DSGVO ein.</p>
-          </Section>
+            <Section title="III. Vertragsdauer und Kündigung">
+              <NumberedList items={[
+                "Die Vertragslaufzeit ergibt sich aus dem jeweiligen Vertrag.",
+                "Eine ordentliche Kündigung während der Laufzeit ist ausgeschlossen, sofern nichts anderes vereinbart wurde.",
+                "Das Recht zur außerordentlichen Kündigung aus wichtigem Grund bleibt unberührt.",
+              ]} />
+            </Section>
 
-          <Section title="Subdienstleister">
-            <p className="font-medium text-foreground">Eingesetzte Subdienstleister:</p>
-            <p>Replit, Mittwald, Twilio, OpenAI, Voico, n8n Cloud</p>
-            <p className="mt-3">Eine Datenverarbeitung in Drittländern (z. B. USA) kann erfolgen und basiert auf geeigneten Garantien gemäß Art. 44 ff. DSGVO, insbesondere Standardvertragsklauseln.</p>
-            <p className="mt-3">Die vollständige AVV wird dem Auftraggeber auf Wunsch zur Verfügung gestellt.</p>
-          </Section>
-        </div>
+            <Section title="IV. Vergütung und Zahlungsbedingungen">
+              <NumberedList items={[
+                "Es gelten die vereinbarten Preise zzgl. gesetzlicher Umsatzsteuer.",
+                "Rechnungen sind innerhalb von 14 Tagen fällig.",
+                "Bei Zahlungsverzug ist MTMstudios berechtigt, Verzugszinsen in Höhe von 9 Prozentpunkten über dem Basiszinssatz zu verlangen.",
+                "Eine Aufrechnung ist nur mit unbestrittenen oder rechtskräftig festgestellten Forderungen zulässig.",
+              ]} />
+            </Section>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mt-10 pt-6 border-t border-white/[0.06] flex items-center gap-3 text-sm text-muted-foreground"
-        >
-          <Link to="/impressum" className="text-accent hover:underline">Impressum</Link>
-          <span>·</span>
-          <Link to="/datenschutz" className="text-accent hover:underline">Datenschutz</Link>
-        </motion.div>
-      </main>
-      <Footer />
+            <Section title="V. Mitwirkungspflichten">
+              <p>Der Auftraggeber verpflichtet sich, alle zur Leistungserbringung erforderlichen Inhalte und Informationen rechtzeitig bereitzustellen.</p>
+            </Section>
+
+            <Section title="VI. Gewährleistung">
+              <p>MTMstudios erbringt Leistungen nach dem Stand der Technik. Gewährleistungsansprüche verjähren innerhalb von 12 Monaten.</p>
+            </Section>
+
+            <Section title="VII. Haftung">
+              <p>MTMstudios haftet unbeschränkt bei Vorsatz, grober Fahrlässigkeit sowie bei Verletzung von Leben, Körper oder Gesundheit. Bei leicht fahrlässiger Verletzung wesentlicher Vertragspflichten ist die Haftung auf den vorhersehbaren Schaden begrenzt.</p>
+            </Section>
+
+            <Section title="VIII. Datenschutz">
+              <p>
+                Die Verarbeitung personenbezogener Daten erfolgt ausschließlich nach den geltenden Datenschutzgesetzen. Weitere Informationen ergeben sich aus der{" "}
+                <Link to="/datenschutz" className="text-accent hover:underline">Datenschutzerklärung</Link> von MTMstudios.
+              </p>
+            </Section>
+
+            <Section title="IX. Schlussbestimmungen">
+              <p>Es gilt deutsches Recht. Gerichtsstand ist — soweit zulässig — der Sitz von MTMstudios.</p>
+            </Section>
+
+            {/* AVV Section */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.7, ease: appleEase }}
+              className="mt-10 pt-8"
+            >
+              <div className="mb-6">
+                <h2 className="text-2xl md:text-3xl font-bold text-foreground">Auftragsverarbeitungsvereinbarung (AVV)</h2>
+                <p className="text-muted-foreground text-sm mt-1">nach Art. 28 DSGVO</p>
+                <div className="mt-4 h-px bg-gradient-to-r from-transparent via-accent/20 to-transparent" />
+              </div>
+            </motion.div>
+
+            <Section title="Gegenstand der Verarbeitung">
+              <p>MTMstudios verarbeitet personenbezogene Daten ausschließlich im Auftrag des jeweiligen Kunden im Rahmen der vertraglich vereinbarten Leistungen.</p>
+              <p className="mt-3 font-medium text-foreground">Die Verarbeitung kann insbesondere folgende Tätigkeiten umfassen:</p>
+              <BulletList items={[
+                "Betrieb von Websites und Formularen",
+                "KI-gestützte Telefonie und Voicebots",
+                "Chatbots und automatisierte Kommunikation",
+                "Automationen (z. B. n8n)",
+                "Hosting-nahe technische Leistungen",
+              ]} />
+            </Section>
+
+            <Section title="Verarbeitete Daten">
+              <p>Verarbeitete Daten können u. a. sein:</p>
+              <BulletList items={[
+                "Kontakt- und Stammdaten",
+                "Kommunikationsinhalte (Telefon, Chat)",
+                "Bewerber- und Lead-Daten",
+                "Technische Metadaten",
+              ]} />
+            </Section>
+
+            <Section title="Technische und organisatorische Maßnahmen">
+              <p>MTMstudios setzt geeignete technische und organisatorische Maßnahmen gemäß Art. 32 DSGVO ein.</p>
+            </Section>
+
+            <Section title="Subdienstleister">
+              <p className="font-medium text-foreground">Eingesetzte Subdienstleister:</p>
+              <p>Replit, Mittwald, Twilio, OpenAI, Voico, n8n Cloud</p>
+              <p className="mt-3">Eine Datenverarbeitung in Drittländern (z. B. USA) kann erfolgen und basiert auf geeigneten Garantien gemäß Art. 44 ff. DSGVO, insbesondere Standardvertragsklauseln.</p>
+              <p className="mt-3">Die vollständige AVV wird dem Auftraggeber auf Wunsch zur Verfügung gestellt.</p>
+            </Section>
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="mt-10 pt-6 border-t border-white/[0.06] flex items-center gap-3 text-sm text-muted-foreground"
+          >
+            <Link to="/impressum" className="text-accent hover:underline">Impressum</Link>
+            <span>·</span>
+            <Link to="/datenschutz" className="text-accent hover:underline">Datenschutz</Link>
+          </motion.div>
+        </main>
+        <Footer />
+      </div>
     </div>
   );
 };
