@@ -51,7 +51,7 @@ const ChatbotFeatures = () => {
             >
               {/* Demo area */}
               <div
-                className={`h-[280px] md:h-[340px] rounded-2xl bg-white/[0.03] backdrop-blur-md overflow-hidden ${
+                className={`h-[280px] md:h-[340px] rounded-2xl bg-white/[0.03] border border-white/[0.06] backdrop-blur-md overflow-hidden ${
                   isEven ? "md:order-2" : ""
                 }`}
               >

@@ -18,7 +18,7 @@ const PhoneTestimonial = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: appleEase }}
         >
-          „Seit wir den KI-Telefonassistenten nutzen, verpassen wir keinen Anruf mehr. Unsere Patienten sind begeistert — und wir haben endlich Zeit für das Wesentliche."
+          Seit wir den KI-Telefonassistenten nutzen, verpassen wir keinen Anruf mehr. Unsere Patienten sind begeistert — und wir haben endlich Zeit für das Wesentliche.
         </motion.blockquote>
 
         <motion.div
