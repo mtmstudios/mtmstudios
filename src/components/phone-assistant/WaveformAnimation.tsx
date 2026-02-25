@@ -14,11 +14,16 @@ const getWaveHeights = () =>
 
 const WaveformAnimation = () => {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true });
+  const inView = useInView(ref, { once: false, margin: "-50px" });
   const [heights, setHeights] = useState<number[]>(Array(BAR_COUNT).fill(20));
 
   useEffect(() => {
-    if (!inView) return;
+    if (!inView) {
+      setHeights(Array(BAR_COUNT).fill(20));
+      return;
+    }
+    // Immediately start with a wave
+    setHeights(getWaveHeights());
     const interval = setInterval(() => {
       setHeights(getWaveHeights());
     }, 1200);
@@ -37,8 +42,7 @@ const WaveformAnimation = () => {
               key={i}
               className={`w-3 rounded-full ${isCenter ? "bg-accent/80" : "bg-accent/50"}`}
               style={isCenter ? { boxShadow: "0 0 12px hsl(var(--accent) / 0.3)" } : undefined}
-              initial={{ height: 20 }}
-              animate={inView ? { height: h } : {}}
+              animate={{ height: h }}
               transition={{ duration: 0.9, ease: appleEase, delay: i * 0.05 }}
             />
           );
