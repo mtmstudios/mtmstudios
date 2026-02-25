@@ -1,114 +1,216 @@
 
 
-# Design-Audit: Automatisierungen, Das sind Wir, Karriere, Partner
+# Konzept: SEO, Performance, Barrierefreiheit & Cookie-Banner
 
-Nach Durchsicht aller vier Seiten mit dem gleichen Premium-Standard.
-
----
-
-## 1. AutomationsTestimonial: doppeltes Anfuehrungszeichen
-
-**Betrifft:** `src/components/automations/AutomationsTestimonial.tsx` (Zeile 20)
-
-Identisches Problem wie bei Phone/Chatbot: dekoratives „ als absolutes Element + nochmal „ im Text.
-
-**Aenderung:** Fuehrendes „ im blockquote-Text entfernen.
+Nach Analyse der gesamten Codebase identifiziere ich folgende Luecken und schlage konkrete Loesungen vor.
 
 ---
 
-## 2. AboutUs -- Werte-Karten: `whileHover={{ scale: 1.02, y: -4 }}` + Glow auf nicht-klickbaren Elementen
+## Bestandsaufnahme — Was fehlt
 
-**Betrifft:** `src/pages/AboutUs.tsx` (Zeile 201-205)
-
-Die 4 Werte-Karten (Klarheit, Geschwindigkeit etc.) haben `whileHover={{ scale: 1.02, y: -4 }}` plus manuellen JS-basiertem Glow (`onMouseEnter/onMouseLeave` mit boxShadow). Sie sind nicht klickbar. Widerspricht unserem Standard: nur interaktive Elemente bewegen sich.
-
-**Aenderung:** `whileHover`, `onMouseEnter`, `onMouseLeave` und `style={{ boxShadow }}` entfernen. `hover:border-accent/30` kann bleiben (subtil genug).
-
----
-
-## 3. AboutUs -- Trust-Zahlen-Karten: `whileHover={{ scale: 1.03, y: -4 }}` + Glow
-
-**Betrifft:** `src/pages/AboutUs.tsx` (Zeile 283-286)
-
-Gleiche Situation bei den 3 Statistik-Karten: `whileHover={{ scale: 1.03, y: -4 }}` plus JS-Glow. Nicht klickbar.
-
-**Aenderung:** `whileHover`, `onMouseEnter`, `onMouseLeave` und `style={{ boxShadow }}` entfernen.
-
----
-
-## 4. AboutUs -- "Warum wir" Steps: `whileHover={{ x: 8 }}`
-
-**Betrifft:** `src/pages/AboutUs.tsx` (Zeile 242)
-
-Die 3 "Warum wir"-Eintraege haben `whileHover={{ x: 8 }}` -- sie verschieben sich nach rechts beim Hover. Sie sind nicht klickbar. Der horizontale Shift ist ausserdem inkonsistent mit dem Rest der Seite.
-
-**Aenderung:** `whileHover={{ x: 8 }}` entfernen.
+| Bereich | Status |
+|---------|--------|
+| `<html lang="en">` | **Falsch** — muss `de` sein |
+| Sitemap | **Fehlt komplett** |
+| robots.txt | Vorhanden, aber ohne Sitemap-Verweis |
+| Canonical URLs | Nur teilweise (via SEOHead, nicht auf allen Seiten) |
+| Structured Data (JSON-LD) | **Fehlt komplett** |
+| OG-Image | Zeigt auf lovable.dev Placeholder |
+| Twitter-Site | Zeigt auf @Lovable statt @MTMStudios |
+| Cookie-Banner | **Fehlt komplett** |
+| Barrierefreiheitserklaerung | **Fehlt komplett** |
+| Accessibility-Widget | **Fehlt komplett** |
+| Skip-to-content Link | **Fehlt** |
+| `preload` fuer kritische Assets | **Fehlt** |
 
 ---
 
-## 5. Partner -- Pain Points: `whileHover={{ x: 8 }}` + Titel-Hover-Farbe
+## 1. index.html — Grundlegende Fixes
 
-**Betrifft:** `src/pages/Partner.tsx` (Zeile 192, 200)
+**Datei:** `index.html`
 
-Die Pain-Point-Eintraege haben `whileHover={{ x: 8 }}` und der h3-Titel hat `group-hover:text-destructive/80`. Nicht klickbar -- gleicher Fix wie ueberall.
-
-**Aenderung:** `whileHover={{ x: 8 }}` entfernen. `group-hover:text-destructive/80 group-active:text-destructive/80` aus h3 entfernen.
-
----
-
-## 6. Partner -- Steps: `whileHover={{ y: -4 }}`
-
-**Betrifft:** `src/pages/Partner.tsx` (Zeile 243)
-
-Die 3 "Wir uebernehmen"-Schritte haben `whileHover={{ y: -4 }}`. Nicht klickbar.
-
-**Aenderung:** `whileHover={{ y: -4 }}` entfernen.
+- `<html lang="en">` aendern zu `<html lang="de">`
+- OG-Image und Twitter-Image auf eigenes Bild aendern (oder entfernen falls kein eigenes vorhanden)
+- `twitter:site` von `@Lovable` auf eigenen Handle oder entfernen
+- `<link rel="preload">` fuer Hero-Video hinzufuegen (Performance)
 
 ---
 
-## 7. Partner -- Benefits-Karten: `whileHover={{ scale: 1.02, y: -6 }}` + Glow + Titel-Hover
+## 2. Sitemap — Neue statische Datei
 
-**Betrifft:** `src/pages/Partner.tsx` (Zeile 305-308, 318)
+**Neue Datei:** `public/sitemap.xml`
 
-Die 4 Benefits-Karten haben `whileHover={{ scale: 1.02, y: -6 }}`, JS-Glow, und `group-hover:text-accent` auf dem Titel. Nicht klickbar.
+Alle Routen explizit auflisten mit korrekter Priority und Changefreq:
 
-**Aenderung:** `whileHover`, `onMouseEnter`, `onMouseLeave`, `style={{ boxShadow }}` entfernen. `group-hover:text-accent` aus h3 entfernen. `hover:border-accent/30` kann bleiben.
-
----
-
-## 8. Partner -- Trust-Zahlen: `whileHover={{ scale: 1.03, y: -4, rotateX: 2 }}` + Glow
-
-**Betrifft:** `src/pages/Partner.tsx` (Zeile 349-352)
-
-Die 3 Statistik-Karten haben `whileHover` mit scale, y UND rotateX plus JS-Glow. Nicht klickbar.
-
-**Aenderung:** `whileHover`, `onMouseEnter`, `onMouseLeave`, `style={{ boxShadow, perspective }}` entfernen.
-
----
-
-## 9. Karriere -- Benefits-Karten: `hover:scale-[1.02]`
-
-**Betrifft:** `src/pages/Karriere.tsx` (Zeile 126)
-
-Die 8 Benefits-Karten haben `hover:scale-[1.02]`. Subtiler als die anderen, aber nach unserem Standard trotzdem inkonsistent -- nicht klickbar, sollte sich nicht bewegen.
-
-**Aenderung:** `hover:scale-[1.02]` entfernen.
+```text
+Startseite                    /                              priority 1.0
+KI-Telefonassistent           /ki-telefonassistent           priority 0.9
+KI-Chatbot                    /ki-chatbot                    priority 0.9
+Automatisierungen              /automatisierungen             priority 0.9
+Das sind Wir                  /dassindwir                    priority 0.7
+Partner werden                /partnerwerden                 priority 0.6
+Karriere                      /karriere                      priority 0.6
+Impressum                     /impressum                     priority 0.3
+Datenschutz                   /datenschutz                   priority 0.3
+AGB                           /agb                           priority 0.3
+Barrierefreiheit (NEU)        /barrierefreiheit              priority 0.3
+Regionale Seiten (alle)       /ki-agentur/stuttgart etc.     priority 0.7
+```
 
 ---
 
-## Zusammenfassung
+## 3. robots.txt — Erweitern
 
-| # | Datei | Aenderung |
-|---|-------|-----------|
-| 1 | `automations/AutomationsTestimonial.tsx` | Doppeltes „ fixen |
-| 2 | `AboutUs.tsx` | Werte-Karten: whileHover + Glow entfernen |
-| 3 | `AboutUs.tsx` | Trust-Karten: whileHover + Glow entfernen |
-| 4 | `AboutUs.tsx` | "Warum wir": whileHover x:8 entfernen |
-| 5 | `Partner.tsx` | Pain Points: whileHover x:8 + Titel-Hover entfernen |
-| 6 | `Partner.tsx` | Steps: whileHover y:-4 entfernen |
-| 7 | `Partner.tsx` | Benefits: whileHover + Glow + Titel-Hover entfernen |
-| 8 | `Partner.tsx` | Trust-Zahlen: whileHover + Glow entfernen |
-| 9 | `Karriere.tsx` | Benefits: hover:scale entfernen |
+**Datei:** `public/robots.txt`
 
-3 Dateien, 9 Einzelaenderungen. Alles konsistente Anwendung der Regel: nicht-klickbare Elemente bewegen sich nicht.
+Sitemap-Verweis hinzufuegen und vereinfachen:
+
+```text
+User-agent: *
+Allow: /
+Sitemap: https://mtmstudios.de/sitemap.xml
+```
+
+(Die Domain muss spaeter angepasst werden sobald die finale Domain bekannt ist.)
+
+---
+
+## 4. SEOHead — Erweitern um Structured Data
+
+**Datei:** `src/components/SEOHead.tsx`
+
+Erweitern um:
+- Automatische Canonical-URL basierend auf `window.location.pathname` (Fallback)
+- JSON-LD Structured Data fuer Organization (auf jeder Seite)
+- `og:url` Meta-Tag
+
+Neue Komponente oder Erweiterung: `StructuredData` — gibt ein `<script type="application/ld+json">` aus mit:
+- `@type: Organization` (Name, Logo, URL, Kontakt)
+- `@type: LocalBusiness` auf der Startseite
+- `@type: FAQPage` auf den regionalen Seiten (die haben bereits FAQs)
+
+---
+
+## 5. Cookie-Banner — Neue Komponente
+
+**Neue Dateien:**
+- `src/components/CookieBanner.tsx`
+- `src/contexts/CookieConsentContext.tsx`
+
+### Design (Apple-Stil)
+- Schmaler Banner am unteren Bildschirmrand
+- Glassmorphism: `bg-black/80 backdrop-blur-xl border-t border-white/[0.06]`
+- Zwei Buttons: "Alle akzeptieren" (filled accent) und "Nur notwendige" (ghost/outline)
+- Link zu "Einstellungen" oeffnet ein Modal mit Kategorie-Toggles
+- Link zur Datenschutzerklaerung
+
+### Kategorien
+- **Notwendig** (immer aktiv, nicht abwaehlbar) — Session, Consent-Cookie
+- **Analyse** (optional) — falls spaeter Analytics hinzugefuegt wird
+- **Marketing** (optional) — falls spaeter Tracking hinzugefuegt wird
+
+### Technik
+- Consent wird in `localStorage` gespeichert (kein externer Service noetig)
+- Context-Provider stellt `hasConsent(category)` bereit
+- Banner erscheint nur wenn noch kein Consent gespeichert ist
+- Cookie-Einstellungen jederzeit aenderbar ueber Footer-Link und Accessibility-Widget
+
+### DSGVO/TTDSG-Konformitaet
+- Opt-in fuer nicht-notwendige Cookies (kein Pre-Check)
+- Granulare Auswahl moeglich
+- "Ablehnen" genauso prominent wie "Akzeptieren"
+- Consent-Nachweis mit Timestamp in localStorage
+
+---
+
+## 6. Barrierefreiheitserklaerung — Neue Seite
+
+**Neue Dateien:**
+- `src/pages/Barrierefreiheit.tsx`
+- Route in `App.tsx`: `/barrierefreiheit`
+
+### Inhalt (nach deutschem Recht — BFSG/BITV 2.0)
+Gleicher Seitenstil wie Impressum/Datenschutz/AGB (Glassmorphism-Karten):
+
+1. **Stand der Barrierefreiheit** — "Diese Website ist teilweise barrierefrei."
+2. **Geltungsbereich** — mtmstudios.de
+3. **Nicht barrierefreie Inhalte** — Ehrliche Auflistung (z.B. Videos ohne Untertitel, komplexe Animationen)
+4. **Erstellungsdatum und Methodik** — Selbstbewertung
+5. **Feedback-Kontakt** — E-Mail und Telefon fuer Barriere-Meldungen
+6. **Durchsetzungsverfahren** — Verweis auf zustaendige Schlichtungsstelle (Bundesfachstelle Barrierefreiheit)
+
+---
+
+## 7. Accessibility-Widget — Neuer Floating Button
+
+**Neue Datei:** `src/components/AccessibilityWidget.tsx`
+
+### Design (Apple-Stil)
+- Kleiner runder Button unten links: Accessibility-Icon (Mensch-im-Kreis)
+- `bg-white/[0.06] backdrop-blur-xl border border-white/[0.08]`
+- Klick oeffnet ein Panel mit Einstellungen
+
+### Einstellungen im Panel
+- **Schriftgroesse**: Klein / Normal / Gross / Sehr gross (aendert `font-size` auf `<html>`)
+- **Kontrast**: Normal / Hoch (aendert CSS-Variablen fuer bessere Kontraste)
+- **Animationen reduzieren**: Toggle (setzt `prefers-reduced-motion` manuell + deaktiviert Framer Motion Animationen)
+- **Link zur Barrierefreiheitserklaerung**
+- **Cookie-Einstellungen aendern** (oeffnet Cookie-Modal)
+
+### Technik
+- Einstellungen in `localStorage` persistiert
+- Context-Provider: `AccessibilityContext` mit `fontSize`, `highContrast`, `reducedMotion`
+- CSS-Variablen werden auf `document.documentElement` gesetzt
+- `reducedMotion` setzt global `--motion-duration: 0s` und kann von Framer Motion Animationen abgefragt werden
+
+---
+
+## 8. Footer — Links ergaenzen
+
+**Datei:** `src/components/Footer.tsx`
+
+Im Legal-Bereich unten hinzufuegen:
+- Link zu `/barrierefreiheit` ("Barrierefreiheit")
+- Der Cookie-Einstellungen-Link ("Cookie-Einstellungen") triggert das Cookie-Modal
+
+---
+
+## 9. Skip-to-Content Link
+
+**Datei:** `src/App.tsx` oder `index.html`
+
+Unsichtbarer Link am Anfang des DOM, der bei Tab-Fokus sichtbar wird:
+```text
+<a href="#main" class="sr-only focus:not-sr-only ...">Zum Inhalt springen</a>
+```
+Alle Seiten brauchen ein `<main id="main">` (die meisten haben bereits `<main>`).
+
+---
+
+## 10. Performance-Optimierungen
+
+- **Font-Display**: `&display=swap` ist bereits gesetzt — gut
+- **Preconnect**: Bereits vorhanden fuer Google Fonts — gut
+- **Hero-Video**: `preload="metadata"` statt volles Preload (falls nicht schon gesetzt)
+- **Lazy Loading**: Bilder unterhalb des Folds sollten `loading="lazy"` haben
+
+---
+
+## Zusammenfassung — Neue Dateien und Aenderungen
+
+| Typ | Datei | Aenderung |
+|-----|-------|-----------|
+| Aendern | `index.html` | `lang="de"`, OG/Twitter Cleanup |
+| Neu | `public/sitemap.xml` | Komplette Sitemap |
+| Aendern | `public/robots.txt` | Sitemap-Verweis |
+| Aendern | `src/components/SEOHead.tsx` | Canonical auto, JSON-LD |
+| Neu | `src/contexts/CookieConsentContext.tsx` | Cookie-State |
+| Neu | `src/components/CookieBanner.tsx` | Banner + Modal |
+| Neu | `src/pages/Barrierefreiheit.tsx` | Erklaerung nach BFSG |
+| Neu | `src/components/AccessibilityWidget.tsx` | Floating Widget |
+| Neu | `src/contexts/AccessibilityContext.tsx` | A11y-State |
+| Aendern | `src/components/Footer.tsx` | Links ergaenzen |
+| Aendern | `src/App.tsx` | Route + Skip-Link + Provider |
+
+Insgesamt 5 neue Dateien, 5 geaenderte Dateien. Alle visuellen Elemente im bestehenden Apple-Design (Glassmorphism, tuerkise Akzente, Inter-Font).
 
