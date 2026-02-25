@@ -49,11 +49,18 @@ const Index = () => {
       <div ref={bgRef} className="fixed inset-0 w-screen h-screen overflow-hidden" style={{ isolation: 'isolate', zIndex: 0, willChange: 'opacity' }}>
         <video
           ref={videoRef}
+          autoPlay
           loop
           muted
           playsInline
+          // @ts-ignore
+          webkit-playsinline=""
           preload="auto"
           src="/videos/hero-background.mp4"
+          onLoadedData={(e) => {
+            const video = e.currentTarget;
+            video.play().catch(() => {});
+          }}
           className="w-full h-full object-cover transition-opacity duration-300"
           style={{
             mixBlendMode: 'hard-light', position: 'absolute', top: 0, left: 0,
