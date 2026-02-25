@@ -1,61 +1,47 @@
 
 
-# Redesign: "Das sind wir" Seite -- Werte, Warum wir, Zahlen entfernen
+# Werte-Karten: Hintergrund-Wort groesser, Ueberschrift entfernen
 
-## Aenderungen
+## Analyse
 
-### 1. "Wofuer wir stehen" -- Karten umgestalten
+Aktuell gibt es in jeder Karte:
+1. Hintergrund-Wort (z.B. "Klarheit") -- klein, kaum sichtbar (opacity 0.06)
+2. Akzentlinie
+3. **h3-Ueberschrift** (z.B. "Klarheit") -- identischer Text wie Hintergrund
+4. Beschreibungstext
 
-**Aktuell:** Grosse Zahl ("01", "02"...) im Hintergrund, Text linksbuendig.
+Das ist tatsaechlich doppelt. Mein Vorschlag: Die h3-Ueberschrift entfernen und das Hintergrund-Wort die Rolle uebernehmen lassen. Dafuer muss es sichtbarer werden (hoehere Opazitaet), aber nicht so stark, dass es den Beschreibungstext stoert.
 
-**Neu:** Das Wort des Werts selbst (z.B. "Klarheit", "Vertrauen") als grosser Hintergrundtext statt der Nummer. Alle Inhalte zentriert (Text, Akzentlinie). Die Akzentlinie wird `mx-auto` zentriert.
+## Plan
 
-```
-Vorher:                          Nachher:
-┌─────────────────┐              ┌─────────────────┐
-│            01   │              │    Klarheit      │  <-- gross, subtle
-│ ──                             │       ──         │  <-- zentriert
-│ Klarheit        │              │    Klarheit      │
-│ Wir machen...   │              │  Wir machen...   │  <-- text-center
-└─────────────────┘              └─────────────────┘
-```
+### Karten-Redesign
 
-### 2. "Warum wir" -- Komplett neues Layout
+**Entfernen:** Die `<h3>` Zeile (Zeile 166) und die Akzentlinie darueber (Zeile 165).
 
-**Aktuell:** Nummerierte Liste (01, 02, 03) mit border-top Trennlinien -- wirkt wie eine zweite Aufzaehlung nach den Werte-Karten.
+**Hintergrund-Wort anpassen:**
+- Opazitaet erhoehen: `text-white/[0.10]` (statt 0.06), hover: `text-accent/[0.15]`
+- Schriftgroesse deutlich erhoehen damit es die Karte ausfuellt: `clamp(2.5rem, ${Math.max(8, 42 / v.title.length)}vw, 8rem)`
+- `tracking-widest` fuer breitere Wirkung
+- Bleibt im Hintergrund (kein z-index), Beschreibungstext bekommt `relative z-10`
 
-**Neu:** Ein grosser, zentrierter Textblock im Editorial-Stil. Kein Grid, keine Nummern. Stattdessen ein paar kraftvolle Saetze die folgende Inhalte vereinen:
-- Persoenlich statt anonym (bestehend)
-- Vor Ort oder remote (neu)
-- Ergebnisorientiert (bestehend)
-- Miteinander wachsen (neu)
-- Langfristig gedacht (bestehend)
-
-Format: 3-4 kurze, zentrierte Absaetze mit unterschiedlicher Textgroesse fuer visuellen Rhythmus. Dazwischen eine dezente Akzentlinie. Kein Grid, keine Karten, keine Nummern.
+**Beschreibungstext:**
+- Leicht groessere Schrift: `text-lg`
+- Etwas mehr vertikales Padding in der Karte: `p-10` statt `p-8`
 
 ```
-         Warum wir
-
-   Wir arbeiten direkt mit euch —
-   persoenlich, vor Ort oder remote.
-
-            ──
-
-   Wir zaehlen keine Features.
-   Wir messen, wie viel Zeit
-   ihr zurueckbekommt.
-
-            ──
-
-   Unsere Loesungen wachsen mit euch.
-   Weil wir miteinander wachsen wollen.
+Ergebnis:
+┌───────────────────────────┐
+│                           │
+│      K L A R H E I T      │  <-- gross, subtle, tracked
+│                           │
+│   Wir machen Komplexes    │  <-- text vorne, lesbar
+│   einfach — in Techno-    │
+│   logie und Zusammen-     │
+│   arbeit.                 │
+│                           │
+└───────────────────────────┘
 ```
 
-### 3. "In Zahlen" Section -- Komplett entfernen
-
-Die gesamte Trust-Stats-Section (Zeilen 260-290) wird entfernt, inklusive der `trustStats`-Daten, `CountUp`-Komponente, `trustRef` und `trustInView`. Passt nicht zum persoenlichen Charakter der Seite.
-
-## Betroffene Datei
-
-Nur `src/pages/AboutUs.tsx` -- alles in einer Datei.
+### Betroffene Datei
+- `src/pages/AboutUs.tsx` -- Zeilen 157-167
 
