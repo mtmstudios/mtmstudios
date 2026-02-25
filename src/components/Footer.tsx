@@ -19,7 +19,7 @@ const Footer = () => {
               Wir helfen Unternehmen, mit intelligenter Automatisierung Zeit zu sparen und effizienter zu arbeiten.
             </p>
             <div className="flex items-center justify-center md:justify-start gap-3 mt-4">
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-opacity duration-200">
+              <a href="https://www.instagram.com/mtmstudios.de?igsh=MXRxMXVjbjUzejRkcg==" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-opacity duration-200">
                 <Instagram className="w-5 h-5" />
               </a>
               <a href="https://wa.me/4915567077414" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-opacity duration-200">
