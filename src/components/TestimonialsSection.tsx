@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "motion/react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 const appleEase = [0.16, 1, 0.3, 1] as const;
 
@@ -29,12 +29,6 @@ const testimonials = [
 const TestimonialsSection = () => {
   const [current, setCurrent] = useState(0);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % testimonials.length);
-    }, 6000);
-    return () => clearInterval(interval);
-  }, []);
 
   const t = testimonials[current];
 
