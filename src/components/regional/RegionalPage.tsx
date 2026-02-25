@@ -62,7 +62,7 @@ const RegionalPage = ({ context }: RegionalPageProps) => {
       <SEOHead title={content.title} description={content.description} />
 
       <div ref={bgRef} className="fixed inset-0 w-screen h-screen overflow-hidden" style={{ isolation: "isolate", zIndex: 0, willChange: "opacity" }}>
-        <img src="/videos/hero-background-still.jpg" alt="" className="w-full h-full object-cover absolute inset-0" style={{ mixBlendMode: "hard-light", filter: "brightness(0.7) contrast(2)", pointerEvents: "none", transform: "translateY(45%) scale(1.3)" }} />
+        <img src="/videos/hero-background-still.jpg" alt="" className="w-full h-full object-cover absolute inset-0" style={{ mixBlendMode: "hard-light", filter: "brightness(0.7) contrast(2)", pointerEvents: "none", transform: "translateY(75%) scale(1.3)" }} />
       </div>
 
       <div style={{ position: "relative", zIndex: 50 }}>
@@ -83,8 +83,8 @@ const RegionalPage = ({ context }: RegionalPageProps) => {
           </motion.div>
 
           <motion.h1
-            initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
-            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1, ease: appleEase }}
             className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground tracking-tight max-w-4xl mx-auto"
           >
@@ -92,8 +92,8 @@ const RegionalPage = ({ context }: RegionalPageProps) => {
           </motion.h1>
 
           <motion.p
-            initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
-            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3, ease: appleEase }}
             className="mt-6 text-base md:text-lg lg:text-xl text-foreground/70 max-w-2xl mx-auto leading-relaxed"
             style={{ textShadow: "0 2px 20px rgba(0,0,0,0.9)" }}
