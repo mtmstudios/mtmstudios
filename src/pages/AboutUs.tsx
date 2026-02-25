@@ -120,7 +120,7 @@ const AboutUs = () => {
                 Technologie schafft Möglichkeiten, Vertrauen entscheidet. Wir sorgen dafür, dass KI dir vor allem eines bringt: Zeit für deine Kunden.
               </p>
               <p className="text-lg md:text-xl text-muted-foreground/80 leading-relaxed text-center">
-                Kein Fachchinesisch, keine leeren Versprechen. Wir bauen Lösungen, die sich gut anfühlen — für euch und für eure Kunden. Auf Augenhöhe, mit Klarheit und echtem Interesse an eurem Erfolg.
+                Aus Süddeutschland heraus bauen wir, was der Agenturmarkt noch nicht kennt: KI-Lösungen ohne Buzzwords, ohne Overhead — dafür mit echtem Impact. Nah dran, hands-on und mit dem Anspruch, die Art zu verändern, wie Unternehmen mit ihren Kunden kommunizieren.
               </p>
             </motion.div>
             <div className="border-t border-border/10" />
