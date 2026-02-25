@@ -4,7 +4,7 @@ import Footer from "@/components/Footer";
 import BlurText from "@/components/BlurText";
 import SEOHead from "@/components/SEOHead";
 import { motion, useInView } from "motion/react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 const appleEase = [0.16, 1, 0.3, 1] as const;
 
@@ -27,62 +27,15 @@ const values = [
   },
 ];
 
-const reasons = [
-  {
-    num: "01",
-    title: "Persönlich statt anonym",
-    description: "Bei uns landet ihr nicht in einer Warteschleife. Ihr arbeitet direkt mit den Leuten, die eure Lösung bauen.",
-  },
-  {
-    num: "02",
-    title: "Ergebnisorientiert",
-    description: "Wir zählen keine Features — wir messen, wie viel Zeit ihr zurückbekommt.",
-  },
-  {
-    num: "03",
-    title: "Langfristig gedacht",
-    description: "Unsere Lösungen wachsen mit euch. Kein Vendor Lock-in, keine bösen Überraschungen.",
-  },
-];
-
-const trustStats = [
-  { target: 50, suffix: "+", label: "automatisierte Prozesse" },
-  { target: 12, suffix: "h+", label: "eingesparte Zeit pro Woche" },
-  { target: 100, suffix: "%", label: "Transparenz" },
-];
-
-const CountUp = ({ target, suffix = "" }: { target: number; suffix?: string }) => {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true });
-  const [value, setValue] = useState(0);
-
-  useEffect(() => {
-    if (!inView) return;
-    const duration = 2000;
-    const start = performance.now();
-    const step = (now: number) => {
-      const t = Math.min((now - start) / duration, 1);
-      const eased = 1 - Math.pow(1 - t, 3);
-      setValue(Math.round(eased * target));
-      if (t < 1) requestAnimationFrame(step);
-    };
-    requestAnimationFrame(step);
-  }, [inView, target]);
-
-  return <span ref={ref}>{value}{suffix}</span>;
-};
-
 const AboutUs = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const missionRef = useRef(null);
   const valuesRef = useRef(null);
   const reasonsRef = useRef(null);
-  const trustRef = useRef(null);
 
   const missionInView = useInView(missionRef, { once: true, margin: "-100px" });
   const valuesInView = useInView(valuesRef, { once: true, margin: "-100px" });
   const reasonsInView = useInView(reasonsRef, { once: true, margin: "-100px" });
-  const trustInView = useInView(trustRef, { once: true, margin: "-100px" });
 
   useEffect(() => {
     const handleScroll = () => {
@@ -200,12 +153,12 @@ const AboutUs = () => {
                   initial={{ opacity: 0, y: 30 }}
                   animate={valuesInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.8, delay: 0.15 * i, ease: appleEase }}
-                  className="bg-white/[0.03] backdrop-blur-sm border border-border/10 rounded-2xl p-8 hover:border-accent/30 transition-all duration-500 relative overflow-hidden group cursor-default"
+                  className="bg-white/[0.03] backdrop-blur-sm border border-border/10 rounded-2xl p-8 hover:border-accent/30 transition-all duration-500 relative overflow-hidden group cursor-default text-center"
                 >
-                  <span className="absolute -top-4 -right-2 text-[8rem] font-bold text-white/[0.04] select-none pointer-events-none group-hover:text-accent/[0.06] transition-colors duration-500">
-                    {String(i + 1).padStart(2, "0")}
+                  <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[4rem] md:text-[5rem] font-bold text-white/[0.04] select-none pointer-events-none group-hover:text-accent/[0.06] transition-colors duration-500 whitespace-nowrap">
+                    {v.title}
                   </span>
-                  <div className="w-8 h-[2px] bg-accent/40 mb-4 group-hover:w-12 group-hover:bg-accent/60 transition-all duration-500" />
+                  <div className="w-8 h-[2px] bg-accent/40 mb-4 mx-auto group-hover:w-12 group-hover:bg-accent/60 transition-all duration-500" />
                   <h3 className="text-2xl font-bold text-foreground mb-3">{v.title}</h3>
                   <p className="text-muted-foreground leading-relaxed relative z-10">{v.description}</p>
                 </motion.div>
@@ -214,9 +167,9 @@ const AboutUs = () => {
           </div>
         </section>
 
-        {/* Warum wir */}
+        {/* Warum wir — Editorial */}
         <section ref={reasonsRef} className="py-32 px-6">
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-3xl mx-auto">
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               animate={reasonsInView ? { opacity: 1, y: 0 } : {}}
@@ -226,65 +179,51 @@ const AboutUs = () => {
               Warum wir
             </motion.h2>
 
-            <div className="space-y-0">
-              {reasons.map((r, i) => (
-                <motion.div
-                  key={r.num}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={reasonsInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.8, delay: 0.15 * i, ease: appleEase }}
-                  className="group cursor-default"
-                >
-                  <div className="border-t border-border/10" />
-                  <motion.div
-                    transition={{ duration: 0.4, ease: appleEase }}
-                    className="flex items-start gap-8 md:gap-12 py-12"
-                  >
-                    <span className="text-5xl md:text-6xl font-bold text-accent/20 group-hover:text-accent/50 transition-colors duration-500 select-none shrink-0 leading-none pt-1">
-                      {r.num}
-                    </span>
-                    <div>
-                      <h3 className="text-xl md:text-2xl font-bold text-foreground mb-3">
-                        {r.title}
-                      </h3>
-                      <p className="text-muted-foreground leading-relaxed max-w-lg">{r.description}</p>
-                    </div>
-                  </motion.div>
-                </motion.div>
-              ))}
-              <div className="border-t border-border/10" />
-            </div>
-          </div>
-        </section>
+            <div className="space-y-12 text-center">
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={reasonsInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.8, delay: 0.1, ease: appleEase }}
+                className="text-xl md:text-2xl text-foreground/90 leading-relaxed"
+              >
+                Wir arbeiten direkt mit euch —<br />
+                persönlich, vor Ort oder remote.
+              </motion.p>
 
-        {/* Trust-Zahlen */}
-        <section ref={trustRef} className="py-32 px-6">
-          <div className="max-w-5xl mx-auto">
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              animate={trustInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, ease: appleEase }}
-              className="text-3xl md:text-5xl font-bold text-foreground text-center mb-20"
-            >
-              In Zahlen.
-            </motion.h2>
+              <motion.div
+                initial={{ opacity: 0, scaleX: 0 }}
+                animate={reasonsInView ? { opacity: 1, scaleX: 1 } : {}}
+                transition={{ duration: 0.6, delay: 0.25, ease: appleEase }}
+                className="w-12 h-[2px] bg-accent/40 mx-auto"
+              />
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {trustStats.map((stat, i) => (
-                <motion.div
-                  key={stat.label}
-                  className="bg-white/[0.03] backdrop-blur-sm border border-border/10 rounded-2xl p-8 text-center group cursor-default hover:border-accent/30 transition-all duration-500"
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={trustInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.8, delay: i * 0.12, ease: appleEase }}
-                >
-                  <div className="text-5xl md:text-6xl lg:text-7xl font-bold text-accent mb-4 tracking-tight">
-                    <CountUp target={stat.target} suffix={stat.suffix} />
-                  </div>
-                  <div className="w-12 h-[1px] bg-border/20 mx-auto mb-4" />
-                  <p className="text-sm text-muted-foreground tracking-wide uppercase">{stat.label}</p>
-                </motion.div>
-              ))}
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={reasonsInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.8, delay: 0.3, ease: appleEase }}
+                className="text-lg md:text-xl text-muted-foreground leading-relaxed"
+              >
+                Wir zählen keine Features.<br />
+                Wir messen, wie viel Zeit<br />
+                ihr zurückbekommt.
+              </motion.p>
+
+              <motion.div
+                initial={{ opacity: 0, scaleX: 0 }}
+                animate={reasonsInView ? { opacity: 1, scaleX: 1 } : {}}
+                transition={{ duration: 0.6, delay: 0.45, ease: appleEase }}
+                className="w-12 h-[2px] bg-accent/40 mx-auto"
+              />
+
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={reasonsInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.8, delay: 0.5, ease: appleEase }}
+                className="text-xl md:text-2xl text-foreground/90 leading-relaxed"
+              >
+                Unsere Lösungen wachsen mit euch.<br />
+                Weil wir miteinander wachsen wollen.
+              </motion.p>
             </div>
           </div>
         </section>
