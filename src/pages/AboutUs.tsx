@@ -247,7 +247,7 @@ const AboutUs = () => {
                       {r.num}
                     </span>
                     <div>
-                      <h3 className="text-xl md:text-2xl font-bold text-foreground mb-3 group-hover:text-accent transition-colors duration-500">
+                      <h3 className="text-xl md:text-2xl font-bold text-foreground mb-3">
                         {r.title}
                       </h3>
                       <p className="text-muted-foreground leading-relaxed max-w-lg">{r.description}</p>
