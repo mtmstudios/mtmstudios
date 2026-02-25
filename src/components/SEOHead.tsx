@@ -43,9 +43,11 @@ const SEOHead = ({ title, description, canonical, jsonLd }: SEOHeadProps) => {
     setMeta("description", description);
     setMeta("og:title", title, "property");
     setMeta("og:description", description, "property");
+    setMeta("og:image", `${BASE_URL}/og-image.png`, "property");
     setMeta("og:url", canonicalUrl, "property");
     setMeta("twitter:title", title, "name");
     setMeta("twitter:description", description, "name");
+    setMeta("twitter:image", `${BASE_URL}/og-image.png`, "name");
 
     // Canonical link
     let link = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
