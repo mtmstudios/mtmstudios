@@ -158,7 +158,7 @@ const AboutUs = () => {
                 >
                   <span 
                     className="absolute inset-0 flex items-center justify-center font-bold text-white/[0.10] select-none pointer-events-none group-hover:text-accent/[0.15] transition-colors duration-500 leading-none uppercase tracking-widest px-2"
-                    style={{ fontSize: `clamp(2.5rem, ${Math.max(8, 42 / v.title.length)}vw, 8rem)` }}
+                    style={{ fontSize: `clamp(1.8rem, ${42 / v.title.length}vw, 8rem)` }}
                   >
                     {v.title}
                   </span>
