@@ -1,32 +1,43 @@
 
 
-# Feinschliff: ProcessSection "03" Highlight + FeaturesSection Hover-Update
+# Funnels: "Woher kennst du uns?" + Kontaktseite Premium-Upgrade
 
 ## Aenderungen
 
-### 1. ProcessSection — "03" staerker hervorheben bei Hover
+### 1. "Woher kennst du uns?" Pflichtfeld in beiden Funnels
 
-Aktuell wechselt die Nummer bei Hover von `text-accent/15` zu `text-accent/40` — sehr subtil und bei allen drei Schritten gleich.
+Neues Pflichtfeld als Select-Chips auf der Kontaktseite (Step 3 im ContactFunnel, Step 5 im CareerFunnel). Optionen:
 
-Aenderung fuer Schritt 03:
-- Hover-Zustand der Nummer: `text-accent/60` statt `/40` (deutlich sichtbarer als die anderen)
-- Zusaetzlich ein subtiler Text-Glow bei Hover: `text-shadow: 0 0 20px hsl(var(--neon) / 0.3)`
-- Der Titel ("Langfristige Partnerschaft") bekommt bei Hover ebenfalls `text-accent` — bei den anderen beiden Schritten passiert das nicht
-- Dadurch sticht 03 klar als "Ziel" hervor, ohne das minimalistische Design zu brechen
+- Google
+- Instagram
+- Empfehlung
+- LinkedIn
+- Sonstiges
 
-Technisch: Sonderbehandlung fuer `index === 2` im JSX — eigene Hover-Klassen.
+Dargestellt als horizontale Chips (wie die Hour-Chips im CareerFunnel). Pflichtfeld mit Sternchen. Bei "Sonstiges" erscheint ein kleines Textfeld. Validation: muss ausgewaehlt sein vor Absenden.
 
-### 2. FeaturesSection — Tuerkis aus Titel entfernen, Hover-Animation verfeinern
+### 2. Kontaktseite (Step 3) Premium-Upgrade — beide Funnels
 
-**Titel-Farbe bei Hover:** Aktuell wechselt der Titel (`text-4xl`...`text-6xl`) zu `text-accent` (tuerkis). Das ist zu dominant fuer das Editorial-Design.
+Aktuell: Einfache gestapelte Inputs, linksbuendig, kein visuelles Highlight. Wirkt wie ein Standard-Formular.
 
-Aenderung:
-- Titel bleibt weiss bei Hover — kein Farbwechsel
-- Stattdessen eine dezente **Scale-Animation**: `group-hover:scale-[1.02]` mit `transition-transform duration-500` auf dem gesamten Text-Block
-- Die Description fadet leicht heller: `group-hover:text-foreground/80` (von `text-muted-foreground`)
-- "Mehr erfahren" behaelt sein Tuerkis — das bleibt der einzige Farbakzent
+Aenderungen:
 
-So bleibt das Tuerkis dezent und nur beim Call-to-Action, waehrend der Hover trotzdem spuerbar ist durch die sanfte Skalierung und den Helligkeitswechsel der Beschreibung.
+- **Zentrierte Labels**: Labels werden `text-center` statt linksbuendig
+- **Inputs zentriert**: `text-center` auf den Inputs fuer zentrierten Placeholder und Eingabetext
+- **Groessere Inputs**: `py-3.5` statt `py-3`, leicht mehr Luft
+- **Fokus-Animation**: Bei Fokus skaliert das Input minimal (`scale-[1.01]`) mit einer sanften Transition — Apple-like Feedback
+- **Sektions-Trenner**: Ein feiner `border-t border-white/[0.06]` zwischen den Kontaktfeldern und dem "Woher kennst du uns?" Block
+- **"Woher kennst du uns?" Block**: Zentrierte Chips unterhalb der Kontaktfelder, mit Label "Woher kennst du uns? *" zentriert darueber
+- **Nachricht-Feld**: Bleibt optional, bekommt ebenfalls `text-center` fuer Konsistenz
+
+### 3. Schema-Update
+
+`contactSchema` in beiden Dateien bekommt ein neues Feld:
+```
+referralSource: z.string().min(1, "Bitte auswählen")
+```
+
+`formData` State erhaelt `referralSource: ""`. Validation prueft ob es gesetzt ist.
 
 ---
 
@@ -34,8 +45,8 @@ So bleibt das Tuerkis dezent und nur beim Call-to-Action, waehrend der Hover tro
 
 | Datei | Aenderung |
 |-------|-----------|
-| `src/components/ProcessSection.tsx` | Schritt 03: staerkerer Hover mit Glow + Titel-Akzent |
-| `src/components/FeaturesSection.tsx` | Tuerkis aus Titel-Hover entfernen, Scale-Animation + Description-Aufhellung hinzufuegen |
+| `src/components/ContactFunnel.tsx` | "Woher kennst du uns?" Pflichtfeld + Kontaktseite zentrieren + Premium-Styling |
+| `src/components/career/CareerFunnel.tsx` | "Woher kennst du uns?" Pflichtfeld + Kontaktseite zentrieren + Premium-Styling |
 
-Zwei Dateien, minimale Aenderungen, keine neuen Abhaengigkeiten.
+Zwei Dateien. Keine neuen Abhaengigkeiten.
 
