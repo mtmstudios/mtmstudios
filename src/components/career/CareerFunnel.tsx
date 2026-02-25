@@ -38,12 +38,14 @@ const tools = [
 
 const hourOptions = ["8–12h", "12–16h", "16–20h"] as const;
 const startOptions = ["Sofort", "In 1–3 Monaten", "Später"] as const;
+const referralSources = ["Google", "Instagram", "Empfehlung", "LinkedIn", "Sonstiges"] as const;
 
 const contactSchema = z.object({
   name: z.string().trim().min(1, "Name ist erforderlich").max(100),
   email: z.string().trim().email("Bitte gültige E-Mail eingeben").max(255),
   phone: z.string().max(30).optional(),
   message: z.string().max(1000).optional(),
+  referralSource: z.string().min(1, "Bitte auswählen"),
 });
 
 type ContactData = z.infer<typeof contactSchema>;
@@ -137,7 +139,8 @@ const CareerFunnel = ({ open, onOpenChange }: CareerFunnelProps) => {
   const [hours, setHours] = useState("");
   const [startDate, setStartDate] = useState("");
   const [selectedTools, setSelectedTools] = useState<string[]>([]);
-  const [formData, setFormData] = useState<ContactData>({ name: "", email: "", phone: "", message: "" });
+  const [formData, setFormData] = useState<ContactData>({ name: "", email: "", phone: "", message: "", referralSource: "" });
+  const [referralOther, setReferralOther] = useState("");
   const [errors, setErrors] = useState<Partial<Record<keyof ContactData, string>>>({});
 
   const isStudentPath = employment === "minijob" || employment === "werkstudent";
@@ -152,7 +155,8 @@ const CareerFunnel = ({ open, onOpenChange }: CareerFunnelProps) => {
     setHours("");
     setStartDate("");
     setSelectedTools([]);
-    setFormData({ name: "", email: "", phone: "", message: "" });
+    setFormData({ name: "", email: "", phone: "", message: "", referralSource: "" });
+    setReferralOther("");
     setErrors({});
   }, []);
 
@@ -164,8 +168,18 @@ const CareerFunnel = ({ open, onOpenChange }: CareerFunnelProps) => {
   const toggleTool = (t: string) =>
     setSelectedTools((prev) => (prev.includes(t) ? prev.filter((x) => x !== t) : [...prev, t]));
 
+  const handleReferralSelect = (source: string) => {
+    setFormData((prev) => ({ ...prev, referralSource: source }));
+    if (source !== "Sonstiges") setReferralOther("");
+    if (errors.referralSource) setErrors((prev) => ({ ...prev, referralSource: undefined }));
+  };
+
   const handleSubmit = () => {
-    const result = contactSchema.safeParse(formData);
+    const dataToValidate = {
+      ...formData,
+      referralSource: formData.referralSource === "Sonstiges" ? referralOther : formData.referralSource,
+    };
+    const result = contactSchema.safeParse(dataToValidate);
     if (!result.success) {
       const fe: Partial<Record<keyof ContactData, string>> = {};
       result.error.errors.forEach((e) => {
@@ -192,6 +206,8 @@ const CareerFunnel = ({ open, onOpenChange }: CareerFunnelProps) => {
     exit: { opacity: 0, x: -40, filter: "blur(10px)" },
     transition: { duration: 0.4, ease: appleEase },
   };
+
+  const inputClasses = "w-full rounded-xl border bg-foreground/[0.03] backdrop-blur-sm px-4 py-3.5 text-sm text-foreground text-center placeholder:text-muted-foreground/50 outline-none transition-all duration-300 focus:border-foreground/30 focus:shadow-[0_0_15px_hsl(var(--foreground)/0.05)] focus:scale-[1.01]";
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
@@ -266,25 +282,25 @@ const CareerFunnel = ({ open, onOpenChange }: CareerFunnelProps) => {
                     <p className="text-muted-foreground text-sm mb-6 text-center">Ein paar Infos zu deinem Hintergrund.</p>
                     <div className="space-y-5 mb-8">
                       <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35, ease: appleEase }}>
-                        <label className="text-sm text-muted-foreground mb-1.5 block">Studiengang / Ausbildung</label>
+                        <label className="text-sm text-muted-foreground mb-1.5 block text-center">Studiengang / Ausbildung</label>
                         <input
                           type="text" placeholder="z.B. Wirtschaftsinformatik" value={studiengang}
                           onChange={(e) => setStudiengang(e.target.value)}
-                          className="w-full rounded-xl border bg-foreground/[0.03] backdrop-blur-sm px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/50 outline-none transition-all duration-300 focus:border-foreground/30 focus:shadow-[0_0_15px_hsl(var(--foreground)/0.05)]"
+                          className={inputClasses}
                           style={{ borderColor: "hsl(var(--border) / 0.15)" }}
                         />
                       </motion.div>
                       <div>
-                        <label className="text-sm text-muted-foreground mb-2 block">Stunden pro Woche</label>
-                        <div className="flex flex-wrap gap-2">
+                        <label className="text-sm text-muted-foreground mb-2 block text-center">Stunden pro Woche</label>
+                        <div className="flex flex-wrap justify-center gap-2">
                           {hourOptions.map((h, i) => (
                             <Chip key={h} label={h} selected={hours === h} onClick={() => setHours(h)} index={i} />
                           ))}
                         </div>
                       </div>
                       <div>
-                        <label className="text-sm text-muted-foreground mb-2 block">Wann kannst du anfangen?</label>
-                        <div className="flex flex-wrap gap-2">
+                        <label className="text-sm text-muted-foreground mb-2 block text-center">Wann kannst du anfangen?</label>
+                        <div className="flex flex-wrap justify-center gap-2">
                           {startOptions.map((s, i) => (
                             <Chip key={s} label={s} selected={startDate === s} onClick={() => setStartDate(s)} index={i} />
                           ))}
@@ -371,33 +387,77 @@ const CareerFunnel = ({ open, onOpenChange }: CareerFunnelProps) => {
                 <p className="text-xs tracking-widest uppercase text-muted-foreground text-center mb-3">Schritt 5 von 6</p>
                 <h3 className="text-2xl font-bold text-foreground mb-2 text-center">Wie erreichen wir dich?</h3>
                 <p className="text-muted-foreground text-sm mb-6 text-center">Wir melden uns schnellstmöglich.</p>
-                <div className="space-y-4 mb-8">
+                <div className="space-y-4 mb-4">
                   {[
                     { key: "name" as const, label: "Name *", placeholder: "MTM Studios", type: "text" },
                     { key: "email" as const, label: "E-Mail *", placeholder: "hallo@mtmstudios.de", type: "email" },
                     { key: "phone" as const, label: "Telefon (optional)", placeholder: "+49 ...", type: "tel" },
                   ].map((field, i) => (
                     <motion.div key={field.key} initial={{ opacity: 0, y: 15, filter: "blur(6px)" }} animate={{ opacity: 1, y: 0, filter: "blur(0px)" }} transition={{ duration: 0.35, delay: i * 0.06, ease: appleEase }}>
-                      <label className="text-sm text-muted-foreground mb-1.5 block">{field.label}</label>
+                      <label className="text-sm text-muted-foreground mb-1.5 block text-center">{field.label}</label>
                       <input
                         type={field.type} placeholder={field.placeholder} value={formData[field.key] || ""}
                         onChange={(e) => { setFormData((p) => ({ ...p, [field.key]: e.target.value })); if (errors[field.key]) setErrors((p) => ({ ...p, [field.key]: undefined })); }}
-                        className="w-full rounded-xl border bg-foreground/[0.03] backdrop-blur-sm px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/50 outline-none transition-all duration-300 focus:border-foreground/30 focus:shadow-[0_0_15px_hsl(var(--foreground)/0.05)]"
+                        className={inputClasses}
                         style={{ borderColor: errors[field.key] ? "hsl(0 70% 50% / 0.6)" : "hsl(var(--border) / 0.15)" }}
                       />
                       {errors[field.key] && (
-                        <motion.p initial={{ opacity: 0, y: -5 }} animate={{ opacity: 1, y: 0 }} className="text-xs mt-1.5" style={{ color: "hsl(0 70% 60%)" }}>{errors[field.key]}</motion.p>
+                        <motion.p initial={{ opacity: 0, y: -5 }} animate={{ opacity: 1, y: 0 }} className="text-xs mt-1.5 text-center" style={{ color: "hsl(0 70% 60%)" }}>{errors[field.key]}</motion.p>
                       )}
                     </motion.div>
                   ))}
                   <motion.div initial={{ opacity: 0, y: 15, filter: "blur(6px)" }} animate={{ opacity: 1, y: 0, filter: "blur(0px)" }} transition={{ duration: 0.35, delay: 0.18, ease: appleEase }}>
-                    <label className="text-sm text-muted-foreground mb-1.5 block">Nachricht (optional)</label>
+                    <label className="text-sm text-muted-foreground mb-1.5 block text-center">Nachricht (optional)</label>
                     <textarea placeholder="Erzähl uns kurz, was dich motiviert..." rows={3} value={formData.message || ""} onChange={(e) => setFormData((p) => ({ ...p, message: e.target.value }))}
-                      className="w-full rounded-xl border bg-foreground/[0.03] backdrop-blur-sm px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/50 outline-none resize-none transition-all duration-300 focus:border-foreground/30 focus:shadow-[0_0_15px_hsl(var(--foreground)/0.05)]"
+                      className="w-full rounded-xl border bg-foreground/[0.03] backdrop-blur-sm px-4 py-3.5 text-sm text-foreground text-center placeholder:text-muted-foreground/50 outline-none resize-none transition-all duration-300 focus:border-foreground/30 focus:shadow-[0_0_15px_hsl(var(--foreground)/0.05)] focus:scale-[1.01]"
                       style={{ borderColor: "hsl(var(--border) / 0.15)" }}
                     />
                   </motion.div>
                 </div>
+
+                {/* Woher kennst du uns? */}
+                <motion.div
+                  initial={{ opacity: 0, y: 15, filter: "blur(6px)" }}
+                  animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                  transition={{ duration: 0.35, delay: 0.24, ease: appleEase }}
+                  className="pt-4 mb-6"
+                  style={{ borderTop: "1px solid hsl(var(--foreground) / 0.06)" }}
+                >
+                  <label className="text-sm text-muted-foreground mb-3 block text-center">Woher kennst du uns? *</label>
+                  <div className="flex flex-wrap justify-center gap-2">
+                    {referralSources.map((source, i) => (
+                      <motion.button
+                        key={source}
+                        initial={{ opacity: 0, y: 8, filter: "blur(4px)" }}
+                        animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                        transition={{ duration: 0.3, delay: 0.28 + i * 0.04, ease: appleEase }}
+                        onClick={() => handleReferralSelect(source)}
+                        className="px-4 py-2 rounded-full border text-sm font-medium transition-all duration-300 cursor-pointer"
+                        style={{
+                          borderColor: formData.referralSource === source ? "hsl(var(--foreground) / 0.25)" : "hsl(var(--border) / 0.15)",
+                          backgroundColor: formData.referralSource === source ? "hsl(var(--foreground) / 0.08)" : "hsl(var(--foreground) / 0.02)",
+                          color: formData.referralSource === source ? "hsl(var(--foreground))" : "hsl(var(--foreground) / 0.7)",
+                        }}
+                      >
+                        {source}
+                      </motion.button>
+                    ))}
+                  </div>
+                  {formData.referralSource === "Sonstiges" && (
+                    <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} className="mt-3">
+                      <input
+                        type="text" placeholder="Woher genau?" value={referralOther}
+                        onChange={(e) => { setReferralOther(e.target.value); if (errors.referralSource) setErrors((prev) => ({ ...prev, referralSource: undefined })); }}
+                        className={inputClasses}
+                        style={{ borderColor: errors.referralSource ? "hsl(0 70% 50% / 0.6)" : "hsl(var(--border) / 0.15)" }}
+                      />
+                    </motion.div>
+                  )}
+                  {errors.referralSource && formData.referralSource !== "Sonstiges" && (
+                    <motion.p initial={{ opacity: 0, y: -5 }} animate={{ opacity: 1, y: 0 }} className="text-xs mt-2 text-center" style={{ color: "hsl(0 70% 60%)" }}>{errors.referralSource}</motion.p>
+                  )}
+                </motion.div>
+
                 <div className="mt-auto flex gap-3">
                   <Button variant="ghost" onClick={() => setStep(4)} className="rounded-full px-6 py-6 text-muted-foreground hover:text-foreground">
                     <ArrowLeft className="w-4 h-4 mr-2" /> Zurück
