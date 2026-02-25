@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { motion, useInView } from "motion/react";
 import { useRef } from "react";
 import { useContactFunnel } from "@/contexts/ContactFunnelContext";
+import { useMobileBlur } from "@/hooks/use-mobile-blur";
 
 
 const appleEase = [0.16, 1, 0.3, 1] as const;
@@ -10,6 +11,7 @@ const CTASection = () => {
   const ref = useRef(null);
   const { setIsOpen } = useContactFunnel();
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { blur, noBlur } = useMobileBlur();
 
   return (
     <section ref={ref} className="py-32 px-6">
@@ -24,8 +26,8 @@ const CTASection = () => {
         </motion.p>
 
         <motion.h2
-          initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
-          animate={isInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
+          initial={{ opacity: 0, y: 30, ...blur(10) }}
+          animate={isInView ? { opacity: 1, y: 0, ...noBlur } : {}}
           transition={{ duration: 0.8, delay: 0.1, ease: appleEase }}
           className="text-3xl md:text-5xl font-bold text-foreground leading-tight mb-6"
         >

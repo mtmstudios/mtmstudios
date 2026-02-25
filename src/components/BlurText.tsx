@@ -1,5 +1,6 @@
 import { motion } from 'motion/react';
 import { useEffect, useRef, useState, useMemo } from 'react';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const buildKeyframes = (from: Record<string, any>, steps: Record<string, any>[]) => {
   const keys = new Set([...Object.keys(from), ...steps.flatMap(s => Object.keys(s))]);
@@ -43,6 +44,7 @@ const BlurText = ({
   const elements = animateBy === 'words' ? text.split(' ') : text.split('');
   const [inView, setInView] = useState(false);
   const ref = useRef<HTMLParagraphElement>(null);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     if (!ref.current) return;
@@ -60,25 +62,26 @@ const BlurText = ({
   }, [threshold, rootMargin]);
 
   const defaultFrom = useMemo(
-    () =>
-      direction === 'top' ? { filter: 'blur(12px)', opacity: 0, y: -30 } : { filter: 'blur(12px)', opacity: 0, y: 30 },
-    [direction]
+    () => isMobile
+      ? { opacity: 0, y: direction === 'top' ? -20 : 20 }
+      : direction === 'top'
+        ? { filter: 'blur(12px)', opacity: 0, y: -30 }
+        : { filter: 'blur(12px)', opacity: 0, y: 30 },
+    [direction, isMobile]
   );
 
   const defaultTo = useMemo(
-    () => [
-      {
-        filter: 'blur(4px)',
-        opacity: 0.7,
-        y: direction === 'top' ? 4 : -4
-      },
-      { filter: 'blur(0px)', opacity: 1, y: 0 }
-    ],
-    [direction]
+    () => isMobile
+      ? [{ opacity: 1, y: 0 }]
+      : [
+          { filter: 'blur(4px)', opacity: 0.7, y: direction === 'top' ? 4 : -4 },
+          { filter: 'blur(0px)', opacity: 1, y: 0 }
+        ],
+    [direction, isMobile]
   );
 
-  const fromSnapshot = animationFrom ?? defaultFrom;
-  const toSnapshots = animationTo ?? defaultTo;
+  const fromSnapshot = animationFrom && !isMobile ? animationFrom : (animationFrom && isMobile ? stripBlur(animationFrom) : defaultFrom);
+  const toSnapshots = animationTo && !isMobile ? animationTo : (animationTo && isMobile ? animationTo.map(stripBlur) : defaultTo);
 
   const stepCount = toSnapshots.length + 1;
   const totalDuration = stepDuration * (stepCount - 1);
@@ -113,5 +116,10 @@ const BlurText = ({
     </p>
   );
 };
+
+function stripBlur(obj: Record<string, any>): Record<string, any> {
+  const { filter, ...rest } = obj;
+  return rest;
+}
 
 export default BlurText;
