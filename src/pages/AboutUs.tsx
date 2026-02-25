@@ -5,6 +5,7 @@ import BlurText from "@/components/BlurText";
 import SEOHead from "@/components/SEOHead";
 import { motion, useInView } from "motion/react";
 import { useEffect, useRef } from "react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const appleEase = [0.16, 1, 0.3, 1] as const;
 
@@ -28,6 +29,7 @@ const values = [
 ];
 
 const AboutUs = () => {
+  const isMobile = useIsMobile();
   const bgRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const missionRef = useRef(null);
@@ -43,7 +45,9 @@ const AboutUs = () => {
       if (bgRef.current) {
         const scrollPosition = window.scrollY;
         const maxScroll = 300;
-        const opacity = Math.max(0.1, 1 - (scrollPosition / maxScroll) * 0.9);
+        const opacity = isMobile
+          ? Math.max(0.25, 1 - (scrollPosition / maxScroll) * 0.75)
+          : Math.max(0.1, 1 - (scrollPosition / maxScroll) * 0.9);
         bgRef.current.style.opacity = opacity.toString();
       }
     };
@@ -157,8 +161,7 @@ const AboutUs = () => {
                   className="bg-white/[0.03] backdrop-blur-sm border border-border/10 rounded-2xl p-10 hover:border-accent/30 transition-all duration-500 relative overflow-hidden group cursor-default text-center flex flex-col items-center justify-center gap-4"
                 >
                   <span 
-                    className="font-bold text-white/[0.12] select-none group-hover:text-accent/[0.20] transition-colors duration-500 leading-none uppercase tracking-widest"
-                    style={{ fontSize: `clamp(1.8rem, ${42 / v.title.length}vw, 5rem)` }}
+                    className="text-3xl md:text-5xl lg:text-6xl font-bold text-white/[0.12] select-none group-hover:text-accent/[0.20] transition-colors duration-500 leading-none uppercase tracking-widest"
                   >
                     {v.title}
                   </span>

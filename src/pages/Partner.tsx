@@ -6,6 +6,7 @@ import SEOHead from "@/components/SEOHead";
 import { motion, useInView } from "motion/react";
 import { TrendingUp, EyeOff, Zap, UserCheck } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const appleEase = [0.16, 1, 0.3, 1] as const;
 
@@ -93,6 +94,7 @@ const CountUp = ({ target, suffix = "", prefix = "" }: { target: number; suffix?
 };
 
 const Partner = () => {
+  const isMobile = useIsMobile();
   const bgRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const problemRef = useRef(null);
@@ -108,7 +110,9 @@ const Partner = () => {
       if (bgRef.current) {
         const scrollPosition = window.scrollY;
         const maxScroll = 300;
-        const opacity = Math.max(0.1, 1 - (scrollPosition / maxScroll) * 0.9);
+        const opacity = isMobile
+          ? Math.max(0.25, 1 - (scrollPosition / maxScroll) * 0.75)
+          : Math.max(0.1, 1 - (scrollPosition / maxScroll) * 0.9);
         bgRef.current.style.opacity = opacity.toString();
       }
     };
