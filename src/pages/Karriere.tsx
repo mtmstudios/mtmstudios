@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import BlurText from "@/components/BlurText";
@@ -13,18 +13,9 @@ import CareerFunnel from "@/components/career/CareerFunnel";
 const appleEase = [0.16, 1, 0.3, 1] as const;
 
 const statements = [
-  {
-    headline: "Du willst mit den neusten KI-Tools arbeiten?",
-    subtext: "Wir setzen auf Claude, ChatGPT, N8N und alles, was morgen Standard ist – heute schon.",
-  },
-  {
-    headline: "Du willst KI wirklich verstehen?",
-    subtext: "Nicht nur anwenden, sondern durchdringen. Bei uns baust du Lösungen, die Unternehmen transformieren.",
-  },
-  {
-    headline: "Du willst kein Konzern-Hamsterrad?",
-    subtext: "Flache Hierarchien, echte Verantwortung, Remote-first. Dein Impact zählt ab Tag eins.",
-  },
+  { headline: "Du willst mit den neusten KI-Tools arbeiten?", subtext: "Wir setzen auf Claude, ChatGPT, N8N und alles, was morgen Standard ist – heute schon." },
+  { headline: "Du willst KI wirklich verstehen?", subtext: "Nicht nur anwenden, sondern durchdringen. Bei uns baust du Lösungen, die Unternehmen transformieren." },
+  { headline: "Du willst kein Konzern-Hamsterrad?", subtext: "Flache Hierarchien, echte Verantwortung, Remote-first. Dein Impact zählt ab Tag eins." },
 ];
 
 const benefits = [
@@ -40,36 +31,181 @@ const benefits = [
 
 const Karriere = () => {
   const [funnelOpen, setFunnelOpen] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const bgRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    const attemptAutoplay = async () => {
+      try { await video.play(); } catch {
+        video.muted = true;
+        try { await video.play(); } catch {}
+      }
+    };
+    attemptAutoplay();
+  }, []);
+
+  useEffect(() => {
+    let rafId: number;
+    const handleScroll = () => {
+      rafId = requestAnimationFrame(() => {
+        if (bgRef.current) {
+          const scrollPosition = window.scrollY;
+          const maxScroll = 300;
+          const opacity = Math.max(0.3, 1 - (scrollPosition / maxScroll) * 0.7);
+          bgRef.current.style.opacity = opacity.toString();
+        }
+      });
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => { window.removeEventListener("scroll", handleScroll); cancelAnimationFrame(rafId); };
+  }, []);
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="relative min-h-screen bg-background text-foreground">
       <SEOHead title="Karriere bei MTM Studios | Jobs in KI & Automatisierung" description="Arbeite bei MTM Studios an KI-Lösungen, die Unternehmen verändern. Remote-first, neueste Tools, echte Verantwortung." />
-      <Navigation />
 
-      {/* Hero */}
-      <section className="relative pt-[18vh] pb-[12vh] px-6 flex flex-col items-center text-center">
-        <div className="absolute inset-0 pointer-events-none" style={{
-          background: "radial-gradient(ellipse 60% 40% at 50% 0%, hsl(var(--accent) / 0.08) 0%, transparent 70%)",
-        }} />
+      <div ref={bgRef} className="fixed inset-0 w-screen h-screen overflow-hidden" style={{ isolation: "isolate", zIndex: 0, willChange: "opacity" }}>
+        <img src="/videos/hero-background-still.jpg" alt="" className="md:hidden w-full h-full object-cover absolute inset-0" style={{ mixBlendMode: "hard-light", filter: "brightness(0.7) contrast(2)", pointerEvents: "none" }} />
+        <video ref={videoRef} autoPlay loop muted playsInline
+          // @ts-ignore
+          webkit-playsinline=""
+          preload="auto"
+          onLoadedData={(e) => { e.currentTarget.play().catch(() => {}); }}
+          className="hidden md:block w-full h-full object-cover" style={{ mixBlendMode: "hard-light", position: "absolute", top: 0, left: 0, width: "100%", height: "100%", filter: "brightness(0.7) contrast(2)", pointerEvents: "none" }}>
+          <source src="/videos/hero-background.webm" type="video/webm" />
+          <source src="/videos/hero-background.mp4" type="video/mp4" />
+        </video>
+      </div>
 
-        <div className="relative z-10 max-w-2xl mx-auto">
-          <BlurText
-            text="Mach KI. Nicht Meetings."
-            className="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight text-foreground mb-6"
-            delay={80}
-          />
+      <div style={{ position: "relative", zIndex: 50 }}>
+        <Navigation />
+      </div>
+
+      <div style={{ position: "relative", zIndex: 10 }}>
+        {/* Hero */}
+        <section className="relative pt-[18vh] pb-[12vh] px-6 flex flex-col items-center text-center">
+          <div className="relative z-10 max-w-2xl mx-auto">
+            <BlurText
+              text="Mach KI. Nicht Meetings."
+              className="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight text-foreground mb-6"
+              delay={80}
+            />
+            <motion.p
+              className="text-lg sm:text-xl text-muted-foreground leading-relaxed mb-10 max-w-xl mx-auto"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4, ease: appleEase }}
+            >
+              Wir bauen KI-Lösungen, die Unternehmen verändern. Kein Corporate-Bullshit, keine endlosen Abstimmungsrunden – einfach bauen.
+            </motion.p>
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.6, ease: appleEase }}
+            >
+              <Button
+                onClick={() => setFunnelOpen(true)}
+                className="bg-accent text-background hover:bg-accent/90 font-semibold rounded-full px-8 py-6 text-base"
+              >
+                Jetzt bewerben
+              </Button>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Apple-Style Statement Sections */}
+        {statements.map((s, i) => (
+          <section key={i} className="py-[18vh] sm:py-[20vh] px-6 flex items-center justify-center">
+            <div className="max-w-2xl mx-auto text-center">
+              <BlurText
+                text={s.headline}
+                className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-foreground"
+                delay={60}
+                animateBy="words"
+                direction="bottom"
+              />
+              <motion.p
+                className="text-lg sm:text-xl text-muted-foreground leading-relaxed max-w-lg mx-auto mt-6"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.7, delay: 0.3, ease: appleEase }}
+              >
+                {s.subtext}
+              </motion.p>
+            </div>
+          </section>
+        ))}
+
+        {/* Benefits */}
+        <section className="py-24 sm:py-32 px-6">
+          <div className="max-w-4xl mx-auto text-center">
+            <motion.h2
+              className="text-3xl md:text-4xl font-bold text-foreground mb-16"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
+              Was dich erwartet
+            </motion.h2>
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
+              {benefits.map((b, i) => {
+                const Icon = b.icon;
+                return (
+                  <motion.div
+                    key={b.label}
+                    className="flex flex-col items-center gap-3 p-8 rounded-2xl transition-all duration-200"
+                    style={{
+                      backgroundColor: "hsl(var(--foreground) / 0.03)",
+                      border: "1px solid hsl(var(--border) / 0.1)",
+                    }}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: i * 0.06, ease: appleEase }}
+                  >
+                    <div
+                      className="w-14 h-14 rounded-2xl flex items-center justify-center"
+                      style={{ backgroundColor: "hsl(var(--foreground) / 0.05)" }}
+                    >
+                      <Icon className="w-7 h-7 text-foreground/60" />
+                    </div>
+                    <span className="text-base font-medium text-foreground">{b.label}</span>
+                    <span className="text-xs text-foreground/40">{b.sub}</span>
+                  </motion.div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        {/* Bottom CTA */}
+        <section className="py-32 px-6 text-center">
           <motion.p
-            className="text-lg sm:text-xl text-muted-foreground leading-relaxed mb-10 max-w-xl mx-auto"
-            initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
-            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            transition={{ duration: 0.6, delay: 0.4, ease: appleEase }}
+            className="text-2xl md:text-3xl font-semibold text-foreground mb-4"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
           >
-            Wir bauen KI-Lösungen, die Unternehmen verändern. Kein Corporate-Bullshit, keine endlosen Abstimmungsrunden – einfach bauen.
+            Überzeugt? Dann melde dich.
+          </motion.p>
+          <motion.p
+            className="text-lg text-muted-foreground mb-8"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+          >
+            Kein Anschreiben nötig. Erzähl uns einfach, worauf du Lust hast.
           </motion.p>
           <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.6, ease: appleEase }}
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
           >
             <Button
               onClick={() => setFunnelOpen(true)}
@@ -78,111 +214,10 @@ const Karriere = () => {
               Jetzt bewerben
             </Button>
           </motion.div>
-        </div>
-      </section>
-
-      {/* Apple-Style Statement Sections */}
-      {statements.map((s, i) => (
-        <section key={i} className="py-[18vh] sm:py-[20vh] px-6 flex items-center justify-center">
-          <div className="max-w-2xl mx-auto text-center">
-            <BlurText
-              text={s.headline}
-              className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-foreground"
-              delay={60}
-              animateBy="words"
-              direction="bottom"
-            />
-            <motion.p
-              className="text-lg sm:text-xl text-muted-foreground leading-relaxed max-w-lg mx-auto mt-6"
-              initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
-              whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.7, delay: 0.3, ease: appleEase }}
-            >
-              {s.subtext}
-            </motion.p>
-          </div>
         </section>
-      ))}
 
-      {/* Benefits */}
-      <section className="py-24 sm:py-32 px-6">
-        <div className="max-w-4xl mx-auto text-center">
-          <motion.h2
-            className="text-3xl md:text-4xl font-bold text-foreground mb-16"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            Was dich erwartet
-          </motion.h2>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
-            {benefits.map((b, i) => {
-              const Icon = b.icon;
-              return (
-                <motion.div
-                  key={b.label}
-                  className="flex flex-col items-center gap-3 p-8 rounded-2xl transition-all duration-200"
-                  style={{
-                    backgroundColor: "hsl(var(--foreground) / 0.03)",
-                    border: "1px solid hsl(var(--border) / 0.1)",
-                  }}
-                  initial={{ opacity: 0, y: 20, filter: "blur(6px)" }}
-                  whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: i * 0.06, ease: appleEase }}
-                >
-                  <div
-                    className="w-14 h-14 rounded-2xl flex items-center justify-center"
-                    style={{ backgroundColor: "hsl(var(--foreground) / 0.05)" }}
-                  >
-                    <Icon className="w-7 h-7 text-foreground/60" />
-                  </div>
-                  <span className="text-base font-medium text-foreground">{b.label}</span>
-                  <span className="text-xs text-foreground/40">{b.sub}</span>
-                </motion.div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* Bottom CTA */}
-      <section className="py-32 px-6 text-center">
-        <motion.p
-          className="text-2xl md:text-3xl font-semibold text-foreground mb-4"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-        >
-          Überzeugt? Dann melde dich.
-        </motion.p>
-        <motion.p
-          className="text-lg text-muted-foreground mb-8"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.1 }}
-        >
-          Kein Anschreiben nötig. Erzähl uns einfach, worauf du Lust hast.
-        </motion.p>
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.1 }}
-        >
-          <Button
-            onClick={() => setFunnelOpen(true)}
-            className="bg-accent text-background hover:bg-accent/90 font-semibold rounded-full px-8 py-6 text-base"
-          >
-            Jetzt bewerben
-          </Button>
-        </motion.div>
-      </section>
-
-      <Footer />
+        <Footer />
+      </div>
 
       <CareerFunnel open={funnelOpen} onOpenChange={setFunnelOpen} />
     </div>

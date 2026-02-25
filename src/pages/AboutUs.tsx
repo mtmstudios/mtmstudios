@@ -102,13 +102,14 @@ const AboutUs = () => {
       <SEOHead title="Über MTM Studios | KI-Agentur für Unternehmen" description="Wir sind MTM Studios — euer Partner für KI-Lösungen, die wirklich funktionieren. Klarheit, Geschwindigkeit und Vertrauen." />
       {/* Video Background */}
       <div className="fixed inset-0 w-screen h-screen overflow-hidden" style={{ isolation: "isolate", zIndex: 0 }}>
+        <img src="/videos/hero-background-still.jpg" alt="" className="md:hidden w-full h-full object-cover absolute inset-0" style={{ mixBlendMode: "hard-light", filter: "brightness(0.7) contrast(2)", pointerEvents: "none" }} />
         <video
           ref={videoRef}
           autoPlay
           loop
           muted
           playsInline
-          className="w-full h-full object-cover transition-opacity duration-300"
+          className="hidden md:block w-full h-full object-cover transition-opacity duration-300"
           style={{
             mixBlendMode: "hard-light",
             position: "absolute",
@@ -119,6 +120,7 @@ const AboutUs = () => {
             filter: "brightness(0.7) contrast(2)",
           }}
         >
+          <source src="/videos/hero-background.webm" type="video/webm" />
           <source src="/videos/hero-background.mp4" type="video/mp4" />
         </video>
       </div>
