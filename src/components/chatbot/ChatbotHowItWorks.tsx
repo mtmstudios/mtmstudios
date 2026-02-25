@@ -42,8 +42,6 @@ const ChatbotHowItWorks = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.8, delay: index * 0.15, ease: appleEase }}
-              whileHover={{ y: -4 }}
-              whileTap={{ scale: 0.98 }}
               className="group flex flex-col items-center text-center py-8 md:py-12 cursor-default"
             >
               <motion.span

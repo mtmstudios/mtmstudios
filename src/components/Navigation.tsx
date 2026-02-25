@@ -174,7 +174,7 @@ const Navigation = () => {
             <MoreDropdown />
           </div>
 
-          <button onClick={() => openFunnel(true)} className="text-sm text-foreground/80 hover:text-foreground transition-opacity duration-200">
+          <button onClick={() => openFunnel(true)} className="text-sm text-foreground/90 rounded-full border border-white/[0.12] px-5 py-2 hover:bg-white/[0.06] transition-all duration-300">
             Jetzt anfragen
           </button>
         </div>
