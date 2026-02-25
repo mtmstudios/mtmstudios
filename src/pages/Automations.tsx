@@ -20,6 +20,18 @@ const Automations = () => {
   }, []);
 
   useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    const attemptAutoplay = async () => {
+      try { await video.play(); } catch {
+        video.muted = true;
+        try { await video.play(); } catch {}
+      }
+    };
+    attemptAutoplay();
+  }, []);
+
+  useEffect(() => {
     const handleScroll = () => {
       if (videoRef.current) {
         const scrollPosition = window.scrollY;
@@ -41,10 +53,11 @@ const Automations = () => {
       >
         <video
           ref={videoRef}
-          autoPlay
           loop
           muted
           playsInline
+          preload="auto"
+          src="/videos/hero-background.mp4"
           className="w-full h-full object-cover transition-opacity duration-300"
           style={{
             mixBlendMode: "hard-light",
@@ -54,10 +67,9 @@ const Automations = () => {
             width: "100%",
             height: "100%",
             filter: "brightness(0.7) contrast(2)",
+            pointerEvents: "none",
           }}
-        >
-          <source src="/videos/hero-background.mp4" type="video/mp4" />
-        </video>
+        />
       </div>
 
       <div style={{ position: "relative", zIndex: 50 }}>
