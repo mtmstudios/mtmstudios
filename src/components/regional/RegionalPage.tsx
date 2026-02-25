@@ -26,24 +26,11 @@ interface RegionalPageProps {
 const RegionalPage = ({ context }: RegionalPageProps) => {
   const { city } = useParams<{ city: string }>();
   const { setIsOpen } = useContactFunnel();
-  const videoRef = useRef<HTMLVideoElement>(null);
   const bgRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [city]);
-
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-    const attemptAutoplay = async () => {
-      try { await video.play(); } catch {
-        video.muted = true;
-        try { await video.play(); } catch {}
-      }
-    };
-    attemptAutoplay();
-  }, []);
 
   useEffect(() => {
     let rafId: number;
@@ -75,16 +62,7 @@ const RegionalPage = ({ context }: RegionalPageProps) => {
       <SEOHead title={content.title} description={content.description} />
 
       <div ref={bgRef} className="fixed inset-0 w-screen h-screen overflow-hidden" style={{ isolation: "isolate", zIndex: 0, willChange: "opacity" }}>
-        <img src="/videos/hero-background-still.jpg" alt="" className="md:hidden w-full h-full object-cover absolute inset-0" style={{ mixBlendMode: "hard-light", filter: "brightness(0.7) contrast(2)", pointerEvents: "none" }} />
-        <video ref={videoRef} autoPlay loop muted playsInline
-          // @ts-ignore
-          webkit-playsinline=""
-          preload="auto"
-          onLoadedData={(e) => { e.currentTarget.play().catch(() => {}); }}
-          className="hidden md:block w-full h-full object-cover" style={{ mixBlendMode: "hard-light", position: "absolute", top: 0, left: 0, width: "100%", height: "100%", filter: "brightness(0.7) contrast(2)", pointerEvents: "none" }}>
-          <source src="/videos/hero-background.webm" type="video/webm" />
-          <source src="/videos/hero-background.mp4" type="video/mp4" />
-        </video>
+        <img src="/videos/hero-background-still.jpg" alt="" className="w-full h-full object-cover absolute inset-0" style={{ mixBlendMode: "hard-light", filter: "brightness(0.7) contrast(2)", pointerEvents: "none" }} />
       </div>
 
       <div style={{ position: "relative", zIndex: 50 }}>
