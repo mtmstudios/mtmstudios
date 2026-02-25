@@ -189,7 +189,6 @@ const Partner = () => {
                 >
                   <div className="border-t border-border/10" />
                   <motion.div
-                    whileHover={{ x: 8 }}
                     transition={{ duration: 0.4, ease: appleEase }}
                     className="flex flex-col items-center text-center gap-4 py-12"
                   >
@@ -197,7 +196,7 @@ const Partner = () => {
                       {p.num}
                     </span>
                     <div>
-                      <h3 className="text-xl md:text-2xl font-bold text-foreground mb-3 group-hover:text-destructive/80 group-active:text-destructive/80 transition-colors duration-500">
+                      <h3 className="text-xl md:text-2xl font-bold text-foreground mb-3 transition-colors duration-500">
                         {p.title}
                       </h3>
                       <p className="text-muted-foreground leading-relaxed max-w-lg">{p.description}</p>
@@ -240,7 +239,6 @@ const Partner = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-50px" }}
                   transition={{ duration: 0.8, delay: i * 0.15, ease: appleEase }}
-                  whileHover={{ y: -4 }}
                   className="group flex flex-col items-center text-center py-8 md:py-12 cursor-default"
                 >
                   <motion.span
@@ -302,10 +300,6 @@ const Partner = () => {
                     initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
                     animate={benefitsInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
                     transition={{ duration: 0.8, delay: i * 0.12, ease: appleEase }}
-                    whileHover={{ scale: 1.02, y: -6 }}
-                    style={{ boxShadow: "0 0 0 transparent" }}
-                    onMouseEnter={(e) => { e.currentTarget.style.boxShadow = "0 0 40px hsl(174 72% 48% / 0.1)"; }}
-                    onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "0 0 0 transparent"; }}
                   >
                     <motion.div
                       className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-5"
@@ -315,7 +309,7 @@ const Partner = () => {
                     >
                       <Icon className="w-6 h-6 text-accent" />
                     </motion.div>
-                    <h3 className="text-xl md:text-2xl font-bold text-foreground mb-2 group-hover:text-accent transition-colors duration-500">
+                    <h3 className="text-xl md:text-2xl font-bold text-foreground mb-2 transition-colors duration-500">
                       {b.title}
                     </h3>
                     <p className="text-muted-foreground leading-relaxed">{b.description}</p>
@@ -346,10 +340,6 @@ const Partner = () => {
                   initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
                   animate={trustInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
                   transition={{ duration: 0.8, delay: i * 0.12, ease: appleEase }}
-                  whileHover={{ scale: 1.03, y: -4, rotateX: 2 }}
-                  style={{ boxShadow: "0 0 0 transparent", perspective: "800px" }}
-                  onMouseEnter={(e) => { e.currentTarget.style.boxShadow = "0 0 40px hsl(174 72% 48% / 0.1)"; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "0 0 0 transparent"; }}
                 >
                   <div className="text-5xl md:text-6xl lg:text-7xl font-bold text-accent mb-4 tracking-tight">
                     {i === 2 ? (

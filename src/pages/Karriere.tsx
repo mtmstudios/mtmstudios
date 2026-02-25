@@ -123,7 +123,7 @@ const Karriere = () => {
               return (
                 <motion.div
                   key={b.label}
-                  className="flex flex-col items-center gap-3 p-8 rounded-2xl transition-all duration-200 hover:scale-[1.02]"
+                  className="flex flex-col items-center gap-3 p-8 rounded-2xl transition-all duration-200"
                   style={{
                     backgroundColor: "hsl(var(--foreground) / 0.03)",
                     border: "1px solid hsl(var(--border) / 0.1)",
