@@ -1,65 +1,50 @@
 
 
-# Fix: Dunkler Bildschirm auf Safari Mobile & WhatsApp-Button
+# Fix: Video auf Safari Mobile abspielen
 
-## Probleme
+## Problem
 
-1. **Dunkler Bildschirm auf Safari**: Der Code ueberspringt `play()` auf Mobile (`if (isMobile) return;` in Zeile 21). Das Video wird mit `preload="metadata"` geladen, zeigt aber auf iOS Safari keinen ersten Frame — nur schwarzen Hintergrund.
+Der Code sieht korrekt aus — `muted`, `playsInline`, `loop` sind gesetzt und `play()` wird aufgerufen. Aber Safari iOS hat bekannte Eigenheiten:
 
-2. **WhatsApp-Button geht nicht**: Der WhatsApp-Link in `HeroSection.tsx` und `CTASection.tsx` liegt auf `zIndex: 10`, aber das Video-Overlay mit `pointerEvents: 'none'` koennte trotzdem Klicks blockieren, oder der Link wird durch ein anderes Element ueberdeckt.
+1. **`autoPlay` Attribut fehlt**: Safari bevorzugt das deklarative `autoPlay` Attribut direkt am `<video>` Element, statt nur `video.play()` im JavaScript.
+2. **Timing-Problem**: Der `useEffect` feuert bevor das Video geladen ist. Safari braucht ein `onCanPlay`/`onLoadedData` Event als Fallback.
+3. **`webkit-playsinline`**: Aeltere iOS-Versionen brauchen dieses Attribut zusaetzlich.
 
 ## Loesung
 
-### 1. Video auf Mobile abspielen
+Auf allen 4 Seiten (`Index.tsx`, `PhoneAssistant.tsx`, `Chatbots.tsx`, `Automations.tsx`):
 
-Den `if (isMobile) return;` Guard entfernen. Stattdessen auf allen Geraeten `play()` versuchen — mit `muted` und `playsInline` funktioniert Autoplay auf iOS Safari zuverlaessig.
-
-Aenderungen in allen 4 Seiten (`Index.tsx`, `PhoneAssistant.tsx`, `Chatbots.tsx`, `Automations.tsx`):
+1. **`autoPlay` Attribut direkt am Video-Element setzen** — Safari vertraut dem deklarativen Attribut mehr als JavaScript
+2. **`onLoadedData` Callback hinzufuegen** — als Fallback, falls autoPlay nicht greift, wird `play()` nochmal versucht sobald Daten geladen sind
+3. **`webkit-playsinline` Attribut setzen** — fuer aeltere iOS-Versionen
 
 ```text
-// VORHER:
-ref={isMobile ? undefined : videoRef}   // Mobile bekommt keine ref
-loop={!isMobile}                         // Mobile kein loop
-preload={isMobile ? "metadata" : "auto"} // Mobile nur metadata
-
-useEffect(() => {
-  if (isMobile) return;  // <-- Blockiert play() auf Mobile
+<video
+  ref={videoRef}
+  autoPlay          // NEU: deklaratives autoplay
+  loop
+  muted
+  playsInline
+  // @ts-ignore
+  webkit-playsinline=""   // NEU: iOS Kompatibilitaet
+  preload="auto"
+  src="/videos/hero-background.mp4"
+  onLoadedData={(e) => {  // NEU: Fallback wenn autoPlay nicht greift
+    const video = e.currentTarget;
+    video.play().catch(() => {});
+  }}
   ...
-});
-
-// NACHHER:
-ref={videoRef}          // Immer ref setzen
-loop                    // Immer loopen
-muted
-playsInline
-preload="auto"          // Immer preloaden
-
-useEffect(() => {
-  // Kein isMobile-Guard mehr
-  const video = videoRef.current;
-  if (!video) return;
-  const attemptAutoplay = async () => {
-    try { await video.play(); } catch {
-      video.muted = true;
-      try { await video.play(); } catch {}
-    }
-  };
-  attemptAutoplay();
-}, []);
+/>
 ```
 
-### 2. WhatsApp-Button klickbar machen
-
-Der WhatsApp-Link (`<a href="https://wa.me/...">`) liegt innerhalb von `zIndex: 10`. Das sollte ueber dem Video-Layer (`zIndex: 0`) liegen. Zur Sicherheit `position: relative` und `zIndex` auf die Links setzen, falls ein Overlay sie blockiert.
+Der bestehende `useEffect` mit `attemptAutoplay` bleibt als dritte Absicherung.
 
 ## Betroffene Dateien
 
 | Datei | Aenderung |
 |-------|-----------|
-| `src/pages/Index.tsx` | `isMobile`-Guards entfernen, Video immer abspielen |
+| `src/pages/Index.tsx` | `autoPlay`, `onLoadedData`, `webkit-playsinline` hinzufuegen |
 | `src/pages/PhoneAssistant.tsx` | Gleiche Aenderung |
 | `src/pages/Chatbots.tsx` | Gleiche Aenderung |
 | `src/pages/Automations.tsx` | Gleiche Aenderung |
-| `src/components/HeroSection.tsx` | WhatsApp-Link: `position: relative; zIndex: 20` sicherstellen |
-| `src/components/CTASection.tsx` | WhatsApp-Link: gleiche Absicherung |
 
