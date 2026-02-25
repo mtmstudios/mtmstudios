@@ -1,84 +1,41 @@
 
 
-# "Von der ersten Automation zur kompletten Transformation" — Premium Upgrade
+# Feinschliff: ProcessSection "03" Highlight + FeaturesSection Hover-Update
 
-## Aktueller Zustand
+## Aenderungen
 
-Drei nebeneinander stehende Karten mit Lucide-Icons, Titeln und Aufzaehlungslisten. Eine horizontale Verbindungslinie mit einem wandernden Dot. Die dritte Karte hat einen tuerkisen Border-Glow. Das Ganze wirkt wie ein Standard-SaaS Feature-Grid — funktional, aber nicht auf Premium-Agentur-Niveau.
+### 1. ProcessSection — "03" staerker hervorheben bei Hover
 
-Hauptprobleme:
-- Statische Karten ohne Interaktion oder Erzaehlung
-- Aufzaehlungslisten wirken wie ein Datenblatt, nicht wie eine Story
-- Die Verbindungslinie ist kaum sichtbar und erzaehlt nichts
-- Kein Gefuehl von Progression oder Transformation
+Aktuell wechselt die Nummer bei Hover von `text-accent/15` zu `text-accent/40` — sehr subtil und bei allen drei Schritten gleich.
 
----
+Aenderung fuer Schritt 03:
+- Hover-Zustand der Nummer: `text-accent/60` statt `/40` (deutlich sichtbarer als die anderen)
+- Zusaetzlich ein subtiler Text-Glow bei Hover: `text-shadow: 0 0 20px hsl(var(--neon) / 0.3)`
+- Der Titel ("Langfristige Partnerschaft") bekommt bei Hover ebenfalls `text-accent` — bei den anderen beiden Schritten passiert das nicht
+- Dadurch sticht 03 klar als "Ziel" hervor, ohne das minimalistische Design zu brechen
 
-## Vorschlag: Horizontale Journey mit animiertem Fortschritt
+Technisch: Sonderbehandlung fuer `index === 2` im JSX — eigene Hover-Klassen.
 
-Statt drei gleichwertiger Karten: eine visuelle Reise von links nach rechts, die eine Transformation erzaehlt.
+### 2. FeaturesSection — Tuerkis aus Titel entfernen, Hover-Animation verfeinern
 
-### Layout
+**Titel-Farbe bei Hover:** Aktuell wechselt der Titel (`text-4xl`...`text-6xl`) zu `text-accent` (tuerkis). Das ist zu dominant fuer das Editorial-Design.
 
-```text
-┌─────────────────────────────────────────────────────────────────┐
-│                                                                 │
-│   Von der ersten Automation zur kompletten Transformation.      │
-│                                                                 │
-│   ═══════════════●══════════════●══════════════●                │
-│                  │              │              │                 │
-│   ┌──────────┐       ┌──────────┐       ┌──────────┐           │
-│   │ Kleine   │       │ Vernetzte│       │ Komplette│           │
-│   │ Helfer   │       │ Prozesse │       │ Transf.  │           │
-│   │          │       │          │       │          │           │
-│   │ items... │       │ items... │       │ items... │           │
-│   └──────────┘       └──────────┘       └──────────┘           │
-│                                                                 │
-│   [ Fortschrittsbalken ════════════════════════> ]              │
-│     Phase 1             Phase 2            Phase 3              │
-│                                                                 │
-└─────────────────────────────────────────────────────────────────┘
-```
+Aenderung:
+- Titel bleibt weiss bei Hover — kein Farbwechsel
+- Stattdessen eine dezente **Scale-Animation**: `group-hover:scale-[1.02]` mit `transition-transform duration-500` auf dem gesamten Text-Block
+- Die Description fadet leicht heller: `group-hover:text-foreground/80` (von `text-muted-foreground`)
+- "Mehr erfahren" behaelt sein Tuerkis — das bleibt der einzige Farbakzent
 
-### Konzept: Animated Timeline mit Phase-Wechsel
-
-1. **Fortschrittsbalken oben**: Ein horizontaler Balken (nicht die kaum sichtbare Linie) der sich von links nach rechts fuellt. Drei Stationen als Kreise auf der Linie. Der aktive Kreis pulsiert leicht mit Glow.
-
-2. **Karten erscheinen sequentiell**: Statt alle drei gleichzeitig zu zeigen, werden sie nacheinander "aktiviert". Die aktive Karte hat einen subtilen tuerkisen Akzent-Border und leichten Glow. Inaktive Karten sind gedimmt (`opacity-40`).
-
-3. **Auto-Play Zyklus**: Alle 3 Sekunden wechselt die aktive Phase weiter. Der Fortschrittsbalken fuellt sich entsprechend. Bei Phase 3 kurze Pause, dann Reset.
-
-4. **Inhalt statt Bulletpoints**: Statt trockener Listen bekommt jede Karte eine praegnante Beschreibung und einen kleinen animierten Zaehler oder Status-Badge:
-   - Phase 1: "3 Workflows aktiv" (zaehlt hoch)
-   - Phase 2: "12 Systeme verbunden" (zaehlt hoch)  
-   - Phase 3: "100% automatisiert" (zaehlt hoch, mit Checkmark)
-
-5. **Mobile**: Vertikal gestapelt. Der Fortschrittsbalken wird zu einer vertikalen Linie links. Karten erscheinen nacheinander darunter.
-
-### Design-Details
-
-- Fortschrittsbalken: `h-[2px] bg-accent/20` als Hintergrund, `bg-accent` als Fuellung, animiert mit `scaleX`
-- Stationen: `w-3 h-3 rounded-full` auf der Linie, aktiv mit `bg-accent shadow-[0_0_12px_hsl(var(--accent)/0.4)]`
-- Aktive Karte: `border-accent/30 shadow-[0_0_30px_hsl(var(--accent)/0.06)]`
-- Inaktive Karten: `opacity-40 border-white/[0.04]`
-- Uebergaenge: `AnimatePresence` fuer Badge-/Status-Wechsel
-- Tuerkis nur als Akzent: Border, Dots, Status-Badges. Kein tuerkiser Titel oder Hintergrund
-
-### Technische Umsetzung
-
-- `useInView({ once: false })` fuer Start/Reset
-- `useState` fuer `activePhase` (0, 1, 2)
-- `useEffect` mit `setInterval` fuer Auto-Play (3s pro Phase, 2s Pause nach Phase 3, dann Reset)
-- Fortschrittsbalken-Breite: `width: ${((activePhase + 1) / 3) * 100}%` mit `transition-all duration-700`
-- CountUp-Komponente fuer die Zaehler in jeder Karte
+So bleibt das Tuerkis dezent und nur beim Call-to-Action, waehrend der Hover trotzdem spuerbar ist durch die sanfte Skalierung und den Helligkeitswechsel der Beschreibung.
 
 ---
 
-## Betroffene Datei
+## Betroffene Dateien
 
 | Datei | Aenderung |
 |-------|-----------|
-| `src/components/automations/AutomationsSpectrum.tsx` | Komplett neu: Timeline mit Phase-Wechsel statt statisches Karten-Grid |
+| `src/components/ProcessSection.tsx` | Schritt 03: staerkerer Hover mit Glow + Titel-Akzent |
+| `src/components/FeaturesSection.tsx` | Tuerkis aus Titel-Hover entfernen, Scale-Animation + Description-Aufhellung hinzufuegen |
 
-Eine Datei. Keine neuen Abhaengigkeiten.
+Zwei Dateien, minimale Aenderungen, keine neuen Abhaengigkeiten.
 
