@@ -35,7 +35,7 @@ const AutomationsProblem = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: appleEase }}
         >
-          Euer Team ist zu gut für Routinearbeit.
+          Dein Team ist zu gut für Routinearbeit.
         </motion.h2>
 
         <motion.p

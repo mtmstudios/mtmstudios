@@ -6,17 +6,17 @@ const steps = [
   {
     number: "01",
     title: "Anruf kommt rein",
-    description: "Euer KI-Assistent nimmt ab — sofort, ohne Wartezeit, 24/7.",
+    description: "Dein KI-Assistent nimmt ab — sofort, ohne Wartezeit, 24/7.",
   },
   {
     number: "02",
     title: "KI versteht und handelt",
-    description: "Beantwortet Fragen, vereinbart Termine und leitet bei Bedarf an euer Team weiter.",
+    description: "Beantwortet Fragen, vereinbart Termine und leitet bei Bedarf an dein Team weiter.",
   },
   {
     number: "03",
     title: "Alles im CRM",
-    description: "Zusammenfassung, Transkript und gebuchte Termine — automatisch in eurem System.",
+    description: "Zusammenfassung, Transkript und gebuchte Termine — automatisch in deinem System.",
   },
 ];
 

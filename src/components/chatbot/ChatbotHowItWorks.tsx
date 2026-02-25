@@ -11,12 +11,12 @@ const steps = [
   {
     number: "02",
     title: "KI versteht und handelt",
-    description: "Beantwortet Fragen, bucht Termine und übergibt bei Bedarf an euer Team.",
+    description: "Beantwortet Fragen, bucht Termine und übergibt bei Bedarf an dein Team.",
   },
   {
     number: "03",
     title: "Alles dokumentiert",
-    description: "Gesprächsverlauf, gebuchte Termine und Kundendaten — automatisch in eurem System.",
+    description: "Gesprächsverlauf, gebuchte Termine und Kundendaten — automatisch in deinem System.",
   },
 ];
 

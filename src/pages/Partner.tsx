@@ -13,44 +13,44 @@ const painPoints = [
   {
     num: "01",
     title: "KI-Kompetenz aufbauen kostet Zeit und Geld",
-    description: "Neue Teams, neue Tools, neue Prozesse — der Aufwand ist enorm, bevor ihr überhaupt die erste Lösung liefern könnt.",
+    description: "Neue Teams, neue Tools, neue Prozesse — der Aufwand ist enorm, bevor du überhaupt die erste Lösung liefern kannst.",
   },
   {
     num: "02",
     title: "Kunden erwarten fertige Lösungen",
-    description: "Keine Experimente, keine Prototypen. Eure Kunden wollen Ergebnisse — ab Tag eins.",
+    description: "Keine Experimente, keine Prototypen. Deine Kunden wollen Ergebnisse — ab Tag eins.",
   },
   {
     num: "03",
     title: "Chancen gehen verloren",
-    description: "Jede Anfrage, die ihr nicht bedienen könnt, ist Umsatz, der woanders landet.",
+    description: "Jede Anfrage, die du nicht bedienen kannst, ist Umsatz, der woanders landet.",
   },
 ];
 
 const steps = [
   {
-    title: "Ihr bringt den Kunden",
+    title: "Du bringst den Kunden",
     description: "Wir analysieren gemeinsam den Bedarf und finden die passende Lösung.",
   },
   {
     title: "Wir bauen die Lösung",
-    description: "Unter eurem Namen, in eurem Branding — niemand merkt, dass wir im Hintergrund arbeiten.",
+    description: "Unter deinem Namen, in deinem Branding — niemand merkt, dass wir im Hintergrund arbeiten.",
   },
   {
-    title: "Ihr liefert Ergebnisse",
-    description: "Eure Kunden sind begeistert. Ihr wachst. Wir bleiben unsichtbar.",
+    title: "Du lieferst Ergebnisse",
+    description: "Deine Kunden sind begeistert. Du wächst. Wir bleiben unsichtbar.",
   },
 ];
 
 const benefits = [
   {
     title: "Neue Umsatzquelle",
-    description: "Erweitert euer Portfolio ohne eigenes Investment in Technologie oder Personal.",
+    description: "Erweitere dein Portfolio ohne eigenes Investment in Technologie oder Personal.",
     icon: TrendingUp,
   },
   {
     title: "100% White-Label",
-    description: "Euer Branding, unsere Technik. Eure Kunden sehen nur euch.",
+    description: "Dein Branding, unsere Technik. Deine Kunden sehen nur dich.",
     icon: EyeOff,
   },
   {
@@ -60,7 +60,7 @@ const benefits = [
   },
   {
     title: "Persönlicher Ansprechpartner",
-    description: "Ein fester Kontakt, der euer Geschäft versteht — kein anonymes Ticket-System.",
+    description: "Ein fester Kontakt, der dein Geschäft versteht — kein anonymes Ticket-System.",
     icon: UserCheck,
   },
 ];
@@ -108,7 +108,7 @@ const Partner = () => {
       if (bgRef.current) {
         const scrollPosition = window.scrollY;
         const maxScroll = 300;
-        const opacity = Math.max(0.3, 1 - (scrollPosition / maxScroll) * 0.7);
+        const opacity = Math.max(0.1, 1 - (scrollPosition / maxScroll) * 0.9);
         bgRef.current.style.opacity = opacity.toString();
       }
     };
@@ -118,7 +118,7 @@ const Partner = () => {
 
   return (
     <div className="relative min-h-screen bg-background">
-      <SEOHead title="Partner werden | White-Label KI-Lösungen | MTM Studios" description="Werdet Partner von MTM Studios. White-Label KI-Lösungen für Agenturen und Dienstleister — euer Angebot, unsere Technologie." />
+      <SEOHead title="Partner werden | White-Label KI-Lösungen | MTM Studios" description="Werde Partner von MTM Studios. White-Label KI-Lösungen für Agenturen und Dienstleister — dein Angebot, unsere Technologie." />
       {/* Video Background */}
       <div ref={bgRef} className="fixed inset-0 w-screen h-screen overflow-hidden" style={{ isolation: "isolate", zIndex: 0, willChange: "opacity" }}>
         <img src="/videos/hero-background-still.jpg" alt="" className="md:hidden w-full h-full object-cover absolute inset-0" style={{ mixBlendMode: "hard-light", filter: "brightness(0.5) contrast(2)", pointerEvents: "none" }} />
@@ -152,7 +152,7 @@ const Partner = () => {
         {/* Hero */}
         <section className="min-h-[70vh] flex flex-col items-center pt-[15vh] px-6">
           <BlurText
-            text="Euer Angebot. Unsere Technologie."
+            text="Dein Angebot. Unsere Technologie."
             className="text-4xl sm:text-5xl md:text-7xl font-bold text-foreground tracking-tight"
             animateBy="words"
             direction="top"
@@ -165,7 +165,7 @@ const Partner = () => {
             className="mt-6 text-lg md:text-xl text-foreground/70 max-w-xl text-center leading-relaxed"
             style={{ textShadow: '0 2px 20px rgba(0,0,0,0.9), 0 0 40px rgba(0,0,0,0.6)' }}
           >
-            Wir sind der Partner, den eure Kunden nie sehen — aber immer spüren.
+            Wir sind der Partner, den deine Kunden nie sehen — aber immer spüren.
           </motion.p>
         </section>
 
@@ -222,7 +222,7 @@ const Partner = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.8, ease: appleEase }}
             >
-              Wir übernehmen. Ihr glänzt.
+              Wir übernehmen. Du glänzt.
             </motion.h2>
             <motion.p
               className="text-muted-foreground text-center mb-20 text-lg"
@@ -290,7 +290,7 @@ const Partner = () => {
               transition={{ duration: 0.8, ease: appleEase }}
               className="text-3xl md:text-5xl font-bold text-foreground text-center mb-16"
             >
-              Was ihr davon habt.
+              Was du davon hast.
             </motion.h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">

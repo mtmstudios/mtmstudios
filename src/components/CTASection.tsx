@@ -42,7 +42,7 @@ const CTASection = () => {
           transition={{ duration: 0.8, delay: 0.2, ease: appleEase }}
           className="text-muted-foreground text-lg leading-relaxed max-w-lg mx-auto mb-10"
         >
-          Lass uns gemeinsam herausfinden, wie KI euer Business entlastet — kostenlos und unverbindlich.
+          Lass uns gemeinsam herausfinden, wie KI dein Business entlastet — kostenlos und unverbindlich.
         </motion.p>
 
         <motion.div

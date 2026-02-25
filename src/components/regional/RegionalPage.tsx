@@ -193,7 +193,7 @@ const RegionalPage = ({ context }: RegionalPageProps) => {
               transition={{ duration: 0.8, delay: 0.1, ease: appleEase }}
               className="text-muted-foreground text-center mb-12 text-base md:text-lg max-w-xl mx-auto"
             >
-              Was wir für euch in {city.charAt(0).toUpperCase() + city.slice(1)} umsetzen.
+              Was wir für dich in {city.charAt(0).toUpperCase() + city.slice(1)} umsetzen.
             </motion.p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">

@@ -22,7 +22,7 @@ const features = [
   {
     title: "Terminbuchung",
     description:
-      "Bucht Termine direkt während des Anrufs — synchronisiert mit eurem Kalender.",
+      "Bucht Termine direkt während des Anrufs — synchronisiert mit deinem Kalender.",
     Demo: CalendarAnimation,
   },
   {

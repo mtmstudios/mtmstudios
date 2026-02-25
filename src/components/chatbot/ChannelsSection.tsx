@@ -13,7 +13,7 @@ const ChannelsSection = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: appleEase }}
         >
-          Eure Kanäle. Ein Bot.
+          Deine Kanäle. Ein Bot.
         </motion.h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -38,7 +38,7 @@ const ChannelsSection = () => {
               </div>
               <div className="flex justify-start">
                 <div className="px-4 py-2.5 rounded-2xl rounded-bl-md bg-[#25D366]/10 border border-[#25D366]/20 text-sm text-foreground/80 max-w-[80%]">
-                  Klar! Wann passt es euch? 📅
+                  Klar! Wann passt es dir? 📅
                 </div>
               </div>
             </div>
@@ -50,7 +50,7 @@ const ChannelsSection = () => {
               <h3 className="text-2xl font-semibold text-foreground">WhatsApp Business</h3>
             </div>
             <p className="text-muted-foreground leading-relaxed">
-              Erreicht eure Kunden dort, wo sie täglich kommunizieren.
+              Erreiche deine Kunden dort, wo sie täglich kommunizieren.
             </p>
           </motion.div>
 
@@ -75,7 +75,7 @@ const ChannelsSection = () => {
                 </div>
                 <div className="flex justify-end">
                   <div className="px-4 py-2.5 rounded-2xl rounded-br-md bg-secondary text-sm text-foreground/80 max-w-[80%]">
-                    Was kostet euer Service?
+                    Was kostet der Service?
                   </div>
                 </div>
               </div>
@@ -90,7 +90,7 @@ const ChannelsSection = () => {
               <h3 className="text-2xl font-semibold text-foreground">Website-Chat</h3>
             </div>
             <p className="text-muted-foreground leading-relaxed">
-              Besucher direkt auf eurer Website betreuen — ohne Wartezeit.
+              Besucher direkt auf deiner Website betreuen — ohne Wartezeit.
             </p>
           </motion.div>
 
@@ -110,7 +110,7 @@ const ChannelsSection = () => {
               </div>
               <div className="flex justify-end">
                 <div className="px-4 py-2.5 rounded-2xl rounded-br-md bg-secondary text-sm text-foreground/80 max-w-[80%]">
-                  Habt ihr noch freie Termine?
+                   Habt ihr noch freie Termine?
                 </div>
               </div>
               <div className="flex justify-start">
@@ -127,7 +127,7 @@ const ChannelsSection = () => {
               <h3 className="text-2xl font-semibold text-foreground">Instagram DMs</h3>
             </div>
             <p className="text-muted-foreground leading-relaxed">
-              Antwortet automatisch auf Direktnachrichten — auch außerhalb eurer Geschäftszeiten.
+              Antwortet automatisch auf Direktnachrichten — auch außerhalb deiner Geschäftszeiten.
             </p>
           </motion.div>
 
@@ -142,12 +142,12 @@ const ChannelsSection = () => {
             <div className="mb-8 rounded-xl bg-white/[0.02] border border-white/[0.06] p-4 space-y-3">
               <div className="flex justify-start">
                 <div className="px-4 py-2.5 rounded-2xl rounded-bl-md bg-[#0084FF]/10 border border-[#0084FF]/20 text-sm text-foreground/80 max-w-[80%]">
-                  Hi! Was kann ich für euch tun? 💬
+                  Hi! Was kann ich für dich tun? 💬
                 </div>
               </div>
               <div className="flex justify-end">
                 <div className="px-4 py-2.5 rounded-2xl rounded-br-md bg-secondary text-sm text-foreground/80 max-w-[80%]">
-                  Ich brauche Infos zu eurem Angebot
+                  Ich brauche Infos zum Angebot
                 </div>
               </div>
               <div className="flex justify-start">
@@ -164,7 +164,7 @@ const ChannelsSection = () => {
               <h3 className="text-2xl font-semibold text-foreground">Facebook Messenger</h3>
             </div>
             <p className="text-muted-foreground leading-relaxed">
-              Euer Bot beantwortet Anfragen direkt im Messenger — schnell und persönlich.
+              Dein Bot beantwortet Anfragen direkt im Messenger — schnell und persönlich.
             </p>
           </motion.div>
         </div>

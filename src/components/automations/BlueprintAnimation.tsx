@@ -125,7 +125,7 @@ const BlueprintAnimation = () => {
             transition={{ duration: 0.5, ease: appleEase }}
           >
             <CheckCircle className="w-3 h-3 text-emerald-400" />
-            Konfiguriert für: Ihr Unternehmen
+            Konfiguriert für: Dein Unternehmen
           </motion.div>
         )}
       </AnimatePresence>

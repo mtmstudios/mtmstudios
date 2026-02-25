@@ -31,7 +31,7 @@ const IntegrationsSection = () => {
             transition={{ duration: 0.8, delay: 0.1, ease: appleEase }}
             className="text-muted-foreground max-w-xl mx-auto"
           >
-            Wir verbinden eure bestehenden Tools nahtlos mit KI.
+            Wir verbinden deine bestehenden Tools nahtlos mit KI.
           </motion.p>
         </div>
 

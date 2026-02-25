@@ -9,22 +9,22 @@ const appleEase = [0.16, 1, 0.3, 1] as const;
 const features = [
   {
     title: "Nahtlose Integration",
-    description: "Alle Tools verbunden — CRM, E-Mail, Kalender und mehr. Ein zentraler Hub für eure Prozesse.",
+    description: "Alle Tools verbunden — CRM, E-Mail, Kalender und mehr. Ein zentraler Hub für deine Prozesse.",
     Demo: IntegrationNodesAnimation,
   },
   {
     title: "Maßgeschneidert",
-    description: "Keine Standard-Lösung, sondern Workflows, die exakt zu eurem Unternehmen passen.",
+    description: "Keine Standard-Lösung, sondern Workflows, die exakt zu deinem Unternehmen passen.",
     Demo: BlueprintAnimation,
   },
   {
     title: "Messbare Ergebnisse",
-    description: "Transparente Dashboards zeigen genau, wie viel Zeit und Geld ihr spart.",
+    description: "Transparente Dashboards zeigen genau, wie viel Zeit und Geld du sparst.",
     Demo: MetricsAnimation,
   },
   {
     title: "Zukunftssicher",
-    description: "Skalierbare Architektur, die mit eurem Wachstum Schritt hält.",
+    description: "Skalierbare Architektur, die mit deinem Wachstum Schritt hält.",
     Demo: ScaleUpAnimation,
   },
 ];
