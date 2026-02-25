@@ -1,45 +1,65 @@
 
 
-# Video auf Mobile pausiert anzeigen (erster Frame)
+# Fix: Dunkler Bildschirm auf Safari Mobile & WhatsApp-Button
 
-## Idee
+## Probleme
 
-Das Video auf Mobile laden, aber sofort pausieren — so wird der erste Frame als Standbild angezeigt und sieht identisch zum Desktop aus.
+1. **Dunkler Bildschirm auf Safari**: Der Code ueberspringt `play()` auf Mobile (`if (isMobile) return;` in Zeile 21). Das Video wird mit `preload="metadata"` geladen, zeigt aber auf iOS Safari keinen ersten Frame — nur schwarzen Hintergrund.
 
-## Wichtiger Hinweis zur Ladezeit
+2. **WhatsApp-Button geht nicht**: Der WhatsApp-Link in `HeroSection.tsx` und `CTASection.tsx` liegt auf `zIndex: 10`, aber das Video-Overlay mit `pointerEvents: 'none'` koennte trotzdem Klicks blockieren, oder der Link wird durch ein anderes Element ueberdeckt.
 
-Das Video wird trotzdem teilweise heruntergeladen, auch wenn es nicht abgespielt wird. Mit `preload="metadata"` laed der Browser nur die ersten paar KB (Header + erster Frame), nicht die gesamte Datei. Das ist ein guter Kompromiss.
+## Loesung
 
-## Umsetzung
+### 1. Video auf Mobile abspielen
 
-Auf allen 4 Seiten wird der Mobile-Branch geaendert:
+Den `if (isMobile) return;` Guard entfernen. Stattdessen auf allen Geraeten `play()` versuchen — mit `muted` und `playsInline` funktioniert Autoplay auf iOS Safari zuverlaessig.
 
-- Statt `<img>` wird das gleiche `<video>` verwendet
-- Kein `autoPlay`, kein `loop`
-- `preload="metadata"` statt `preload="auto"` — laedt nur den ersten Frame
-- Der `useEffect` fuer `play()` wird nur auf Desktop ausgefuehrt (durch `if (isMobile) return;`)
-- Gleiche CSS-Filter wie auf Desktop (`mixBlendMode`, `brightness`, `contrast`)
+Aenderungen in allen 4 Seiten (`Index.tsx`, `PhoneAssistant.tsx`, `Chatbots.tsx`, `Automations.tsx`):
 
 ```text
-Mobile:
-  <video muted playsInline preload="metadata"
-         src="/videos/hero-background.mp4"
-         style={{ mixBlendMode: 'hard-light', filter: '...', pointerEvents: 'none' }} />
-  // Kein play() — zeigt ersten Frame als Standbild
+// VORHER:
+ref={isMobile ? undefined : videoRef}   // Mobile bekommt keine ref
+loop={!isMobile}                         // Mobile kein loop
+preload={isMobile ? "metadata" : "auto"} // Mobile nur metadata
 
-Desktop:
-  <video ... preload="auto" />
-  // useEffect → play()
+useEffect(() => {
+  if (isMobile) return;  // <-- Blockiert play() auf Mobile
+  ...
+});
+
+// NACHHER:
+ref={videoRef}          // Immer ref setzen
+loop                    // Immer loopen
+muted
+playsInline
+preload="auto"          // Immer preloaden
+
+useEffect(() => {
+  // Kein isMobile-Guard mehr
+  const video = videoRef.current;
+  if (!video) return;
+  const attemptAutoplay = async () => {
+    try { await video.play(); } catch {
+      video.muted = true;
+      try { await video.play(); } catch {}
+    }
+  };
+  attemptAutoplay();
+}, []);
 ```
+
+### 2. WhatsApp-Button klickbar machen
+
+Der WhatsApp-Link (`<a href="https://wa.me/...">`) liegt innerhalb von `zIndex: 10`. Das sollte ueber dem Video-Layer (`zIndex: 0`) liegen. Zur Sicherheit `position: relative` und `zIndex` auf die Links setzen, falls ein Overlay sie blockiert.
 
 ## Betroffene Dateien
 
 | Datei | Aenderung |
 |-------|-----------|
-| `src/pages/Index.tsx` | Mobile: Video mit `preload="metadata"`, kein play() |
+| `src/pages/Index.tsx` | `isMobile`-Guards entfernen, Video immer abspielen |
 | `src/pages/PhoneAssistant.tsx` | Gleiche Aenderung |
 | `src/pages/Chatbots.tsx` | Gleiche Aenderung |
 | `src/pages/Automations.tsx` | Gleiche Aenderung |
-
-Der `earth-hero.jpg` Import kann danach entfernt werden, da er nicht mehr gebraucht wird.
+| `src/components/HeroSection.tsx` | WhatsApp-Link: `position: relative; zIndex: 20` sicherstellen |
+| `src/components/CTASection.tsx` | WhatsApp-Link: gleiche Absicherung |
 
