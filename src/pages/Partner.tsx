@@ -258,7 +258,7 @@ const Partner = () => {
                     viewport={{ once: true }}
                     transition={{ duration: 0.8, delay: i * 0.15 + 0.1, ease: appleEase }}
                   >
-                    <h3 className="text-lg md:text-xl lg:text-2xl font-bold text-foreground mb-2 transition-colors duration-300 group-hover:text-accent">
+                    <h3 className="text-lg md:text-xl lg:text-2xl font-bold text-foreground mb-2">
                       {s.title}
                     </h3>
                     <p className="text-sm md:text-base text-muted-foreground leading-relaxed max-w-md mx-auto">
