@@ -1,28 +1,33 @@
 
 
-# Fix: Hintergrundbild auf regionalen Seiten weiter nach unten
+# Fix: Hintergrundbild auf regionalen Seiten — Positionierung an Karriere-Seite angleichen
 
-## Problem
+## Analyse
 
-Das Hintergrundbild auf den regionalen Seiten zeigt die Erde/den Globus zu hoch — trotz `objectPosition: "center 60%"`. Der Globus dominiert den Hero-Bereich und ueberlagert den Text. Die Erde muss deutlich weiter nach unten geschoben werden, sodass nur der obere Rand des Globus im unteren Drittel des Viewports sichtbar ist.
+Ich habe beide Seiten auf Desktop (1920x1080) verglichen:
 
-## Loesung
+- **Karriere-Seite**: Erde gut sichtbar, Kurve prominent in der unteren Hälfte. Verwendet **kein** `objectPosition` (Standard: `center center`).
+- **Regionale Seite**: Erde fast unsichtbar durch `objectPosition: "center 85%"` — viel zu aggressiv nach unten verschoben.
 
-`objectPosition` von `"center 60%"` auf `"center 85%"` aendern. Das verschiebt den Fokuspunkt des Bildes stark nach unten — die Erde erscheint dann nur noch als dezenter Bogen am unteren Bildschirmrand, wie auf den anderen Seiten (dort wird das Video genutzt, das denselben Effekt erzeugt).
+Auf Tablet (820x1180) ist das Problem noch deutlicher — die Erde verschwindet fast komplett.
 
-## Aenderung
+## Lösung
+
+`objectPosition: "center 85%"` aus dem `<img>`-Style in `RegionalPage.tsx` **entfernen**. Dann verhält sich das Bild identisch wie auf der Karriere-Seite (Standard `object-cover` ohne Versatz).
+
+## Änderung
 
 **Datei:** `src/components/regional/RegionalPage.tsx` (Zeile 65)
 
 Vorher:
 ```
-objectPosition: "center 60%"
+style={{ mixBlendMode: "hard-light", filter: "brightness(0.7) contrast(2)", pointerEvents: "none", objectPosition: "center 85%" }}
 ```
 
 Nachher:
 ```
-objectPosition: "center 85%"
+style={{ mixBlendMode: "hard-light", filter: "brightness(0.7) contrast(2)", pointerEvents: "none" }}
 ```
 
-Eine einzeilige Aenderung in einer Datei.
+Eine einzeilige Änderung in einer Datei.
 
