@@ -9,16 +9,13 @@ import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
 import RegionalSection from "@/components/RegionalSection";
 import SEOHead from "@/components/SEOHead";
-import { useIsMobile } from "@/hooks/use-mobile";
 import { useEffect, useRef } from "react";
 
 const Index = () => {
-  const isMobile = useIsMobile();
   const videoRef = useRef<HTMLVideoElement>(null);
   const bgRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (isMobile) return;
     const video = videoRef.current;
     if (!video) return;
     const attemptAutoplay = async () => {
@@ -28,7 +25,7 @@ const Index = () => {
       }
     };
     attemptAutoplay();
-  }, [isMobile]);
+  }, []);
 
   useEffect(() => {
     let rafId: number;
@@ -51,11 +48,11 @@ const Index = () => {
       <SEOHead title="KI-Agentur für Telefonassistenten, Chatbots & Automatisierungen | MTM Studios" description="MTM Studios ist eure KI-Agentur. Wir entwickeln Telefonassistenten, Chatbots und Automatisierungen für Unternehmen." />
       <div ref={bgRef} className="fixed inset-0 w-screen h-screen overflow-hidden" style={{ isolation: 'isolate', zIndex: 0, willChange: 'opacity' }}>
         <video
-          ref={isMobile ? undefined : videoRef}
-          loop={!isMobile}
+          ref={videoRef}
+          loop
           muted
           playsInline
-          preload={isMobile ? "metadata" : "auto"}
+          preload="auto"
           src="/videos/hero-background.mp4"
           className="w-full h-full object-cover transition-opacity duration-300"
           style={{
