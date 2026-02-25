@@ -4,9 +4,27 @@ interface SEOHeadProps {
   title: string;
   description: string;
   canonical?: string;
+  jsonLd?: Record<string, unknown>;
 }
 
-const SEOHead = ({ title, description, canonical }: SEOHeadProps) => {
+const BASE_URL = "https://mtmstudios.de";
+
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "MTM Studios",
+  url: BASE_URL,
+  logo: `${BASE_URL}/assets/logo-2.png`,
+  contactPoint: {
+    "@type": "ContactPoint",
+    telephone: "+49-155-67077414",
+    contactType: "customer service",
+    availableLanguage: "German",
+  },
+  sameAs: ["https://instagram.com/mtmstudios"],
+};
+
+const SEOHead = ({ title, description, canonical, jsonLd }: SEOHeadProps) => {
   useEffect(() => {
     document.title = title;
 
@@ -20,22 +38,42 @@ const SEOHead = ({ title, description, canonical }: SEOHeadProps) => {
       el.setAttribute("content", content);
     };
 
+    const canonicalUrl = canonical || `${BASE_URL}${window.location.pathname}`;
+
     setMeta("description", description);
     setMeta("og:title", title, "property");
     setMeta("og:description", description, "property");
+    setMeta("og:url", canonicalUrl, "property");
     setMeta("twitter:title", title, "name");
     setMeta("twitter:description", description, "name");
 
-    if (canonical) {
-      let link = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
-      if (!link) {
-        link = document.createElement("link");
-        link.setAttribute("rel", "canonical");
-        document.head.appendChild(link);
-      }
-      link.setAttribute("href", canonical);
+    // Canonical link
+    let link = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
+    if (!link) {
+      link = document.createElement("link");
+      link.setAttribute("rel", "canonical");
+      document.head.appendChild(link);
     }
-  }, [title, description, canonical]);
+    link.setAttribute("href", canonicalUrl);
+
+    // JSON-LD structured data
+    const schemas = [organizationSchema, ...(jsonLd ? [jsonLd] : [])];
+    
+    // Remove old JSON-LD scripts managed by SEOHead
+    document.querySelectorAll('script[data-seo-head="true"]').forEach((el) => el.remove());
+
+    schemas.forEach((schema) => {
+      const script = document.createElement("script");
+      script.type = "application/ld+json";
+      script.setAttribute("data-seo-head", "true");
+      script.textContent = JSON.stringify(schema);
+      document.head.appendChild(script);
+    });
+
+    return () => {
+      document.querySelectorAll('script[data-seo-head="true"]').forEach((el) => el.remove());
+    };
+  }, [title, description, canonical, jsonLd]);
 
   return null;
 };

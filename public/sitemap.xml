@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://mtmstudios.de/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://mtmstudios.de/ki-telefonassistent</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://mtmstudios.de/ki-chatbot</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://mtmstudios.de/automatisierungen</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://mtmstudios.de/dassindwir</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mtmstudios.de/partnerwerden</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://mtmstudios.de/karriere</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://mtmstudios.de/impressum</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://mtmstudios.de/datenschutz</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://mtmstudios.de/agb</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://mtmstudios.de/barrierefreiheit</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+
+  <!-- Regionale Seiten: KI-Agentur -->
+  <url><loc>https://mtmstudios.de/ki-agentur/stuttgart</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mtmstudios.de/ki-agentur/ulm</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <!-- Regionale Seiten: KI-Telefonassistent -->
+  <url><loc>https://mtmstudios.de/ki-telefonassistent/stuttgart</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mtmstudios.de/ki-telefonassistent/ulm</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <!-- Regionale Seiten: KI-Chatbot -->
+  <url><loc>https://mtmstudios.de/ki-chatbot/stuttgart</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mtmstudios.de/ki-chatbot/ulm</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <!-- Regionale Seiten: Automatisierungen -->
+  <url><loc>https://mtmstudios.de/automatisierungen/stuttgart</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mtmstudios.de/automatisierungen/ulm</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+</urlset>
