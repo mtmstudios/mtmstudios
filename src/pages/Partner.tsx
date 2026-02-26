@@ -249,7 +249,7 @@ const Partner = () => {
                   className="group flex flex-col items-center text-center py-8 md:py-12 cursor-default"
                 >
                   <motion.span
-                    className="text-4xl md:text-5xl lg:text-6xl font-bold text-accent/15 select-none mb-3 transition-colors duration-300 group-hover:text-accent/40"
+                    className="text-4xl md:text-5xl lg:text-6xl font-bold text-accent/30 md:text-accent/15 select-none mb-3 transition-colors duration-300 group-hover:text-accent/40"
                     initial={{ opacity: 0, scale: 0.85 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
@@ -309,17 +309,17 @@ const Partner = () => {
                     transition={{ duration: 0.8, delay: i * 0.12, ease: appleEase }}
                   >
                     <motion.div
-                      className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-5"
+                      className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-5 mx-auto md:mx-0"
                       initial={{ scale: 0.8, opacity: 0 }}
                       animate={benefitsInView ? { scale: 1, opacity: 1 } : {}}
                       transition={{ duration: 0.6, delay: i * 0.12 + 0.2, ease: appleEase }}
                     >
                       <Icon className="w-6 h-6 text-accent" />
                     </motion.div>
-                    <h3 className="text-xl md:text-2xl font-bold text-foreground mb-2 transition-colors duration-500">
+                    <h3 className="text-xl md:text-2xl font-bold text-foreground mb-2 transition-colors duration-500 text-center md:text-left">
                       {b.title}
                     </h3>
-                    <p className="text-muted-foreground leading-relaxed">{b.description}</p>
+                    <p className="text-muted-foreground leading-relaxed text-center md:text-left">{b.description}</p>
                   </motion.div>
                 );
               })}
