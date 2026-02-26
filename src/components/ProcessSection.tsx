@@ -56,7 +56,7 @@ const ProcessSection = () => {
                 initial={{ opacity: 0, scale: 0.85 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
-                transition={{ type: "spring", stiffness: 200, damping: 20, delay: index * 0.15 }}
+                transition={{ duration: 0.6, ease: appleEase, delay: index * 0.15 }}
               >
                 {step.number}
               </motion.span>

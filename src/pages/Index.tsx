@@ -50,12 +50,12 @@ const Index = () => {
   return (
     <div className="relative min-h-screen bg-background">
       <SEOHead title="KI-Agentur für Telefonassistenten, Chatbots & Automatisierungen | MTM Studios" description="MTM Studios ist deine KI-Agentur. Wir entwickeln Telefonassistenten, Chatbots und Automatisierungen für Unternehmen." />
-      <div ref={bgRef} className="fixed inset-0 w-screen h-screen overflow-hidden" style={{ isolation: 'isolate', zIndex: 0, willChange: 'opacity' }}>
+      <div ref={bgRef} className="fixed inset-0 w-screen h-screen overflow-hidden" style={{ isolation: 'isolate', zIndex: 0 }}>
         <img
           src="/videos/hero-background-still.jpg"
           alt=""
           className="md:hidden w-full h-full object-cover absolute inset-0"
-          style={{ mixBlendMode: 'hard-light', filter: 'brightness(0.5) contrast(2)', pointerEvents: 'none' }}
+          style={{ filter: 'brightness(0.7) contrast(1.5)', pointerEvents: 'none' }}
         />
         <video
           ref={videoRef}

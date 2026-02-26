@@ -53,8 +53,8 @@ const Automations = () => {
   return (
     <div className="relative min-h-screen bg-background">
       <SEOHead title="KI-Automatisierung für Unternehmen | MTM Studios" description="KI-Automatisierung von MTM Studios. Wir automatisieren deine Geschäftsprozesse — effizient, skalierbar und DSGVO-konform." />
-      <div ref={bgRef} className="fixed inset-0 w-screen h-screen overflow-hidden" style={{ isolation: "isolate", zIndex: 0, willChange: "opacity" }}>
-        <img src="/videos/hero-background-still.jpg" alt="" className="md:hidden w-full h-full object-cover absolute inset-0" style={{ mixBlendMode: "hard-light", filter: "brightness(0.5) contrast(2)", pointerEvents: "none" }} />
+      <div ref={bgRef} className="fixed inset-0 w-screen h-screen overflow-hidden" style={{ isolation: "isolate", zIndex: 0 }}>
+        <img src="/videos/hero-background-still.jpg" alt="" className="md:hidden w-full h-full object-cover absolute inset-0" style={{ filter: "brightness(0.7) contrast(1.5)", pointerEvents: "none" }} />
         <video ref={videoRef} autoPlay loop muted playsInline
           // @ts-ignore
           webkit-playsinline=""

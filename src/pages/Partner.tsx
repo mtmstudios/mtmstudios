@@ -124,8 +124,8 @@ const Partner = () => {
     <div className="relative min-h-screen bg-background">
       <SEOHead title="Partner werden | White-Label KI-Lösungen | MTM Studios" description="Werde Partner von MTM Studios. White-Label KI-Lösungen für Agenturen und Dienstleister — dein Angebot, unsere Technologie." />
       {/* Video Background */}
-      <div ref={bgRef} className="fixed inset-0 w-screen h-screen overflow-hidden" style={{ isolation: "isolate", zIndex: 0, willChange: "opacity" }}>
-        <img src="/videos/hero-background-still.jpg" alt="" className="md:hidden w-full h-full object-cover absolute inset-0" style={{ mixBlendMode: "hard-light", filter: "brightness(0.5) contrast(2)", pointerEvents: "none" }} />
+      <div ref={bgRef} className="fixed inset-0 w-screen h-screen overflow-hidden" style={{ isolation: "isolate", zIndex: 0 }}>
+        <img src="/videos/hero-background-still.jpg" alt="" className="md:hidden w-full h-full object-cover absolute inset-0" style={{ filter: "brightness(0.7) contrast(1.5)", pointerEvents: "none" }} />
         <video
           ref={videoRef}
           autoPlay
@@ -253,7 +253,7 @@ const Partner = () => {
                     initial={{ opacity: 0, scale: 0.85 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
-                    transition={{ type: "spring", stiffness: 200, damping: 20, delay: i * 0.15 }}
+                    transition={{ duration: 0.6, ease: appleEase, delay: i * 0.15 }}
                   >
                     {String(i + 1).padStart(2, "0")}
                   </motion.span>
