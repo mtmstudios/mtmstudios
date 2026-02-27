@@ -249,7 +249,7 @@ const Partner = () => {
                   className="group flex flex-col items-center text-center py-8 md:py-12 cursor-default"
                 >
                   <motion.span
-                    className="text-4xl md:text-5xl lg:text-6xl font-bold text-accent/30 md:text-accent/15 select-none mb-3 transition-colors duration-300 group-hover:text-accent/40"
+                    className="text-4xl md:text-5xl lg:text-6xl font-bold text-accent/50 md:text-accent/15 select-none mb-3 transition-colors duration-300 group-hover:text-accent/40"
                     initial={{ opacity: 0, scale: 0.85 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
