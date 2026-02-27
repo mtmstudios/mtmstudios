@@ -1,22 +1,30 @@
 
 
-## ContainerScroll-Effekt auf ChatbotHero übertragen
+## 3D-Tiefe für das Smartphone-Visual
 
-**Datei:** `src/components/chatbot/ChatbotHero.tsx`
+Das Problem: Der Phone-Frame ist ein flaches SVG-Rechteck — keine Tiefe, keine Kanten, kein Lichteinfall. Der ContainerScroll rotiert es zwar, aber das Objekt selbst wirkt 2D.
 
-### Änderungen
+### Ansatz: Visuelle 3D-Cues direkt im SVG
 
-1. **Import hinzufügen:** `ContainerScroll` aus `@/components/ui/container-scroll-animation`
+**Datei:** `src/components/phone-assistant/PhoneHero.tsx` (PhoneVisual)
+**Datei:** `src/components/chatbot/ChatbotHero.tsx` (WhatsAppPhoneVisual)
 
-2. **Section-Wrapper vereinfachen** (Zeile 238): Padding/min-height entfernen — ContainerScroll bringt eigene Höhe mit
-   - `<section className="min-h-[70vh] flex flex-col items-center justify-start px-6 pt-[15vh] pb-16">` → `<section className="flex flex-col items-center justify-start">`
+Beide Phone-SVGs bekommen dieselben Enhancements:
 
-3. **Struktur umbauen** (Zeilen 238-265): Gleiche Struktur wie PhoneHero:
-   - `<ContainerScroll titleComponent={...}>` bekommt den BlurText-Titel + Subtitle als `titleComponent`
-   - `<WhatsAppPhoneVisual />` wird als `children` übergeben
-   - Der bisherige `motion.div`-Wrapper (Zeile 256-263) mit eigenem fade-in entfällt — ContainerScroll übernimmt die Animation
+1. **Seitliche Kante (Bezel)** — Ein zweites, leicht versetztes Rechteck hinter dem Hauptframe, das die "Dicke" des Geräts simuliert:
+   - Offset: x+3, y+4
+   - Farbe: accent mit niedriger Opacity
+   - Erzeugt den Eindruck einer physischen Kante
 
-4. **Chat-Animationen bleiben erhalten**: `useInView` + sequentielle Message-Delays + TypingDots laufen unabhängig vom Scroll-Transform weiter — kein Eingriff in WhatsAppPhoneVisual nötig
+2. **Gradient auf dem Frame-Stroke** — LinearGradient von oben-links (heller) nach unten-rechts (dunkler) auf dem Rahmen-Stroke, simuliert gerichtetes Licht
 
-Ergebnis: Gleicher 3D-Reveal wie beim Telefonassistenten, Chat-Nachrichten animieren sich wie gewohnt ein sobald sichtbar.
+3. **Boden-Schatten** — Eine Ellipse unterhalb des Phones mit Gaussian Blur als "Auflagefläche"-Schatten:
+   - Position: unter dem Phone-Frame
+   - Blur: 25px, accent-Farbe mit ~8% Opacity
+
+4. **Subtiler Screen-Glanz** — Ein diagonaler LinearGradient-Overlay (transparent → weiß 3% → transparent) über dem Bildschirmbereich, simuliert Glasreflexion
+
+### Ergebnis
+
+Das Smartphone wirkt wie ein physisches Objekt mit Dicke, Lichteinfall und Schatten — kombiniert mit der Scroll-Rotation entsteht ein überzeugender 3D-Effekt.
 
