@@ -50,8 +50,8 @@ const ProcessSection = () => {
               <motion.span
                 className={`text-4xl md:text-5xl lg:text-6xl font-bold select-none mb-3 transition-all duration-300 ${
                   index === 2
-                    ? 'text-accent/50 md:text-accent/15 group-hover:text-accent/60 group-hover:text-glow'
-                    : 'text-accent/50 md:text-accent/15 group-hover:text-accent/40'
+                    ? 'text-accent/50 group-hover:text-accent/60 group-hover:text-glow'
+                    : 'text-accent/50 group-hover:text-accent/60'
                 }`}
                 initial={{ opacity: 0, scale: 0.85 }}
                 whileInView={{ opacity: 1, scale: 1 }}
