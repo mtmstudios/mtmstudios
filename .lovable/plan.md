@@ -1,21 +1,19 @@
 
 
-## Benefits-Sektion lockerer machen
+## Spectrum-Sektion zentrieren
 
-**Datei:** `src/pages/Karriere.tsx` (Zeilen 22-31, `benefits` Array)
+**Datei:** `src/components/automations/AutomationsSpectrum.tsx`
 
 ### Änderungen
 
-| # | Label alt → neu | Sub alt → neu |
-|---|---|---|
-| 1 | Wellpass | Gym, Yoga, whatever |
-| 2 | 100% Remote → 100 % Remote | Couch, Café, Bali |
-| 3 | Vertrauensarbeitszeit → Flexible Zeiten | Keine Stechuhr → Keine Stechuhr, kein Stress |
-| 4 | Teamausflüge → Teamtrips | Zusammen unterwegs → Mal raus, mal feiern |
-| 5 | Weiterbildungsbudget → Lernbudget | Lerne was du willst → Kurs, Konferenz, du entscheidest |
-| 6 | Neuste Tools & Hardware → Top-Equipment | Top-Setup ab Tag 1 → MacBook, Tools, alles da |
-| 7 | Flache Hierarchien → Keine Chefs-Spielchen | Deine Meinung zählt → Sag was du denkst |
-| 8 | Startup-Vibes → Startup-Energy | Klein, schnell, direkt → Wenig Leute, viel Impact |
+Alle Card-Inhalte (Icon, Titel, Beschreibung, Badge) werden zentriert — konsistent auf Mobile und Desktop:
 
-Eine Datei, ein Array, acht Text-Updates.
+1. **Cards** (Zeile 150): `text-center` hinzufügen + Icon-Container mit `mx-auto` zentrieren
+2. **Icon-Container** (Zeile 158-161): `mx-auto` ergänzen
+3. **Badge** (Zeile 189): `inline-flex` → `inline-flex` bleibt, aber wrapping `div` mit `flex justify-center` hinzufügen oder `mx-auto` auf dem Badge
+
+Konkret:
+- Zeile 150: `p-8 md:p-10` → `p-8 md:p-10 text-center`
+- Zeile 159: `w-12 h-12 rounded-xl flex items-center justify-center mb-6` → `w-12 h-12 rounded-xl flex items-center justify-center mb-6 mx-auto`
+- Zeile 180-205: Badge-Block in `<div className="flex justify-center">` wrappen
 
