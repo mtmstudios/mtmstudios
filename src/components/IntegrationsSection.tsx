@@ -51,7 +51,7 @@ const IntegrationsSection = () => {
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, amount: 0.1 }}
             transition={{ duration: 0.8, delay: 0.2, ease: appleEase }}
             className="grid grid-cols-4 gap-4 py-8"
           >
@@ -65,12 +65,12 @@ const IntegrationsSection = () => {
                 className="flex flex-col items-center gap-1.5"
               >
                 <img
-                  src={`https://cdn.jsdelivr.net/npm/simple-icons@14.0.0/icons/${slug}.svg`}
+                  src={`https://cdn.jsdelivr.net/npm/simple-icons@13.16.0/icons/${slug}.svg`}
                   alt={iconLabels[slug] || slug}
                   className="w-7 h-7 invert opacity-60"
                   loading="lazy"
                   onError={(e) => {
-                    (e.currentTarget.parentElement as HTMLElement).style.display = 'none';
+                    e.currentTarget.style.opacity = '0';
                   }}
                 />
                 <span className="text-[10px] text-muted-foreground/60 truncate max-w-full">
