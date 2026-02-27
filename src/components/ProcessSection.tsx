@@ -50,8 +50,8 @@ const ProcessSection = () => {
               <motion.span
                 className={`text-4xl md:text-5xl lg:text-6xl font-bold select-none mb-3 transition-all duration-300 ${
                   index === 2
-                    ? 'text-accent/50 group-hover:text-accent/60 group-hover:text-glow'
-                    : 'text-accent/50 group-hover:text-accent/60'
+                    ? 'text-accent/50 md:group-hover:text-accent/60 md:group-hover:text-glow'
+                    : 'text-accent/50 md:group-hover:text-accent/60'
                 }`}
                 initial={{ opacity: 0, scale: 0.85 }}
                 whileInView={{ opacity: 1, scale: 1 }}
@@ -67,7 +67,7 @@ const ProcessSection = () => {
                 transition={{ duration: 0.8, delay: index * 0.15 + 0.1, ease: appleEase }}
               >
                 <h3 className={`text-lg md:text-xl lg:text-2xl font-bold mb-2 transition-colors duration-300 ${
-                  index === 2 ? 'text-foreground group-hover:text-accent' : 'text-foreground'
+                  index === 2 ? 'text-foreground md:group-hover:text-accent' : 'text-foreground'
                 }`}>
                   {step.title}
                 </h3>

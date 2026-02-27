@@ -33,7 +33,7 @@ const stats = [
 
 const TrustSection = () => {
   return (
-    <section className="py-32 px-6">
+    <section className="py-20 md:py-32 px-6">
       <div className="max-w-4xl mx-auto">
         <motion.h2
           className="text-3xl md:text-4xl font-bold text-foreground text-center mb-16"
@@ -55,7 +55,7 @@ const TrustSection = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: index * 0.1, ease: appleEase }}
             >
-              <div className="text-4xl md:text-5xl font-bold text-neon mb-2">
+              <div className="text-4xl md:text-5xl lg:text-6xl font-bold text-accent mb-2">
                 <CountUp target={stat.target} suffix={stat.suffix} />
               </div>
               <p className="text-sm text-muted-foreground">{stat.label}</p>

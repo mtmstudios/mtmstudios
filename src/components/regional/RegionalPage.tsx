@@ -204,7 +204,7 @@ const RegionalPage = ({ context }: RegionalPageProps) => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.7, delay: i * 0.1, ease: appleEase }}
-                  className="text-center p-6 md:p-8 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-accent/30 transition-all duration-500"
+                  className="text-center p-6 md:p-8 rounded-2xl bg-white/[0.03] border border-white/10 md:hover:border-accent/30 transition-all duration-500"
                 >
                   <div className="w-12 h-12 mx-auto mb-4 rounded-xl bg-accent/10 flex items-center justify-center">
                     <Sparkles className="w-6 h-6 text-accent" />

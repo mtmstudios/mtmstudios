@@ -174,7 +174,7 @@ const Partner = () => {
         </section>
 
         {/* Problem */}
-        <section ref={problemRef} className="py-32 px-6">
+        <section ref={problemRef} className="py-20 md:py-32 px-6">
           <div className="max-w-4xl mx-auto">
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
@@ -199,7 +199,7 @@ const Partner = () => {
                     transition={{ duration: 0.4, ease: appleEase }}
                     className="flex flex-col items-center text-center gap-4 py-12"
                   >
-                    <span className="text-5xl md:text-6xl font-bold text-destructive/40 group-hover:text-destructive group-active:text-destructive transition-colors duration-500 select-none leading-none">
+                    <span className="text-5xl md:text-6xl font-bold text-destructive/40 md:group-hover:text-destructive transition-colors duration-500 select-none leading-none">
                       {p.num}
                     </span>
                     <div>
@@ -249,7 +249,7 @@ const Partner = () => {
                   className="group flex flex-col items-center text-center py-8 md:py-12 cursor-default"
                 >
                   <motion.span
-                    className="text-4xl md:text-5xl lg:text-6xl font-bold text-accent/50 select-none mb-3 transition-colors duration-300 group-hover:text-accent/60"
+                    className="text-4xl md:text-5xl lg:text-6xl font-bold text-accent/50 select-none mb-3 transition-colors duration-300 md:group-hover:text-accent/60"
                     initial={{ opacity: 0, scale: 0.85 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
@@ -286,7 +286,7 @@ const Partner = () => {
         </section>
 
         {/* Vorteile — Bento-Grid mit Glassmorphism-Cards */}
-        <section ref={benefitsRef} className="py-32 px-6">
+        <section ref={benefitsRef} className="py-20 md:py-32 px-6">
           <div className="max-w-5xl mx-auto">
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
@@ -303,7 +303,7 @@ const Partner = () => {
                 return (
                   <motion.div
                     key={b.title}
-                    className="group cursor-default bg-white/[0.03] backdrop-blur-sm border border-border/10 rounded-2xl p-6 md:p-8 hover:border-accent/30 transition-all duration-500"
+                    className="group cursor-default bg-white/[0.03] backdrop-blur-sm border border-border/10 rounded-2xl p-6 md:p-8 md:hover:border-accent/30 transition-all duration-500"
                     initial={{ opacity: 0, y: 30 }}
                     animate={benefitsInView ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 0.8, delay: i * 0.12, ease: appleEase }}
@@ -328,7 +328,7 @@ const Partner = () => {
         </section>
 
         {/* Trust-Zahlen */}
-        <section ref={trustRef} className="py-32 px-6">
+        <section ref={trustRef} className="py-20 md:py-32 px-6">
           <div className="max-w-5xl mx-auto">
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
@@ -343,12 +343,12 @@ const Partner = () => {
               {trustStats.map((stat, i) => (
                 <motion.div
                   key={stat.label}
-                  className="bg-white/[0.03] backdrop-blur-sm border border-border/10 rounded-2xl p-8 text-center group cursor-default hover:border-accent/30 transition-all duration-500"
+                  className="bg-white/[0.03] backdrop-blur-sm border border-border/10 rounded-2xl p-8 text-center group cursor-default md:hover:border-accent/30 transition-all duration-500"
                   initial={{ opacity: 0, y: 30 }}
                   animate={trustInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.8, delay: i * 0.12, ease: appleEase }}
                 >
-                  <div className="text-5xl md:text-6xl lg:text-7xl font-bold text-accent mb-4 tracking-tight">
+                  <div className="text-4xl md:text-5xl lg:text-6xl font-bold text-accent mb-4 tracking-tight">
                     {i === 2 ? (
                       <span>&lt; <CountUp target={stat.target} suffix={stat.suffix} /></span>
                     ) : (

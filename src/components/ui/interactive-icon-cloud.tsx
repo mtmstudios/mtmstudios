@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useMemo, useState } from "react"
+import { useTheme } from "next-themes"
 import {
   Cloud,
   fetchSimpleIcons,
@@ -16,6 +17,7 @@ export const cloudProps: Omit<ICloud, "children"> = {
       justifyContent: "center",
       alignItems: "center",
       width: "100%",
+      paddingTop: 40,
     },
   },
   options: {
@@ -34,12 +36,16 @@ export const cloudProps: Omit<ICloud, "children"> = {
   },
 }
 
-export const renderCustomIcon = (icon: SimpleIcon) => {
+export const renderCustomIcon = (icon: SimpleIcon, theme: string) => {
+  const bgHex = theme === "light" ? "#f3f2ef" : "#080510"
+  const fallbackHex = theme === "light" ? "#6e6e73" : "#ffffff"
+  const minContrastRatio = theme === "dark" ? 2 : 1.2
+
   return renderSimpleIcon({
     icon,
-    bgHex: "#080510",
-    fallbackHex: "#ffffff",
-    minContrastRatio: 2,
+    bgHex,
+    fallbackHex,
+    minContrastRatio,
     size: 42,
     aProps: {
       href: undefined,
@@ -58,6 +64,7 @@ type IconData = Awaited<ReturnType<typeof fetchSimpleIcons>>
 
 export function IconCloud({ iconSlugs }: DynamicCloudProps) {
   const [data, setData] = useState<IconData | null>(null)
+  const { theme } = useTheme()
 
   useEffect(() => {
     fetchSimpleIcons({ slugs: iconSlugs }).then(setData)
@@ -66,9 +73,9 @@ export function IconCloud({ iconSlugs }: DynamicCloudProps) {
   const renderedIcons = useMemo(() => {
     if (!data) return null
     return Object.values(data.simpleIcons).map((icon) =>
-      renderCustomIcon(icon),
+      renderCustomIcon(icon, theme || "dark"),
     )
-  }, [data])
+  }, [data, theme])
 
   return (
     // @ts-ignore
