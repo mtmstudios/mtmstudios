@@ -1,19 +1,38 @@
 
 
-## Spectrum-Sektion zentrieren
+## ContainerScroll + PhoneHero — Machbarkeitscheck & Plan
 
-**Datei:** `src/components/automations/AutomationsSpectrum.tsx`
+### Kurz: Ja, das funktioniert — mit Anpassungen
 
-### Änderungen
+Der Effekt: Das Smartphone startet leicht 3D-rotiert (20°) und skaliert sich beim Scrollen flach — ein Apple-typischer "reveal". Passt gut zum Phone-Visual.
 
-Alle Card-Inhalte (Icon, Titel, Beschreibung, Badge) werden zentriert — konsistent auf Mobile und Desktop:
+### Nötige Anpassungen am Component
 
-1. **Cards** (Zeile 150): `text-center` hinzufügen + Icon-Container mit `mx-auto` zentrieren
-2. **Icon-Container** (Zeile 158-161): `mx-auto` ergänzen
-3. **Badge** (Zeile 189): `inline-flex` → `inline-flex` bleibt, aber wrapping `div` mit `flex justify-center` hinzufügen oder `mx-auto` auf dem Badge
+1. **Import-Pfad**: `"framer-motion"` → `"motion/react"` (unser Stack)
+2. **`"use client"`**: Entfernen (kein Next.js)
+3. **JSX fehlt im kopierten Code** — die Template-Strings wurden nicht korrekt übertragen, ich rekonstruiere die JSX-Struktur aus dem Original (Aceternity UI)
 
-Konkret:
-- Zeile 150: `p-8 md:p-10` → `p-8 md:p-10 text-center`
-- Zeile 159: `w-12 h-12 rounded-xl flex items-center justify-center mb-6` → `w-12 h-12 rounded-xl flex items-center justify-center mb-6 mx-auto`
-- Zeile 180-205: Badge-Block in `<div className="flex justify-center">` wrappen
+### Integration
+
+**Neue Datei:** `src/components/ui/container-scroll-animation.tsx`
+- Bereinigte Version mit `motion/react`-Imports
+
+**Geänderte Datei:** `src/components/phone-assistant/PhoneHero.tsx`
+- `PhoneVisual` wird als `children` in `<ContainerScroll>` gewrappt
+- `titleComponent` bekommt den bestehenden Titel + Subtitle
+- Die bestehenden Entry-Animationen (`initial/animate`) auf dem PhoneVisual-Wrapper entfallen (ContainerScroll übernimmt)
+
+### Abhängigkeiten
+
+- **Keine neuen NPM-Pakete nötig** — `motion` (= framer-motion v11+) ist bereits installiert
+
+### Risiko / Einschränkung
+
+- Die inneren SVG-Animationen (Waveform, Puls) laufen weiter — kein Konflikt
+- Auf Mobile wird der Scale-Effekt dezenter (0.7→0.9 statt 1.05→1), das ist im Component eingebaut
+- Der `tel:`-Link im SVG bleibt klickbar
+
+### Ergebnis
+
+Beim Scrollen dreht sich das Smartphone elegant von einer leichten 3D-Perspektive in die Frontansicht — premium Apple-Keynote-Feeling.
 
