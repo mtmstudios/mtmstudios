@@ -71,24 +71,45 @@ const WhatsAppPhoneVisual = () => {
 
   return (
     <div ref={ref} className="relative w-full h-full flex items-center justify-center">
-      <svg viewBox="0 0 320 580" className="w-full h-full max-w-[380px]" fill="none">
-        {/* Solid background inside phone */}
-        <rect
-          x="20" y="10" width="280" height="560" rx="40"
-          fill="hsl(var(--background))"
-        />
+      <svg viewBox="0 0 320 600" className="w-full h-full max-w-[380px]" fill="none">
+        <defs>
+          <linearGradient id="chatFrameGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor="hsl(var(--accent))" stopOpacity="0.5" />
+            <stop offset="100%" stopColor="hsl(var(--accent))" stopOpacity="0.1" />
+          </linearGradient>
+          <linearGradient id="chatScreenGlare" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor="white" stopOpacity="0" />
+            <stop offset="40%" stopColor="white" stopOpacity="0.03" />
+            <stop offset="60%" stopColor="white" stopOpacity="0.06" />
+            <stop offset="100%" stopColor="white" stopOpacity="0" />
+          </linearGradient>
+          <filter id="chatShadow">
+            <feGaussianBlur stdDeviation="12" />
+          </filter>
+        </defs>
 
-        {/* Phone frame */}
+        {/* Floor shadow */}
+        <ellipse cx="163" cy="578" rx="110" ry="14" fill="hsl(var(--accent))" fillOpacity="0.08" filter="url(#chatShadow)" />
+
+        {/* Bezel / side edge */}
+        <rect x="23" y="14" width="280" height="560" rx="40" fill="hsl(var(--accent))" fillOpacity="0.06" />
+
+        {/* Solid background inside phone */}
+        <rect x="20" y="10" width="280" height="560" rx="40" fill="hsl(var(--background))" />
+
+        {/* Phone frame with gradient stroke */}
         <motion.rect
           x="20" y="10" width="280" height="560" rx="40"
-          stroke="hsl(var(--accent))"
-          strokeWidth="2"
-          strokeOpacity="0.3"
+          stroke="url(#chatFrameGrad)"
+          strokeWidth="2.5"
           fill="none"
           initial={{ pathLength: 0 }}
           animate={inView ? { pathLength: 1 } : {}}
           transition={{ duration: 1.5, ease: appleEase }}
         />
+
+        {/* Screen glare */}
+        <rect x="22" y="12" width="276" height="556" rx="38" fill="url(#chatScreenGlare)" />
 
         {/* Notch */}
         <motion.rect
