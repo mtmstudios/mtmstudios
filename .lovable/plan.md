@@ -1,18 +1,18 @@
 
 
-## Problem
+## Karriere Hero-Text Update
 
-Der "Lösungen"-Button im mobilen Menü bekommt beim Öffnen des Sheets automatisch den Browser-Fokus, was den Standard-Fokus-Ring (blauen Kasten) anzeigt. Das passiert, weil Radix Dialog den Fokus beim Öffnen auf das erste interaktive Element setzt — und das ist der "Lösungen"-Button.
+**Datei:** `src/pages/Karriere.tsx`
 
-## Fix
+### Änderungen
 
-**Datei:** `src/components/Navigation.tsx` (Zeile 99)
+**Headline** (BlurText, ca. Zeile 90):
+- Alt: `"Mach KI. Nicht Meetings."`
+- Neu: `"Bau Dinge, die es noch nicht gibt."`
 
-Den `className` des "Lösungen"-Buttons um `focus:outline-none` erweitern, damit der Browser-Fokusrahmen nicht sichtbar ist:
+**Subtext** (motion.p, ca. Zeile 95):
+- Alt: `"Wir bauen KI-Lösungen, die Unternehmen verändern. Kein Corporate-Bullshit, keine endlosen Abstimmungsrunden – einfach bauen."`
+- Neu: `"Kein Legacy-Code, keine Ticket-Schlangen. Bei uns arbeitest du mit den neuesten KI-Tools an Projekten, die Unternehmen wirklich verändern."`
 
-```
-className="flex items-center gap-2 text-lg text-foreground/80 hover:text-foreground transition-opacity duration-200 w-full focus:outline-none"
-```
-
-Eine einzeilige Änderung, keine weiteren Dateien betroffen.
+Eine Datei, zwei Textänderungen.
 
