@@ -19,14 +19,14 @@ const statements = [
 ];
 
 const benefits = [
-  { label: "Wellpass", icon: Dumbbell, sub: "Fitness & Wellness" },
-  { label: "100% Remote", icon: Wifi, sub: "Arbeite von überall" },
-  { label: "Vertrauensarbeitszeit", icon: Clock, sub: "Keine Stechuhr" },
-  { label: "Teamausflüge", icon: MapPin, sub: "Zusammen unterwegs" },
-  { label: "Weiterbildungsbudget", icon: BookOpen, sub: "Lerne was du willst" },
-  { label: "Neuste Tools & Hardware", icon: Wrench, sub: "Top-Setup ab Tag 1" },
-  { label: "Flache Hierarchien", icon: Users, sub: "Deine Meinung zählt" },
-  { label: "Startup-Vibes", icon: Rocket, sub: "Klein, schnell, direkt" },
+  { label: "Wellpass", icon: Dumbbell, sub: "Gym, Yoga, whatever" },
+  { label: "100 % Remote", icon: Wifi, sub: "Couch, Café, Bali" },
+  { label: "Flexible Zeiten", icon: Clock, sub: "Keine Stechuhr, kein Stress" },
+  { label: "Teamtrips", icon: MapPin, sub: "Mal raus, mal feiern" },
+  { label: "Lernbudget", icon: BookOpen, sub: "Kurs, Konferenz, du entscheidest" },
+  { label: "Top-Equipment", icon: Wrench, sub: "MacBook, Tools, alles da" },
+  { label: "Keine Chefs-Spielchen", icon: Users, sub: "Sag was du denkst" },
+  { label: "Startup-Energy", icon: Rocket, sub: "Wenig Leute, viel Impact" },
 ];
 
 const Karriere = () => {
