@@ -1,20 +1,21 @@
 
 
-## Statement-Sektionen lockerer machen
+## Benefits-Sektion lockerer machen
 
-**Datei:** `src/pages/Karriere.tsx` (Zeilen 14-18, `statements` Array)
+**Datei:** `src/pages/Karriere.tsx` (Zeilen 22-31, `benefits` Array)
 
-### Aktuelle Texte → Neue Texte
+### Änderungen
 
-**Statement 1:**
-- Alt: "Du willst mit den neusten KI-Tools arbeiten?" / "Wir setzen auf Claude, ChatGPT, N8N und alles, was morgen Standard ist – heute schon."
-- Neu: "Dein Tech-Stack? Immer der neueste." / "Claude, ChatGPT, N8N – wir probieren alles aus, was spannend ist. Nicht weil's im Budget steht, sondern weil's Spaß macht."
+| # | Label alt → neu | Sub alt → neu |
+|---|---|---|
+| 1 | Wellpass | Gym, Yoga, whatever |
+| 2 | 100% Remote → 100 % Remote | Couch, Café, Bali |
+| 3 | Vertrauensarbeitszeit → Flexible Zeiten | Keine Stechuhr → Keine Stechuhr, kein Stress |
+| 4 | Teamausflüge → Teamtrips | Zusammen unterwegs → Mal raus, mal feiern |
+| 5 | Weiterbildungsbudget → Lernbudget | Lerne was du willst → Kurs, Konferenz, du entscheidest |
+| 6 | Neuste Tools & Hardware → Top-Equipment | Top-Setup ab Tag 1 → MacBook, Tools, alles da |
+| 7 | Flache Hierarchien → Keine Chefs-Spielchen | Deine Meinung zählt → Sag was du denkst |
+| 8 | Startup-Vibes → Startup-Energy | Klein, schnell, direkt → Wenig Leute, viel Impact |
 
-**Statement 2:**
-- Alt: "Du willst KI wirklich verstehen?" / "Nicht nur anwenden, sondern durchdringen. Bei uns baust du Lösungen, die Unternehmen transformieren."
-- Neu: "Hier lernst du mehr als in jedem Masterstudium." / "Keine PowerPoints, keine Theorie. Du baust echte KI-Lösungen für echte Unternehmen – und verstehst dabei, wie der ganze Laden funktioniert."
-
-**Statement 3:**
-- Alt: "Du willst kein Konzern-Hamsterrad?" / "Flache Hierarchien, echte Verantwortung, Remote-first. Dein Impact zählt ab Tag eins."
-- Neu: "Kein Bullshit. Kein Hamsterrad." / "Remote, flexible Zeiten, keine Hierarchie-Spielchen. Du machst dein Ding – und wir sorgen dafür, dass niemand dazwischenfunkt."
+Eine Datei, ein Array, acht Text-Updates.
 
