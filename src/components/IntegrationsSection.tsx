@@ -24,7 +24,7 @@ const IntegrationsSection = () => {
   const isMobile = useIsMobile();
 
   return (
-    <section className="py-32 px-4">
+    <section className="py-20 md:py-32 px-4">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-4">
           <motion.h2

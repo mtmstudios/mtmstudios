@@ -45,7 +45,7 @@ const AutomationsHowItWorks = () => {
               className="group flex flex-col items-center text-center py-8 md:py-12 cursor-default"
             >
               <motion.span
-                className="text-4xl md:text-5xl lg:text-6xl font-bold text-accent/50 select-none mb-3 transition-colors duration-300 group-hover:text-accent/60"
+                className="text-4xl md:text-5xl lg:text-6xl font-bold text-accent/50 select-none mb-3 transition-colors duration-300 md:group-hover:text-accent/60"
                 initial={{ opacity: 0, scale: 0.85 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
