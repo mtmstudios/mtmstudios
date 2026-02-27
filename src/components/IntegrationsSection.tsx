@@ -3,18 +3,19 @@ import { IconCloud } from "@/components/ui/interactive-icon-cloud";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 const slugs = [
-  "whatsapp", "slack", "microsoftoutlook", "openai", "google", "microsoftazure",
+  "whatsapp", "slack", "openai", "google",
   "salesforce", "hubspot", "zapier", "make", "shopify", "stripe",
   "wordpress", "notion", "calendly", "zendesk", "mailchimp", "twilio",
-  "gmail", "telegram",
+  "gmail", "telegram", "airtable", "jira",
 ];
 
 const iconLabels: Record<string, string> = {
-  whatsapp: "WhatsApp", slack: "Slack", microsoftoutlook: "Outlook", openai: "OpenAI",
-  google: "Google", microsoftazure: "Azure", salesforce: "Salesforce", hubspot: "HubSpot",
+  whatsapp: "WhatsApp", slack: "Slack", openai: "OpenAI",
+  google: "Google", salesforce: "Salesforce", hubspot: "HubSpot",
   zapier: "Zapier", make: "Make", shopify: "Shopify", stripe: "Stripe",
   wordpress: "WordPress", notion: "Notion", calendly: "Calendly", zendesk: "Zendesk",
   mailchimp: "Mailchimp", twilio: "Twilio", gmail: "Gmail", telegram: "Telegram",
+  airtable: "Airtable", jira: "Jira",
 };
 
 const appleEase = [0.16, 1, 0.3, 1] as const;
@@ -68,6 +69,9 @@ const IntegrationsSection = () => {
                   alt={iconLabels[slug] || slug}
                   className="w-7 h-7 invert opacity-60"
                   loading="lazy"
+                  onError={(e) => {
+                    (e.currentTarget.parentElement as HTMLElement).style.display = 'none';
+                  }}
                 />
                 <span className="text-[10px] text-muted-foreground/60 truncate max-w-full">
                   {iconLabels[slug] || slug}

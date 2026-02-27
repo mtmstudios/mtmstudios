@@ -66,8 +66,8 @@ const Karriere = () => {
     <div className="relative min-h-screen bg-background text-foreground">
       <SEOHead title="Karriere bei MTM Studios | Jobs in KI & Automatisierung" description="Arbeite bei MTM Studios an KI-Lösungen, die Unternehmen verändern. Remote-first, neueste Tools, echte Verantwortung." />
 
-      <div ref={bgRef} className="fixed inset-0 w-screen h-screen overflow-hidden" style={{ isolation: "isolate", zIndex: 0, willChange: "opacity" }}>
-        <img src="/videos/hero-background-still.jpg" alt="" className="md:hidden w-full h-full object-cover absolute inset-0" style={{ mixBlendMode: "hard-light", filter: "brightness(0.5) contrast(2)", pointerEvents: "none" }} />
+      <div ref={bgRef} className="fixed inset-0 w-screen h-screen overflow-hidden" style={{ isolation: "isolate", zIndex: 0 }}>
+        <img src="/videos/hero-background-still.jpg" alt="" className="md:hidden w-full h-full object-cover absolute inset-0" style={{ filter: "brightness(0.7) contrast(1.5)", pointerEvents: "none" }} />
         <video ref={videoRef} autoPlay loop muted playsInline
           // @ts-ignore
           webkit-playsinline=""
