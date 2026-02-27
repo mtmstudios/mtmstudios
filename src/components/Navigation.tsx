@@ -96,7 +96,7 @@ const Navigation = () => {
                 <div>
                   <button
                     onClick={() => setMobileSolutionsOpen(!mobileSolutionsOpen)}
-                    className="flex items-center gap-2 text-lg text-foreground/80 hover:text-foreground transition-opacity duration-200 w-full"
+                    className="flex items-center gap-2 text-lg text-foreground/80 hover:text-foreground transition-opacity duration-200 w-full focus:outline-none"
                   >
                     Lösungen
                     <svg className={`w-4 h-4 transition-transform duration-200 ${mobileSolutionsOpen ? "rotate-180" : ""}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
