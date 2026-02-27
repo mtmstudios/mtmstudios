@@ -147,7 +147,7 @@ const AutomationsSpectrum = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: index * 0.1, ease: appleEase }}
-                className={`relative rounded-2xl p-8 md:p-10 transition-all duration-500 cursor-default ${
+                className={`relative rounded-2xl p-8 md:p-10 text-center transition-all duration-500 cursor-default ${
                   isActive
                     ? "bg-white/[0.05] backdrop-blur-md border border-neon/20 shadow-[0_0_30px_hsl(var(--neon)/0.06)]"
                     : "bg-white/[0.02] backdrop-blur-md border border-white/[0.04] opacity-40"
@@ -156,7 +156,7 @@ const AutomationsSpectrum = () => {
               >
                 {/* Icon */}
                 <div
-                  className={`w-12 h-12 rounded-xl flex items-center justify-center mb-6 transition-colors duration-500 ${
+                  className={`w-12 h-12 rounded-xl flex items-center justify-center mb-6 mx-auto transition-colors duration-500 ${
                     isActive ? "bg-neon/15" : "bg-white/[0.04]"
                   }`}
                 >
@@ -178,31 +178,33 @@ const AutomationsSpectrum = () => {
                 </p>
 
                 {/* Metric badge */}
-                <AnimatePresence mode="wait">
-                  {(isActive || isPast) && (
-                    <motion.div
-                      key={`badge-${index}-${activePhase}`}
-                      initial={{ opacity: 0, y: 8 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -8 }}
-                      transition={{ duration: 0.4, ease: appleEase }}
-                      className={`inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-medium border transition-colors duration-500 ${
-                        isActive
-                          ? "border-neon/30 bg-neon/10 text-neon"
-                          : "border-white/[0.08] bg-white/[0.04] text-muted-foreground"
-                      }`}
-                    >
-                      {index === 2 && isPast ? (
-                        <Check className="w-3 h-3" />
-                      ) : null}
-                      {index === 2 && isActive ? (
-                        <Check className="w-3 h-3" />
-                      ) : null}
-                      <CountUp target={tier.metric} suffix={tier.suffix} active={isActive} />
-                      <span>{tier.metricLabel}</span>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                <div className="flex justify-center">
+                  <AnimatePresence mode="wait">
+                    {(isActive || isPast) && (
+                      <motion.div
+                        key={`badge-${index}-${activePhase}`}
+                        initial={{ opacity: 0, y: 8 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -8 }}
+                        transition={{ duration: 0.4, ease: appleEase }}
+                        className={`inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-medium border transition-colors duration-500 ${
+                          isActive
+                            ? "border-neon/30 bg-neon/10 text-neon"
+                            : "border-white/[0.08] bg-white/[0.04] text-muted-foreground"
+                        }`}
+                      >
+                        {index === 2 && isPast ? (
+                          <Check className="w-3 h-3" />
+                        ) : null}
+                        {index === 2 && isActive ? (
+                          <Check className="w-3 h-3" />
+                        ) : null}
+                        <CountUp target={tier.metric} suffix={tier.suffix} active={isActive} />
+                        <span>{tier.metricLabel}</span>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
               </motion.div>
             );
           })}
