@@ -1,38 +1,22 @@
 
 
-## ContainerScroll + PhoneHero — Machbarkeitscheck & Plan
+## ContainerScroll-Effekt auf ChatbotHero übertragen
 
-### Kurz: Ja, das funktioniert — mit Anpassungen
+**Datei:** `src/components/chatbot/ChatbotHero.tsx`
 
-Der Effekt: Das Smartphone startet leicht 3D-rotiert (20°) und skaliert sich beim Scrollen flach — ein Apple-typischer "reveal". Passt gut zum Phone-Visual.
+### Änderungen
 
-### Nötige Anpassungen am Component
+1. **Import hinzufügen:** `ContainerScroll` aus `@/components/ui/container-scroll-animation`
 
-1. **Import-Pfad**: `"framer-motion"` → `"motion/react"` (unser Stack)
-2. **`"use client"`**: Entfernen (kein Next.js)
-3. **JSX fehlt im kopierten Code** — die Template-Strings wurden nicht korrekt übertragen, ich rekonstruiere die JSX-Struktur aus dem Original (Aceternity UI)
+2. **Section-Wrapper vereinfachen** (Zeile 238): Padding/min-height entfernen — ContainerScroll bringt eigene Höhe mit
+   - `<section className="min-h-[70vh] flex flex-col items-center justify-start px-6 pt-[15vh] pb-16">` → `<section className="flex flex-col items-center justify-start">`
 
-### Integration
+3. **Struktur umbauen** (Zeilen 238-265): Gleiche Struktur wie PhoneHero:
+   - `<ContainerScroll titleComponent={...}>` bekommt den BlurText-Titel + Subtitle als `titleComponent`
+   - `<WhatsAppPhoneVisual />` wird als `children` übergeben
+   - Der bisherige `motion.div`-Wrapper (Zeile 256-263) mit eigenem fade-in entfällt — ContainerScroll übernimmt die Animation
 
-**Neue Datei:** `src/components/ui/container-scroll-animation.tsx`
-- Bereinigte Version mit `motion/react`-Imports
+4. **Chat-Animationen bleiben erhalten**: `useInView` + sequentielle Message-Delays + TypingDots laufen unabhängig vom Scroll-Transform weiter — kein Eingriff in WhatsAppPhoneVisual nötig
 
-**Geänderte Datei:** `src/components/phone-assistant/PhoneHero.tsx`
-- `PhoneVisual` wird als `children` in `<ContainerScroll>` gewrappt
-- `titleComponent` bekommt den bestehenden Titel + Subtitle
-- Die bestehenden Entry-Animationen (`initial/animate`) auf dem PhoneVisual-Wrapper entfallen (ContainerScroll übernimmt)
-
-### Abhängigkeiten
-
-- **Keine neuen NPM-Pakete nötig** — `motion` (= framer-motion v11+) ist bereits installiert
-
-### Risiko / Einschränkung
-
-- Die inneren SVG-Animationen (Waveform, Puls) laufen weiter — kein Konflikt
-- Auf Mobile wird der Scale-Effekt dezenter (0.7→0.9 statt 1.05→1), das ist im Component eingebaut
-- Der `tel:`-Link im SVG bleibt klickbar
-
-### Ergebnis
-
-Beim Scrollen dreht sich das Smartphone elegant von einer leichten 3D-Perspektive in die Frontansicht — premium Apple-Keynote-Feeling.
+Ergebnis: Gleicher 3D-Reveal wie beim Telefonassistenten, Chat-Nachrichten animieren sich wie gewohnt ein sobald sichtbar.
 
