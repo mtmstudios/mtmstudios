@@ -1,30 +1,20 @@
 
 
-## 3D-Tiefe für das Smartphone-Visual
+## Problem: Mobile Integrationen-Animation funktioniert nicht
 
-Das Problem: Der Phone-Frame ist ein flaches SVG-Rechteck — keine Tiefe, keine Kanten, kein Lichteinfall. Der ContainerScroll rotiert es zwar, aber das Objekt selbst wirkt 2D.
+**Ursache:** Zwei Probleme gleichzeitig:
 
-### Ansatz: Visuelle 3D-Cues direkt im SVG
+1. **React-Deduplizierung fehlt** — In Production kann Vite mehrere React-Instanzen bundlen, wodurch `motion/react` (Framer Motion) den Kontext verliert und `whileInView`-Animationen auf Mobile nicht feuern.
 
-**Datei:** `src/components/phone-assistant/PhoneHero.tsx` (PhoneVisual)
-**Datei:** `src/components/chatbot/ChatbotHero.tsx` (WhatsAppPhoneVisual)
+2. **simple-icons Version 14** — Die CDN-URL `simple-icons@14.0.0` existiert möglicherweise nicht stabil; einige Slugs können 404 zurückgeben, wodurch `onError` die Icons komplett versteckt.
 
-Beide Phone-SVGs bekommen dieselben Enhancements:
+### Änderungen
 
-1. **Seitliche Kante (Bezel)** — Ein zweites, leicht versetztes Rechteck hinter dem Hauptframe, das die "Dicke" des Geräts simuliert:
-   - Offset: x+3, y+4
-   - Farbe: accent mit niedriger Opacity
-   - Erzeugt den Eindruck einer physischen Kante
+**Datei: `vite.config.ts`**
+- `resolve.dedupe` hinzufügen: `["react", "react-dom", "react/jsx-runtime"]` — erzwingt eine einzelne React-Instanz im Bundle, damit Framer Motion korrekt funktioniert.
 
-2. **Gradient auf dem Frame-Stroke** — LinearGradient von oben-links (heller) nach unten-rechts (dunkler) auf dem Rahmen-Stroke, simuliert gerichtetes Licht
-
-3. **Boden-Schatten** — Eine Ellipse unterhalb des Phones mit Gaussian Blur als "Auflagefläche"-Schatten:
-   - Position: unter dem Phone-Frame
-   - Blur: 25px, accent-Farbe mit ~8% Opacity
-
-4. **Subtiler Screen-Glanz** — Ein diagonaler LinearGradient-Overlay (transparent → weiß 3% → transparent) über dem Bildschirmbereich, simuliert Glasreflexion
-
-### Ergebnis
-
-Das Smartphone wirkt wie ein physisches Objekt mit Dicke, Lichteinfall und Schatten — kombiniert mit der Scroll-Rotation entsteht ein überzeugender 3D-Effekt.
+**Datei: `src/components/IntegrationsSection.tsx`**
+- CDN-Version von `simple-icons@14.0.0` auf stabile Version `@13.16.0` ändern (verifiziert verfügbar).
+- `onError`-Handler verbessern: statt das Element komplett zu verstecken, ein Fallback-Verhalten (Opacity 0) setzen, damit das Grid-Layout nicht zerbricht.
+- `whileInView` viewport-Threshold auf `amount: 0.1` setzen für zuverlässigeres Triggern auf Mobile.
 
