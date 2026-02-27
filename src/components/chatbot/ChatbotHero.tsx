@@ -1,6 +1,7 @@
 import { motion, useInView } from "motion/react";
 import { useRef } from "react";
 import BlurText from "@/components/BlurText";
+import { ContainerScroll } from "@/components/ui/container-scroll-animation";
 
 const appleEase = [0.16, 1, 0.3, 1] as const;
 
@@ -235,33 +236,31 @@ const WhatsAppPhoneVisual = () => {
 
 const ChatbotHero = () => {
   return (
-    <section className="min-h-[70vh] flex flex-col items-center justify-start px-6 pt-[15vh] pb-16">
-      <div className="max-w-4xl mx-auto text-center flex flex-col items-center gap-8">
-        <BlurText
-          text="Chatbots, die wirklich helfen."
-          className="text-3xl sm:text-5xl md:text-7xl font-bold text-foreground"
-          delay={100}
-        />
-
-        <motion.p
-          className="text-lg md:text-xl text-foreground/70 max-w-2xl leading-relaxed"
-          style={{ textShadow: '0 2px 20px rgba(0,0,0,0.9), 0 0 40px rgba(0,0,0,0.6)' }}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6, ease: appleEase }}
-        >
-          WhatsApp und Website-Chat — automatisiert, intelligent, 24/7 erreichbar.
-        </motion.p>
-
-        <motion.div
-          className="w-full max-w-[380px] h-[500px] sm:h-[600px]"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.8, ease: appleEase }}
-        >
-          <WhatsAppPhoneVisual />
-        </motion.div>
-      </div>
+    <section className="flex flex-col items-center justify-start">
+      <ContainerScroll
+        titleComponent={
+          <div className="flex flex-col items-center gap-8">
+            <BlurText
+              text="Chatbots, die wirklich helfen."
+              className="text-3xl sm:text-5xl md:text-7xl font-bold text-foreground tracking-tight"
+              delay={80}
+              animateBy="words"
+              direction="top"
+            />
+            <motion.p
+              className="text-lg md:text-xl text-foreground/70 max-w-2xl leading-relaxed"
+              style={{ textShadow: '0 2px 20px rgba(0,0,0,0.9), 0 0 40px rgba(0,0,0,0.6)' }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6, ease: appleEase }}
+            >
+              WhatsApp und Website-Chat — automatisiert, intelligent, 24/7 erreichbar.
+            </motion.p>
+          </div>
+        }
+      >
+        <WhatsAppPhoneVisual />
+      </ContainerScroll>
     </section>
   );
 };
