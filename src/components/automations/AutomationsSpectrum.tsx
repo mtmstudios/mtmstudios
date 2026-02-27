@@ -136,14 +136,6 @@ const AutomationsSpectrum = () => {
 
         {/* Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-          {/* Mobile vertical timeline */}
-          <div className="md:hidden absolute left-8 top-0 bottom-0 w-[2px] bg-white/[0.06]">
-            <div
-              className="w-full bg-neon/50 transition-all duration-700 ease-out"
-              style={{ height: `${((activePhase + 1) / 3) * 100}%` }}
-            />
-          </div>
-
           {tiers.map((tier, index) => {
             const isActive = index === activePhase;
             const isPast = index < activePhase;
