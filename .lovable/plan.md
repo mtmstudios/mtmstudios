@@ -1,79 +1,31 @@
 
 
-## Analyse der Probleme
+## Gefundene Fehler
 
-Nach Durchsicht aller Seiten und Sektionen identifiziere ich folgende Kernprobleme auf Mobile:
+### 1. Integrations-Icons zeigen "?" auf Mobile
+Die Slugs `microsoftoutlook` und `microsoftazure` existieren nicht als SVG-Dateien unter `simple-icons@14.0.0/icons/`. Die korrekten Dateinamen sind anders formatiert. Loesung: Diese durch zuverlaessig existierende Slugs ersetzen (z.B. `microsoft` fuer Azure entfernen und durch `airtable` oder einen anderen validen Slug ersetzen, oder die URL-Struktur auf die korrekte simple-icons API umstellen).
 
-### 1. Hintergrund auf Mobile kaum sichtbar
-Das Hintergrundbild (`hero-background-still.jpg`) nutzt `mixBlendMode: 'hard-light'` kombiniert mit `filter: 'brightness(0.5) contrast(2)'`. Hard-light auf schwarzem Hintergrund ergibt nahezu schwarz. Auf Desktop ist das weniger problematisch wegen des Videos mit `brightness(0.7)`, aber auf Mobile wird das Standbild mit `brightness(0.5)` zu dunkel.
+**Datei:** `src/components/IntegrationsSection.tsx`
+- `microsoftoutlook` ersetzen durch einen funktionierenden Slug oder die Icon-URL auf die korrekte CDN-Struktur umstellen (simple-icons nutzt lowercase slugs wie `microsoftoutlook` — muss geprueft werden ob v14 diese hat)
+- Alternative: Fallback-Handling mit `onError` auf dem `<img>` Tag hinzufuegen, damit fehlende Icons ausgeblendet statt als "?" angezeigt werden
 
-### 2. Nummern "blinken" auf Mobile
-Die Schritt-Nummern (01, 02, 03) nutzen `motion` Spring-Animationen mit `stiffness: 200, damping: 20`. Spring-Animationen erzeugen Schwingungen (Bounce), die auf Mobile als "Blinken" wahrgenommen werden. Zusätzlich kann `whileInView` bei schnellem Scrollen auf Mobile mehrfach triggern, wenn `viewport: { once: true }` nicht korrekt greift.
+### 2. Tuerkise Linie auf der Automatisierungsseite (AutomationsSpectrum)
+**Datei:** `src/components/automations/AutomationsSpectrum.tsx`
+- Zeile 140: Das mobile Timeline-Element nutzt `absolute` Positionierung (`absolute left-8 top-0 bottom-0`), aber der uebergeordnete Grid-Container (Zeile 138) hat **kein** `relative`. Dadurch positioniert sich die Linie relativ zur gesamten Section und erzeugt die sichtbare tuerkise Linie am Rand.
+- Fix: Entweder `relative` zum Grid hinzufuegen, oder die mobile Timeline komplett entfernen da sie auf Mobile stoerend wirkt und die Karten nicht zentriert erscheinen laesst.
+- Empfehlung: Mobile Timeline entfernen — die Karten selbst zeigen den Fortschritt bereits durch aktive/inaktive Zustaende. Das vereinfacht das Layout und entfernt die stoerende Linie.
 
-### 3. Weitere Performance-Probleme auf Mobile
-- `IconCloud` (react-icon-cloud) mit 20 Icons ist GPU-intensiv auf Mobile
-- `Starfield` Canvas-Animation laeuft permanent im Hintergrund (200 Sterne, Endlosanimation)
-- `willChange: 'opacity'` auf dem fixen Hintergrund-Div erzeugt permanente GPU-Layer
-- Mehrere `whileInView`-Animationen mit `filter: blur()` auf Desktop (bereits deaktiviert, aber `useMobileBlur` wird trotzdem aufgerufen)
-
----
-
-## Plan
-
-### 1. Hintergrundbild auf Mobile heller machen
-**Dateien:** `Index.tsx`, `PhoneAssistant.tsx`, `Chatbots.tsx`, `Automations.tsx`, `AboutUs.tsx`, `Partner.tsx`
-- Mobile-Bild: `filter: 'brightness(0.5) contrast(2)'` aendern zu `filter: 'brightness(0.7) contrast(1.5)'`
-- `mixBlendMode: 'hard-light'` auf Mobile entfernen (zu `'normal'` aendern)
-- Dazu pruefen ob `useIsMobile` bereits importiert ist, und den Stil per Inline-Bedingung setzen
-
-### 2. Spring-Animationen auf Mobile durch lineare ersetzen
-**Dateien:** `ProcessSection.tsx`, `phone-assistant/HowItWorks.tsx`, `chatbot/ChatbotHowItWorks.tsx`, `automations/AutomationsHowItWorks.tsx`, `Partner.tsx`
-- Die Step-Nummern nutzen `transition: { type: "spring", stiffness: 200, damping: 20 }` — das erzeugt Bounce/Blinken
-- Auf allen Geraeten: Spring durch `{ duration: 0.6, ease: appleEase }` ersetzen. Das eliminiert den Bounce-Effekt komplett
-- `initial: { opacity: 0, scale: 0.85 }` bleibt, aber ohne Overshoot
-
-### 3. IconCloud auf Mobile deaktivieren oder vereinfachen
-**Datei:** `IntegrationsSection.tsx`
-- Auf Mobile statt des 3D-Icon-Clouds eine einfache Grid-Darstellung der Icons zeigen
-- Das spart erheblich GPU-Leistung und verhindert Ruckeln
-
-### 4. Starfield auf Mobile deaktivieren
-**Datei:** Starfield.tsx wird aktuell nirgends importiert (kein Import in den Seiten-Dateien gefunden) — kein Handlungsbedarf. Bestaetigen.
-
-### 5. `willChange: 'opacity'` entfernen
-**Dateien:** Alle 6 Seiten mit Video-Hintergrund
-- `willChange: 'opacity'` entfernen vom festen Hintergrund-Div
-- Auf Mobile erzeugt das einen permanenten Compositing-Layer, der Speicher verbraucht
-
-### 6. 404-Icons in Network-Requests fixen
-**Datei:** `IntegrationsSection.tsx`
-- `microsoftteams` und `microsoft` erzeugen 404-Fehler bei simple-icons
-- Ersetzen durch `microsoftoutlook` oder entfernen
+### 3. Karriere-Seite: Alte Mobile-Bugs nicht gefixt
+**Datei:** `src/pages/Karriere.tsx`
+- Zeile 69: `willChange: "opacity"` ist noch vorhanden (wurde bei den anderen Seiten entfernt)
+- Zeile 70: Mobile-Bild nutzt noch `mixBlendMode: "hard-light"` und `brightness(0.5)` — macht den Hintergrund unsichtbar
+- Fix: Gleiche Korrekturen wie bei den anderen Seiten anwenden
 
 ---
 
-## Technische Details
+## Umsetzungsschritte
 
-```text
-Rendering-Pipeline auf Mobile:
-┌──────────────────────┐
-│ body (bg: black)     │
-│ ┌──────────────────┐ │
-│ │ fixed bg-div     │ │ ← isolation: isolate, willChange: opacity
-│ │ ┌──────────────┐ │ │
-│ │ │ img (mobile) │ │ │ ← hard-light auf schwarz = fast unsichtbar
-│ │ └──────────────┘ │ │
-│ └──────────────────┘ │
-│ ┌──────────────────┐ │
-│ │ Content (z:10)   │ │
-│ └──────────────────┘ │
-└──────────────────────┘
-
-Nach Fix:
-- img: mixBlendMode: normal, brightness(0.7), contrast(1.5)
-- willChange entfernt
-- Spring → ease fuer Nummern
-```
-
-Zusammenfassung: 6 Aenderungen in ca. 10 Dateien. Hauptursachen sind die zu aggressive Bildfilterung auf Mobile und die Spring-Animationen, die optisches Blinken erzeugen.
+1. **IntegrationsSection.tsx**: `onError`-Handler auf mobile Icons hinzufuegen der fehlende Icons ausblendet (`e.currentTarget.style.display = 'none'`), damit keine "?" mehr erscheinen
+2. **AutomationsSpectrum.tsx**: Mobile Timeline (`md:hidden absolute left-8...`) komplett entfernen (Zeilen 140-145), da die Karten selbst den Fortschritt anzeigen
+3. **Karriere.tsx**: `willChange: "opacity"` entfernen, Mobile-Bild-Filter auf `brightness(0.7) contrast(1.5)` aendern und `mixBlendMode` entfernen
 
