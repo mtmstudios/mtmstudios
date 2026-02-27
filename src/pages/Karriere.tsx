@@ -88,7 +88,7 @@ const Karriere = () => {
         <section className="relative pt-[18vh] pb-[12vh] px-6 flex flex-col items-center text-center">
           <div className="relative z-10 max-w-2xl mx-auto">
             <BlurText
-              text="Mach KI. Nicht Meetings."
+              text="Bau Dinge, die es noch nicht gibt."
               className="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight text-foreground mb-6"
               delay={80}
             />
@@ -98,7 +98,7 @@ const Karriere = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4, ease: appleEase }}
             >
-              Wir bauen KI-Lösungen, die Unternehmen verändern. Kein Corporate-Bullshit, keine endlosen Abstimmungsrunden – einfach bauen.
+              Kein Legacy-Code, keine Ticket-Schlangen. Bei uns arbeitest du mit den neuesten KI-Tools an Projekten, die Unternehmen wirklich verändern.
             </motion.p>
             <motion.div
               initial={{ opacity: 0, y: 15 }}
