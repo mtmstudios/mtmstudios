@@ -50,7 +50,7 @@ const Impressum = () => {
 
             <Section title="Kontakt" delay={0.15}>
               <p>
-                Telefon: <a href="tel:+4917697698466" className="text-accent hover:underline">+49 176 97698466</a><br />
+                Telefon: <a href="tel:+4915567077413" className="text-accent hover:underline">0155-67077413</a><br />
                 E-Mail: <a href="mailto:hallo@mtmstudios.de" className="text-accent hover:underline">hallo@mtmstudios.de</a>
               </p>
             </Section>
