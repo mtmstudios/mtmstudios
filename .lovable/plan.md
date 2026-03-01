@@ -1,58 +1,52 @@
 
 
-## Zwei Aufgaben: Integrationen-Sektion neu + Mobile/Tablet-Optimierung
+## Video-Integration im Smartphone-Hero
 
-### Aufgabe 1: Integrationen-Sektion mit neuem Icon-Cloud-Prompt ersetzen
+### Was wird gemacht
 
-Die bestehende `interactive-icon-cloud.tsx` wird mit der neuen Version aus dem Prompt aktualisiert — mit Theme-Support via `next-themes` (bereits installiert). Die `IntegrationsSection.tsx` behält die bestehenden Slugs und das Mobile-Grid-Fallback, nutzt aber die neue theme-aware `IconCloud`.
+Das Screen-Recording des iPhone-Anrufs wird in den bestehenden SVG-Smartphone-Frame eingebettet. Das Video ersetzt die aktuelle Animation (Avatar, Waveform-Bars, Status-Text). Der grüne Call-Button bleibt darüber und pulsiert als Handlungsaufforderung.
 
-**Datei: `src/components/ui/interactive-icon-cloud.tsx`**
-- `useTheme` von `next-themes` importieren (bereits installiert)
-- `renderCustomIcon` erhält `theme`-Parameter für dynamische Farben (light: `#f3f2ef`/`#6e6e73`, dark: `#080510`/`#ffffff`)
-- `IconCloud` nutzt `useTheme()` und gibt `theme` an `renderCustomIcon` weiter
-- `paddingTop: 40` in containerProps hinzufügen
+### Änderungen
 
-**Datei: `src/components/IntegrationsSection.tsx`**
-- Keine Änderungen nötig — importiert bereits `IconCloud` aus der UI-Datei
-- Mobile Grid-Fallback bleibt bestehen (performant auf Touch-Geräten)
-- Desktop zeigt weiterhin die 3D-Cloud
+**1. Video-Datei bereitstellen**
+- `user-uploads://ScreenRecording_03-01-2026_14-40-33_1.mp4` → `public/videos/phone-demo.mp4`
 
----
+**2. `src/components/phone-assistant/PhoneHero.tsx` — PhoneVisual anpassen**
 
-### Aufgabe 2: Zahlengrößen vereinheitlichen
+Entfernt wird:
+- Avatar-Kreis + Logo-Image (Zeilen ~82-105)
+- Name-Text "KI-Telefonassistent" (Zeilen ~108-116)
+- Status-Text "Bereit für Anrufe" (Zeilen ~119-127)
+- Waveform Glow-Kreis (Zeilen ~130-137)
+- Waveform-Bars (Zeilen ~140-160)
+- Einladungstext "Teste jetzt live" (Zeilen ~163-170)
 
-**Datei: `src/pages/Partner.tsx`** (Zeile 351)
-- Trust-Zahlen von `text-5xl md:text-6xl lg:text-7xl` auf `text-4xl md:text-5xl lg:text-6xl`
+Eingefügt wird:
+- Ein `<foreignObject>` innerhalb des SVG (x=32, y=50, width=256, height=500) mit einem `<video>`-Element
+- Video: `autoPlay`, `loop`, `muted`, `playsInline`, `object-cover`
+- Abgerundete Ecken passend zum Phone-Frame (~32px)
 
-**Datei: `src/components/automations/TrustSection.tsx`** (Zeile 58)
-- Zahlen von `text-4xl md:text-5xl` auf `text-4xl md:text-5xl lg:text-6xl`
-- Farbe von `text-neon` auf `text-accent` (Konsistenz mit Partner-Seite)
+Der grüne Call-Button (Zeilen ~173-207) bleibt exakt wie er ist — pulsierend, mit `tel:`-Link, über dem Video positioniert. Position wird leicht nach unten verschoben (cy ~500 statt 420), damit er am unteren Rand des Phone-Screens sitzt.
 
----
+```text
+┌────────────────────────┐
+│       Notch             │
+│  ┌──────────────────┐  │
+│  │                  │  │
+│  │  VIDEO           │  │  ← foreignObject mit <video>
+│  │  (iPhone-Anruf   │  │     autoPlay, loop, muted
+│  │   Screen-        │  │     object-cover, rounded
+│  │   Recording)     │  │
+│  │                  │  │
+│  │                  │  │
+│  │    🟢 Anrufen    │  │  ← Grüner pulsierender Button
+│  │                  │  │     mit tel:-Link (bleibt)
+│  └──────────────────┘  │
+└────────────────────────┘
+```
 
-### Aufgabe 3: Mobile Hover-Effekte entfernen
-
-Touch-Geräte lassen Hover-States "kleben" — Karten wirken anklickbar, sind es aber nicht.
-
-**`hover:border-accent/30` → `md:hover:border-accent/30`** in:
-- `src/pages/Partner.tsx` — Benefits-Karten (Zeile 306) und Trust-Karten (Zeile 346)
-- `src/pages/AboutUs.tsx` — Werte-Karten (Zeile 161)
-- `src/components/regional/RegionalPage.tsx` — Feature-Karten (Zeile 207)
-
-**`group-hover:text-*` → `md:group-hover:text-*`** in:
-- `src/pages/Partner.tsx` — Pain-Points `group-hover:text-destructive` (Zeile 202), Steps `group-hover:text-accent/60` (Zeile 252)
-- `src/components/ProcessSection.tsx` — `group-hover:text-accent/60` und `group-hover:text-accent` (Zeilen 53-54, 70)
-- `src/components/chatbot/ChatbotHowItWorks.tsx` — `group-hover:text-accent/60` (Zeile 48)
-- `src/components/phone-assistant/HowItWorks.tsx` — `group-hover:text-accent/60` (Zeile 48)
-- `src/components/automations/AutomationsHowItWorks.tsx` — `group-hover:text-accent/60` (Zeile 48)
-- `src/pages/AboutUs.tsx` — `group-hover:text-accent/[0.20]` (Zeile 164)
-
----
-
-### Aufgabe 4: Mobile Spacing optimieren
-
-Section-Padding `py-32` → `py-20 md:py-32` für kompaktere Mobile-Ansicht in:
-- `src/pages/Partner.tsx` — Problem-Section (Zeile 177), Benefits (Zeile 289), Trust (Zeile 331)
-- `src/components/automations/TrustSection.tsx` (Zeile 36)
-- `src/components/IntegrationsSection.tsx` (Zeile 27)
+### Hinweise
+- Video ist `muted` für Browser-Autoplay-Policy
+- `object-cover` füllt den Frame, schneidet ggf. Ränder ab — passt gut da iPhone-Recording im Hochformat ist
+- Keine weiteren Dateien betroffen
 
