@@ -138,7 +138,8 @@ const AboutUs = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={valuesInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, ease: appleEase }}
-              className="text-3xl md:text-5xl font-bold text-foreground text-center mb-4"
+              className="text-3xl md:text-5xl font-bold text-center mb-4"
+              style={{ color: 'hsl(var(--accent))', textShadow: '0 2px 20px rgba(0,0,0,0.8)' }}
             >
               Wofür wir stehen
             </motion.h2>
@@ -158,10 +159,10 @@ const AboutUs = () => {
                   initial={{ opacity: 0, y: 30 }}
                   animate={valuesInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.8, delay: 0.15 * i, ease: appleEase }}
-                  className="bg-white/[0.03] backdrop-blur-sm border border-border/10 rounded-2xl p-10 md:hover:border-accent/30 transition-all duration-500 relative overflow-hidden group cursor-default text-center flex flex-col items-center justify-center gap-4"
+                  className="md:bg-white/[0.03] md:backdrop-blur-sm md:border md:border-border/10 md:rounded-2xl md:p-10 md:hover:border-accent/30 transition-all duration-500 relative overflow-hidden group cursor-default text-center flex flex-col items-center justify-center gap-4 py-6"
                 >
                   <span 
-                    className="text-3xl md:text-4xl lg:text-5xl font-bold text-white/[0.12] select-none md:group-hover:text-accent/[0.20] transition-colors duration-500 leading-none uppercase tracking-widest"
+                    className="text-3xl md:text-4xl lg:text-5xl font-bold select-none md:group-hover:text-accent/[0.20] transition-colors duration-500 leading-none uppercase tracking-widest text-accent/30 md:text-white/[0.12]"
                   >
                     {v.title}
                   </span>
