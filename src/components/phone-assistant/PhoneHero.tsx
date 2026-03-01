@@ -68,10 +68,12 @@ const PhoneVisual = ({ testPhoneNumber }: { testPhoneNumber?: string }) => {
         >
           <video
             autoPlay loop muted playsInline
-            src="/videos/phone-demo.mp4"
             className="w-full h-full object-cover"
             style={{ pointerEvents: "none" }}
-          />
+          >
+            <source src="/videos/phone-demo.mov" type="video/quicktime" />
+            <source src="/videos/phone-demo.mp4" type="video/mp4" />
+          </video>
         </div>
 
         {/* Call button overlay */}
