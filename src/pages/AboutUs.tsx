@@ -161,7 +161,7 @@ const AboutUs = () => {
                   className="md:bg-white/[0.03] md:backdrop-blur-sm md:border md:border-border/10 md:rounded-2xl md:p-10 md:hover:border-accent/30 transition-all duration-500 relative overflow-hidden group cursor-default text-center flex flex-col items-center justify-center gap-4 py-6"
                 >
                   <span 
-                    className="text-3xl md:text-4xl lg:text-5xl font-bold select-none md:group-hover:text-white/40 transition-colors duration-500 leading-none uppercase tracking-widest text-white/30 md:text-white/25"
+                    className="text-3xl md:text-4xl lg:text-5xl font-bold select-none md:group-hover:text-white/50 transition-colors duration-500 leading-none uppercase tracking-widest text-white/40 md:text-white/35"
                   >
                     {v.title}
                   </span>
