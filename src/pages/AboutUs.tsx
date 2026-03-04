@@ -158,10 +158,10 @@ const AboutUs = () => {
                   initial={{ opacity: 0, y: 30 }}
                   animate={valuesInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.8, delay: 0.15 * i, ease: appleEase }}
-                  className="md:bg-white/[0.03] md:backdrop-blur-sm md:border md:border-border/10 md:rounded-2xl md:p-10 md:hover:border-accent/30 transition-all duration-500 relative overflow-hidden group cursor-default text-center flex flex-col items-center justify-center gap-4 py-6"
+                  className="md:bg-white/[0.03] md:backdrop-blur-sm md:border md:border-border/10 md:rounded-2xl md:p-10 md:hover:border-accent/30 transition-all duration-500 relative overflow-hidden group cursor-default text-center flex flex-col items-center justify-center gap-4 py-6 md:min-h-[220px]"
                 >
                   <span 
-                    className="text-3xl md:text-4xl lg:text-5xl font-bold select-none md:group-hover:text-white/50 transition-colors duration-500 leading-none uppercase tracking-widest text-white/40 md:text-white/35"
+                    className="text-2xl sm:text-3xl md:text-3xl lg:text-4xl font-bold select-none md:group-hover:text-white/50 transition-colors duration-500 leading-none uppercase tracking-widest text-white/40 md:text-white/35"
                   >
                     {v.title}
                   </span>
