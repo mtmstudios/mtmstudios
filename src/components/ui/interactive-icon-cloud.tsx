@@ -70,7 +70,20 @@ export function IconCloud({ iconSlugs }: DynamicCloudProps) {
   }), [isMobile])
 
   useEffect(() => {
-    fetchSimpleIcons({ slugs: iconSlugs }).then(setData)
+    let attempts = 0;
+    let cancelled = false;
+    const load = () => {
+      fetchSimpleIcons({ slugs: iconSlugs })
+        .then((d) => { if (!cancelled) setData(d); })
+        .catch(() => {
+          if (!cancelled && attempts < 3) {
+            attempts++;
+            setTimeout(load, 1000 * attempts);
+          }
+        });
+    };
+    load();
+    return () => { cancelled = true; };
   }, [iconSlugs])
 
   const renderedIcons = useMemo(() => {
@@ -79,6 +92,10 @@ export function IconCloud({ iconSlugs }: DynamicCloudProps) {
       renderCustomIcon(icon, theme || "dark", isMobile ? 36 : 42),
     )
   }, [data, theme, isMobile])
+
+  if (!renderedIcons) {
+    return <div style={{ minHeight: 300, display: "flex", alignItems: "center", justifyContent: "center" }} />;
+  }
 
   return (
     // @ts-ignore
