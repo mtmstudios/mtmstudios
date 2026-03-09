@@ -363,9 +363,9 @@ const KiStatistiken = () => {
                   transition={{ duration: 0.6, delay: 0.08 + i * 0.12, ease: appleEase }}
                   className="border border-white/[0.07] rounded-xl p-5 bg-white/[0.02] hover:bg-white/[0.04] transition-colors duration-300"
                 >
-                  <span className="text-3xl font-bold text-accent block mb-2 tabular-nums">{row.display}</span>
-                  <p className="text-sm text-foreground/55 leading-relaxed">{row.label}</p>
-                  <p className="text-[10px] text-foreground/20 mt-2">{row.source}</p>
+                  <span className="text-3xl font-bold text-accent block mb-2 tabular-nums text-center">{row.display}</span>
+                  <p className="text-sm text-foreground/55 leading-relaxed text-center">{row.label}</p>
+                  <p className="text-[10px] text-foreground/20 mt-2 text-center">{row.source}</p>
                 </motion.div>
               ))}
             </div>
