@@ -31,6 +31,7 @@ const benefits = [
 ];
 
 const Karriere = () => {
+  const isMobile = useIsMobile();
   const [funnelOpen, setFunnelOpen] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const bgRef = useRef<HTMLDivElement>(null);
