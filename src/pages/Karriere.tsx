@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { useIsMobile } from "@/hooks/use-mobile";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import BlurText from "@/components/BlurText";
