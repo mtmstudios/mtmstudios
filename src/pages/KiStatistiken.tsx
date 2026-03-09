@@ -179,6 +179,7 @@ const SectionHeader = ({ icon, title, subtitle, inView }: { icon: React.ReactNod
 
 /* ─── Page ──────────────────────────────────────────────────────── */
 const KiStatistiken = () => {
+  const isMobile = useIsMobile();
   const bgRef = useRef<HTMLDivElement>(null);
 
   /* Refs für jede Section */
@@ -195,6 +196,24 @@ const KiStatistiken = () => {
   const chatInView     = useInView(chatRef,     { once: true, margin: "-80px" });
   const roiInView      = useInView(roiRef,      { once: true, margin: "-80px" });
   const outroInView    = useInView(outroRef,    { once: true, margin: "-60px" });
+
+  useEffect(() => {
+    let rafId: number;
+    const handleScroll = () => {
+      rafId = requestAnimationFrame(() => {
+        if (bgRef.current) {
+          const scrollPosition = window.scrollY;
+          const maxScroll = 300;
+          const opacity = isMobile
+            ? Math.max(0.25, 1 - (scrollPosition / maxScroll) * 0.75)
+            : Math.max(0.1, 1 - (scrollPosition / maxScroll) * 0.9);
+          bgRef.current.style.opacity = opacity.toString();
+        }
+      });
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => { window.removeEventListener("scroll", handleScroll); cancelAnimationFrame(rafId); };
+  }, [isMobile]);
 
   return (
     <div className="relative min-h-screen bg-background">
