@@ -102,13 +102,13 @@ const StatListItem = ({ display, label, source, index, inView }: StatRow & { ind
     initial={{ opacity: 0, y: 18 }}
     animate={inView ? { opacity: 1, y: 0 } : {}}
     transition={{ duration: 0.55, delay: 0.08 + index * 0.1, ease: appleEase }}
-    className="flex items-start justify-between gap-6 py-5 border-b border-white/[0.06] last:border-0"
+    className="flex flex-col items-center text-center gap-2 py-5 border-b border-white/[0.06] last:border-0"
   >
+    <span className="text-2xl font-bold text-accent tabular-nums">{display}</span>
     <div className="space-y-0.5">
       <p className="text-sm text-foreground/55 leading-relaxed">{label}</p>
       <p className="text-[10px] text-foreground/20">{source}</p>
     </div>
-    <span className="text-2xl font-bold text-accent shrink-0 tabular-nums">{display}</span>
   </motion.div>
 );
 
