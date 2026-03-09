@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { useIsMobile } from "@/hooks/use-mobile";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import BlurText from "@/components/BlurText";
@@ -30,6 +31,7 @@ const benefits = [
 ];
 
 const Karriere = () => {
+  const isMobile = useIsMobile();
   const [funnelOpen, setFunnelOpen] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const bgRef = useRef<HTMLDivElement>(null);
@@ -53,14 +55,16 @@ const Karriere = () => {
         if (bgRef.current) {
           const scrollPosition = window.scrollY;
           const maxScroll = 300;
-          const opacity = Math.max(0.3, 1 - (scrollPosition / maxScroll) * 0.7);
+          const opacity = isMobile
+            ? Math.max(0.25, 1 - (scrollPosition / maxScroll) * 0.75)
+            : Math.max(0.1, 1 - (scrollPosition / maxScroll) * 0.9);
           bgRef.current.style.opacity = opacity.toString();
         }
       });
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => { window.removeEventListener("scroll", handleScroll); cancelAnimationFrame(rafId); };
-  }, []);
+  }, [isMobile]);
 
   return (
     <div className="relative min-h-screen bg-background text-foreground">

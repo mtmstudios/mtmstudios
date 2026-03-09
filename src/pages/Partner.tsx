@@ -106,19 +106,22 @@ const Partner = () => {
   const benefitsInView = useInView(benefitsRef, { once: true, margin: "-100px" });
 
   useEffect(() => {
+    let rafId: number;
     const handleScroll = () => {
-      if (bgRef.current) {
-        const scrollPosition = window.scrollY;
-        const maxScroll = 300;
-        const opacity = isMobile
-          ? Math.max(0.25, 1 - (scrollPosition / maxScroll) * 0.75)
-          : Math.max(0.1, 1 - (scrollPosition / maxScroll) * 0.9);
-        bgRef.current.style.opacity = opacity.toString();
-      }
+      rafId = requestAnimationFrame(() => {
+        if (bgRef.current) {
+          const scrollPosition = window.scrollY;
+          const maxScroll = 300;
+          const opacity = isMobile
+            ? Math.max(0.25, 1 - (scrollPosition / maxScroll) * 0.75)
+            : Math.max(0.1, 1 - (scrollPosition / maxScroll) * 0.9);
+          bgRef.current.style.opacity = opacity.toString();
+        }
+      });
     };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => { window.removeEventListener("scroll", handleScroll); cancelAnimationFrame(rafId); };
+  }, [isMobile]);
 
   return (
     <div className="relative min-h-screen bg-background">
