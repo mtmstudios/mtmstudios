@@ -64,7 +64,7 @@ const Karriere = () => {
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => { window.removeEventListener("scroll", handleScroll); cancelAnimationFrame(rafId); };
-  }, []);
+  }, [isMobile]);
 
   return (
     <div className="relative min-h-screen bg-background text-foreground">
