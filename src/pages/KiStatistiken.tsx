@@ -346,7 +346,7 @@ const KiStatistiken = () => {
 
         {/* ── ROI & Automatisierung ──────────────────────────────── */}
         <section ref={roiRef} className="px-6 py-16">
-          <div className="max-w-2xl mx-auto">
+          <div className="max-w-2xl mx-auto text-center">
             <div className="border-t border-white/[0.06] mb-12" />
             <SectionHeader
               inView={roiInView}
