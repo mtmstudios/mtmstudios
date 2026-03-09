@@ -167,13 +167,13 @@ const SectionHeader = ({ icon, title, subtitle, inView }: { icon: React.ReactNod
     initial={{ opacity: 0, y: 20 }}
     animate={inView ? { opacity: 1, y: 0 } : {}}
     transition={{ duration: 0.65, ease: appleEase }}
-    className="mb-10"
+    className="mb-10 text-center"
   >
-    <div className="flex items-center gap-3 mb-3">
+    <div className="flex items-center justify-center gap-3 mb-3">
       <div className="w-8 h-8 rounded-xl bg-accent/10 flex items-center justify-center text-accent shrink-0">{icon}</div>
       <h2 className="text-xl md:text-2xl font-bold text-foreground">{title}</h2>
     </div>
-    <p className="text-foreground/40 text-sm md:text-base leading-relaxed max-w-xl">{subtitle}</p>
+    <p className="text-foreground/40 text-sm md:text-base leading-relaxed max-w-xl mx-auto">{subtitle}</p>
   </motion.div>
 );
 
