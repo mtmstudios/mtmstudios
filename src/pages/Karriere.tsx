@@ -53,7 +53,9 @@ const Karriere = () => {
         if (bgRef.current) {
           const scrollPosition = window.scrollY;
           const maxScroll = 300;
-          const opacity = Math.max(0.3, 1 - (scrollPosition / maxScroll) * 0.7);
+          const opacity = isMobile
+            ? Math.max(0.25, 1 - (scrollPosition / maxScroll) * 0.75)
+            : Math.max(0.1, 1 - (scrollPosition / maxScroll) * 0.9);
           bgRef.current.style.opacity = opacity.toString();
         }
       });
