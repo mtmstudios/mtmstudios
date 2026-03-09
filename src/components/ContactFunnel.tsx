@@ -4,7 +4,7 @@ import { useContactFunnel } from "@/contexts/ContactFunnelContext";
 import { motion, AnimatePresence } from "motion/react";
 import {
   Phone, MessageSquare, Workflow, Compass, Check, ArrowLeft, ArrowRight, Send,
-  Repeat, MessagesSquare, Clock, TrendingUp, Unplug, Timer,
+  Repeat, MessagesSquare, Clock, TrendingUp, Unplug, Timer, Loader2,
 } from "lucide-react";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
@@ -90,6 +90,7 @@ const ContactFunnel = () => {
   const [formData, setFormData] = useState<ContactData>({ name: "", email: "", phone: "", message: "", referralSource: "" });
   const [referralOther, setReferralOther] = useState("");
   const [errors, setErrors] = useState<Partial<Record<keyof ContactData, string>>>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const reset = useCallback(() => {
     setStep(1);
@@ -98,6 +99,7 @@ const ContactFunnel = () => {
     setFormData({ name: "", email: "", phone: "", message: "", referralSource: "" });
     setReferralOther("");
     setErrors({});
+    setIsSubmitting(false);
   }, []);
 
   const handleOpenChange = (open: boolean) => {
@@ -115,7 +117,7 @@ const ContactFunnel = () => {
     if (errors.referralSource) setErrors((prev) => ({ ...prev, referralSource: undefined }));
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const dataToValidate = {
       ...formData,
       referralSource: formData.referralSource === "Sonstiges" ? referralOther : formData.referralSource,
@@ -131,8 +133,15 @@ const ContactFunnel = () => {
       return;
     }
     setErrors({});
-    console.log("Funnel submission:", { services: selected, challenges: selectedChallenges, ...result.data });
-    setStep(4);
+    setIsSubmitting(true);
+    try {
+      // TODO: replace with real API call
+      await new Promise((resolve) => setTimeout(resolve, 800));
+      console.log("Funnel submission:", { services: selected, challenges: selectedChallenges, ...result.data });
+      setStep(4);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const stepMotion = {
@@ -215,10 +224,10 @@ const ContactFunnel = () => {
                         type={field.type} placeholder={field.placeholder} value={formData[field.key] || ""}
                         onChange={(e) => { setFormData((prev) => ({ ...prev, [field.key]: e.target.value })); if (errors[field.key]) setErrors((prev) => ({ ...prev, [field.key]: undefined })); }}
                         className={inputClasses}
-                        style={{ borderColor: errors[field.key] ? "hsl(0 70% 50% / 0.6)" : "hsl(var(--border) / 0.15)" }}
+                        style={{ borderColor: errors[field.key] ? "hsl(var(--destructive) / 0.6)" : "hsl(var(--border) / 0.15)" }}
                       />
                       {errors[field.key] && (
-                        <p className="text-xs mt-1.5 text-center" style={{ color: "hsl(0 70% 60%)" }}>{errors[field.key]}</p>
+                        <p className="text-xs mt-1.5 text-center text-destructive">{errors[field.key]}</p>
                       )}
                     </motion.div>
                   ))}
@@ -259,12 +268,12 @@ const ContactFunnel = () => {
                         type="text" placeholder="Woher genau?" value={referralOther}
                         onChange={(e) => { setReferralOther(e.target.value); if (errors.referralSource) setErrors((prev) => ({ ...prev, referralSource: undefined })); }}
                         className={inputClasses}
-                        style={{ borderColor: errors.referralSource ? "hsl(0 70% 50% / 0.6)" : "hsl(var(--border) / 0.15)" }}
+                        style={{ borderColor: errors.referralSource ? "hsl(var(--destructive) / 0.6)" : "hsl(var(--border) / 0.15)" }}
                       />
                     </div>
                   )}
                   {errors.referralSource && formData.referralSource !== "Sonstiges" && (
-                    <p className="text-xs mt-2 text-center" style={{ color: "hsl(0 70% 60%)" }}>{errors.referralSource}</p>
+                    <p className="text-xs mt-2 text-center text-destructive">{errors.referralSource}</p>
                   )}
                 </div>
 
@@ -272,8 +281,12 @@ const ContactFunnel = () => {
                   <Button variant="ghost" onClick={() => setStep(2)} className="rounded-full px-6 py-6 text-muted-foreground hover:text-foreground">
                     <ArrowLeft className="w-4 h-4 mr-2" /> Zurück
                   </Button>
-                  <Button onClick={handleSubmit} className="flex-1 bg-accent text-background hover:bg-accent/90 font-semibold rounded-full py-6 text-base transition-colors duration-200">
-                    Absenden <Send className="w-4 h-4 ml-2" />
+                  <Button onClick={handleSubmit} disabled={isSubmitting} className="flex-1 bg-accent text-background hover:bg-accent/90 font-semibold rounded-full py-6 text-base transition-colors duration-200 disabled:opacity-60 disabled:cursor-not-allowed">
+                    {isSubmitting ? (
+                      <><Loader2 className="w-4 h-4 ml-2 animate-spin" /> Wird gesendet…</>
+                    ) : (
+                      <>Absenden <Send className="w-4 h-4 ml-2" /></>
+                    )}
                   </Button>
                 </div>
               </motion.div>

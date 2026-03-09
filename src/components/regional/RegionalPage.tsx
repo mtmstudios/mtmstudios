@@ -97,7 +97,7 @@ const RegionalPage = ({ context }: RegionalPageProps) => {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 text-sm text-foreground/50 hover:text-foreground/70 transition-colors"
             >
-              <img src={whatsappLogo} alt="WhatsApp" className="w-4 h-4" />
+              <img src={whatsappLogo} alt="WhatsApp" loading="lazy" className="w-4 h-4" />
               Oder direkt per WhatsApp
             </a>
           </motion.div>
@@ -326,7 +326,7 @@ const RegionalPage = ({ context }: RegionalPageProps) => {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 text-sm text-foreground/50 hover:text-foreground/70 transition-colors"
             >
-              <img src={whatsappLogo} alt="WhatsApp" className="w-4 h-4" />
+              <img src={whatsappLogo} alt="WhatsApp" loading="lazy" className="w-4 h-4" />
               Oder direkt per WhatsApp
             </a>
           </motion.div>

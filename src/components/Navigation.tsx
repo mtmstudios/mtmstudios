@@ -108,7 +108,7 @@ const Navigation = () => {
                           key={link.href}
                           to={link.href}
                           className="text-base text-foreground/70 hover:text-foreground transition-opacity duration-200"
-                          onClick={() => setMobileMenuOpen(false)}
+                          onClick={() => { setMobileMenuOpen(false); setMobileSolutionsOpen(false); }}
                         >
                           {link.label}
                         </Link>
@@ -132,7 +132,7 @@ const Navigation = () => {
           </Sheet>
 
           <Link to="/" onClick={handleLogoClick} className="absolute left-1/2 -translate-x-1/2">
-            <img src={logo} alt="MTM Studios Logo" className={`object-contain transition-all duration-200 ${scrolled ? "h-6" : "h-8"}`} />
+            <img src={logo} alt="MTM Studios Logo" className={`object-contain transition-[height,opacity] duration-300 ease-in-out ${scrolled ? "h-6" : "h-8"}`} />
           </Link>
 
           <a href="https://wa.me/4915567077414" target="_blank" rel="noopener noreferrer" className="z-10 flex sm:hidden items-center justify-center w-9 h-9 rounded-xl bg-[#25D366]/10 border border-[#25D366]/20 backdrop-blur-sm hover:bg-[#25D366]/20 transition-all duration-300">

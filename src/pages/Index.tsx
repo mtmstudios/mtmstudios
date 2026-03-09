@@ -54,6 +54,7 @@ const Index = () => {
         <img
           src="/videos/hero-background-still.jpg"
           alt=""
+          loading="lazy"
           className="md:hidden w-full h-full object-cover absolute inset-0"
           style={{ filter: 'brightness(0.7) contrast(1.5)', pointerEvents: 'none' }}
         />
