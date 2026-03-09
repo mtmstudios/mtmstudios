@@ -102,13 +102,13 @@ const StatListItem = ({ display, label, source, index, inView }: StatRow & { ind
     initial={{ opacity: 0, y: 18 }}
     animate={inView ? { opacity: 1, y: 0 } : {}}
     transition={{ duration: 0.55, delay: 0.08 + index * 0.1, ease: appleEase }}
-    className="flex items-start justify-between gap-6 py-5 border-b border-white/[0.06] last:border-0"
+    className="flex flex-col items-center text-center gap-2 py-5 border-b border-white/[0.06] last:border-0"
   >
+    <span className="text-2xl font-bold text-accent tabular-nums">{display}</span>
     <div className="space-y-0.5">
       <p className="text-sm text-foreground/55 leading-relaxed">{label}</p>
       <p className="text-[10px] text-foreground/20">{source}</p>
     </div>
-    <span className="text-2xl font-bold text-accent shrink-0 tabular-nums">{display}</span>
   </motion.div>
 );
 
@@ -167,13 +167,13 @@ const SectionHeader = ({ icon, title, subtitle, inView }: { icon: React.ReactNod
     initial={{ opacity: 0, y: 20 }}
     animate={inView ? { opacity: 1, y: 0 } : {}}
     transition={{ duration: 0.65, ease: appleEase }}
-    className="mb-10"
+    className="mb-10 text-center"
   >
-    <div className="flex items-center gap-3 mb-3">
+    <div className="flex items-center justify-center gap-3 mb-3">
       <div className="w-8 h-8 rounded-xl bg-accent/10 flex items-center justify-center text-accent shrink-0">{icon}</div>
       <h2 className="text-xl md:text-2xl font-bold text-foreground">{title}</h2>
     </div>
-    <p className="text-foreground/40 text-sm md:text-base leading-relaxed max-w-xl">{subtitle}</p>
+    <p className="text-foreground/40 text-sm md:text-base leading-relaxed max-w-xl mx-auto">{subtitle}</p>
   </motion.div>
 );
 
@@ -293,7 +293,7 @@ const KiStatistiken = () => {
 
         {/* ── Bar Chart: KI-Adoption ─────────────────────────────── */}
         <section ref={chartRef} className="px-6 py-16">
-          <div className="max-w-2xl mx-auto">
+          <div className="max-w-2xl mx-auto text-center">
             <div className="border-t border-white/[0.06] mb-12" />
             <SectionHeader
               inView={chartInView}
@@ -346,7 +346,7 @@ const KiStatistiken = () => {
 
         {/* ── ROI & Automatisierung ──────────────────────────────── */}
         <section ref={roiRef} className="px-6 py-16">
-          <div className="max-w-2xl mx-auto">
+          <div className="max-w-2xl mx-auto text-center">
             <div className="border-t border-white/[0.06] mb-12" />
             <SectionHeader
               inView={roiInView}
@@ -363,9 +363,9 @@ const KiStatistiken = () => {
                   transition={{ duration: 0.6, delay: 0.08 + i * 0.12, ease: appleEase }}
                   className="border border-white/[0.07] rounded-xl p-5 bg-white/[0.02] hover:bg-white/[0.04] transition-colors duration-300"
                 >
-                  <span className="text-3xl font-bold text-accent block mb-2 tabular-nums">{row.display}</span>
-                  <p className="text-sm text-foreground/55 leading-relaxed">{row.label}</p>
-                  <p className="text-[10px] text-foreground/20 mt-2">{row.source}</p>
+                  <span className="text-3xl font-bold text-accent block mb-2 tabular-nums text-center">{row.display}</span>
+                  <p className="text-sm text-foreground/55 leading-relaxed text-center">{row.label}</p>
+                  <p className="text-[10px] text-foreground/20 mt-2 text-center">{row.source}</p>
                 </motion.div>
               ))}
             </div>
