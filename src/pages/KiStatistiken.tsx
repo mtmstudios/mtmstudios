@@ -12,6 +12,7 @@ import {
 } from "motion/react";
 import { useRef, useEffect } from "react";
 import { TrendingUp, Phone, MessageSquare, Zap, ExternalLink } from "lucide-react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const appleEase = [0.16, 1, 0.3, 1] as const;
 
