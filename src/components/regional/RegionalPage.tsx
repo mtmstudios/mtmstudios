@@ -8,7 +8,7 @@ import RegionalSection from "@/components/RegionalSection";
 import SEOHead from "@/components/SEOHead";
 import { useContactFunnel } from "@/contexts/ContactFunnelContext";
 import { getRegionalContent, getServiceLabel, validCities } from "@/data/regionalContent";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import {
   Accordion,
   AccordionContent,
@@ -39,9 +39,40 @@ const RegionalPage = ({ context }: RegionalPageProps) => {
 
   const serviceLabel = getServiceLabel(context);
 
+  const cityName = city.charAt(0).toUpperCase() + city.slice(1);
+  const jsonLd = useMemo(() => ({
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": ["LocalBusiness", "ProfessionalService"],
+        "@id": `https://mtmstudios.de/${context}/${city}`,
+        "name": "MTM Studios",
+        "url": "https://mtmstudios.de",
+        "telephone": "+4915567077414",
+        "priceRange": "€€",
+        "description": content.description,
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": cityName,
+          "addressCountry": "DE"
+        },
+        "areaServed": { "@type": "City", "name": cityName },
+        "serviceType": serviceLabel
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": content.faqs.map((faq) => ({
+          "@type": "Question",
+          "name": faq.question,
+          "acceptedAnswer": { "@type": "Answer", "text": faq.answer }
+        }))
+      }
+    ]
+  }), [city, context, content, serviceLabel, cityName]);
+
   return (
     <div className="relative min-h-screen bg-background">
-      <SEOHead title={content.title} description={content.description} />
+      <SEOHead title={content.title} description={content.description} canonical={`https://mtmstudios.de/${context}/${city}`} jsonLd={jsonLd} />
 
       <div style={{ position: "relative", zIndex: 50 }}>
         <Navigation />
