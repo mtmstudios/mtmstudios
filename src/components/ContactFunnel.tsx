@@ -174,7 +174,7 @@ const ContactFunnel = () => {
         </div>
 
         {/* Steps */}
-        <div className="px-8 pb-8 pt-4 min-h-[440px] flex flex-col">
+        <div className="px-8 pb-8 pt-4 min-h-[440px] max-h-[80vh] overflow-y-auto flex flex-col">
           <AnimatePresence mode="wait">
             {step === 1 && (
               <motion.div key="step1" {...stepMotion} className="flex flex-col flex-1">

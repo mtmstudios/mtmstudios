@@ -223,7 +223,7 @@ const CareerFunnel = ({ open, onOpenChange }: CareerFunnelProps) => {
           ))}
         </div>
 
-        <div className="px-8 pb-8 pt-4 min-h-[440px] flex flex-col">
+        <div className="px-8 pb-8 pt-4 min-h-[440px] max-h-[80vh] overflow-y-auto flex flex-col">
           <AnimatePresence mode="wait">
             {/* Step 1 – Employment Type */}
             {step === 1 && (
