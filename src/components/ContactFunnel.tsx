@@ -135,9 +135,21 @@ const ContactFunnel = () => {
     setErrors({});
     setIsSubmitting(true);
     try {
-      // TODO: replace with real API call
-      await new Promise((resolve) => setTimeout(resolve, 800));
-      console.log("Funnel submission:", { services: selected, challenges: selectedChallenges, ...result.data });
+      await fetch("https://mtmstudios.app.n8n.cloud/webhook/website-kontaktformular", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          formType: "anfrage",
+          name: result.data.name,
+          email: result.data.email,
+          telefon: result.data.phone || "",
+          interesse: selected,
+          herausforderung: selectedChallenges,
+          nachricht: result.data.message || "",
+          quelle: result.data.referralSource,
+          page: window.location.pathname,
+        }),
+      });
       setStep(4);
     } finally {
       setIsSubmitting(false);

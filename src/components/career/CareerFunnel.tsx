@@ -172,7 +172,7 @@ const CareerFunnel = ({ open, onOpenChange }: CareerFunnelProps) => {
     if (errors.referralSource) setErrors((prev) => ({ ...prev, referralSource: undefined }));
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const dataToValidate = {
       ...formData,
       referralSource: formData.referralSource === "Sonstiges" ? referralOther : formData.referralSource,
@@ -188,9 +188,28 @@ const CareerFunnel = ({ open, onOpenChange }: CareerFunnelProps) => {
       return;
     }
     setErrors({});
-    console.log("Career funnel:", {
-      employment, role, experience, studiengang, hours, startDate, tools: selectedTools, ...result.data,
-    });
+    try {
+      await fetch("https://mtmstudios.app.n8n.cloud/webhook/website-kontaktformular", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          formType: "bewerbung",
+          name: result.data.name,
+          email: result.data.email,
+          telefon: result.data.phone || "",
+          anstellung: employment,
+          rolle: role,
+          studiengang: isStudentPath ? studiengang : experience,
+          stunden: hours,
+          start: startDate,
+          tools: selectedTools,
+          nachricht: result.data.message || "",
+          quelle: result.data.referralSource,
+        }),
+      });
+    } catch (e) {
+      console.error("Webhook error:", e);
+    }
     setStep(6);
   };
 
