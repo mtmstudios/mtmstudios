@@ -250,7 +250,7 @@ const CareerFunnel = ({ open, onOpenChange }: CareerFunnelProps) => {
                 <p className="text-xs tracking-widest uppercase text-muted-foreground text-center mb-3">Schritt 2 von 6</p>
                 <h3 className="text-2xl font-bold text-foreground mb-2 text-center">Was willst du machen?</h3>
                 <p className="text-muted-foreground text-sm mb-6 text-center">Wähl deine Rolle.</p>
-                <div className="grid grid-cols-2 gap-3 mb-8">
+                <div className="grid grid-cols-1 gap-3 mb-8">
                   {roles.map((r, i) => (
                     <SelectCard key={r.id} icon={r.icon} label={r.label} selected={role === r.id} onClick={() => setRole(r.id)} index={i} />
                   ))}
