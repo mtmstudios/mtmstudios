@@ -189,7 +189,7 @@ const CareerFunnel = ({ open, onOpenChange }: CareerFunnelProps) => {
     }
     setErrors({});
     try {
-      await fetch("https://mtmstudios.app.n8n.cloud/webhook-test/website-kontaktformular", {
+      await fetch("https://mtmstudios.app.n8n.cloud/webhook/website-kontaktformular", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
