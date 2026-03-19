@@ -119,6 +119,7 @@ const Navigation = () => {
                 <Link to="/dassindwir" className="text-lg text-foreground/80 hover:text-foreground transition-opacity duration-200" onClick={() => setMobileMenuOpen(false)}>Das sind Wir</Link>
                 <Link to="/karriere" className="text-lg text-foreground/80 hover:text-foreground transition-opacity duration-200" onClick={() => setMobileMenuOpen(false)}>Karriere</Link>
                 <Link to="/ki-im-mittelstand-zahlen" className="text-lg text-foreground/80 hover:text-foreground transition-opacity duration-200" onClick={() => setMobileMenuOpen(false)}>KI Statistiken</Link>
+                <Link to="/blog" className="text-lg text-foreground/80 hover:text-foreground transition-opacity duration-200" onClick={() => setMobileMenuOpen(false)}>Blog</Link>
                 <Link to="/partnerwerden" className="text-lg text-foreground/80 hover:text-foreground transition-opacity duration-200" onClick={() => setMobileMenuOpen(false)}>Partner werden</Link>
                 <div className="mt-2 pt-6 border-t border-border/10">
                   <button
@@ -158,6 +159,7 @@ const Navigation = () => {
             <Link to="/dassindwir" className="text-sm text-foreground/80 hover:text-foreground transition-opacity duration-200">Das sind Wir</Link>
             <Link to="/karriere" className="text-sm text-foreground/80 hover:text-foreground transition-opacity duration-200">Karriere</Link>
             <Link to="/ki-im-mittelstand-zahlen" className="text-sm text-foreground/80 hover:text-foreground transition-opacity duration-200">KI Statistiken</Link>
+            <Link to="/blog" className="text-sm text-foreground/80 hover:text-foreground transition-opacity duration-200">Blog</Link>
             <Link to="/partnerwerden" className="text-sm text-foreground/80 hover:text-foreground transition-opacity duration-200">Partner werden</Link>
           </div>
 

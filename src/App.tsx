@@ -21,6 +21,8 @@ import Partner from "./pages/Partner";
 import Karriere from "./pages/Karriere";
 import Barrierefreiheit from "./pages/Barrierefreiheit";
 import KiStatistiken from "./pages/KiStatistiken";
+import Blog from "./pages/Blog";
+import BlogPost from "./pages/BlogPost";
 import NotFound from "./pages/NotFound";
 import RegionalPage from "./components/regional/RegionalPage";
 import ScrollToTop from "./components/ScrollToTop";
@@ -59,6 +61,8 @@ const App = () => (
                 <Route path="/karriere" element={<Karriere />} />
                 <Route path="/barrierefreiheit" element={<Barrierefreiheit />} />
                 <Route path="/ki-im-mittelstand-zahlen" element={<KiStatistiken />} />
+                <Route path="/blog" element={<Blog />} />
+                <Route path="/blog/:slug" element={<BlogPost />} />
                 <Route path="/ki-agentur/:city" element={<RegionalPage context="ki-agentur" />} />
                 <Route path="/ki-telefonassistent/:city" element={<RegionalPage context="ki-telefonassistent" />} />
                 <Route path="/ki-chatbot/:city" element={<RegionalPage context="ki-chatbot" />} />
