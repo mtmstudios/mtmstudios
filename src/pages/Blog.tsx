@@ -20,7 +20,20 @@ const categoryColors: Record<string, string> = {
 const Blog = () => {
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const isMobile = useIsMobile();
+  const videoRef = useRef<HTMLVideoElement>(null);
   const bgRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    const attemptAutoplay = async () => {
+      try { await video.play(); } catch {
+        video.muted = true;
+        try { await video.play(); } catch {}
+      }
+    };
+    attemptAutoplay();
+  }, []);
 
   useEffect(() => {
     let rafId: number;
