@@ -138,8 +138,6 @@ const Blog = () => {
   const isMobile = useIsMobile();
   const videoRef = useRef<HTMLVideoElement>(null);
   const bgRef = useRef<HTMLDivElement>(null);
-  const headerRef = useRef<HTMLDivElement>(null);
-  const headerInView = useInView(headerRef, { once: true });
 
   useEffect(() => {
     const video = videoRef.current;
