@@ -160,7 +160,7 @@ const Navigation = () => {
             <Link to="/karriere" className="text-sm text-foreground/80 hover:text-foreground transition-opacity duration-200">Karriere</Link>
             <Link to="/partnerwerden" className="text-sm text-foreground/80 hover:text-foreground transition-opacity duration-200">Partner werden</Link>
             <Link to="/blog" className="text-sm text-foreground/80 hover:text-foreground transition-opacity duration-200">Blog</Link>
-            <Link to="/partnerwerden" className="text-sm text-foreground/80 hover:text-foreground transition-opacity duration-200">Partner werden</Link>
+            <Link to="/ki-im-mittelstand-zahlen" className="text-sm text-foreground/80 hover:text-foreground transition-opacity duration-200">KI Statistiken</Link>
           </div>
 
           <button onClick={() => openFunnel(true)} className="text-sm text-foreground/90 rounded-full border border-white/[0.12] px-5 py-2 hover:bg-white/[0.06] transition-all duration-300">
