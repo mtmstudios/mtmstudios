@@ -95,7 +95,7 @@ Je standardisierter das Erstgespräch ist, desto effektiver arbeitet der Assiste
     metaTitle: "n8n Automatisierung für Handwerksbetriebe | MTM Studios",
     metaDescription: "Diese 3 n8n Automatisierungen sparen Handwerksbetrieben 5–10 Stunden pro Woche: Anfragebearbeitung, Rechnungsverfolgung und Kundenkommunikation.",
     category: "Automatisierung",
-    date: "2025-02-28",
+    date: "2026-02-15",
     readingTime: 5,
     excerpt: "Handwerksbetriebe verlieren durchschnittlich 8 Stunden pro Woche mit administrativen Aufgaben, die ein einziger n8n Workflow in Minuten erledigt. Hier sind die drei wirkungsvollsten.",
     tags: ["n8n", "Automatisierung", "Handwerk", "Workflow"],
