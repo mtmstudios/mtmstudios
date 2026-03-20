@@ -57,7 +57,7 @@ const BlogCard = ({
     >
       <Link to={`/blog/${post.slug}`} className="group block h-full">
         <div
-          className={`relative h-full rounded-2xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-md hover:bg-white/[0.06] hover:border-white/[0.14] transition-all duration-500 overflow-hidden flex flex-col ${
+          className={`relative h-full rounded-2xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-md hover:bg-white/[0.06] hover:border-white/[0.14] transition-all duration-500 overflow-hidden flex flex-col text-center ${
             isFeatured ? "p-8 md:p-12" : "p-6 md:p-8"
           }`}
         >
