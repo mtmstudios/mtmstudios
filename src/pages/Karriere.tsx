@@ -89,7 +89,7 @@ const Karriere = () => {
 
       <div style={{ position: "relative", zIndex: 10 }}>
         {/* Hero */}
-        <section className="relative pt-[18vh] pb-[12vh] px-6 flex flex-col items-center text-center">
+        <section className="relative min-h-[70vh] pt-[15vh] pb-[12vh] px-6 flex flex-col items-center text-center">
           <div className="relative z-10 max-w-2xl mx-auto">
             <BlurText
               text="Bau Dinge, die es noch nicht gibt."

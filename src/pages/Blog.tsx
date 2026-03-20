@@ -262,7 +262,7 @@ const Blog = () => {
       >
         <div className="max-w-6xl mx-auto">
           {/* Header — matches KI-Statistiken hero */}
-          <section className="flex flex-col items-center justify-start px-2 pt-[20vh] md:pt-[24vh] pb-20 md:pb-28 text-center max-w-5xl mx-auto">
+          <section className="min-h-[70vh] flex flex-col items-center justify-start px-2 pt-[15vh] pb-20 md:pb-28 text-center max-w-5xl mx-auto">
             <BlurText
               text="KI-Praxiswissen für den Mittelstand"
               className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold text-foreground tracking-tight leading-[0.95]"
