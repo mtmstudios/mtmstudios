@@ -108,7 +108,7 @@ const BlogCard = ({
 
             {/* Excerpt */}
             <p
-              className={`text-foreground/50 leading-relaxed mb-6 ${
+              className={`text-foreground/50 leading-relaxed mb-6 mx-auto ${
                 isFeatured
                   ? "text-base max-w-2xl"
                   : "text-sm line-clamp-3"
