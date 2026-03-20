@@ -5,6 +5,7 @@ import { ArrowRight, Clock } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
+import BlurText from "@/components/BlurText";
 import { blogPosts, categories } from "@/data/blogPosts";
 import { useIsMobile } from "@/hooks/use-mobile";
 
