@@ -269,7 +269,7 @@ Die Investition in einen ordentlich konfigurierten, getesteten Chatbot lohnt sic
     metaTitle: "WhatsApp Business API Mittelstand 2025 | MTM Studios",
     metaDescription: "Wie mittelständische Unternehmen WhatsApp Business API einrichten, nutzen und mit KI-Chatbots kombinieren. Kosten, Voraussetzungen und reale Anwendungsfälle.",
     category: "Automatisierung",
-    date: "2025-01-30",
+    date: "2026-01-10",
     readingTime: 8,
     excerpt: "WhatsApp hat 60 Millionen Nutzer in Deutschland — und eine Öffnungsrate von über 90 %. Warum nutzen das so wenige Unternehmen für ihre Kundenkommunikation?",
     tags: ["WhatsApp Business API", "Kundenkommunikation", "KI", "Automatisierung"],
