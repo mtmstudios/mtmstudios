@@ -5,7 +5,7 @@ const appleEase = [0.16, 1, 0.3, 1] as const;
 
 const AutomationsHero = () => {
   return (
-    <section className="min-h-[70vh] flex flex-col items-center justify-start px-4 sm:px-6 pt-[15vh] pb-16">
+    <section className="min-h-[70vh] flex flex-col items-center justify-start px-4 sm:px-6 pt-[30vh] pb-16">
       <div className="max-w-4xl mx-auto text-center flex flex-col items-center gap-8">
         <BlurText
           text="Automatisierung, die mit dir wächst."
