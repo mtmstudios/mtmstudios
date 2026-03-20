@@ -18,7 +18,7 @@ export const blogPosts: BlogPost[] = [
     metaTitle: "KI-Telefonassistent für den Mittelstand | MTM Studios",
     metaDescription: "Wie mittelständische Betriebe mit einem KI-Telefonassistenten jeden Anruf annehmen — ohne zusätzliche Mitarbeiter. Kosten, Funktionen und reale Beispiele.",
     category: "Voice KI",
-    date: "2025-03-10",
+    date: "2026-03-10",
     readingTime: 6,
     excerpt: "Jeder vierte Anruf bei kleinen Betrieben landet auf der Mailbox — und rund 70 % dieser Anrufer versuchen es nie wieder. Ein KI-Telefonassistent schließt diese Lücke, ohne dass du jemanden neu einstellen musst.",
     tags: ["KI Telefonassistent", "Voice AI", "Mittelstand", "24/7 Erreichbarkeit"],
