@@ -180,7 +180,7 @@ In all diesen Branchen gilt: Die Wertschöpfung liegt in der Ausführung, nicht 
     metaTitle: "KI-Chatbot im Kundensupport: Was er kann | MTM Studios",
     metaDescription: "Ein KI-Chatbot löst bis zu 70 % der Supportanfragen ohne menschliche Eingriffe. Was er wirklich kann, wo er versagt und wie die Integration funktioniert.",
     category: "Chatbot",
-    date: "2025-02-15",
+    date: "2026-01-28",
     readingTime: 7,
     excerpt: "Der Hype um KI-Chatbots ist groß. Die Realität ist differenzierter — aber trotzdem beeindruckend. Hier ist, was du wirklich erwarten kannst.",
     tags: ["Chatbot", "Kundensupport", "KI", "WhatsApp"],
