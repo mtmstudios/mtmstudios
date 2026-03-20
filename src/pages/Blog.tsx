@@ -97,7 +97,7 @@ const BlogCard = ({
 
             {/* Title */}
             <h2
-              className={`font-bold text-foreground group-hover:text-accent transition-colors duration-300 leading-snug mb-4 ${
+              className={`font-bold text-foreground group-hover:text-accent transition-colors duration-300 leading-snug mb-4 mx-auto ${
                 isFeatured
                   ? "text-xl md:text-3xl max-w-2xl"
                   : "text-base md:text-lg flex-1"
