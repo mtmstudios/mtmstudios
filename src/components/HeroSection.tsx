@@ -11,7 +11,7 @@ const HeroSection = () => {
   const { setIsOpen } = useContactFunnel();
   const { blur, noBlur } = useMobileBlur();
   return (
-    <section className="min-h-[70vh] flex items-start justify-center overflow-hidden pt-[15vh]">
+    <section className="min-h-[70vh] flex items-start justify-center overflow-hidden pt-[30vh]">
       <div className="container mx-auto px-6 py-0 text-center">
         <h1 className="text-4xl md:text-7xl lg:text-8xl font-bold text-foreground mb-2 leading-snug flex flex-col items-center" style={{ textShadow: '0 2px 30px rgba(0,0,0,0.6)' }}>
           <span className="flex items-baseline gap-x-[0.3em]">
