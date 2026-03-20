@@ -72,7 +72,7 @@ const BlogCard = ({
 
           <div className="relative z-10 flex flex-col h-full">
             {/* Meta */}
-            <div className="flex items-center gap-3 mb-5 flex-wrap">
+            <div className="flex items-center justify-center gap-3 mb-5 flex-wrap">
               <span
                 className="text-[10px] font-bold tracking-[0.15em] uppercase px-3 py-1 rounded-full"
                 style={{
