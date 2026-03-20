@@ -95,12 +95,37 @@ const Blog = () => {
           src="/videos/hero-background-still.jpg"
           alt=""
           loading="lazy"
-          className="w-full h-full object-cover absolute inset-0"
+          className="md:hidden w-full h-full object-cover absolute inset-0"
+          style={{ filter: "brightness(0.7) contrast(1.5)", pointerEvents: "none" }}
+        />
+        <video
+          ref={videoRef}
+          autoPlay
+          loop
+          muted
+          playsInline
+          // @ts-ignore
+          webkit-playsinline=""
+          preload="auto"
+          onLoadedData={(e) => {
+            const video = e.currentTarget;
+            video.play().catch(() => {});
+          }}
+          className="hidden md:block w-full h-full object-cover"
           style={{
-            filter: "brightness(0.7) contrast(1.5)",
+            mixBlendMode: "hard-light",
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            filter: "brightness(0.7) contrast(2)",
             pointerEvents: "none",
           }}
-        />
+        >
+          <source src="/videos/hero-background.webm" type="video/webm" />
+          <source src="/videos/hero-background.mp4" type="video/mp4" />
+        </video>
       </div>
 
       <div style={{ position: "relative", zIndex: 50 }}>
