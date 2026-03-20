@@ -61,12 +61,12 @@ const BentoCard = ({
         delay: 0.06 + index * 0.08,
         ease: appleEase,
       }}
-      className={`group relative overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-md p-8 md:p-10 flex flex-col justify-between min-h-[220px] hover:bg-white/[0.06] hover:border-white/[0.14] transition-all duration-500 ${span}`}
+      className={`group relative overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-md p-8 md:p-10 flex flex-col justify-between items-center text-center min-h-[220px] hover:bg-white/[0.06] hover:border-white/[0.14] transition-all duration-500 ${span}`}
     >
       {/* Hover glow */}
       <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none bg-[radial-gradient(ellipse_at_center,hsl(var(--accent)/0.04),transparent_70%)]" />
 
-      <div className="relative z-10">
+      <div className="relative z-10 flex flex-col items-center">
         {/* Category label */}
         {category && (
           <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-accent/70 mb-4 block">

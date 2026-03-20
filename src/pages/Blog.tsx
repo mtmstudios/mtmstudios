@@ -57,7 +57,7 @@ const BlogCard = ({
     >
       <Link to={`/blog/${post.slug}`} className="group block h-full">
         <div
-          className={`relative h-full rounded-2xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-md hover:bg-white/[0.06] hover:border-white/[0.14] transition-all duration-500 overflow-hidden flex flex-col ${
+          className={`relative h-full rounded-2xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-md hover:bg-white/[0.06] hover:border-white/[0.14] transition-all duration-500 overflow-hidden flex flex-col text-center ${
             isFeatured ? "p-8 md:p-12" : "p-6 md:p-8"
           }`}
         >
@@ -72,7 +72,7 @@ const BlogCard = ({
 
           <div className="relative z-10 flex flex-col h-full">
             {/* Meta */}
-            <div className="flex items-center gap-3 mb-5 flex-wrap">
+            <div className="flex items-center justify-center gap-3 mb-5 flex-wrap">
               <span
                 className="text-[10px] font-bold tracking-[0.15em] uppercase px-3 py-1 rounded-full"
                 style={{
@@ -97,7 +97,7 @@ const BlogCard = ({
 
             {/* Title */}
             <h2
-              className={`font-bold text-foreground group-hover:text-accent transition-colors duration-300 leading-snug mb-4 ${
+              className={`font-bold text-foreground group-hover:text-accent transition-colors duration-300 leading-snug mb-4 mx-auto ${
                 isFeatured
                   ? "text-xl md:text-3xl max-w-2xl"
                   : "text-base md:text-lg flex-1"
@@ -108,7 +108,7 @@ const BlogCard = ({
 
             {/* Excerpt */}
             <p
-              className={`text-foreground/50 leading-relaxed mb-6 ${
+              className={`text-foreground/50 leading-relaxed mb-6 mx-auto ${
                 isFeatured
                   ? "text-base max-w-2xl"
                   : "text-sm line-clamp-3"
