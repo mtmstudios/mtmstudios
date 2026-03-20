@@ -367,7 +367,7 @@ Für zeitkritische Kommunikation — Terminbestätigungen, Erinnerungen, Statusu
     metaTitle: "KI-Agentur Kosten 2026: Was kostet das wirklich? | MTM Studios",
     metaDescription: "Was kostet eine KI-Agentur? Transparente Preise für Telefonassistenten, Chatbots und Automatisierungen. Einmalige Kosten, monatliche Gebühren und ROI-Rechnung.",
     category: "Beratung",
-    date: "2025-01-15",
+    date: "2026-04-01",
     readingTime: 5,
     excerpt: "Die meisten KI-Agenturen zeigen keine Preise. Wir schon — weil wir glauben, dass du weißt, was du kaufst, bevor du dich entscheidest.",
     tags: ["KI-Agentur", "Kosten", "Preise", "ROI"],
