@@ -158,7 +158,7 @@ const Navigation = () => {
             <SolutionsDropdown />
             <Link to="/dassindwir" className="text-sm text-foreground/80 hover:text-foreground transition-opacity duration-200">Das sind Wir</Link>
             <Link to="/karriere" className="text-sm text-foreground/80 hover:text-foreground transition-opacity duration-200">Karriere</Link>
-            <Link to="/ki-im-mittelstand-zahlen" className="text-sm text-foreground/80 hover:text-foreground transition-opacity duration-200">KI Statistiken</Link>
+            <Link to="/partnerwerden" className="text-sm text-foreground/80 hover:text-foreground transition-opacity duration-200">Partner werden</Link>
             <Link to="/blog" className="text-sm text-foreground/80 hover:text-foreground transition-opacity duration-200">Blog</Link>
             <Link to="/partnerwerden" className="text-sm text-foreground/80 hover:text-foreground transition-opacity duration-200">Partner werden</Link>
           </div>
