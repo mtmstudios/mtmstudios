@@ -352,7 +352,7 @@ const KiStatistiken = () => {
       {/* Content */}
       <main id="main" style={{ position: "relative", zIndex: 10 }}>
         {/* ── Hero ────────────────────────────────────────────────── */}
-        <section className="flex flex-col items-center justify-start px-6 pt-[20vh] md:pt-[24vh] pb-24 md:pb-32 text-center max-w-5xl mx-auto">
+        <section className="min-h-[70vh] flex flex-col items-center justify-start px-6 pt-[15vh] pb-24 md:pb-32 text-center max-w-5xl mx-auto">
           <BlurText
             text="KI im deutschen Mittelstand"
             className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold text-foreground tracking-tight leading-[0.95]"
