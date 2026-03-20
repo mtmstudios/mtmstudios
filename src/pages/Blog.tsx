@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { motion } from "motion/react";
+import { motion, useInView } from "motion/react";
 import { ArrowRight, Clock } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -17,19 +17,140 @@ const categoryColors: Record<string, string> = {
   "Beratung": "#F59E0B",
 };
 
+/* Bento span patterns — asymmetrical grid */
+const bentoSpans = [
+  "md:col-span-2",   // wide
+  "md:col-span-1",   // square
+  "md:col-span-1",   // square
+  "md:col-span-1",   // square
+  "md:col-span-2",   // wide
+  "md:col-span-1",   // square
+];
+
+const getBentoSpan = (index: number) => bentoSpans[index % bentoSpans.length];
+
+/* ─── Blog Card ─────────────────────────────────────────────── */
+const BlogCard = ({
+  post,
+  index,
+  isFeatured = false,
+}: {
+  post: (typeof blogPosts)[0];
+  index: number;
+  isFeatured?: boolean;
+}) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-40px" });
+  const color = categoryColors[post.category] ?? "#00E5C0";
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 24, filter: "blur(6px)" }}
+      animate={inView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
+      transition={{
+        duration: 0.65,
+        delay: 0.04 + index * 0.07,
+        ease: appleEase,
+      }}
+      className={isFeatured ? "md:col-span-3" : getBentoSpan(index)}
+    >
+      <Link to={`/blog/${post.slug}`} className="group block h-full">
+        <div
+          className={`relative h-full rounded-2xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-md hover:bg-white/[0.06] hover:border-white/[0.14] transition-all duration-500 overflow-hidden flex flex-col ${
+            isFeatured ? "p-8 md:p-12" : "p-6 md:p-8"
+          }`}
+        >
+          {/* Hover glow */}
+          <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none bg-[radial-gradient(ellipse_at_center,hsl(var(--accent)/0.04),transparent_70%)]" />
+
+          {/* Accent bar */}
+          <div
+            className="absolute top-0 left-0 w-1 h-full rounded-l-2xl"
+            style={{ background: color }}
+          />
+
+          <div className="relative z-10 flex flex-col h-full">
+            {/* Meta */}
+            <div className="flex items-center gap-3 mb-5 flex-wrap">
+              <span
+                className="text-[10px] font-bold tracking-[0.15em] uppercase px-3 py-1 rounded-full"
+                style={{
+                  color,
+                  background: `${color}18`,
+                }}
+              >
+                {post.category}
+              </span>
+              <span className="text-xs text-foreground/40 flex items-center gap-1.5">
+                <Clock className="w-3 h-3" />
+                {post.readingTime} Min.
+              </span>
+              <span className="text-xs text-foreground/30">
+                {new Date(post.date).toLocaleDateString("de-DE", {
+                  day: "2-digit",
+                  month: "long",
+                  year: "numeric",
+                })}
+              </span>
+            </div>
+
+            {/* Title */}
+            <h2
+              className={`font-bold text-foreground group-hover:text-accent transition-colors duration-300 leading-snug mb-4 ${
+                isFeatured
+                  ? "text-xl md:text-3xl max-w-2xl"
+                  : "text-base md:text-lg flex-1"
+              }`}
+            >
+              {post.title}
+            </h2>
+
+            {/* Excerpt */}
+            <p
+              className={`text-foreground/50 leading-relaxed mb-6 ${
+                isFeatured
+                  ? "text-base max-w-2xl"
+                  : "text-sm line-clamp-3"
+              }`}
+            >
+              {post.excerpt}
+            </p>
+
+            {/* CTA */}
+            <div className="mt-auto">
+              <span className="inline-flex items-center gap-2 text-sm font-medium text-accent group-hover:gap-3 transition-all duration-300">
+                {isFeatured ? "Weiterlesen" : "Lesen"}{" "}
+                <ArrowRight className="w-4 h-4" />
+              </span>
+            </div>
+          </div>
+        </div>
+      </Link>
+    </motion.div>
+  );
+};
+
+/* ─── Page ──────────────────────────────────────────────────── */
 const Blog = () => {
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const isMobile = useIsMobile();
   const videoRef = useRef<HTMLVideoElement>(null);
   const bgRef = useRef<HTMLDivElement>(null);
+  const headerRef = useRef<HTMLDivElement>(null);
+  const headerInView = useInView(headerRef, { once: true });
 
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
     const attemptAutoplay = async () => {
-      try { await video.play(); } catch {
+      try {
+        await video.play();
+      } catch {
         video.muted = true;
-        try { await video.play(); } catch {}
+        try {
+          await video.play();
+        } catch {}
       }
     };
     attemptAutoplay();
@@ -85,7 +206,7 @@ const Blog = () => {
         jsonLd={jsonLd}
       />
 
-      {/* Global background — identical to homepage */}
+      {/* Global background */}
       <div
         ref={bgRef}
         className="fixed inset-0 w-screen h-screen overflow-hidden"
@@ -96,7 +217,10 @@ const Blog = () => {
           alt=""
           loading="lazy"
           className="md:hidden w-full h-full object-cover absolute inset-0"
-          style={{ filter: "brightness(0.7) contrast(1.5)", pointerEvents: "none" }}
+          style={{
+            filter: "brightness(0.7) contrast(1.5)",
+            pointerEvents: "none",
+          }}
         />
         <video
           ref={videoRef}
@@ -137,40 +261,54 @@ const Blog = () => {
         className="pt-24 pb-24 px-4 sm:px-6"
         style={{ position: "relative", zIndex: 10 }}
       >
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           {/* Header */}
-          <motion.div
-            initial={{ opacity: 0, y: 20, filter: "blur(4px)" }}
-            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            transition={{ duration: 0.7, ease: appleEase }}
-            className="mb-16 text-center"
-          >
-            <span className="inline-block text-xs font-semibold tracking-widest uppercase text-accent mb-4">
+          <div ref={headerRef} className="mb-20 text-center pt-[8vh] md:pt-[12vh]">
+            <motion.span
+              initial={{ opacity: 0, y: 10 }}
+              animate={headerInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, ease: appleEase }}
+              className="inline-block text-[10px] font-bold tracking-[0.25em] uppercase text-accent/70 mb-6"
+            >
               Blog
-            </span>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground tracking-tight mb-4">
+            </motion.span>
+            <motion.h1
+              initial={{ opacity: 0, y: 20, filter: "blur(4px)" }}
+              animate={
+                headerInView
+                  ? { opacity: 1, y: 0, filter: "blur(0px)" }
+                  : {}
+              }
+              transition={{ duration: 0.7, delay: 0.1, ease: appleEase }}
+              className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-foreground tracking-tight mb-5 leading-[0.95]"
+            >
               KI-Praxiswissen für den Mittelstand
-            </h1>
-            <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              animate={headerInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.7, delay: 0.25, ease: appleEase }}
+              className="text-base md:text-lg text-foreground/50 max-w-2xl mx-auto leading-relaxed"
+            >
               Keine Buzzwords. Keine leeren Versprechen. Nur konkrete Einblicke
               in das, was KI-Automatisierung heute wirklich leisten kann — und
               was nicht.
-            </p>
-          </motion.div>
+            </motion.p>
+          </div>
 
           {/* Category Filter */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1, ease: appleEase }}
-            className="flex flex-wrap justify-center gap-2 mb-12"
+            transition={{ duration: 0.5, delay: 0.35, ease: appleEase }}
+            className="flex flex-wrap justify-center gap-2 mb-14"
           >
             <button
               onClick={() => setActiveCategory(null)}
               className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200 active:scale-[0.97] ${
                 activeCategory === null
                   ? "bg-accent text-accent-foreground"
-                  : "border border-border/40 text-muted-foreground hover:border-border hover:text-foreground"
+                  : "border border-white/[0.08] text-foreground/50 hover:border-white/[0.15] hover:text-foreground"
               }`}
             >
               Alle
@@ -184,7 +322,7 @@ const Blog = () => {
                 className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200 active:scale-[0.97] ${
                   activeCategory === cat
                     ? "bg-accent text-accent-foreground"
-                    : "border border-border/40 text-muted-foreground hover:border-border hover:text-foreground"
+                    : "border border-white/[0.08] text-foreground/50 hover:border-white/[0.15] hover:text-foreground"
                 }`}
               >
                 {cat}
@@ -194,126 +332,20 @@ const Blog = () => {
 
           {/* Featured Article */}
           {featured && (
-            <motion.div
-              initial={{ opacity: 0, y: 24, filter: "blur(4px)" }}
-              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-              transition={{ duration: 0.7, delay: 0.15, ease: appleEase }}
-              className="mb-10"
-            >
-              <Link to={`/blog/${featured.slug}`} className="group block">
-                <div className="relative rounded-2xl border border-border/30 bg-card/40 backdrop-blur-sm hover:border-accent/30 transition-[border-color,box-shadow] duration-500 overflow-hidden p-8 md:p-12">
-                  <div className="flex items-center gap-3 mb-5 flex-wrap">
-                    <span
-                      className="text-xs font-semibold tracking-widest uppercase px-3 py-1 rounded-full"
-                      style={{
-                        color:
-                          categoryColors[featured.category] ?? "#00E5C0",
-                        background: `${categoryColors[featured.category] ?? "#00E5C0"}18`,
-                      }}
-                    >
-                      {featured.category}
-                    </span>
-                    <span className="text-xs text-muted-foreground flex items-center gap-1.5">
-                      <Clock className="w-3 h-3" />
-                      {featured.readingTime} Min.
-                    </span>
-                    <span className="text-xs text-muted-foreground">
-                      {new Date(featured.date).toLocaleDateString("de-DE", {
-                        day: "2-digit",
-                        month: "long",
-                        year: "numeric",
-                      })}
-                    </span>
-                  </div>
-
-                  <h2 className="text-xl md:text-3xl font-bold text-foreground mb-4 group-hover:text-accent transition-colors duration-300 leading-snug max-w-2xl">
-                    {featured.title}
-                  </h2>
-
-                  <p className="text-muted-foreground text-base leading-relaxed mb-6 max-w-2xl">
-                    {featured.excerpt}
-                  </p>
-
-                  <span className="inline-flex items-center gap-2 text-sm font-medium text-accent group-hover:gap-3 transition-all duration-300">
-                    Weiterlesen <ArrowRight className="w-4 h-4" />
-                  </span>
-
-                  {/* Accent line */}
-                  <div
-                    className="absolute top-0 left-0 w-1 h-full rounded-l-2xl"
-                    style={{
-                      background:
-                        categoryColors[featured.category] ?? "#00E5C0",
-                    }}
-                  />
-                </div>
-              </Link>
-            </motion.div>
+            <div className="mb-6">
+              <BlogCard post={featured} index={0} isFeatured />
+            </div>
           )}
 
-          {/* Article Grid — 3 cols desktop, 2 tablet, 1 mobile */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {/* Bento Article Grid — asymmetrical 3-col */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {rest.map((post, i) => (
-              <motion.div
-                key={post.slug}
-                initial={{ opacity: 0, y: 24, filter: "blur(4px)" }}
-                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                transition={{
-                  duration: 0.6,
-                  delay: 0.2 + i * 0.07,
-                  ease: appleEase,
-                }}
-              >
-                <Link
-                  to={`/blog/${post.slug}`}
-                  className="group block h-full"
-                >
-                  <div className="h-full rounded-2xl border border-border/30 bg-card/40 backdrop-blur-sm hover:border-accent/20 transition-[border-color,box-shadow] duration-500 p-6 flex flex-col">
-                    <div className="flex items-center gap-3 mb-4 flex-wrap">
-                      <span
-                        className="text-xs font-semibold tracking-widest uppercase px-3 py-1 rounded-full"
-                        style={{
-                          color:
-                            categoryColors[post.category] ?? "#00E5C0",
-                          background: `${categoryColors[post.category] ?? "#00E5C0"}18`,
-                        }}
-                      >
-                        {post.category}
-                      </span>
-                      <span className="text-xs text-muted-foreground flex items-center gap-1.5">
-                        <Clock className="w-3 h-3" />
-                        {post.readingTime} Min.
-                      </span>
-                    </div>
-
-                    <h3 className="text-base md:text-lg font-bold text-foreground mb-3 group-hover:text-accent transition-colors duration-300 leading-snug flex-1">
-                      {post.title}
-                    </h3>
-
-                    <p className="text-sm text-muted-foreground leading-relaxed mb-5 line-clamp-3">
-                      {post.excerpt}
-                    </p>
-
-                    <div className="flex items-center justify-between mt-auto">
-                      <span className="text-xs text-muted-foreground">
-                        {new Date(post.date).toLocaleDateString("de-DE", {
-                          day: "2-digit",
-                          month: "long",
-                          year: "numeric",
-                        })}
-                      </span>
-                      <span className="inline-flex items-center gap-1.5 text-xs font-medium text-accent group-hover:gap-2.5 transition-all duration-300">
-                        Lesen <ArrowRight className="w-3.5 h-3.5" />
-                      </span>
-                    </div>
-                  </div>
-                </Link>
-              </motion.div>
+              <BlogCard key={post.slug} post={post} index={i + 1} />
             ))}
           </div>
 
           {filtered.length === 0 && (
-            <p className="text-center text-muted-foreground py-20">
+            <p className="text-center text-foreground/40 py-20">
               Keine Artikel in dieser Kategorie.
             </p>
           )}
