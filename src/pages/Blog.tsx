@@ -262,16 +262,7 @@ const Blog = () => {
       >
         <div className="max-w-6xl mx-auto">
           {/* Header — matches KI-Statistiken hero */}
-          <section className="flex flex-col items-center justify-start px-2 pt-[16vh] md:pt-[20vh] pb-20 md:pb-28 text-center max-w-5xl mx-auto">
-            <motion.span
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, ease: appleEase }}
-              className="text-[10px] font-bold tracking-[0.25em] uppercase text-accent/70 mb-6"
-            >
-              Blog
-            </motion.span>
-
+          <section className="flex flex-col items-center justify-start px-2 pt-[20vh] md:pt-[24vh] pb-20 md:pb-28 text-center max-w-5xl mx-auto">
             <BlurText
               text="KI-Praxiswissen für den Mittelstand"
               className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold text-foreground tracking-tight leading-[0.95]"

@@ -352,16 +352,7 @@ const KiStatistiken = () => {
       {/* Content */}
       <main id="main" style={{ position: "relative", zIndex: 10 }}>
         {/* ── Hero ────────────────────────────────────────────────── */}
-        <section className="flex flex-col items-center justify-start px-6 pt-[16vh] md:pt-[20vh] pb-24 md:pb-32 text-center max-w-5xl mx-auto">
-          <motion.span
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, ease: appleEase }}
-            className="text-[10px] font-bold tracking-[0.25em] uppercase text-accent/70 mb-6"
-          >
-            Marktdaten & Studien · Stand März 2026
-          </motion.span>
-
+        <section className="flex flex-col items-center justify-start px-6 pt-[20vh] md:pt-[24vh] pb-24 md:pb-32 text-center max-w-5xl mx-auto">
           <BlurText
             text="KI im deutschen Mittelstand"
             className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold text-foreground tracking-tight leading-[0.95]"
@@ -376,7 +367,7 @@ const KiStatistiken = () => {
             transition={{ duration: 0.8, delay: 0.65, ease: appleEase }}
             className="mt-6 md:mt-8 text-base md:text-xl text-foreground/50 max-w-2xl leading-relaxed"
           >
-            Zahlen, Fakten und Trends — aktuell, belegt und kostenlos zitierbar.
+            Marktdaten & Studien · Stand März 2026 — aktuell, belegt und kostenlos zitierbar.
           </motion.p>
 
           <motion.div
