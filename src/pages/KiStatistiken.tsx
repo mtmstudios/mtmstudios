@@ -66,7 +66,7 @@ const BentoCard = ({
       {/* Hover glow */}
       <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none bg-[radial-gradient(ellipse_at_center,hsl(var(--accent)/0.04),transparent_70%)]" />
 
-      <div className="relative z-10">
+      <div className="relative z-10 flex flex-col items-center">
         {/* Category label */}
         {category && (
           <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-accent/70 mb-4 block">
