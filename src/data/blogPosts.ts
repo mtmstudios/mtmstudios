@@ -266,7 +266,7 @@ Die Investition in einen ordentlich konfigurierten, getesteten Chatbot lohnt sic
   {
     slug: "whatsapp-business-api-mittelstand",
     title: "WhatsApp Business API für den Mittelstand: Schritt-für-Schritt-Anleitung",
-    metaTitle: "WhatsApp Business API Mittelstand 2025 | MTM Studios",
+    metaTitle: "WhatsApp Business API Mittelstand 2026 | MTM Studios",
     metaDescription: "Wie mittelständische Unternehmen WhatsApp Business API einrichten, nutzen und mit KI-Chatbots kombinieren. Kosten, Voraussetzungen und reale Anwendungsfälle.",
     category: "Automatisierung",
     date: "2026-01-10",
