@@ -259,43 +259,40 @@ const Blog = () => {
 
       <main
         id="main"
-        className="pt-24 pb-24 px-4 sm:px-6"
+        className="pb-24 px-4 sm:px-6"
         style={{ position: "relative", zIndex: 10 }}
       >
         <div className="max-w-6xl mx-auto">
-          {/* Header */}
-          <div ref={headerRef} className="mb-20 text-center pt-[8vh] md:pt-[12vh]">
+          {/* Header — matches KI-Statistiken hero */}
+          <section className="flex flex-col items-center justify-start px-2 pt-[16vh] md:pt-[20vh] pb-20 md:pb-28 text-center max-w-5xl mx-auto">
             <motion.span
               initial={{ opacity: 0, y: 10 }}
-              animate={headerInView ? { opacity: 1, y: 0 } : {}}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, ease: appleEase }}
-              className="inline-block text-[10px] font-bold tracking-[0.25em] uppercase text-accent/70 mb-6"
+              className="text-[10px] font-bold tracking-[0.25em] uppercase text-accent/70 mb-6"
             >
               Blog
             </motion.span>
-            <motion.h1
-              initial={{ opacity: 0, y: 20, filter: "blur(4px)" }}
-              animate={
-                headerInView
-                  ? { opacity: 1, y: 0, filter: "blur(0px)" }
-                  : {}
-              }
-              transition={{ duration: 0.7, delay: 0.1, ease: appleEase }}
-              className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-foreground tracking-tight mb-5 leading-[0.95]"
-            >
-              KI-Praxiswissen für den Mittelstand
-            </motion.h1>
+
+            <BlurText
+              text="KI-Praxiswissen für den Mittelstand"
+              className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold text-foreground tracking-tight leading-[0.95]"
+              animateBy="words"
+              direction="top"
+              delay={100}
+            />
+
             <motion.p
-              initial={{ opacity: 0, y: 16 }}
-              animate={headerInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.7, delay: 0.25, ease: appleEase }}
-              className="text-base md:text-lg text-foreground/50 max-w-2xl mx-auto leading-relaxed"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.65, ease: appleEase }}
+              className="mt-6 md:mt-8 text-base md:text-xl text-foreground/50 max-w-2xl leading-relaxed"
             >
               Keine Buzzwords. Keine leeren Versprechen. Nur konkrete Einblicke
               in das, was KI-Automatisierung heute wirklich leisten kann — und
               was nicht.
             </motion.p>
-          </div>
+          </section>
 
           {/* Category Filter */}
           <motion.div
