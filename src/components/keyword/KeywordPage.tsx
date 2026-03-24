@@ -1,4 +1,4 @@
-import { useParams, Navigate, Link } from "react-router-dom";
+import { Navigate, Link } from "react-router-dom";
 import { motion } from "motion/react";
 import { Sparkles, ArrowRight, ChevronDown } from "lucide-react";
 import Navigation from "@/components/Navigation";
