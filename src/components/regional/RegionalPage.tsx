@@ -9,6 +9,7 @@ import SEOHead from "@/components/SEOHead";
 import { useContactFunnel } from "@/contexts/ContactFunnelContext";
 import { getRegionalContent, getServiceLabel, validCities } from "@/data/regionalContent";
 import { useEffect, useMemo } from "react";
+import PageBackground from "@/components/PageBackground";
 import {
   Accordion,
   AccordionContent,
@@ -109,6 +110,8 @@ const RegionalPage = ({ context }: RegionalPageProps) => {
   return (
     <div className="relative min-h-screen bg-background">
       <SEOHead title={content.title} description={content.description} canonical={`https://mtmstudios.de/${context}/${city}`} jsonLd={jsonLd} />
+
+      <PageBackground />
 
       <div style={{ position: "relative", zIndex: 50 }}>
         <Navigation />

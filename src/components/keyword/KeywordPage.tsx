@@ -5,6 +5,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import CTASection from "@/components/CTASection";
 import SEOHead from "@/components/SEOHead";
+import PageBackground from "@/components/PageBackground";
 import { useContactFunnel } from "@/contexts/ContactFunnelContext";
 import { getKeywordPageContent, keywordPageSlugs } from "@/data/keywordContent";
 import { useMemo } from "react";
@@ -94,6 +95,8 @@ const KeywordPage = ({ slug }: KeywordPageProps) => {
         canonical={pageUrl}
         jsonLd={jsonLd}
       />
+
+      <PageBackground />
 
       <div style={{ position: "relative", zIndex: 50 }}>
         <Navigation />
