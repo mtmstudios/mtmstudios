@@ -25,6 +25,7 @@ import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
 import NotFound from "./pages/NotFound";
 import RegionalPage from "./components/regional/RegionalPage";
+import KeywordPage from "./components/keyword/KeywordPage";
 import ScrollToTop from "./components/ScrollToTop";
 
 const queryClient = new QueryClient();
@@ -67,6 +68,13 @@ const App = () => (
                 <Route path="/ki-telefonassistent/:city" element={<RegionalPage context="ki-telefonassistent" />} />
                 <Route path="/ki-chatbot/:city" element={<RegionalPage context="ki-chatbot" />} />
                 <Route path="/automatisierungen/:city" element={<RegionalPage context="automatisierungen" />} />
+                {/* Tier-1 Keyword-Landingpages */}
+                <Route path="/voicebot" element={<KeywordPage slug="voicebot" />} />
+                <Route path="/ki-telefonbot" element={<KeywordPage slug="ki-telefonbot" />} />
+                <Route path="/whatsapp-chatbot" element={<KeywordPage slug="whatsapp-chatbot" />} />
+                <Route path="/chatbot-agentur" element={<KeywordPage slug="chatbot-agentur" />} />
+                <Route path="/n8n-agentur" element={<KeywordPage slug="n8n-agentur" />} />
+                <Route path="/prozessautomatisierung-kmu" element={<KeywordPage slug="prozessautomatisierung-kmu" />} />
                 {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                 <Route path="*" element={<NotFound />} />
               </Routes>

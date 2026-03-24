@@ -16,6 +16,14 @@
   <url><loc>https://mtmstudios.de/agb</loc><lastmod>2026-01-01</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
   <url><loc>https://mtmstudios.de/barrierefreiheit</loc><lastmod>2026-01-01</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
 
+  <!-- Tier-1 Keyword-Landingpages -->
+  <url><loc>https://mtmstudios.de/voicebot</loc><lastmod>2026-03-24</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://mtmstudios.de/ki-telefonbot</loc><lastmod>2026-03-24</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://mtmstudios.de/whatsapp-chatbot</loc><lastmod>2026-03-24</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://mtmstudios.de/chatbot-agentur</loc><lastmod>2026-03-24</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://mtmstudios.de/n8n-agentur</loc><lastmod>2026-03-24</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://mtmstudios.de/prozessautomatisierung-kmu</loc><lastmod>2026-03-24</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+
   <!-- Regionale Seiten: KI-Agentur (Primär-Zielseiten für SEO) -->
   <url><loc>https://mtmstudios.de/ki-agentur/stuttgart</loc><lastmod>2026-03-24</lastmod><changefreq>weekly</changefreq><priority>0.95</priority></url>
   <url><loc>https://mtmstudios.de/ki-agentur/ulm</loc><lastmod>2026-03-24</lastmod><changefreq>weekly</changefreq><priority>0.95</priority></url>
