@@ -40,12 +40,33 @@ const RegionalPage = ({ context }: RegionalPageProps) => {
   const serviceLabel = getServiceLabel(context);
 
   const cityName = city.charAt(0).toUpperCase() + city.slice(1);
+  const pageUrl = `https://mtmstudios.de/${context}/${city}`;
+
   const jsonLd = useMemo(() => ({
     "@context": "https://schema.org",
     "@graph": [
       {
+        "@type": "WebPage",
+        "@id": pageUrl,
+        "url": pageUrl,
+        "name": content.title,
+        "description": content.description,
+        "inLanguage": "de-DE",
+        "isPartOf": { "@id": "https://mtmstudios.de" },
+        "breadcrumb": { "@id": `${pageUrl}#breadcrumb` }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${pageUrl}#breadcrumb`,
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Startseite", "item": "https://mtmstudios.de" },
+          { "@type": "ListItem", "position": 2, "name": serviceLabel, "item": `https://mtmstudios.de/${context}` },
+          { "@type": "ListItem", "position": 3, "name": cityName, "item": pageUrl }
+        ]
+      },
+      {
         "@type": ["LocalBusiness", "ProfessionalService"],
-        "@id": `https://mtmstudios.de/${context}/${city}`,
+        "@id": `https://mtmstudios.de/#localbusiness`,
         "name": "MTM Studios",
         "url": "https://mtmstudios.de",
         "telephone": "+4915567077414",
@@ -54,10 +75,25 @@ const RegionalPage = ({ context }: RegionalPageProps) => {
         "address": {
           "@type": "PostalAddress",
           "addressLocality": cityName,
+          "addressRegion": "Baden-Württemberg",
           "addressCountry": "DE"
         },
-        "areaServed": { "@type": "City", "name": cityName },
-        "serviceType": serviceLabel
+        "geo": city === "stuttgart"
+          ? { "@type": "GeoCoordinates", "latitude": 48.7758, "longitude": 9.1829 }
+          : { "@type": "GeoCoordinates", "latitude": 48.3984, "longitude": 9.9908 },
+        "areaServed": [
+          { "@type": "City", "name": cityName },
+          { "@type": "State", "name": "Baden-Württemberg" }
+        ],
+        "serviceType": serviceLabel,
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": serviceLabel,
+          "itemListElement": content.features.map((f) => ({
+            "@type": "Offer",
+            "itemOffered": { "@type": "Service", "name": f.title, "description": f.description }
+          }))
+        }
       },
       {
         "@type": "FAQPage",
@@ -68,7 +104,7 @@ const RegionalPage = ({ context }: RegionalPageProps) => {
         }))
       }
     ]
-  }), [city, context, content, serviceLabel, cityName]);
+  }), [city, context, content, serviceLabel, cityName, pageUrl]);
 
   return (
     <div className="relative min-h-screen bg-background">

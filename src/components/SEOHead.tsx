@@ -41,13 +41,24 @@ const SEOHead = ({ title, description, canonical, jsonLd }: SEOHeadProps) => {
     const canonicalUrl = canonical || `${BASE_URL}${window.location.pathname}`;
 
     setMeta("description", description);
+    setMeta("robots", "index, follow");
+
+    // Open Graph
+    setMeta("og:type", "website", "property");
+    setMeta("og:locale", "de_DE", "property");
+    setMeta("og:site_name", "MTM Studios", "property");
     setMeta("og:title", title, "property");
     setMeta("og:description", description, "property");
     setMeta("og:image", `${BASE_URL}/og-image.png`, "property");
+    setMeta("og:image:width", "1200", "property");
+    setMeta("og:image:height", "630", "property");
     setMeta("og:url", canonicalUrl, "property");
-    setMeta("twitter:title", title, "name");
-    setMeta("twitter:description", description, "name");
-    setMeta("twitter:image", `${BASE_URL}/og-image.png`, "name");
+
+    // Twitter / X Card
+    setMeta("twitter:card", "summary_large_image");
+    setMeta("twitter:title", title);
+    setMeta("twitter:description", description);
+    setMeta("twitter:image", `${BASE_URL}/og-image.png`);
 
     // Canonical link
     let link = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
@@ -60,8 +71,7 @@ const SEOHead = ({ title, description, canonical, jsonLd }: SEOHeadProps) => {
 
     // JSON-LD structured data
     const schemas = [organizationSchema, ...(jsonLd ? [jsonLd] : [])];
-    
-    // Remove old JSON-LD scripts managed by SEOHead
+
     document.querySelectorAll('script[data-seo-head="true"]').forEach((el) => el.remove());
 
     schemas.forEach((schema) => {
