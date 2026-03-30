@@ -30,30 +30,30 @@ export default function CustomerDashboard() {
   }, [user]);
 
   async function fetchStats() {
-    const { data } = await supabase
-      .from("call_stats")
+    const { data } = await (supabase
+      .from("call_stats") as any)
       .select("*")
       .eq("customer_id", user!.id)
       .order("date", { ascending: false })
       .limit(30);
-    setStats(data ?? []);
+    setStats((data as CallStat[]) ?? []);
     setLoadingStats(false);
   }
 
   async function fetchErrors() {
-    const { data } = await supabase
-      .from("n8n_errors")
+    const { data } = await (supabase
+      .from("n8n_errors") as any)
       .select("*")
       .eq("customer_id", user!.id)
       .order("created_at", { ascending: false })
       .limit(20);
-    setErrors(data ?? []);
+    setErrors((data as N8nError[]) ?? []);
     setLoadingErrors(false);
   }
 
   async function resolveError(id: string) {
-    await supabase.from("n8n_errors").update({ status: "resolved" }).eq("id", id);
-    setErrors((prev) => prev.map((e) => (e.id === id ? { ...e, status: "resolved" } : e)));
+    await (supabase.from("n8n_errors") as any).update({ status: "resolved" }).eq("id", id);
+    setErrors((prev) => prev.map((e) => (e.id === id ? { ...e, status: "resolved" as const } : e)));
   }
 
   // Aggregates
