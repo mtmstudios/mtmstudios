@@ -27,8 +27,8 @@ export default function AdminDashboard() {
   }, []);
 
   async function fetchCustomers() {
-    const { data: profiles } = await supabase
-      .from("profiles")
+    const { data: profiles } = await (supabase
+      .from("profiles") as any)
       .select("*")
       .eq("is_admin", false)
       .order("created_at", { ascending: false });
