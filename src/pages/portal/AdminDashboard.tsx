@@ -41,7 +41,7 @@ export default function AdminDashboard() {
         const { data: stats } = await supabase
           .from("call_stats")
           .select("total_calls, answered_calls, cost_eur")
-          .eq("customer_id", profile.id);
+          .eq("customer_id", profile.id) as { data: { total_calls: number; answered_calls: number; cost_eur: number }[] | null };
 
         const { count } = await supabase
           .from("n8n_errors")
@@ -49,9 +49,9 @@ export default function AdminDashboard() {
           .eq("customer_id", profile.id)
           .eq("status", "open");
 
-        const totalCalls = stats?.reduce((s, r) => s + r.total_calls, 0) ?? 0;
-        const answeredCalls = stats?.reduce((s, r) => s + r.answered_calls, 0) ?? 0;
-        const totalCostEur = stats?.reduce((s, r) => s + r.cost_eur, 0) ?? 0;
+        const totalCalls = stats?.reduce((s: number, r: any) => s + r.total_calls, 0) ?? 0;
+        const answeredCalls = stats?.reduce((s: number, r: any) => s + r.answered_calls, 0) ?? 0;
+        const totalCostEur = stats?.reduce((s: number, r: any) => s + r.cost_eur, 0) ?? 0;
 
         return {
           profile,
