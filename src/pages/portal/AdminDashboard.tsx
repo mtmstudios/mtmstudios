@@ -27,8 +27,8 @@ export default function AdminDashboard() {
   }, []);
 
   async function fetchCustomers() {
-    const { data: profiles } = await supabase
-      .from("profiles")
+    const { data: profiles } = await (supabase
+      .from("profiles") as any)
       .select("*")
       .eq("is_admin", false)
       .order("created_at", { ascending: false });
@@ -38,20 +38,20 @@ export default function AdminDashboard() {
     // Fetch aggregated call stats per customer
     const summaries: CustomerSummary[] = await Promise.all(
       profiles.map(async (profile: Profile) => {
-        const { data: stats } = await supabase
-          .from("call_stats")
+        const { data: stats } = await (supabase
+          .from("call_stats") as any)
           .select("total_calls, answered_calls, cost_eur")
           .eq("customer_id", profile.id);
 
-        const { count } = await supabase
-          .from("n8n_errors")
+        const { count } = await (supabase
+          .from("n8n_errors") as any)
           .select("*", { count: "exact", head: true })
           .eq("customer_id", profile.id)
           .eq("status", "open");
 
-        const totalCalls = stats?.reduce((s, r) => s + r.total_calls, 0) ?? 0;
-        const answeredCalls = stats?.reduce((s, r) => s + r.answered_calls, 0) ?? 0;
-        const totalCostEur = stats?.reduce((s, r) => s + r.cost_eur, 0) ?? 0;
+        const totalCalls = stats?.reduce((s: number, r: any) => s + r.total_calls, 0) ?? 0;
+        const answeredCalls = stats?.reduce((s: number, r: any) => s + r.answered_calls, 0) ?? 0;
+        const totalCostEur = stats?.reduce((s: number, r: any) => s + r.cost_eur, 0) ?? 0;
 
         return {
           profile,
@@ -68,18 +68,18 @@ export default function AdminDashboard() {
   }
 
   async function fetchAllErrors() {
-    const { data } = await supabase
-      .from("n8n_errors")
+    const { data } = await (supabase
+      .from("n8n_errors") as any)
       .select("*")
       .order("created_at", { ascending: false })
       .limit(50);
-    setErrors(data ?? []);
+    setErrors((data as N8nError[]) ?? []);
     setLoadingErrors(false);
   }
 
   async function resolveError(id: string) {
-    await supabase.from("n8n_errors").update({ status: "resolved" }).eq("id", id);
-    setErrors((prev) => prev.map((e) => (e.id === id ? { ...e, status: "resolved" } : e)));
+    await (supabase.from("n8n_errors") as any).update({ status: "resolved" }).eq("id", id);
+    setErrors((prev) => prev.map((e) => (e.id === id ? { ...e, status: "resolved" as const } : e)));
   }
 
   // System-wide totals
