@@ -32,6 +32,7 @@ import ProtectedRoute from "./components/portal/ProtectedRoute";
 import PortalLogin from "./pages/portal/PortalLogin";
 import CustomerDashboard from "./pages/portal/CustomerDashboard";
 import AdminDashboard from "./pages/portal/AdminDashboard";
+import InboxPage from "./pages/portal/InboxPage";
 
 const queryClient = new QueryClient();
 
@@ -85,6 +86,7 @@ const App = () => (
                   <Route path="/portal" element={<Navigate to="/portal/login" replace />} />
                   <Route path="/portal/login" element={<PortalLogin />} />
                   <Route path="/portal/dashboard" element={<ProtectedRoute><CustomerDashboard /></ProtectedRoute>} />
+                  <Route path="/portal/inbox" element={<ProtectedRoute><InboxPage /></ProtectedRoute>} />
                   <Route path="/portal/admin" element={<ProtectedRoute adminOnly><AdminDashboard /></ProtectedRoute>} />
                   {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                   <Route path="*" element={<NotFound />} />

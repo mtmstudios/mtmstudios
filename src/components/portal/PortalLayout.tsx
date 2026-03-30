@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import {
   LayoutDashboard,
@@ -8,9 +8,10 @@ import {
   LogOut,
   Menu,
   X,
-  ChevronRight,
+  MessageSquare,
 } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
+import mtmLogo from "@/assets/logo-2.png";
 
 interface NavItem {
   label: string;
@@ -21,6 +22,7 @@ interface NavItem {
 
 const NAV_ITEMS: NavItem[] = [
   { label: "Dashboard", to: "/portal/dashboard", icon: <LayoutDashboard size={18} /> },
+  { label: "Nachrichten", to: "/portal/inbox", icon: <MessageSquare size={18} /> },
   { label: "Anrufe", to: "/portal/dashboard#calls", icon: <Phone size={18} /> },
   { label: "Fehler-Log", to: "/portal/dashboard#errors", icon: <AlertCircle size={18} /> },
   { label: "Alle Kunden", to: "/portal/admin", icon: <Users size={18} />, adminOnly: true },
@@ -30,6 +32,18 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
   const { profile, signOut } = useAuth();
   const navigate = useNavigate();
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  // noindex — Portal-Seiten nicht von Suchmaschinen indexieren lassen
+  useEffect(() => {
+    const meta = document.createElement("meta");
+    meta.name = "robots";
+    meta.content = "noindex, nofollow";
+    meta.id = "portal-noindex";
+    document.head.appendChild(meta);
+    return () => {
+      document.getElementById("portal-noindex")?.remove();
+    };
+  }, []);
 
   const visibleNav = NAV_ITEMS.filter((item) => !item.adminOnly || profile?.is_admin);
 
@@ -43,7 +57,7 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
       {/* Logo */}
       <div className="px-6 py-5 border-b border-white/[0.06]">
         <img
-          src="https://www.mtmstudios.de/assets/LOGO-2-WHITE-TARANSPERNT_1766676640443-Ng-FVsmn.png"
+          src={mtmLogo}
           alt="MTM Studios"
           className="h-7 w-auto"
         />
@@ -147,7 +161,7 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
             <Menu size={22} />
           </button>
           <img
-            src="https://www.mtmstudios.de/assets/LOGO-2-WHITE-TARANSPERNT_1766676640443-Ng-FVsmn.png"
+            src={mtmLogo}
             alt="MTM Studios"
             className="h-6 w-auto"
           />

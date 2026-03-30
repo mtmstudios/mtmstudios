@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/contexts/AuthContext";
-import { useEffect } from "react";
+import mtmLogo from "@/assets/logo-2.png";
 
 export default function PortalLogin() {
   const { session } = useAuth();
@@ -31,7 +31,7 @@ export default function PortalLogin() {
       {/* Logo */}
       <div className="mb-10 flex items-center gap-3">
         <img
-          src="https://www.mtmstudios.de/assets/LOGO-2-WHITE-TARANSPERNT_1766676640443-Ng-FVsmn.png"
+          src={mtmLogo}
           alt="MTM Studios"
           className="h-8 w-auto"
         />
