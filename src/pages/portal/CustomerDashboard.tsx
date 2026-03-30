@@ -52,8 +52,8 @@ export default function CustomerDashboard() {
   }
 
   async function resolveError(id: string) {
-    await supabase.from("n8n_errors").update({ status: "resolved" }).eq("id", id);
-    setErrors((prev) => prev.map((e) => (e.id === id ? { ...e, status: "resolved" } : e)));
+    await (supabase.from("n8n_errors") as any).update({ status: "resolved" }).eq("id", id);
+    setErrors((prev) => prev.map((e) => (e.id === id ? { ...e, status: "resolved" as const } : e)));
   }
 
   // Aggregates
