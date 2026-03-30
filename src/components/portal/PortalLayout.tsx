@@ -21,8 +21,8 @@ interface NavItem {
 
 const NAV_ITEMS: NavItem[] = [
   { label: "Dashboard", to: "/portal/dashboard", icon: <LayoutDashboard size={18} /> },
-  { label: "Anrufe", to: "/portal/calls", icon: <Phone size={18} /> },
-  { label: "Fehler-Log", to: "/portal/errors", icon: <AlertCircle size={18} /> },
+  { label: "Anrufe", to: "/portal/dashboard#calls", icon: <Phone size={18} /> },
+  { label: "Fehler-Log", to: "/portal/dashboard#errors", icon: <AlertCircle size={18} /> },
   { label: "Alle Kunden", to: "/portal/admin", icon: <Users size={18} />, adminOnly: true },
 ];
 

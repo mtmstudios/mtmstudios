@@ -167,7 +167,7 @@ export default function CustomerDashboard() {
       </div>
 
       {/* Recent calls table */}
-      <div className="bg-[#0E0E0E] border border-white/[0.08] rounded-xl p-5 mb-8 overflow-x-auto">
+      <div id="calls" className="bg-[#0E0E0E] border border-white/[0.08] rounded-xl p-5 mb-8 overflow-x-auto">
         <SectionHeading title="Anruf-Statistik" badge="Nach Datum" />
         {loadingStats ? (
           <div className="h-24 flex items-center justify-center">
@@ -206,7 +206,7 @@ export default function CustomerDashboard() {
       </div>
 
       {/* n8n Error Log */}
-      <div className="bg-[#0E0E0E] border border-white/[0.08] rounded-xl p-5">
+      <div id="errors" className="bg-[#0E0E0E] border border-white/[0.08] rounded-xl p-5">
         <SectionHeading
           title="Fehler-Log"
           badge={openErrors > 0 ? `${openErrors} offen` : undefined}
