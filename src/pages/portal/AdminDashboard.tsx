@@ -38,13 +38,13 @@ export default function AdminDashboard() {
     // Fetch aggregated call stats per customer
     const summaries: CustomerSummary[] = await Promise.all(
       profiles.map(async (profile: Profile) => {
-        const { data: stats } = await supabase
-          .from("call_stats")
+        const { data: stats } = await (supabase
+          .from("call_stats") as any)
           .select("total_calls, answered_calls, cost_eur")
-          .eq("customer_id", profile.id) as { data: { total_calls: number; answered_calls: number; cost_eur: number }[] | null };
+          .eq("customer_id", profile.id);
 
-        const { count } = await supabase
-          .from("n8n_errors")
+        const { count } = await (supabase
+          .from("n8n_errors") as any)
           .select("*", { count: "exact", head: true })
           .eq("customer_id", profile.id)
           .eq("status", "open");
