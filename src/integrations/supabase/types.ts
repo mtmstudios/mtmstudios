@@ -14,13 +14,118 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      call_stats: {
+        Row: {
+          answered_calls: number
+          cost_eur: number
+          created_at: string
+          customer_id: string
+          date: string
+          duration_seconds: number
+          id: string
+          total_calls: number
+        }
+        Insert: {
+          answered_calls?: number
+          cost_eur?: number
+          created_at?: string
+          customer_id: string
+          date: string
+          duration_seconds?: number
+          id?: string
+          total_calls?: number
+        }
+        Update: {
+          answered_calls?: number
+          cost_eur?: number
+          created_at?: string
+          customer_id?: string
+          date?: string
+          duration_seconds?: number
+          id?: string
+          total_calls?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "call_stats_customer_id_fkey"
+            columns: ["customer_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      n8n_errors: {
+        Row: {
+          created_at: string
+          customer_id: string | null
+          error_message: string | null
+          execution_id: string | null
+          id: string
+          status: string
+          workflow_id: string | null
+          workflow_name: string
+        }
+        Insert: {
+          created_at?: string
+          customer_id?: string | null
+          error_message?: string | null
+          execution_id?: string | null
+          id?: string
+          status?: string
+          workflow_id?: string | null
+          workflow_name: string
+        }
+        Update: {
+          created_at?: string
+          customer_id?: string | null
+          error_message?: string | null
+          execution_id?: string | null
+          id?: string
+          status?: string
+          workflow_id?: string | null
+          workflow_name?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "n8n_errors_customer_id_fkey"
+            columns: ["customer_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          company: string | null
+          created_at: string
+          id: string
+          is_admin: boolean
+          name: string | null
+        }
+        Insert: {
+          company?: string | null
+          created_at?: string
+          id: string
+          is_admin?: boolean
+          name?: string | null
+        }
+        Update: {
+          company?: string | null
+          created_at?: string
+          id?: string
+          is_admin?: boolean
+          name?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      is_admin: { Args: never; Returns: boolean }
     }
     Enums: {
       [_ in never]: never
