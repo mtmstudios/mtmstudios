@@ -24,10 +24,10 @@ export default function CustomerDashboard() {
   const [loadingErrors, setLoadingErrors] = useState(true);
 
   useEffect(() => {
-    if (!user) return;
+    if (!user?.id) return;
     fetchStats();
     fetchErrors();
-  }, [user]);
+  }, [user?.id]);
 
   async function fetchStats() {
     const { data } = await (supabase
@@ -52,7 +52,13 @@ export default function CustomerDashboard() {
   }
 
   async function resolveError(id: string) {
-    await (supabase.from("n8n_errors") as any).update({ status: "resolved" }).eq("id", id);
+    const { error } = await (supabase.from("n8n_errors") as any)
+      .update({ status: "resolved" })
+      .eq("id", id);
+    if (error) {
+      console.error("[CustomerDashboard] resolveError failed:", error.message);
+      return;
+    }
     setErrors((prev) => prev.map((e) => (e.id === id ? { ...e, status: "resolved" as const } : e)));
   }
 
@@ -101,7 +107,7 @@ export default function CustomerDashboard() {
           accent
         />
         <StatCard
-          label="Kosten (Monat)"
+          label="Kosten (Letzte 30 Tage)"
           value={loadingStats ? "—" : `€${totalCost.toFixed(2)}`}
           icon={<Euro size={18} />}
         />

@@ -4,8 +4,15 @@ import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/contexts/AuthContext";
 import mtmLogo from "@/assets/logo-2.png";
 
+const AUTH_ERROR_MAP: Record<string, string> = {
+  "Invalid login credentials": "E-Mail oder Passwort ist falsch.",
+  "Email not confirmed": "E-Mail-Adresse noch nicht bestätigt. Bitte prüfe dein Postfach.",
+  "Too many requests": "Zu viele Anmeldeversuche. Bitte warte kurz und versuche es erneut.",
+  "User not found": "Kein Konto mit dieser E-Mail gefunden.",
+};
+
 export default function PortalLogin() {
-  const { session } = useAuth();
+  const { session, loading: authLoading } = useAuth();
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
@@ -14,16 +21,24 @@ export default function PortalLogin() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (session) navigate("/portal/dashboard", { replace: true });
-  }, [session, navigate]);
+    if (!authLoading && session) navigate("/portal/dashboard", { replace: true });
+  }, [session, authLoading, navigate]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError(null);
     setLoading(true);
     const { error } = await supabase.auth.signInWithPassword({ email, password });
-    if (error) setError(error.message);
+    if (error) setError(AUTH_ERROR_MAP[error.message] ?? "Anmeldung fehlgeschlagen. Bitte erneut versuchen.");
     setLoading(false);
+  }
+
+  if (authLoading) {
+    return (
+      <div className="min-h-screen bg-black flex items-center justify-center">
+        <div className="w-8 h-8 border-2 border-[#00E5C0] border-t-transparent rounded-full animate-spin" />
+      </div>
+    );
   }
 
   return (

@@ -35,13 +35,24 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   async function fetchProfile(userId: string) {
-    const { data } = await (supabase
-      .from("profiles") as any)
-      .select("*")
-      .eq("id", userId)
-      .single();
-    setProfile(data ?? null);
-    setLoading(false);
+    try {
+      const { data, error } = await (supabase
+        .from("profiles") as any)
+        .select("*")
+        .eq("id", userId)
+        .single();
+      if (error) {
+        console.error("[AuthContext] fetchProfile error:", error.message);
+        setProfile(null);
+      } else {
+        setProfile(data ?? null);
+      }
+    } catch (err) {
+      console.error("[AuthContext] fetchProfile unexpected error:", err);
+      setProfile(null);
+    } finally {
+      setLoading(false);
+    }
   }
 
   async function signOut() {

@@ -5,21 +5,33 @@ import {
   Euro,
   AlertCircle,
   CheckCircle,
-  ChevronRight,
   Search,
 } from "lucide-react";
 import { format } from "date-fns";
 import { supabase } from "@/lib/supabase";
+import { useAuth } from "@/contexts/AuthContext";
 import PortalLayout, { StatCard, SectionHeading, StatusBadge } from "@/components/portal/PortalLayout";
 import type { Profile, N8nError, CustomerSummary } from "@/types/portal";
 
 export default function AdminDashboard() {
+  const { profile } = useAuth();
   const [customers, setCustomers] = useState<CustomerSummary[]>([]);
   const [errors, setErrors] = useState<N8nError[]>([]);
   const [loadingCustomers, setLoadingCustomers] = useState(true);
   const [loadingErrors, setLoadingErrors] = useState(true);
   const [search, setSearch] = useState("");
   const [selectedCustomer, setSelectedCustomer] = useState<string | null>(null);
+
+  // Hard guard: non-admins should never reach this component, but defend anyway
+  if (profile !== null && !profile?.is_admin) {
+    return (
+      <PortalLayout>
+        <div className="flex items-center justify-center h-64">
+          <p className="text-[#4B5563] text-sm">Keine Berechtigung.</p>
+        </div>
+      </PortalLayout>
+    );
+  }
 
   useEffect(() => {
     fetchCustomers();
@@ -78,7 +90,13 @@ export default function AdminDashboard() {
   }
 
   async function resolveError(id: string) {
-    await (supabase.from("n8n_errors") as any).update({ status: "resolved" }).eq("id", id);
+    const { error } = await (supabase.from("n8n_errors") as any)
+      .update({ status: "resolved" })
+      .eq("id", id);
+    if (error) {
+      console.error("[AdminDashboard] resolveError failed:", error.message);
+      return;
+    }
     setErrors((prev) => prev.map((e) => (e.id === id ? { ...e, status: "resolved" as const } : e)));
   }
 

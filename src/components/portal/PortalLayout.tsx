@@ -100,7 +100,7 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
       <div className="px-3 py-4 border-t border-white/[0.06]">
         <div className="flex items-center gap-3 px-3 py-2.5 rounded-lg mb-1">
           <div className="w-8 h-8 rounded-full bg-[#00E5C0]/10 flex items-center justify-center text-[#00E5C0] text-sm font-bold">
-            {(profile?.name ?? profile?.company ?? "?")[0].toUpperCase()}
+            {(profile?.name?.trim() || profile?.company?.trim() || "?")[0].toUpperCase()}
           </div>
           <div className="flex-1 min-w-0">
             <p className="text-sm font-medium text-white truncate">

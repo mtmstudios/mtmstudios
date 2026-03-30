@@ -10,6 +10,7 @@ import {
   RefreshCw,
 } from "lucide-react";
 import { supabase } from "@/lib/supabase";
+import { useAuth } from "@/contexts/AuthContext";
 import PortalLayout from "@/components/portal/PortalLayout";
 
 /* ---------- Types ---------- */
@@ -52,6 +53,7 @@ const QUICK_REPLIES = [
 
 /* ---------- Component ---------- */
 export default function InboxPage() {
+  const { profile } = useAuth();
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [selected, setSelected] = useState<Conversation | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
@@ -60,11 +62,12 @@ export default function InboxPage() {
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
   const [sending, setSending] = useState(false);
+  const [sendError, setSendError] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    loadConversations();
-  }, [filter]);
+    if (profile !== undefined) loadConversations();
+  }, [filter, profile?.id]);
 
   useEffect(() => {
     if (selected) loadMessages(selected.id);
@@ -94,7 +97,12 @@ export default function InboxPage() {
       .select("*")
       .order("last_message_at", { ascending: false });
     if (filter !== "all") query = query.eq("status", filter);
-    const { data } = await query;
+    // Non-admins only see their own conversations
+    if (profile && !profile.is_admin) {
+      query = query.eq("customer_id", profile.id);
+    }
+    const { data, error } = await query;
+    if (error) console.error("[InboxPage] loadConversations error:", error.message);
     setConversations(data ?? []);
     setLoading(false);
   }
@@ -110,11 +118,18 @@ export default function InboxPage() {
   async function sendReply() {
     if (!selected || !reply.trim()) return;
     setSending(true);
-    await (supabase.from("messages") as any).insert({
+    setSendError(null);
+    const { error: insertError } = await (supabase.from("messages") as any).insert({
       conversation_id: selected.id,
       sender: "agent",
       content: reply.trim(),
     });
+    if (insertError) {
+      console.error("[InboxPage] sendReply insert error:", insertError.message);
+      setSendError("Nachricht konnte nicht gesendet werden. Bitte erneut versuchen.");
+      setSending(false);
+      return;
+    }
     await (supabase.from("conversations") as any)
       .update({ last_message_at: new Date().toISOString() })
       .eq("id", selected.id);
@@ -124,7 +139,13 @@ export default function InboxPage() {
 
   async function updateStatus(status: "open" | "in_progress" | "done") {
     if (!selected) return;
-    await (supabase.from("conversations") as any).update({ status }).eq("id", selected.id);
+    const { error } = await (supabase.from("conversations") as any)
+      .update({ status })
+      .eq("id", selected.id);
+    if (error) {
+      console.error("[InboxPage] updateStatus error:", error.message);
+      return;
+    }
     const updated = { ...selected, status };
     setSelected(updated);
     setConversations((prev) => prev.map((c) => (c.id === selected.id ? updated : c)));
@@ -224,10 +245,17 @@ export default function InboxPage() {
                       {conv.visitor_name ?? "Unbekannt"}
                     </span>
                     <span className="text-[10px] text-[#4B5563] shrink-0 mt-0.5">
-                      {new Date(conv.last_message_at).toLocaleTimeString("de-DE", {
-                        hour: "2-digit",
-                        minute: "2-digit",
-                      })}
+                      {(() => {
+                        const d = new Date(conv.last_message_at);
+                        const today = new Date();
+                        const isToday =
+                          d.getDate() === today.getDate() &&
+                          d.getMonth() === today.getMonth() &&
+                          d.getFullYear() === today.getFullYear();
+                        return isToday
+                          ? d.toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" })
+                          : d.toLocaleDateString("de-DE", { day: "2-digit", month: "2-digit" });
+                      })()}
                     </span>
                   </div>
                   <p className="text-xs text-[#9CA3AF] truncate mb-2 leading-snug">
@@ -335,10 +363,13 @@ export default function InboxPage() {
 
               {/* Input */}
               <div className="px-5 py-3.5 border-t border-white/[0.06] bg-[#0E0E0E] shrink-0">
+                {sendError && (
+                  <p className="text-xs text-red-400 mb-2">{sendError}</p>
+                )}
                 <div className="flex gap-3 items-end">
                   <textarea
                     value={reply}
-                    onChange={(e) => setReply(e.target.value)}
+                    onChange={(e) => { setReply(e.target.value); if (sendError) setSendError(null); }}
                     onKeyDown={(e) => {
                       if (e.key === "Enter" && !e.shiftKey) {
                         e.preventDefault();
@@ -380,7 +411,7 @@ export default function InboxPage() {
               <p className="text-[10px] font-semibold text-[#4B5563] uppercase tracking-widest mb-3">Kontakt</p>
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-10 h-10 rounded-full bg-[#00E5C0]/10 flex items-center justify-center text-[#00E5C0] font-bold text-sm border border-[#00E5C0]/20">
-                  {(selected.visitor_name ?? "?")[0].toUpperCase()}
+                  {(selected.visitor_name?.trim() || "?")[0].toUpperCase()}
                 </div>
                 <div className="min-w-0">
                   <p className="text-sm font-semibold text-white truncate">
