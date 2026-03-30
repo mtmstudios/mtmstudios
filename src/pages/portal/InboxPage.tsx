@@ -8,6 +8,8 @@ import {
   Phone,
   Zap,
   RefreshCw,
+  ArrowLeft,
+  Info,
 } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/contexts/AuthContext";
@@ -63,6 +65,7 @@ export default function InboxPage() {
   const [loading, setLoading] = useState(true);
   const [sending, setSending] = useState(false);
   const [sendError, setSendError] = useState<string | null>(null);
+  const [showInfo, setShowInfo] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -165,11 +168,11 @@ export default function InboxPage() {
 
   return (
     <PortalLayout>
-      {/* Full-height three-column layout */}
-      <div className="flex h-[calc(100vh-4rem)] lg:h-[calc(100vh-2rem)] -m-6 lg:-m-8 overflow-hidden rounded-none">
+      {/* Full-height three-column layout — mobile: single column (list OR chat) */}
+      <div className="relative flex h-[calc(100vh-4rem)] lg:h-[calc(100vh-2rem)] -m-6 lg:-m-8 overflow-hidden rounded-none">
 
-        {/* ── Column 1: Conversation List ── */}
-        <div className="w-72 xl:w-80 flex-shrink-0 border-r border-white/[0.06] flex flex-col bg-[#0E0E0E]">
+        {/* ── Column 1: Conversation List — hidden on mobile when chat open ── */}
+        <div className={`${selected ? "hidden lg:flex" : "flex"} w-full lg:w-72 xl:w-80 flex-shrink-0 border-r border-white/[0.06] flex-col bg-[#0E0E0E]`}>
           {/* Header */}
           <div className="px-4 pt-4 pb-3 border-b border-white/[0.06]">
             <div className="flex items-center justify-between mb-3">
@@ -276,28 +279,46 @@ export default function InboxPage() {
           </div>
         </div>
 
-        {/* ── Column 2: Chat Area ── */}
-        <div className="flex-1 flex flex-col bg-black min-w-0">
+        {/* ── Column 2: Chat Area — hidden on mobile when no chat selected ── */}
+        <div className={`${!selected ? "hidden lg:flex" : "flex"} flex-1 flex-col bg-black min-w-0`}>
           {selected ? (
             <>
               {/* Chat Header */}
-              <div className="px-5 py-3.5 border-b border-white/[0.06] flex items-center justify-between bg-[#0E0E0E] shrink-0">
-                <div>
-                  <h2 className="text-sm font-semibold text-white">{selected.visitor_name ?? "Unbekannt"}</h2>
-                  <p className="text-xs text-[#4B5563]">{selected.subject ?? "Anfrage"}</p>
+              <div className="px-3 lg:px-5 py-3.5 border-b border-white/[0.06] flex items-center gap-2 justify-between bg-[#0E0E0E] shrink-0">
+                {/* Back button — mobile only */}
+                <button
+                  onClick={() => { setSelected(null); setShowInfo(false); }}
+                  className="lg:hidden text-[#9CA3AF] hover:text-white p-1 -ml-1 shrink-0"
+                  aria-label="Zurück"
+                >
+                  <ArrowLeft size={18} />
+                </button>
+                <div className="flex-1 min-w-0">
+                  <h2 className="text-sm font-semibold text-white truncate">{selected.visitor_name ?? "Unbekannt"}</h2>
+                  <p className="text-xs text-[#4B5563] truncate">{selected.subject ?? "Anfrage"}</p>
                 </div>
-                <div className="flex items-center gap-1.5">
+                <div className="flex items-center gap-1.5 shrink-0">
+                  {/* Info toggle — mobile only */}
+                  <button
+                    onClick={() => setShowInfo((v) => !v)}
+                    className={`lg:hidden p-1.5 rounded-lg transition-colors ${showInfo ? "text-[#00E5C0] bg-[#00E5C0]/10" : "text-[#4B5563] hover:text-[#9CA3AF]"}`}
+                    aria-label="Kontaktinfo"
+                  >
+                    <Info size={16} />
+                  </button>
+                  {/* Status buttons — icon-only on mobile, label on desktop */}
                   {(["open", "in_progress", "done"] as const).map((s) => (
                     <button
                       key={s}
                       onClick={() => updateStatus(s)}
-                      className={`text-[11px] px-3 py-1.5 rounded-lg font-medium transition-colors ${
+                      className={`text-[11px] px-2 lg:px-3 py-1.5 rounded-lg font-medium transition-colors ${
                         selected.status === s
                           ? STATUS_CONFIG[s].color
                           : "text-[#4B5563] hover:text-[#9CA3AF] bg-white/[0.03] border border-white/[0.06]"
                       }`}
                     >
-                      {STATUS_CONFIG[s].label}
+                      <span className="hidden lg:inline">{STATUS_CONFIG[s].label}</span>
+                      <span className={`lg:hidden w-2 h-2 rounded-full inline-block ${STATUS_CONFIG[s].dot}`} />
                     </button>
                   ))}
                 </div>
@@ -403,12 +424,20 @@ export default function InboxPage() {
           )}
         </div>
 
-        {/* ── Column 3: Visitor Info ── */}
+        {/* ── Column 3: Visitor Info — desktop always visible, mobile overlay when showInfo ── */}
         {selected && (
-          <div className="w-64 xl:w-72 flex-shrink-0 border-l border-white/[0.06] flex flex-col bg-[#0E0E0E] overflow-y-auto">
+          <div className={`${showInfo ? "flex" : "hidden"} lg:flex w-full absolute inset-0 z-20 lg:relative lg:inset-auto lg:z-auto lg:w-64 xl:w-72 flex-shrink-0 border-l border-white/[0.06] flex-col bg-[#0E0E0E] overflow-y-auto`}>
             {/* Contact info */}
             <div className="px-4 py-4 border-b border-white/[0.06]">
-              <p className="text-[10px] font-semibold text-[#4B5563] uppercase tracking-widest mb-3">Kontakt</p>
+              <div className="flex items-center justify-between mb-3">
+                <p className="text-[10px] font-semibold text-[#4B5563] uppercase tracking-widest">Kontakt</p>
+                <button
+                  onClick={() => setShowInfo(false)}
+                  className="lg:hidden text-[#4B5563] hover:text-white text-xs"
+                >
+                  ✕
+                </button>
+              </div>
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-10 h-10 rounded-full bg-[#00E5C0]/10 flex items-center justify-center text-[#00E5C0] font-bold text-sm border border-[#00E5C0]/20">
                   {(selected.visitor_name?.trim() || "?")[0].toUpperCase()}

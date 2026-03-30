@@ -159,7 +159,7 @@ export default function AdminDashboard() {
 
       {/* Customers table */}
       <div className="bg-[#0E0E0E] border border-white/[0.08] rounded-xl p-5 mb-8">
-        <div className="flex items-center justify-between mb-4">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
           <SectionHeading title="Kunden" badge={`${customers.length}`} />
           <div className="relative">
             <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#4B5563]" />
@@ -167,7 +167,7 @@ export default function AdminDashboard() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Suchen..."
-              className="bg-black border border-white/[0.08] rounded-lg pl-8 pr-4 py-2 text-sm text-white placeholder:text-[#4B5563] focus:outline-none focus:border-[#00E5C0] w-48 transition-colors"
+              className="bg-black border border-white/[0.08] rounded-lg pl-8 pr-4 py-2 text-sm text-white placeholder:text-[#4B5563] focus:outline-none focus:border-[#00E5C0] w-full sm:w-48 transition-colors"
             />
           </div>
         </div>
@@ -179,16 +179,16 @@ export default function AdminDashboard() {
         ) : filtered.length === 0 ? (
           <p className="text-sm text-[#4B5563] py-4">Keine Kunden gefunden.</p>
         ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
+          <div className="overflow-x-auto -mx-5">
+            <table className="w-full text-sm min-w-[520px]">
               <thead>
                 <tr className="text-left text-xs text-[#4B5563] border-b border-white/[0.06]">
-                  <th className="pb-3 pr-6 font-medium">Kunde</th>
-                  <th className="pb-3 pr-6 font-medium">Anrufe</th>
-                  <th className="pb-3 pr-6 font-medium">Beantwortet</th>
-                  <th className="pb-3 pr-6 font-medium">Kosten</th>
-                  <th className="pb-3 pr-6 font-medium">Fehler</th>
-                  <th className="pb-3 font-medium">Seit</th>
+                  <th className="pb-3 pr-4 pl-5 font-medium">Kunde</th>
+                  <th className="pb-3 pr-4 font-medium">Anrufe</th>
+                  <th className="pb-3 pr-4 font-medium hidden sm:table-cell">Beantwortet</th>
+                  <th className="pb-3 pr-4 font-medium hidden sm:table-cell">Kosten</th>
+                  <th className="pb-3 pr-4 font-medium">Fehler</th>
+                  <th className="pb-3 pr-5 font-medium hidden md:table-cell">Seit</th>
                 </tr>
               </thead>
               <tbody>
@@ -204,14 +204,14 @@ export default function AdminDashboard() {
                         : "hover:bg-white/[0.02]"
                     }`}
                   >
-                    <td className="py-3 pr-6">
+                    <td className="py-3 pr-4 pl-5">
                       <p className="font-medium text-white">{profile.name ?? "—"}</p>
                       <p className="text-xs text-[#4B5563]">{profile.company ?? "—"}</p>
                     </td>
-                    <td className="py-3 pr-6 text-white">{totalCalls}</td>
-                    <td className="py-3 pr-6 text-[#00E5C0]">{answeredCalls}</td>
-                    <td className="py-3 pr-6 text-[#9CA3AF]">€{totalCostEur.toFixed(2)}</td>
-                    <td className="py-3 pr-6">
+                    <td className="py-3 pr-4 text-white">{totalCalls}</td>
+                    <td className="py-3 pr-4 text-[#00E5C0] hidden sm:table-cell">{answeredCalls}</td>
+                    <td className="py-3 pr-4 text-[#9CA3AF] hidden sm:table-cell">€{totalCostEur.toFixed(2)}</td>
+                    <td className="py-3 pr-4">
                       {openErrors > 0 ? (
                         <span className="inline-flex items-center gap-1.5 text-xs font-semibold px-2 py-0.5 rounded-full bg-red-500/10 text-red-400">
                           {openErrors} offen
@@ -220,8 +220,8 @@ export default function AdminDashboard() {
                         <CheckCircle size={14} className="text-green-400" />
                       )}
                     </td>
-                    <td className="py-3 text-[#4B5563] text-xs">
-                      {format(new Date(profile.created_at), "dd.MM.yyyy")}
+                    <td className="py-3 pr-5 text-[#4B5563] text-xs hidden md:table-cell">
+                      {format(new Date(profile.created_at), "dd.MM.yy")}
                     </td>
                   </tr>
                 ))}

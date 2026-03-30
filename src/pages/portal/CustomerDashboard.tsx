@@ -120,14 +120,14 @@ export default function CustomerDashboard() {
       </div>
 
       {/* Chart */}
-      <div className="bg-[#0E0E0E] border border-white/[0.08] rounded-xl p-5 mb-8">
+      <div className="bg-[#0E0E0E] border border-white/[0.08] rounded-xl p-4 lg:p-5 mb-8">
         <SectionHeading title="Anrufverlauf" badge="Letzte 14 Tage" />
         {chartData.length === 0 ? (
           <div className="h-40 flex items-center justify-center text-[#4B5563] text-sm">
             Noch keine Daten vorhanden
           </div>
         ) : (
-          <ResponsiveContainer width="100%" height={200}>
+          <ResponsiveContainer width="100%" height={160}>
             <AreaChart data={chartData} margin={{ top: 4, right: 4, left: -20, bottom: 0 }}>
               <defs>
                 <linearGradient id="tealGrad" x1="0" y1="0" x2="0" y2="1">
@@ -173,7 +173,7 @@ export default function CustomerDashboard() {
       </div>
 
       {/* Recent calls table */}
-      <div id="calls" className="bg-[#0E0E0E] border border-white/[0.08] rounded-xl p-5 mb-8 overflow-x-auto">
+      <div id="calls" className="bg-[#0E0E0E] border border-white/[0.08] rounded-xl p-4 lg:p-5 mb-8">
         <SectionHeading title="Anruf-Statistik" badge="Nach Datum" />
         {loadingStats ? (
           <div className="h-24 flex items-center justify-center">
@@ -182,37 +182,39 @@ export default function CustomerDashboard() {
         ) : stats.length === 0 ? (
           <p className="text-sm text-[#4B5563] py-4">Noch keine Statistiken vorhanden.</p>
         ) : (
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="text-left text-xs text-[#4B5563] border-b border-white/[0.06]">
-                <th className="pb-3 pr-6 font-medium">Datum</th>
-                <th className="pb-3 pr-6 font-medium">Anrufe</th>
-                <th className="pb-3 pr-6 font-medium">Beantwortet</th>
-                <th className="pb-3 pr-6 font-medium">Dauer</th>
-                <th className="pb-3 font-medium">Kosten</th>
-              </tr>
-            </thead>
-            <tbody>
-              {stats.map((row) => (
-                <tr key={row.id} className="border-b border-white/[0.04] hover:bg-white/[0.02]">
-                  <td className="py-3 pr-6 text-[#9CA3AF]">
-                    {format(new Date(row.date), "dd.MM.yyyy")}
-                  </td>
-                  <td className="py-3 pr-6 text-white font-medium">{row.total_calls}</td>
-                  <td className="py-3 pr-6 text-[#00E5C0]">{row.answered_calls}</td>
-                  <td className="py-3 pr-6 text-[#9CA3AF]">
-                    {Math.floor(row.duration_seconds / 60)}m {row.duration_seconds % 60}s
-                  </td>
-                  <td className="py-3 text-[#9CA3AF]">€{row.cost_eur.toFixed(4)}</td>
+          <div className="overflow-x-auto -mx-4 lg:mx-0">
+            <table className="w-full text-sm min-w-[480px] px-4 lg:px-0">
+              <thead>
+                <tr className="text-left text-xs text-[#4B5563] border-b border-white/[0.06]">
+                  <th className="pb-3 pr-4 pl-4 lg:pl-0 font-medium">Datum</th>
+                  <th className="pb-3 pr-4 font-medium">Anrufe</th>
+                  <th className="pb-3 pr-4 font-medium">Beantwortet</th>
+                  <th className="pb-3 pr-4 font-medium">Dauer</th>
+                  <th className="pb-3 pr-4 lg:pr-0 font-medium">Kosten</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {stats.map((row) => (
+                  <tr key={row.id} className="border-b border-white/[0.04] hover:bg-white/[0.02]">
+                    <td className="py-3 pr-4 pl-4 lg:pl-0 text-[#9CA3AF]">
+                      {format(new Date(row.date), "dd.MM.yy")}
+                    </td>
+                    <td className="py-3 pr-4 text-white font-medium">{row.total_calls}</td>
+                    <td className="py-3 pr-4 text-[#00E5C0]">{row.answered_calls}</td>
+                    <td className="py-3 pr-4 text-[#9CA3AF]">
+                      {Math.floor(row.duration_seconds / 60)}m {row.duration_seconds % 60}s
+                    </td>
+                    <td className="py-3 pr-4 lg:pr-0 text-[#9CA3AF]">€{row.cost_eur.toFixed(4)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         )}
       </div>
 
       {/* n8n Error Log */}
-      <div id="errors" className="bg-[#0E0E0E] border border-white/[0.08] rounded-xl p-5">
+      <div id="errors" className="bg-[#0E0E0E] border border-white/[0.08] rounded-xl p-4 lg:p-5">
         <SectionHeading
           title="Fehler-Log"
           badge={openErrors > 0 ? `${openErrors} offen` : undefined}
