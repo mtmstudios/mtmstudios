@@ -7,17 +7,35 @@ export interface Database {
         Row: Profile;
         Insert: Omit<Profile, "created_at">;
         Update: Partial<Omit<Profile, "id" | "created_at">>;
+        Relationships: [];
       };
       n8n_errors: {
         Row: N8nError;
         Insert: Omit<N8nError, "id" | "created_at">;
         Update: Partial<Omit<N8nError, "id" | "created_at">>;
+        Relationships: [];
       };
       call_stats: {
         Row: CallStat;
         Insert: Omit<CallStat, "id" | "created_at">;
         Update: Partial<Omit<CallStat, "id" | "created_at">>;
+        Relationships: [];
       };
+    };
+    Views: {
+      [_ in never]: never;
+    };
+    Functions: {
+      is_admin: {
+        Args: Record<string, never>;
+        Returns: boolean;
+      };
+    };
+    Enums: {
+      [_ in never]: never;
+    };
+    CompositeTypes: {
+      [_ in never]: never;
     };
   };
 }
