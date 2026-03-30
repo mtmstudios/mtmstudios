@@ -30,13 +30,13 @@ export default function CustomerDashboard() {
   }, [user]);
 
   async function fetchStats() {
-    const { data } = await supabase
-      .from("call_stats")
+    const { data } = await (supabase
+      .from("call_stats") as any)
       .select("*")
       .eq("customer_id", user!.id)
       .order("date", { ascending: false })
       .limit(30);
-    setStats(data ?? []);
+    setStats((data as CallStat[]) ?? []);
     setLoadingStats(false);
   }
 
