@@ -41,13 +41,13 @@ export default function CustomerDashboard() {
   }
 
   async function fetchErrors() {
-    const { data } = await supabase
-      .from("n8n_errors")
+    const { data } = await (supabase
+      .from("n8n_errors") as any)
       .select("*")
       .eq("customer_id", user!.id)
       .order("created_at", { ascending: false })
       .limit(20);
-    setErrors(data ?? []);
+    setErrors((data as N8nError[]) ?? []);
     setLoadingErrors(false);
   }
 

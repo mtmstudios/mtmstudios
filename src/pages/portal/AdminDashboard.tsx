@@ -68,12 +68,12 @@ export default function AdminDashboard() {
   }
 
   async function fetchAllErrors() {
-    const { data } = await supabase
-      .from("n8n_errors")
+    const { data } = await (supabase
+      .from("n8n_errors") as any)
       .select("*")
       .order("created_at", { ascending: false })
       .limit(50);
-    setErrors(data ?? []);
+    setErrors((data as N8nError[]) ?? []);
     setLoadingErrors(false);
   }
 
