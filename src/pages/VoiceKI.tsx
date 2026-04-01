@@ -68,14 +68,18 @@ const PhoneVisual = () => {
         })}
         <motion.text x="160" y="320" textAnchor="middle" fill="hsl(var(--muted-foreground))" fontSize="10" fontFamily="system-ui"
           initial={{ opacity: 0 }} animate={{ opacity: 0.8 }} transition={{ delay: 2.3 }}>Teste jetzt live — ruf an und erlebe die KI</motion.text>
+        {/* Outer pulsing rings */}
+        <motion.circle cx="160" cy="415" r="42" fill="none" stroke="#22c55e" strokeWidth="1.5"
+          animate={{ opacity: [0, 0.15, 0.3, 0.15, 0], scale: [0.9, 1.15, 0.9] }} transition={{ duration: 2, repeat: Infinity, delay: 2.8 }} />
         <motion.circle cx="160" cy="415" r="36" fill="none" stroke="#22c55e" strokeWidth="2"
-          animate={{ opacity: [0, 0.25, 0.5, 0.25], scale: [1, 1.08, 1] }} transition={{ duration: 2.5, repeat: Infinity, delay: 2.8 }} />
+          animate={{ opacity: [0, 0.3, 0.6, 0.3, 0], scale: [1, 1.1, 1] }} transition={{ duration: 1.8, repeat: Infinity, delay: 3.0 }} />
         <motion.circle cx="160" cy="415" r="30" fill="#22c55e"
-          initial={{ opacity: 0, scale: 0.5 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6, delay: 2.5, ease: appleEase }} />
+          initial={{ opacity: 0, scale: 0.5 }} animate={{ opacity: 1, scale: [1, 1.05, 1] }}
+          transition={{ opacity: { duration: 0.6, delay: 2.5, ease: appleEase }, scale: { duration: 1.5, repeat: Infinity, delay: 3.2, ease: "easeInOut" } }} />
         <motion.path d="M152 408c0-1.1.9-2 2-2h1.5a1 1 0 0 1 .9.6l1.2 2.4a1 1 0 0 1-.2 1.1l-1.4 1.4a8 8 0 0 0 4.5 4.5l1.4-1.4a1 1 0 0 1 1.1-.2l2.4 1.2a1 1 0 0 1 .6.9V419a2 2 0 0 1-2 2 12 12 0 0 1-12-12z"
           fill="white" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2.7 }} />
-        <motion.text x="160" y="475" textAnchor="middle" fill="#22c55e" style={{ fontSize: "12px", fontWeight: 500 }}
-          initial={{ opacity: 0 }} animate={{ opacity: 0.85 }} transition={{ delay: 2.7 }}>Jetzt anrufen</motion.text>
+        <motion.text x="160" y="475" textAnchor="middle" fill="#22c55e" style={{ fontSize: "13px", fontWeight: 600, letterSpacing: "0.02em" }}
+          initial={{ opacity: 0 }} animate={{ opacity: [0.7, 1, 0.7] }} transition={{ delay: 2.7, duration: 2, repeat: Infinity }}>Jetzt anrufen</motion.text>
         <foreignObject x="120" y="380" width="80" height="110">
           <a href="tel:+4928528879850" style={{ display: "block", width: "100%", height: "100%", cursor: "pointer" }} aria-label="Testbot anrufen" />
         </foreignObject>
@@ -217,6 +221,14 @@ const VoiceKI = () => {
         {/* ─── HERO ─── */}
         <section className="min-h-screen flex items-center justify-center px-5 pt-20 pb-16">
           <div className="max-w-4xl mx-auto text-center">
+            <motion.div
+              className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/10"
+              initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+            >
+              <span className="text-amber-400 text-sm tracking-wider">★★★★★</span>
+              <span className="text-xs text-foreground/90 font-medium">50+ Unternehmen in Baden-Württemberg & Bayern</span>
+            </motion.div>
             <motion.h1
               className="text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight leading-[1.08] mb-5"
               initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }}
@@ -224,14 +236,6 @@ const VoiceKI = () => {
             >
               Nie wieder verpasste Anrufe.
             </motion.h1>
-            <motion.div
-              className="inline-flex items-center gap-2 mb-5 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/10"
-              initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.25 }}
-            >
-              <span className="text-amber-400 text-sm tracking-wider">★★★★★</span>
-              <span className="text-xs text-foreground/90 font-medium">Bereits 50+ Unternehmen in BW & Bayern</span>
-            </motion.div>
             <motion.p
               className="text-lg md:text-xl font-medium mb-5 text-accent"
               initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
@@ -244,7 +248,7 @@ const VoiceKI = () => {
               initial={{ opacity: 0 }} animate={{ opacity: 1 }}
               transition={{ delay: 0.3 }}
             >
-              Die KI nimmt Ihre Anrufe an, beantwortet Fragen, erfasst Leads und bucht Termine — rund um die Uhr.
+              Die KI nimmt Ihre Anrufe an, beantwortet Fragen, erfasst Leads und bucht Termine — rund um die Uhr. Für Unternehmen in Süddeutschland.
             </motion.p>
             <motion.div
               className="flex flex-col sm:flex-row gap-3 justify-center"
@@ -275,7 +279,7 @@ const VoiceKI = () => {
               initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }} transition={{ duration: 0.5, ease: appleEase }}
             >
-              Während Sie arbeiten, gehen Ihre Aufträge verloren.
+              Während Sie arbeiten, gehen Aufträge in Baden-Württemberg & Bayern verloren.
             </motion.h2>
             <motion.p
               className="text-center text-accent font-semibold text-lg mb-12"
@@ -409,7 +413,7 @@ const VoiceKI = () => {
                 viewport={{ once: true }} transition={{ duration: 0.5, ease: appleEase }}
               >
                 <h2 className="text-2xl font-bold text-center mb-2">Individuelles Angebot & Demo anfordern</h2>
-                <p className="text-sm text-center mb-8 text-muted-foreground">Wir melden uns innerhalb von 24 Stunden</p>
+                <p className="text-sm text-center mb-8 text-muted-foreground">Für Unternehmen in Baden-Württemberg & Bayern · Antwort innerhalb von 24h</p>
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div>
                     <input type="text" placeholder="Ihr Name" value={formData.name}
