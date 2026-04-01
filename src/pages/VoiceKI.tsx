@@ -413,7 +413,7 @@ const VoiceKI = () => {
                 viewport={{ once: true }} transition={{ duration: 0.5, ease: appleEase }}
               >
                 <h2 className="text-2xl font-bold text-center mb-2">Individuelles Angebot & Demo anfordern</h2>
-                <p className="text-sm text-center mb-8 text-muted-foreground">Wir melden uns innerhalb von 24 Stunden</p>
+                <p className="text-sm text-center mb-8 text-muted-foreground">Für Unternehmen in Baden-Württemberg & Bayern · Antwort innerhalb von 24h</p>
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div>
                     <input type="text" placeholder="Ihr Name" value={formData.name}
