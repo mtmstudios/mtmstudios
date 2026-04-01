@@ -244,7 +244,7 @@ const VoiceKI = () => {
               initial={{ opacity: 0 }} animate={{ opacity: 1 }}
               transition={{ delay: 0.3 }}
             >
-              Die KI nimmt Ihre Anrufe an, beantwortet Fragen, erfasst Leads und bucht Termine — rund um die Uhr.
+              Die KI nimmt Ihre Anrufe an, beantwortet Fragen, erfasst Leads und bucht Termine — rund um die Uhr. Für Unternehmen in Süddeutschland.
             </motion.p>
             <motion.div
               className="flex flex-col sm:flex-row gap-3 justify-center"
