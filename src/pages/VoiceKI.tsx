@@ -217,6 +217,14 @@ const VoiceKI = () => {
         {/* ─── HERO ─── */}
         <section className="min-h-screen flex items-center justify-center px-5 pt-20 pb-16">
           <div className="max-w-4xl mx-auto text-center">
+            <motion.div
+              className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/10"
+              initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+            >
+              <span className="text-amber-400 text-sm tracking-wider">★★★★★</span>
+              <span className="text-xs text-foreground/90 font-medium">50+ Unternehmen in Baden-Württemberg & Bayern</span>
+            </motion.div>
             <motion.h1
               className="text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight leading-[1.08] mb-5"
               initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }}
@@ -224,14 +232,6 @@ const VoiceKI = () => {
             >
               Nie wieder verpasste Anrufe.
             </motion.h1>
-            <motion.div
-              className="inline-flex items-center gap-2 mb-5 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/10"
-              initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.25 }}
-            >
-              <span className="text-amber-400 text-sm tracking-wider">★★★★★</span>
-              <span className="text-xs text-foreground/90 font-medium">Bereits 50+ Unternehmen in BW & Bayern</span>
-            </motion.div>
             <motion.p
               className="text-lg md:text-xl font-medium mb-5 text-accent"
               initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
