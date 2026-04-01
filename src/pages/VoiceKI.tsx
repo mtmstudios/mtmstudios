@@ -297,7 +297,7 @@ const VoiceKI = () => {
         initial={{ opacity: 0 }} animate={{ opacity: 1 }}
         transition={{ delay: 0.3 }}
       >
-        ★★★★★&nbsp;&nbsp;Bereits von 12+ Unternehmen in Bayern genutzt
+        ★★★★★&nbsp;&nbsp;Bereits 50+ Unternehmen in Baden-Württemberg und Bayern
       </motion.p>
       <motion.button
         onClick={nextStep}
