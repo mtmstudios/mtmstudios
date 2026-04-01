@@ -92,6 +92,7 @@ const VoiceKI = () => {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [pastHero, setPastHero] = useState(false);
   const formRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
