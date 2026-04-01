@@ -192,8 +192,7 @@ const VoiceKI = () => {
             </a>
             <button
               onClick={scrollToForm}
-              className="px-5 py-2.5 rounded-full text-sm font-semibold text-black transition-all hover:brightness-110 active:scale-[0.97]"
-              className="bg-accent"
+              className="px-5 py-2.5 rounded-full text-sm font-semibold bg-foreground text-background hover:bg-foreground/90 transition-all active:scale-[0.97]"
             >
               Demo anfragen
             </button>
