@@ -117,6 +117,15 @@ const VoiceKI = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Prevent Google indexing — this page is for social ads only
+  useEffect(() => {
+    const meta = document.createElement("meta");
+    meta.name = "robots";
+    meta.content = "noindex, nofollow";
+    document.head.appendChild(meta);
+    return () => { document.head.removeChild(meta); };
+  }, []);
+
   const scrollToForm = () => {
     document.getElementById("lead-form")?.scrollIntoView({ behavior: "smooth" });
   };
