@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { motion } from "motion/react";
-import { Clock, ClipboardList, Shield, Check, Loader2, Phone } from "lucide-react";
+import { Clock, ClipboardList, Shield, Check, Loader2, Phone, Wrench, Stethoscope, Building2, Home } from "lucide-react";
 import {
   Accordion,
   AccordionContent,
@@ -117,6 +117,10 @@ const VoiceKI = () => {
     document.getElementById("lead-form")?.scrollIntoView({ behavior: "smooth" });
   };
 
+  const scrollToDemo = () => {
+    document.getElementById("live-demo")?.scrollIntoView({ behavior: "smooth" });
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrors({});
@@ -161,7 +165,12 @@ const VoiceKI = () => {
     { icon: Shield, title: "DSGVO-konform", desc: "Server in Deutschland, keine Datenweitergabe" },
   ];
 
-  const audiences = ["Handwerker", "Arztpraxen", "Dienstleister", "Immobilien"];
+  const audiences = [
+    { icon: Wrench, label: "Handwerker" },
+    { icon: Stethoscope, label: "Arztpraxen" },
+    { icon: Building2, label: "Dienstleister" },
+    { icon: Home, label: "Immobilien" },
+  ];
 
   const faqs = [
     { q: "Was kostet die Voice KI?", a: "Die Kosten hängen vom Gesprächsvolumen ab. In einem kurzen Gespräch ermitteln wir gemeinsam das passende Paket für Ihr Unternehmen." },
@@ -208,15 +217,17 @@ const VoiceKI = () => {
         {/* ─── HERO ─── */}
         <section className="min-h-screen flex items-center justify-center px-5 pt-20 pb-16">
           <div className="max-w-4xl mx-auto text-center">
-            <motion.p
-              className="text-sm mb-6 text-muted-foreground"
-              initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+            {/* Star rating moved closer to headline */}
+            <motion.div
+              className="flex items-center justify-center gap-2 mb-4"
+              initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
             >
-              ★★★★★&nbsp;&nbsp;Bereits 50+ Unternehmen in Baden-Württemberg und Bayern
-            </motion.p>
+              <span className="text-amber-400 text-base tracking-wider">★★★★★</span>
+              <span className="text-xs text-muted-foreground">Bereits 50+ Unternehmen in Baden-Württemberg und Bayern</span>
+            </motion.div>
             <motion.h1
-              className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight leading-[1.08] mb-5"
+              className="text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight leading-[1.08] mb-5"
               initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: appleEase }}
             >
@@ -247,12 +258,12 @@ const VoiceKI = () => {
               >
                 Kostenlose Demo anfragen
               </button>
-              <a
-                href="tel:+4928528879850"
-                className="px-10 py-4 rounded-xl font-semibold text-base border border-white/10 text-foreground hover:bg-white/5 transition-all active:scale-[0.98] flex items-center justify-center gap-2"
+              <button
+                onClick={scrollToDemo}
+                className="px-10 py-4 rounded-full font-semibold text-base border border-white/10 text-foreground hover:bg-white/5 transition-all active:scale-[0.98] flex items-center justify-center gap-2"
               >
-                <Phone size={18} /> Jetzt anrufen
-              </a>
+                <Phone size={18} /> Live testen
+              </button>
             </motion.div>
           </div>
         </section>
@@ -261,12 +272,19 @@ const VoiceKI = () => {
         <section className="py-20 md:py-28 px-5">
           <div className="max-w-3xl mx-auto">
             <motion.h2
-              className="text-3xl md:text-4xl font-bold text-center mb-12"
+              className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-4 leading-snug"
               initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }} transition={{ duration: 0.5, ease: appleEase }}
             >
-              Kennen Sie das?
+              Während Sie arbeiten, gehen Ihre Aufträge verloren.
             </motion.h2>
+            <motion.p
+              className="text-center text-accent font-semibold text-lg mb-12"
+              initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}
+              viewport={{ once: true }} transition={{ delay: 0.15 }}
+            >
+              Unsere KI übernimmt.
+            </motion.p>
             <div className="space-y-3">
               {problems.map((p, i) => (
                 <motion.div
@@ -283,14 +301,19 @@ const VoiceKI = () => {
           </div>
         </section>
 
-        {/* ─── LIVE DEMO ─── */}
-        <section className="py-20 md:py-28 px-5">
+        {/* ─── LIVE DEMO (Main Conversion Zone) ─── */}
+        <section className="py-20 md:py-28 px-5" id="live-demo">
           <div className="max-w-3xl mx-auto text-center">
             <motion.span
-              className="inline-block text-xs font-bold tracking-widest uppercase mb-4 px-4 py-1.5 rounded-full text-accent bg-accent/10 border border-accent/20"
+              className="inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase mb-4 px-4 py-1.5 rounded-full text-accent bg-accent/10 border border-accent/20"
               initial={{ opacity: 0, scale: 0.8 }} whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }} transition={{ duration: 0.4, ease: appleEase }}
             >
+              {/* Pulsing live dot */}
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-accent" />
+              </span>
               LIVE DEMO
             </motion.span>
             <motion.h2
@@ -312,6 +335,24 @@ const VoiceKI = () => {
               viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.2, ease: appleEase }}
             >
               <PhoneVisual />
+            </motion.div>
+
+            {/* Prominent CTA call button */}
+            <motion.div
+              className="mt-8 flex flex-col items-center gap-3"
+              initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }} transition={{ delay: 0.4, ease: appleEase }}
+            >
+              <a
+                href="tel:+4928528879850"
+                className="inline-flex items-center gap-3 px-10 py-4 rounded-full font-semibold text-base bg-green-500 text-white hover:bg-green-400 transition-all active:scale-[0.98] shadow-[0_0_30px_rgba(34,197,94,0.3)]"
+                style={{ animation: "pulse 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite" }}
+              >
+                <Phone size={20} /> Jetzt kostenlos anrufen
+              </a>
+              <p className="text-xs text-muted-foreground/70 max-w-xs">
+                Kostenloser Testanruf. Du sprichst direkt mit der KI – kein Verkaufsgespräch.
+              </p>
             </motion.div>
           </div>
         </section>
@@ -341,10 +382,11 @@ const VoiceKI = () => {
               <span className="inline-block text-xs font-bold tracking-widest uppercase mb-3 px-4 py-1.5 rounded-full text-accent bg-accent/10 border border-accent/20">
                 PERFEKT FÜR
               </span>
-              <div className="flex flex-wrap justify-center gap-2 mt-4">
+              <div className="flex flex-wrap justify-center gap-3 mt-4">
                 {audiences.map((a, i) => (
-                  <span key={i} className="px-4 py-2 text-sm font-medium rounded-full bg-white/5 border border-white/10">
-                    {a}
+                  <span key={i} className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium rounded-full bg-white/5 border border-white/10">
+                    <a.icon size={16} className="text-accent shrink-0" />
+                    {a.label}
                   </span>
                 ))}
               </div>
@@ -377,25 +419,25 @@ const VoiceKI = () => {
                 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }} transition={{ duration: 0.5, ease: appleEase }}
               >
-                <h2 className="text-2xl font-bold text-center mb-2">Jetzt unverbindlich Demo anfragen</h2>
+                <h2 className="text-2xl font-bold text-center mb-2">Individuelles Angebot & Demo anfordern</h2>
                 <p className="text-sm text-center mb-8 text-muted-foreground">Wir melden uns innerhalb von 24 Stunden</p>
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div>
                     <input type="text" placeholder="Ihr Name" value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="w-full px-4 py-3.5 rounded-xl bg-background text-foreground placeholder:text-muted-foreground/50 text-sm outline-none border border-white/10 focus:ring-2 focus:ring-accent transition-all" />
+                      className="w-full px-4 py-3.5 rounded-xl bg-background text-foreground placeholder:text-muted-foreground/50 text-sm outline-none border border-white/10 focus:border-accent focus:ring-2 focus:ring-accent/50 transition-all" />
                     {errors.name && <p className="text-destructive text-xs mt-1.5 ml-1">{errors.name}</p>}
                   </div>
                   <div>
                     <input type="text" placeholder="Unternehmen" value={formData.company}
                       onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                      className="w-full px-4 py-3.5 rounded-xl bg-background text-foreground placeholder:text-muted-foreground/50 text-sm outline-none border border-white/10 focus:ring-2 focus:ring-accent transition-all" />
+                      className="w-full px-4 py-3.5 rounded-xl bg-background text-foreground placeholder:text-muted-foreground/50 text-sm outline-none border border-white/10 focus:border-accent focus:ring-2 focus:ring-accent/50 transition-all" />
                     {errors.company && <p className="text-destructive text-xs mt-1.5 ml-1">{errors.company}</p>}
                   </div>
                   <div>
                     <input type="tel" placeholder="Telefonnummer" value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="w-full px-4 py-3.5 rounded-xl bg-background text-foreground placeholder:text-muted-foreground/50 text-sm outline-none border border-white/10 focus:ring-2 focus:ring-accent transition-all" />
+                      className="w-full px-4 py-3.5 rounded-xl bg-background text-foreground placeholder:text-muted-foreground/50 text-sm outline-none border border-white/10 focus:border-accent focus:ring-2 focus:ring-accent/50 transition-all" />
                     {errors.phone && <p className="text-destructive text-xs mt-1.5 ml-1">{errors.phone}</p>}
                   </div>
                   <button type="submit" disabled={submitting}
@@ -403,6 +445,7 @@ const VoiceKI = () => {
                     {submitting ? <Loader2 size={18} className="animate-spin" /> : null}
                     {submitting ? "Wird gesendet..." : "Demo anfragen →"}
                   </button>
+                  <p className="text-xs text-center text-muted-foreground/50 mt-1">Antwort in der Regel innerhalb von 24 Stunden.</p>
                 </form>
                 <p className="text-xs text-center mt-4 text-muted-foreground/60">🔒 Keine Weitergabe · DSGVO-konform · Kein Spam</p>
               </motion.div>
@@ -434,16 +477,15 @@ const VoiceKI = () => {
 
       {/* ─── Floating Mobile CTA ─── */}
       <div
-        className={`fixed bottom-0 left-0 right-0 z-50 p-3 md:hidden transition-all duration-500 ${
+        className={`fixed bottom-0 left-0 right-0 z-50 p-3 md:hidden transition-all duration-500 ease-out ${
           pastHero && !isFormVisible ? "translate-y-0 opacity-100" : "translate-y-full opacity-0 pointer-events-none"
         }`}
-        style={{ backgroundColor: "rgba(0,0,0,0.8)", backdropFilter: "blur(12px)", borderTop: "1px solid rgba(255,255,255,0.06)" }}
       >
         <button
           onClick={scrollToForm}
-          className="w-full py-3 rounded-full font-medium text-sm bg-accent/90 text-accent-foreground hover:bg-accent active:scale-[0.98] flex items-center justify-center gap-2 transition-colors"
+          className="w-full py-3.5 rounded-full font-semibold text-sm bg-accent text-accent-foreground shadow-[0_-4px_20px_rgba(0,229,192,0.25)] active:scale-[0.98] flex items-center justify-center gap-2 transition-all"
         >
-          Demo anfragen
+          Kostenlose Demo anfragen
         </button>
       </div>
     </div>
