@@ -179,6 +179,7 @@ const VoiceKI = () => {
   const faqs = [
     { q: "Was kostet die Voice KI?", a: "Die Kosten hängen vom Gesprächsvolumen ab. In einem kurzen Gespräch ermitteln wir gemeinsam das passende Paket für Ihr Unternehmen." },
     { q: "Wie schnell ist sie einsatzbereit?", a: "In der Regel ist Ihre Voice KI innerhalb von 48 Stunden aktiv — inklusive individueller Konfiguration." },
+    { q: "Persönlich vor Ort oder Remote?", a: "Ganz wie Sie möchten. Wir kommen persönlich zu Ihnen nach Baden-Württemberg oder Bayern — oder setzen alles bequem per Videocall um. Beides funktioniert reibungslos." },
     { q: "Kann sie auch Termine buchen?", a: "Ja. Die KI kann Termine direkt in Ihren Kalender eintragen oder Anfragen für Sie erfassen." },
     { q: "Was passiert mit den Gesprächsdaten?", a: "Alle Daten werden auf deutschen Servern gespeichert und nicht an Dritte weitergegeben. Vollständig DSGVO-konform." },
   ];
@@ -461,10 +462,13 @@ const VoiceKI = () => {
         </section>
 
         {/* ─── Footer ─── */}
-        <footer className="px-5 py-8 text-center text-xs text-muted-foreground/60">
-          © 2026 MTM Studios ·{" "}
-          <a href="/datenschutz" className="hover:underline">Datenschutz</a> ·{" "}
-          <a href="/impressum" className="hover:underline">Impressum</a>
+        <footer className="px-5 py-8 text-center text-xs text-muted-foreground/60 space-y-2">
+          <p className="text-muted-foreground/80 font-medium">📍 Aus Stuttgart — persönlich vor Ort in ganz Süddeutschland</p>
+          <p>
+            © 2026 MTM Studios ·{" "}
+            <a href="/datenschutz" className="hover:underline">Datenschutz</a> ·{" "}
+            <a href="/impressum" className="hover:underline">Impressum</a>
+          </p>
         </footer>
       </div>
 
