@@ -279,7 +279,7 @@ const VoiceKI = () => {
               initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }} transition={{ duration: 0.5, ease: appleEase }}
             >
-              Während Sie arbeiten, gehen Ihre Aufträge verloren.
+              Während Sie arbeiten, gehen Aufträge in Baden-Württemberg & Bayern verloren.
             </motion.h2>
             <motion.p
               className="text-center text-accent font-semibold text-lg mb-12"
