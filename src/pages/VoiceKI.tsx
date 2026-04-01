@@ -395,8 +395,7 @@ const VoiceKI = () => {
                     {errors.phone && <p className="text-destructive text-xs mt-1.5 ml-1">{errors.phone}</p>}
                   </div>
                   <button type="submit" disabled={submitting}
-                    className="w-full py-4 rounded-xl font-semibold text-base text-black transition-all hover:brightness-110 active:scale-[0.98] flex items-center justify-center gap-2 disabled:opacity-70"
-                    className="bg-accent">
+                    className="w-full py-4 rounded-full font-semibold text-base bg-foreground text-background hover:bg-foreground/90 transition-all active:scale-[0.98] flex items-center justify-center gap-2 disabled:opacity-70">
                     {submitting ? <Loader2 size={18} className="animate-spin" /> : null}
                     {submitting ? "Wird gesendet..." : "Demo anfragen →"}
                   </button>
