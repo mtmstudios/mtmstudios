@@ -470,7 +470,7 @@ const VoiceKI = () => {
 
       {/* ─── Floating Mobile CTA ─── */}
       <div
-        className={`fixed bottom-0 left-0 right-0 z-50 p-3 md:hidden transition-all duration-500 ease-out ${
+        className={`fixed bottom-20 left-0 right-0 z-[80] px-4 md:hidden transition-all duration-500 ease-out ${
           pastHero && !isFormVisible ? "translate-y-0 opacity-100" : "translate-y-full opacity-0 pointer-events-none"
         }`}
       >
