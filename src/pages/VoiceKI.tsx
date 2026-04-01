@@ -399,20 +399,6 @@ const VoiceKI = () => {
                 ))}
               </div>
             </motion.div>
-            {/* Mid-page CTA */}
-            <motion.div
-              className="text-center mt-14"
-              initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }} transition={{ delay: 0.4, ease: appleEase }}
-            >
-              <button
-                onClick={scrollToForm}
-                className="px-10 py-4 rounded-full font-semibold text-base bg-accent text-accent-foreground hover:bg-accent/90 transition-all active:scale-[0.98]"
-              >
-                Jetzt unverbindlich anfragen
-              </button>
-              <p className="text-xs text-muted-foreground/60 mt-3">Keine Kosten · Keine Verpflichtung</p>
-            </motion.div>
           </div>
         </section>
 
