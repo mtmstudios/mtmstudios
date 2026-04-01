@@ -422,7 +422,7 @@ const VoiceKI = () => {
 
         {/* ─── Footer ─── */}
         <footer className="px-5 py-8 text-center text-xs text-muted-foreground/60">
-          © 2025 MTM Studios ·{" "}
+          © 2026 MTM Studios ·{" "}
           <a href="/datenschutz" className="hover:underline">Datenschutz</a> ·{" "}
           <a href="/impressum" className="hover:underline">Impressum</a>
         </footer>
