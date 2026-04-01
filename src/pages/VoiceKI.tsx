@@ -68,14 +68,18 @@ const PhoneVisual = () => {
         })}
         <motion.text x="160" y="320" textAnchor="middle" fill="hsl(var(--muted-foreground))" fontSize="10" fontFamily="system-ui"
           initial={{ opacity: 0 }} animate={{ opacity: 0.8 }} transition={{ delay: 2.3 }}>Teste jetzt live — ruf an und erlebe die KI</motion.text>
+        {/* Outer pulsing rings */}
+        <motion.circle cx="160" cy="415" r="42" fill="none" stroke="#22c55e" strokeWidth="1.5"
+          animate={{ opacity: [0, 0.15, 0.3, 0.15, 0], scale: [0.9, 1.15, 0.9] }} transition={{ duration: 2, repeat: Infinity, delay: 2.8 }} />
         <motion.circle cx="160" cy="415" r="36" fill="none" stroke="#22c55e" strokeWidth="2"
-          animate={{ opacity: [0, 0.25, 0.5, 0.25], scale: [1, 1.08, 1] }} transition={{ duration: 2.5, repeat: Infinity, delay: 2.8 }} />
+          animate={{ opacity: [0, 0.3, 0.6, 0.3, 0], scale: [1, 1.1, 1] }} transition={{ duration: 1.8, repeat: Infinity, delay: 3.0 }} />
         <motion.circle cx="160" cy="415" r="30" fill="#22c55e"
-          initial={{ opacity: 0, scale: 0.5 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6, delay: 2.5, ease: appleEase }} />
+          initial={{ opacity: 0, scale: 0.5 }} animate={{ opacity: 1, scale: [1, 1.05, 1] }}
+          transition={{ opacity: { duration: 0.6, delay: 2.5, ease: appleEase }, scale: { duration: 1.5, repeat: Infinity, delay: 3.2, ease: "easeInOut" } }} />
         <motion.path d="M152 408c0-1.1.9-2 2-2h1.5a1 1 0 0 1 .9.6l1.2 2.4a1 1 0 0 1-.2 1.1l-1.4 1.4a8 8 0 0 0 4.5 4.5l1.4-1.4a1 1 0 0 1 1.1-.2l2.4 1.2a1 1 0 0 1 .6.9V419a2 2 0 0 1-2 2 12 12 0 0 1-12-12z"
           fill="white" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2.7 }} />
-        <motion.text x="160" y="475" textAnchor="middle" fill="#22c55e" style={{ fontSize: "12px", fontWeight: 500 }}
-          initial={{ opacity: 0 }} animate={{ opacity: 0.85 }} transition={{ delay: 2.7 }}>Jetzt anrufen</motion.text>
+        <motion.text x="160" y="475" textAnchor="middle" fill="#22c55e" style={{ fontSize: "13px", fontWeight: 600, letterSpacing: "0.02em" }}
+          initial={{ opacity: 0 }} animate={{ opacity: [0.7, 1, 0.7] }} transition={{ delay: 2.7, duration: 2, repeat: Infinity }}>Jetzt anrufen</motion.text>
         <foreignObject x="120" y="380" width="80" height="110">
           <a href="tel:+4928528879850" style={{ display: "block", width: "100%", height: "100%", cursor: "pointer" }} aria-label="Testbot anrufen" />
         </foreignObject>
