@@ -336,23 +336,13 @@ const VoiceKI = () => {
               <PhoneVisual />
             </motion.div>
 
-            {/* Prominent CTA call button */}
-            <motion.div
-              className="mt-8 flex flex-col items-center gap-3"
-              initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }} transition={{ delay: 0.4, ease: appleEase }}
+            <motion.p
+              className="text-xs text-muted-foreground/70 mt-4 max-w-xs mx-auto"
+              initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}
+              viewport={{ once: true }} transition={{ delay: 0.4 }}
             >
-              <a
-                href="tel:+4928528879850"
-                className="inline-flex items-center gap-3 px-10 py-4 rounded-full font-semibold text-base bg-green-500 text-white hover:bg-green-400 transition-all active:scale-[0.98] shadow-[0_0_30px_rgba(34,197,94,0.3)]"
-                style={{ animation: "pulse 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite" }}
-              >
-                <Phone size={20} /> Jetzt kostenlos anrufen
-              </a>
-              <p className="text-xs text-muted-foreground/70 max-w-xs">
-                Kostenloser Testanruf. Du sprichst direkt mit der KI – kein Verkaufsgespräch.
-              </p>
-            </motion.div>
+              Kostenloser Testanruf. Du sprichst direkt mit der KI – kein Verkaufsgespräch.
+            </motion.p>
           </div>
         </section>
 
