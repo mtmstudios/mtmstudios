@@ -474,15 +474,15 @@ const VoiceKI = () => {
 
       {/* ─── Floating Mobile CTA ─── */}
       <div
-        className={`fixed bottom-20 left-0 right-0 z-[80] px-4 md:hidden transition-all duration-500 ease-out ${
+        className={`fixed bottom-6 left-20 z-[80] md:hidden transition-all duration-500 ease-out ${
           pastHero && !isFormVisible ? "translate-y-0 opacity-100" : "translate-y-full opacity-0 pointer-events-none"
         }`}
       >
         <button
           onClick={scrollToForm}
-          className="w-full py-3.5 rounded-full font-semibold text-sm bg-accent text-accent-foreground shadow-[0_-4px_20px_rgba(0,229,192,0.25)] active:scale-[0.98] flex items-center justify-center gap-2 transition-all"
+          className="px-5 py-2.5 rounded-full font-semibold text-xs bg-accent text-accent-foreground shadow-[0_0_16px_rgba(0,229,192,0.3)] active:scale-[0.97] transition-all"
         >
-          Kostenlose Demo anfragen
+          Demo anfragen
         </button>
       </div>
     </div>
