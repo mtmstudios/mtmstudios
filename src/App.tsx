@@ -83,6 +83,8 @@ const App = () => (
                   <Route path="/chatbot-agentur" element={<KeywordPage slug="chatbot-agentur" />} />
                   <Route path="/n8n-agentur" element={<KeywordPage slug="n8n-agentur" />} />
                   <Route path="/prozessautomatisierung-kmu" element={<KeywordPage slug="prozessautomatisierung-kmu" />} />
+                  {/* Voice KI Landing Page */}
+                  <Route path="/voice-ki" element={<VoiceKI />} />
                   {/* Portal routes */}
                   <Route path="/portal" element={<Navigate to="/portal/login" replace />} />
                   <Route path="/portal/login" element={<PortalLogin />} />
