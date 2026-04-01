@@ -217,15 +217,6 @@ const VoiceKI = () => {
         {/* ─── HERO ─── */}
         <section className="min-h-screen flex items-center justify-center px-5 pt-20 pb-16">
           <div className="max-w-4xl mx-auto text-center">
-            {/* Star rating moved closer to headline */}
-            <motion.div
-              className="flex items-center justify-center gap-2 mb-4"
-              initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-            >
-              <span className="text-amber-400 text-base tracking-wider">★★★★★</span>
-              <span className="text-xs text-muted-foreground">Bereits 50+ Unternehmen in Baden-Württemberg und Bayern</span>
-            </motion.div>
             <motion.h1
               className="text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight leading-[1.08] mb-5"
               initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }}
