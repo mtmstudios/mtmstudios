@@ -192,8 +192,7 @@ const VoiceKI = () => {
             </a>
             <button
               onClick={scrollToForm}
-              className="px-5 py-2.5 rounded-full text-sm font-semibold text-black transition-all hover:brightness-110 active:scale-[0.97]"
-              className="bg-accent"
+              className="px-5 py-2.5 rounded-full text-sm font-semibold bg-foreground text-background hover:bg-foreground/90 transition-all active:scale-[0.97]"
             >
               Demo anfragen
             </button>
@@ -240,8 +239,7 @@ const VoiceKI = () => {
             >
               <button
                 onClick={scrollToForm}
-                className="px-10 py-4 rounded-xl font-semibold text-base text-black transition-all hover:brightness-110 active:scale-[0.98]"
-                className="bg-accent"
+                className="px-10 py-4 rounded-full font-semibold text-base bg-foreground text-background hover:bg-foreground/90 transition-all active:scale-[0.98]"
               >
                 Kostenlose Demo anfragen
               </button>
@@ -397,8 +395,7 @@ const VoiceKI = () => {
                     {errors.phone && <p className="text-destructive text-xs mt-1.5 ml-1">{errors.phone}</p>}
                   </div>
                   <button type="submit" disabled={submitting}
-                    className="w-full py-4 rounded-xl font-semibold text-base text-black transition-all hover:brightness-110 active:scale-[0.98] flex items-center justify-center gap-2 disabled:opacity-70"
-                    className="bg-accent">
+                    className="w-full py-4 rounded-full font-semibold text-base bg-foreground text-background hover:bg-foreground/90 transition-all active:scale-[0.98] flex items-center justify-center gap-2 disabled:opacity-70">
                     {submitting ? <Loader2 size={18} className="animate-spin" /> : null}
                     {submitting ? "Wird gesendet..." : "Demo anfragen →"}
                   </button>
@@ -439,8 +436,7 @@ const VoiceKI = () => {
         >
           <button
             onClick={scrollToForm}
-            className="w-full py-3.5 rounded-xl font-semibold text-sm text-black active:scale-[0.98] flex items-center justify-center gap-2"
-            className="bg-accent"
+            className="w-full py-3.5 rounded-full font-semibold text-sm bg-foreground text-background hover:bg-foreground/90 active:scale-[0.98] flex items-center justify-center gap-2"
           >
             Demo anfragen
           </button>
