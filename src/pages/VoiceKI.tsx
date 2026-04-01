@@ -224,6 +224,14 @@ const VoiceKI = () => {
             >
               Nie wieder verpasste Anrufe.
             </motion.h1>
+            <motion.div
+              className="inline-flex items-center gap-2 mb-5 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/10"
+              initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.25 }}
+            >
+              <span className="text-amber-400 text-sm tracking-wider">★★★★★</span>
+              <span className="text-xs text-foreground/90 font-medium">Bereits 50+ Unternehmen in BW & Bayern</span>
+            </motion.div>
             <motion.p
               className="text-lg md:text-xl font-medium mb-5 text-accent"
               initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
