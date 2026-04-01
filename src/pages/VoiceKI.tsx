@@ -179,7 +179,7 @@ const VoiceKI = () => {
   const faqs = [
     { q: "Was kostet die Voice KI?", a: "Die Kosten hängen vom Gesprächsvolumen ab. In einem kurzen Gespräch ermitteln wir gemeinsam das passende Paket für Ihr Unternehmen." },
     { q: "Wie schnell ist sie einsatzbereit?", a: "In der Regel ist Ihre Voice KI innerhalb von 48 Stunden aktiv — inklusive individueller Konfiguration." },
-    { q: "Persönlich vor Ort oder Remote?", a: "Ganz wie Sie möchten. Wir kommen persönlich zu Ihnen nach Baden-Württemberg oder Bayern — oder setzen alles bequem per Videocall um. Beides funktioniert reibungslos." },
+    { q: "Persönlich vor Ort oder Remote?", a: "Wir sind in Stuttgart und Ulm ansässig und können somit gerne persönlich bei Ihnen vorbeikommen. Alternativ setzen wir alles bequem per Videocall um — ganz wie Sie es bevorzugen." },
     { q: "Kann sie auch Termine buchen?", a: "Ja. Die KI kann Termine direkt in Ihren Kalender eintragen oder Anfragen für Sie erfassen." },
     { q: "Was passiert mit den Gesprächsdaten?", a: "Alle Daten werden auf deutschen Servern gespeichert und nicht an Dritte weitergegeben. Vollständig DSGVO-konform." },
   ];
@@ -385,6 +385,20 @@ const VoiceKI = () => {
                 ))}
               </div>
             </motion.div>
+            {/* Mid-page CTA */}
+            <motion.div
+              className="text-center mt-14"
+              initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }} transition={{ delay: 0.4, ease: appleEase }}
+            >
+              <button
+                onClick={scrollToForm}
+                className="px-10 py-4 rounded-full font-semibold text-base bg-accent text-accent-foreground hover:bg-accent/90 transition-all active:scale-[0.98]"
+              >
+                Jetzt unverbindlich anfragen
+              </button>
+              <p className="text-xs text-muted-foreground/60 mt-3">Keine Kosten · Keine Verpflichtung</p>
+            </motion.div>
           </div>
         </section>
 
@@ -472,19 +486,6 @@ const VoiceKI = () => {
         </footer>
       </div>
 
-      {/* ─── Floating Mobile CTA ─── */}
-      <div
-        className={`fixed bottom-6 left-20 z-[80] md:hidden transition-all duration-500 ease-out ${
-          pastHero && !isFormVisible ? "translate-y-0 opacity-100" : "translate-y-full opacity-0 pointer-events-none"
-        }`}
-      >
-        <button
-          onClick={scrollToForm}
-          className="px-5 py-2.5 rounded-full font-semibold text-xs bg-accent text-accent-foreground shadow-[0_0_16px_rgba(0,229,192,0.3)] active:scale-[0.97] transition-all"
-        >
-          Demo anfragen
-        </button>
-      </div>
     </div>
   );
 };
