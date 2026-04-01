@@ -24,6 +24,7 @@ import KiStatistiken from "./pages/KiStatistiken";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
 import NotFound from "./pages/NotFound";
+import VoiceKI from "./pages/VoiceKI";
 import RegionalPage from "./components/regional/RegionalPage";
 import KeywordPage from "./components/keyword/KeywordPage";
 import ScrollToTop from "./components/ScrollToTop";
