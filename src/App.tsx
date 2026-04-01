@@ -24,6 +24,7 @@ import KiStatistiken from "./pages/KiStatistiken";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
 import NotFound from "./pages/NotFound";
+import VoiceKI from "./pages/VoiceKI";
 import RegionalPage from "./components/regional/RegionalPage";
 import KeywordPage from "./components/keyword/KeywordPage";
 import ScrollToTop from "./components/ScrollToTop";
@@ -82,6 +83,8 @@ const App = () => (
                   <Route path="/chatbot-agentur" element={<KeywordPage slug="chatbot-agentur" />} />
                   <Route path="/n8n-agentur" element={<KeywordPage slug="n8n-agentur" />} />
                   <Route path="/prozessautomatisierung-kmu" element={<KeywordPage slug="prozessautomatisierung-kmu" />} />
+                  {/* Voice KI Landing Page */}
+                  <Route path="/voice-ki" element={<VoiceKI />} />
                   {/* Portal routes */}
                   <Route path="/portal" element={<Navigate to="/portal/login" replace />} />
                   <Route path="/portal/login" element={<PortalLogin />} />
