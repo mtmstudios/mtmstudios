@@ -433,19 +433,19 @@ const VoiceKI = () => {
       </div>
 
       {/* ─── Floating Mobile CTA ─── */}
-      {!isFormVisible && (
-        <div
-          className="fixed bottom-0 left-0 right-0 z-50 p-4 md:hidden"
-          style={{ backgroundColor: "rgba(0,0,0,0.92)", backdropFilter: "blur(12px)", borderTop: "1px solid rgba(255,255,255,0.06)" }}
+      <div
+        className={`fixed bottom-0 left-0 right-0 z-50 p-3 md:hidden transition-all duration-500 ${
+          pastHero && !isFormVisible ? "translate-y-0 opacity-100" : "translate-y-full opacity-0 pointer-events-none"
+        }`}
+        style={{ backgroundColor: "rgba(0,0,0,0.8)", backdropFilter: "blur(12px)", borderTop: "1px solid rgba(255,255,255,0.06)" }}
+      >
+        <button
+          onClick={scrollToForm}
+          className="w-full py-3 rounded-full font-medium text-sm bg-accent/90 text-accent-foreground hover:bg-accent active:scale-[0.98] flex items-center justify-center gap-2 transition-colors"
         >
-          <button
-            onClick={scrollToForm}
-            className="w-full py-3.5 rounded-full font-semibold text-sm bg-accent text-accent-foreground hover:bg-accent/90 active:scale-[0.98] flex items-center justify-center gap-2"
-          >
-            Demo anfragen
-          </button>
-        </div>
-      )}
+          Demo anfragen
+        </button>
+      </div>
     </div>
   );
 };
