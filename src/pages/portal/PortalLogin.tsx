@@ -21,7 +21,16 @@ export default function PortalLogin() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (!authLoading && session) navigate("/portal/dashboard", { replace: true });
+    if (!authLoading && session) {
+      // Preserve intended destination — only redirect to dashboard if coming from login directly
+      const intended = sessionStorage.getItem("portal_redirect");
+      if (intended) {
+        sessionStorage.removeItem("portal_redirect");
+        navigate(intended, { replace: true });
+      } else {
+        navigate("/portal/dashboard", { replace: true });
+      }
+    }
   }, [session, authLoading, navigate]);
 
   async function handleSubmit(e: React.FormEvent) {

@@ -10,6 +10,8 @@ import {
   RefreshCw,
   ArrowLeft,
   Info,
+  Building2,
+  ChevronDown,
 } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/contexts/AuthContext";
@@ -18,6 +20,7 @@ import PortalLayout from "@/components/portal/PortalLayout";
 /* ---------- Types ---------- */
 interface Conversation {
   id: string;
+  customer_id: string;
   source: string;
   status: "open" | "in_progress" | "done";
   subject: string | null;
@@ -34,6 +37,12 @@ interface Message {
   sender: "visitor" | "bot" | "agent";
   content: string;
   created_at: string;
+}
+
+interface CustomerOption {
+  id: string;
+  name: string | null;
+  company: string | null;
 }
 
 /* ---------- Constants ---------- */
@@ -66,11 +75,33 @@ export default function InboxPage() {
   const [sending, setSending] = useState(false);
   const [sendError, setSendError] = useState<string | null>(null);
   const [showInfo, setShowInfo] = useState(false);
+
+  // Customer filter (admin only)
+  const [customers, setCustomers] = useState<CustomerOption[]>([]);
+  const [customerFilter, setCustomerFilter] = useState<string | null>(null);
+  const [customerDropdownOpen, setCustomerDropdownOpen] = useState(false);
+
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // Close dropdown on outside click
+  useEffect(() => {
+    function handleOutsideClick(e: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setCustomerDropdownOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => document.removeEventListener("mousedown", handleOutsideClick);
+  }, []);
 
   useEffect(() => {
     if (profile !== undefined) loadConversations();
-  }, [filter, profile?.id]);
+  }, [filter, profile?.id, customerFilter]);
+
+  useEffect(() => {
+    if (profile?.is_admin) loadCustomers();
+  }, [profile?.is_admin]);
 
   useEffect(() => {
     if (selected) loadMessages(selected.id);
@@ -94,6 +125,14 @@ export default function InboxPage() {
     return () => { (supabase as any).removeChannel(channel); };
   }, [selected?.id]);
 
+  async function loadCustomers() {
+    const { data } = await (supabase.from("profiles") as any)
+      .select("id, name, company")
+      .eq("is_admin", false)
+      .order("company", { ascending: true });
+    setCustomers(data ?? []);
+  }
+
   async function loadConversations() {
     setLoading(true);
     let query = (supabase.from("conversations") as any)
@@ -103,6 +142,10 @@ export default function InboxPage() {
     // Non-admins only see their own conversations
     if (profile && !profile.is_admin) {
       query = query.eq("customer_id", profile.id);
+    }
+    // Admin customer filter
+    if (profile?.is_admin && customerFilter) {
+      query = query.eq("customer_id", customerFilter);
     }
     const { data, error } = await query;
     if (error) console.error("[InboxPage] loadConversations error:", error.message);
@@ -154,13 +197,25 @@ export default function InboxPage() {
     setConversations((prev) => prev.map((c) => (c.id === selected.id ? updated : c)));
   }
 
+  // Helper: get customer label from id
+  function getCustomerLabel(id: string | null): string {
+    if (!id) return "Unbekannt";
+    const c = customers.find((c) => c.id === id);
+    if (!c) return "Unbekannt";
+    return c.company ?? c.name ?? "Unbekannt";
+  }
+
+  // Selected customer label
+  const selectedCustomerLabel = customerFilter ? getCustomerLabel(customerFilter) : null;
+
   const filtered = conversations.filter((c) => {
     if (!search) return true;
     const q = search.toLowerCase();
     return (
       c.visitor_name?.toLowerCase().includes(q) ||
       c.visitor_email?.toLowerCase().includes(q) ||
-      c.subject?.toLowerCase().includes(q)
+      c.subject?.toLowerCase().includes(q) ||
+      getCustomerLabel(c.customer_id).toLowerCase().includes(q)
     );
   });
 
@@ -193,6 +248,57 @@ export default function InboxPage() {
                 <RefreshCw size={13} />
               </button>
             </div>
+
+            {/* Customer filter (admin only) */}
+            {profile?.is_admin && customers.length > 0 && (
+              <div className="relative mb-3" ref={dropdownRef}>
+                <button
+                  onClick={() => setCustomerDropdownOpen((v) => !v)}
+                  className={`w-full flex items-center gap-2 px-3 py-2 rounded-lg border text-xs transition-colors ${
+                    customerFilter
+                      ? "bg-[#00E5C0]/10 border-[#00E5C0]/30 text-[#00E5C0]"
+                      : "bg-black border-white/[0.06] text-[#9CA3AF] hover:text-white"
+                  }`}
+                >
+                  <Building2 size={12} className="shrink-0" />
+                  <span className="flex-1 text-left truncate">
+                    {selectedCustomerLabel ?? "Alle Kunden"}
+                  </span>
+                  <ChevronDown
+                    size={12}
+                    className={`shrink-0 transition-transform ${customerDropdownOpen ? "rotate-180" : ""}`}
+                  />
+                </button>
+
+                {customerDropdownOpen && (
+                  <div className="absolute top-full left-0 right-0 mt-1 bg-[#161616] border border-white/[0.08] rounded-lg shadow-xl z-20 overflow-hidden">
+                    <button
+                      onClick={() => { setCustomerFilter(null); setCustomerDropdownOpen(false); }}
+                      className={`w-full text-left px-3 py-2.5 text-xs transition-colors ${
+                        !customerFilter
+                          ? "text-[#00E5C0] bg-[#00E5C0]/10"
+                          : "text-[#9CA3AF] hover:text-white hover:bg-white/[0.04]"
+                      }`}
+                    >
+                      Alle Kunden
+                    </button>
+                    {customers.map((c) => (
+                      <button
+                        key={c.id}
+                        onClick={() => { setCustomerFilter(c.id); setCustomerDropdownOpen(false); }}
+                        className={`w-full text-left px-3 py-2.5 text-xs transition-colors ${
+                          customerFilter === c.id
+                            ? "text-[#00E5C0] bg-[#00E5C0]/10"
+                            : "text-[#9CA3AF] hover:text-white hover:bg-white/[0.04]"
+                        }`}
+                      >
+                        {c.company ?? c.name ?? "Unbekannt"}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
 
             {/* Search */}
             <div className="relative mb-3">
@@ -264,7 +370,7 @@ export default function InboxPage() {
                   <p className="text-xs text-[#9CA3AF] truncate mb-2 leading-snug">
                     {conv.subject ?? "Neue Anfrage"}
                   </p>
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 flex-wrap">
                     <span
                       className={`flex items-center gap-1.5 text-[10px] font-semibold px-2 py-0.5 rounded-full ${STATUS_CONFIG[conv.status].color}`}
                     >
@@ -272,6 +378,12 @@ export default function InboxPage() {
                       {STATUS_CONFIG[conv.status].label}
                     </span>
                     <span className="text-[10px] text-[#4B5563] capitalize">{conv.source}</span>
+                    {/* Customer badge — only shown to admin when not filtered to one customer */}
+                    {profile?.is_admin && !customerFilter && (
+                      <span className="ml-auto text-[10px] text-[#4B5563] bg-white/[0.04] px-2 py-0.5 rounded-full truncate max-w-[100px]">
+                        {getCustomerLabel(conv.customer_id)}
+                      </span>
+                    )}
                   </div>
                 </button>
               ))
@@ -295,7 +407,12 @@ export default function InboxPage() {
                 </button>
                 <div className="flex-1 min-w-0">
                   <h2 className="text-sm font-semibold text-white truncate">{selected.visitor_name ?? "Unbekannt"}</h2>
-                  <p className="text-xs text-[#4B5563] truncate">{selected.subject ?? "Anfrage"}</p>
+                  <p className="text-xs text-[#4B5563] truncate">
+                    {selected.subject ?? "Anfrage"}
+                    {profile?.is_admin && (
+                      <span className="ml-2 text-[#4B5563]">· {getCustomerLabel(selected.customer_id)}</span>
+                    )}
+                  </p>
                 </div>
                 <div className="flex items-center gap-1.5 shrink-0">
                   {/* Info toggle — mobile only */}
@@ -485,6 +602,17 @@ export default function InboxPage() {
                 </div>
               </div>
             </div>
+
+            {/* Customer info — admin only */}
+            {profile?.is_admin && (
+              <div className="px-4 py-4 border-b border-white/[0.06]">
+                <p className="text-[10px] font-semibold text-[#4B5563] uppercase tracking-widest mb-2">Kunde</p>
+                <div className="flex items-center gap-2">
+                  <Building2 size={13} className="text-[#4B5563] shrink-0" />
+                  <span className="text-xs text-[#9CA3AF]">{getCustomerLabel(selected.customer_id)}</span>
+                </div>
+              </div>
+            )}
 
             {/* Status */}
             <div className="px-4 py-4 border-b border-white/[0.06]">
