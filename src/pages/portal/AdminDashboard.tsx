@@ -56,7 +56,7 @@ export default function AdminDashboard() {
       profiles.map(async (profile: Profile) => {
         const { data: stats } = await (supabase
           .from("call_stats") as any)
-          .select("total_calls, answered_calls, cost_eur")
+          .select("total_calls, answered_calls, duration_seconds")
           .eq("customer_id", profile.id);
 
         const { count } = await (supabase
@@ -67,7 +67,8 @@ export default function AdminDashboard() {
 
         const totalCalls = stats?.reduce((s: number, r: any) => s + r.total_calls, 0) ?? 0;
         const answeredCalls = stats?.reduce((s: number, r: any) => s + r.answered_calls, 0) ?? 0;
-        const totalCostEur = stats?.reduce((s: number, r: any) => s + r.cost_eur, 0) ?? 0;
+        const COST_PER_MIN = 0.15;
+        const totalCostEur = stats?.reduce((s: number, r: any) => s + (r.duration_seconds / 60) * COST_PER_MIN, 0) ?? 0;
 
         return {
           profile,

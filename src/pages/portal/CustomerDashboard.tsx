@@ -66,10 +66,13 @@ export default function CustomerDashboard() {
     setErrors((prev) => prev.map((e) => (e.id === id ? { ...e, status: "resolved" as const } : e)));
   }
 
+  // Cost rate: €0.15 per minute
+  const COST_PER_MIN = 0.15;
+
   // Aggregates
   const totalCalls = stats.reduce((s, r) => s + r.total_calls, 0);
   const answeredCalls = stats.reduce((s, r) => s + r.answered_calls, 0);
-  const totalCost = stats.reduce((s, r) => s + r.cost_eur, 0);
+  const totalCost = stats.reduce((s, r) => s + (r.duration_seconds / 60) * COST_PER_MIN, 0);
   const openErrors = errors.filter((e) => e.status === "open").length;
 
   // Chart data — last 14 days, reversed for chronological display
@@ -231,7 +234,7 @@ export default function CustomerDashboard() {
                     <td className={`py-3 pr-4 ${tableCellMuted}`}>
                       {Math.floor(row.duration_seconds / 60)}m {row.duration_seconds % 60}s
                     </td>
-                    <td className={`py-3 pr-4 lg:pr-0 ${tableCellMuted}`}>€{row.cost_eur.toFixed(4)}</td>
+                    <td className={`py-3 pr-4 lg:pr-0 ${tableCellMuted}`}>€{((row.duration_seconds / 60) * COST_PER_MIN).toFixed(2)}</td>
                   </tr>
                 ))}
               </tbody>

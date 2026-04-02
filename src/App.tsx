@@ -2,7 +2,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { ContactFunnelProvider } from "@/contexts/ContactFunnelContext";
 import { CookieConsentProvider } from "@/contexts/CookieConsentContext";
 import { AccessibilityProvider } from "@/contexts/AccessibilityContext";
@@ -39,6 +39,19 @@ import InboxPage from "./pages/portal/InboxPage";
 
 const queryClient = new QueryClient();
 
+// Hide public-only widgets (Accessibility, CookieBanner, ContactFunnel) inside the portal
+function PublicWidgets() {
+  const { pathname } = useLocation();
+  if (pathname.startsWith("/portal")) return null;
+  return (
+    <>
+      <ContactFunnel />
+      <CookieBanner />
+      <AccessibilityWidget />
+    </>
+  );
+}
+
 // Admins see AdminDashboard, customers see CustomerDashboard
 function DashboardRouter() {
   const { profile } = useAuth();
@@ -57,9 +70,7 @@ const App = () => (
             <AuthProvider>
               <BrowserRouter>
                 <ScrollToTop />
-                <ContactFunnel />
-                <CookieBanner />
-                <AccessibilityWidget />
+                <PublicWidgets />
                 <a
                   href="#main"
                   className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[200] focus:px-4 focus:py-2 focus:rounded-lg focus:bg-accent focus:text-accent-foreground focus:text-sm focus:font-medium focus:shadow-lg"
