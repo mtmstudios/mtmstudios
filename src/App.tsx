@@ -29,6 +29,7 @@ import RegionalPage from "./components/regional/RegionalPage";
 import KeywordPage from "./components/keyword/KeywordPage";
 import ScrollToTop from "./components/ScrollToTop";
 import { AuthProvider } from "./contexts/AuthContext";
+import { useAuth } from "./contexts/AuthContext";
 import ProtectedRoute from "./components/portal/ProtectedRoute";
 import PortalLogin from "./pages/portal/PortalLogin";
 import CustomerDashboard from "./pages/portal/CustomerDashboard";
@@ -36,6 +37,12 @@ import AdminDashboard from "./pages/portal/AdminDashboard";
 import InboxPage from "./pages/portal/InboxPage";
 
 const queryClient = new QueryClient();
+
+// Admins see AdminDashboard, customers see CustomerDashboard
+function DashboardRouter() {
+  const { profile } = useAuth();
+  return profile?.is_admin ? <AdminDashboard /> : <CustomerDashboard />;
+}
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -88,7 +95,7 @@ const App = () => (
                   {/* Portal routes */}
                   <Route path="/portal" element={<Navigate to="/portal/login" replace />} />
                   <Route path="/portal/login" element={<PortalLogin />} />
-                  <Route path="/portal/dashboard" element={<ProtectedRoute><CustomerDashboard /></ProtectedRoute>} />
+                  <Route path="/portal/dashboard" element={<ProtectedRoute><DashboardRouter /></ProtectedRoute>} />
                   <Route path="/portal/inbox" element={<ProtectedRoute><InboxPage /></ProtectedRoute>} />
                   <Route path="/portal/admin" element={<ProtectedRoute adminOnly><AdminDashboard /></ProtectedRoute>} />
                   {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
