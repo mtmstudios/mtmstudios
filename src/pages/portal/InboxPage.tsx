@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/contexts/AuthContext";
+import { useTheme } from "@/contexts/ThemeContext";
 import PortalLayout from "@/components/portal/PortalLayout";
 
 /* ---------- Types ---------- */
@@ -49,7 +50,7 @@ interface CustomerOption {
 const STATUS_CONFIG = {
   open: { label: "Offen", color: "text-[#00E5C0] bg-[#00E5C0]/10", dot: "bg-[#00E5C0]" },
   in_progress: { label: "Bearbeitet", color: "text-yellow-400 bg-yellow-400/10", dot: "bg-yellow-400" },
-  done: { label: "Erledigt", color: "text-[#4B5563] bg-white/[0.04]", dot: "bg-[#4B5563]" },
+  done: { label: "Erledigt", color: "text-slate-400 bg-slate-400/10", dot: "bg-slate-400" },
 };
 
 const QUICK_REPLIES = [
@@ -65,6 +66,9 @@ const QUICK_REPLIES = [
 /* ---------- Component ---------- */
 export default function InboxPage() {
   const { profile } = useAuth();
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
+
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [selected, setSelected] = useState<Conversation | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
@@ -139,11 +143,9 @@ export default function InboxPage() {
       .select("*")
       .order("last_message_at", { ascending: false });
     if (filter !== "all") query = query.eq("status", filter);
-    // Non-admins only see their own conversations
     if (profile && !profile.is_admin) {
       query = query.eq("customer_id", profile.id);
     }
-    // Admin customer filter
     if (profile?.is_admin && customerFilter) {
       query = query.eq("customer_id", customerFilter);
     }
@@ -197,7 +199,6 @@ export default function InboxPage() {
     setConversations((prev) => prev.map((c) => (c.id === selected.id ? updated : c)));
   }
 
-  // Helper: get customer label from id
   function getCustomerLabel(id: string | null): string {
     if (!id) return "Unbekannt";
     const c = customers.find((c) => c.id === id);
@@ -205,7 +206,6 @@ export default function InboxPage() {
     return c.company ?? c.name ?? "Unbekannt";
   }
 
-  // Selected customer label
   const selectedCustomerLabel = customerFilter ? getCustomerLabel(customerFilter) : null;
 
   const filtered = conversations.filter((c) => {
@@ -221,28 +221,102 @@ export default function InboxPage() {
 
   const openCount = conversations.filter((c) => c.status === "open").length;
 
+  // ── Theme tokens ──────────────────────────────────────────────────────────
+  const panelBg = isDark ? "bg-[#0A0A0F]" : "bg-white";
+  const panelBorder = isDark ? "border-white/[0.06]" : "border-slate-200/80";
+  const chatBg = isDark ? "bg-[#050508]" : "bg-slate-50";
+  const headingText = isDark ? "text-white" : "text-slate-900";
+  const mutedText = isDark ? "text-slate-600" : "text-slate-400";
+  const subText = isDark ? "text-slate-400" : "text-slate-500";
+  const accentText = isDark ? "text-[#00E5C0]" : "text-teal-600";
+  const accentBadgeBg = isDark ? "bg-[#00E5C0]/10 text-[#00E5C0]" : "bg-teal-500/10 text-teal-600";
+  const refreshBtn = isDark ? "text-slate-600 hover:text-slate-400" : "text-slate-400 hover:text-slate-600";
+  const spinnerColor = isDark ? "border-[#00E5C0]" : "border-teal-500";
+
+  const searchInput = isDark
+    ? "bg-[#050508] border-white/[0.06] text-white placeholder:text-slate-700 focus:border-[#00E5C0]/50"
+    : "bg-slate-50 border-slate-200 text-slate-900 placeholder:text-slate-400 focus:border-teal-500/50";
+  const filterPillActive = isDark ? "bg-[#00E5C0]/10 text-[#00E5C0]" : "bg-teal-500/10 text-teal-600";
+  const filterPillDefault = isDark ? "text-slate-600 hover:text-slate-400" : "text-slate-400 hover:text-slate-600";
+
+  const customerDropBtn = (active: boolean) => active
+    ? isDark ? "bg-[#00E5C0]/10 border-[#00E5C0]/30 text-[#00E5C0]" : "bg-teal-500/10 border-teal-500/30 text-teal-600"
+    : isDark ? "bg-[#050508] border-white/[0.06] text-slate-400 hover:text-white" : "bg-white border-slate-200 text-slate-500 hover:text-slate-900";
+  const dropdownMenuBg = isDark ? "bg-[#161620] border-white/[0.08]" : "bg-white border-slate-200 shadow-xl";
+  const dropItemActive = isDark ? "text-[#00E5C0] bg-[#00E5C0]/10" : "text-teal-600 bg-teal-500/10";
+  const dropItemDefault = isDark ? "text-slate-400 hover:text-white hover:bg-white/[0.04]" : "text-slate-500 hover:text-slate-900 hover:bg-slate-50";
+
+  const convItemBase = isDark ? "border-b border-white/[0.04] hover:bg-white/[0.02]" : "border-b border-slate-100 hover:bg-slate-50";
+  const convItemActive = isDark ? "bg-[#00E5C0]/[0.04] border-l-[#00E5C0]" : "bg-teal-500/[0.04] border-l-teal-500";
+  const convNameText = isDark ? "text-white" : "text-slate-900";
+  const convSubText = isDark ? "text-slate-400" : "text-slate-500";
+  const convTimeText = isDark ? "text-slate-600" : "text-slate-400";
+  const convSourceText = isDark ? "text-slate-600" : "text-slate-400";
+  const adminBadge = isDark ? "text-slate-600 bg-white/[0.04]" : "text-slate-400 bg-slate-100";
+
+  const chatHeaderBg = isDark ? "bg-[#0A0A0F]" : "bg-white";
+  const chatBackBtn = isDark ? "text-slate-400 hover:text-white" : "text-slate-500 hover:text-slate-900";
+  const chatTitleText = isDark ? "text-white" : "text-slate-900";
+  const chatSubText = isDark ? "text-slate-600" : "text-slate-400";
+  const infoToggleActive = isDark ? "text-[#00E5C0] bg-[#00E5C0]/10" : "text-teal-600 bg-teal-500/10";
+  const infoToggleDefault = isDark ? "text-slate-600 hover:text-slate-400" : "text-slate-400 hover:text-slate-600";
+  const statusBtnActive = (s: string) => STATUS_CONFIG[s as keyof typeof STATUS_CONFIG].color;
+  const statusBtnDefault = isDark
+    ? "text-slate-600 hover:text-slate-400 bg-white/[0.03] border border-white/[0.06]"
+    : "text-slate-400 hover:text-slate-600 bg-slate-50 border border-slate-200";
+
+  const msgEmptyText = isDark ? "text-slate-600" : "text-slate-400";
+  const msgBotBg = isDark ? "bg-[#0E0E16] text-slate-400 border-white/[0.06]" : "bg-slate-100 text-slate-600 border-slate-200/80";
+  const msgVisitorBg = isDark ? "bg-[#161620] text-white border-white/[0.06]" : "bg-white text-slate-900 border-slate-200/80";
+  const msgAgentBg = isDark ? "bg-[#00E5C0]/10 text-white border-[#00E5C0]/20" : "bg-teal-500/10 text-slate-900 border-teal-500/20";
+  const msgSenderLabel = isDark ? "text-slate-600" : "text-slate-400";
+  const msgAgentTime = isDark ? "text-[#00E5C0]/50" : "text-teal-500/60";
+  const msgDefaultTime = isDark ? "text-slate-600" : "text-slate-400";
+
+  const quickReplyStrip = isDark ? "border-white/[0.04]" : "border-slate-100";
+  const quickReplyBtn = isDark
+    ? "bg-white/[0.03] text-slate-400 hover:text-white hover:bg-white/[0.07] border-white/[0.06]"
+    : "bg-white text-slate-500 hover:text-slate-900 hover:bg-slate-50 border-slate-200";
+
+  const inputAreaBg = isDark ? "bg-[#0A0A0F]" : "bg-white";
+  const textareaClass = isDark
+    ? "bg-[#050508] border-white/[0.08] text-white placeholder:text-slate-700 focus:border-[#00E5C0]/50"
+    : "bg-white border-slate-200 text-slate-900 placeholder:text-slate-400 focus:border-teal-500/50";
+  const sendBtnActive = isDark ? "bg-[#00E5C0] hover:bg-[#00cdb0] text-black" : "bg-teal-500 hover:bg-teal-600 text-white";
+
+  const infoPanelBg = isDark ? "bg-[#0A0A0F]" : "bg-white";
+  const infoLabelText = isDark ? "text-slate-600" : "text-slate-400";
+  const infoAvatarBg = isDark ? "bg-[#00E5C0]/10 text-[#00E5C0] border-[#00E5C0]/20" : "bg-teal-500/10 text-teal-600 border-teal-500/20";
+  const infoCloseBtnText = isDark ? "text-slate-600 hover:text-white" : "text-slate-400 hover:text-slate-900";
+  const infoLinkHover = isDark ? "group-hover:text-[#00E5C0]" : "group-hover:text-teal-600";
+  const infoIconColor = isDark ? "text-slate-600" : "text-slate-400";
+  const infoTextColor = isDark ? "text-slate-400" : "text-slate-500";
+  const quickReplyListBtn = isDark
+    ? "bg-[#050508] border-white/[0.06] text-slate-400 hover:text-white hover:border-[#00E5C0]/30"
+    : "bg-white border-slate-200 text-slate-500 hover:text-slate-900 hover:border-teal-500/30";
+  const emptyIcon = isDark ? "bg-[#00E5C0]/10 border-[#00E5C0]/20" : "bg-teal-500/10 border-teal-500/20";
+
   return (
     <PortalLayout>
-      {/* Full-height three-column layout — mobile: single column (list OR chat) */}
       <div className="relative flex h-[calc(100vh-4rem)] lg:h-[calc(100vh-2rem)] -m-6 lg:-m-8 overflow-hidden rounded-none">
 
-        {/* ── Column 1: Conversation List — hidden on mobile when chat open ── */}
-        <div className={`${selected ? "hidden lg:flex" : "flex"} w-full lg:w-72 xl:w-80 flex-shrink-0 border-r border-white/[0.06] flex-col bg-[#0E0E0E]`}>
+        {/* ── Column 1: Conversation List ── */}
+        <div className={`${selected ? "hidden lg:flex" : "flex"} w-full lg:w-72 xl:w-80 flex-shrink-0 border-r ${panelBorder} flex-col ${panelBg}`}>
           {/* Header */}
-          <div className="px-4 pt-4 pb-3 border-b border-white/[0.06]">
+          <div className={`px-4 pt-4 pb-3 border-b ${panelBorder}`}>
             <div className="flex items-center justify-between mb-3">
-              <h1 className="text-sm font-semibold text-white flex items-center gap-2">
-                <MessageSquare size={15} className="text-[#00E5C0]" />
+              <h1 className={`text-sm font-semibold ${headingText} flex items-center gap-2`}>
+                <MessageSquare size={15} className={accentText} />
                 Nachrichten
                 {openCount > 0 && (
-                  <span className="text-[10px] bg-[#00E5C0]/10 text-[#00E5C0] px-1.5 py-0.5 rounded-full font-bold">
+                  <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-bold ${accentBadgeBg}`}>
                     {openCount}
                   </span>
                 )}
               </h1>
               <button
                 onClick={loadConversations}
-                className="text-[#4B5563] hover:text-[#9CA3AF] transition-colors"
+                className={`transition-colors cursor-pointer ${refreshBtn}`}
                 title="Aktualisieren"
               >
                 <RefreshCw size={13} />
@@ -254,11 +328,7 @@ export default function InboxPage() {
               <div className="relative mb-3" ref={dropdownRef}>
                 <button
                   onClick={() => setCustomerDropdownOpen((v) => !v)}
-                  className={`w-full flex items-center gap-2 px-3 py-2 rounded-lg border text-xs transition-colors ${
-                    customerFilter
-                      ? "bg-[#00E5C0]/10 border-[#00E5C0]/30 text-[#00E5C0]"
-                      : "bg-black border-white/[0.06] text-[#9CA3AF] hover:text-white"
-                  }`}
+                  className={`w-full flex items-center gap-2 px-3 py-2 rounded-xl border text-xs transition-colors cursor-pointer ${customerDropBtn(!!customerFilter)}`}
                 >
                   <Building2 size={12} className="shrink-0" />
                   <span className="flex-1 text-left truncate">
@@ -271,14 +341,10 @@ export default function InboxPage() {
                 </button>
 
                 {customerDropdownOpen && (
-                  <div className="absolute top-full left-0 right-0 mt-1 bg-[#161616] border border-white/[0.08] rounded-lg shadow-xl z-20 overflow-hidden">
+                  <div className={`absolute top-full left-0 right-0 mt-1 rounded-xl border shadow-xl z-20 overflow-hidden ${dropdownMenuBg}`}>
                     <button
                       onClick={() => { setCustomerFilter(null); setCustomerDropdownOpen(false); }}
-                      className={`w-full text-left px-3 py-2.5 text-xs transition-colors ${
-                        !customerFilter
-                          ? "text-[#00E5C0] bg-[#00E5C0]/10"
-                          : "text-[#9CA3AF] hover:text-white hover:bg-white/[0.04]"
-                      }`}
+                      className={`w-full text-left px-3 py-2.5 text-xs transition-colors cursor-pointer ${!customerFilter ? dropItemActive : dropItemDefault}`}
                     >
                       Alle Kunden
                     </button>
@@ -286,11 +352,7 @@ export default function InboxPage() {
                       <button
                         key={c.id}
                         onClick={() => { setCustomerFilter(c.id); setCustomerDropdownOpen(false); }}
-                        className={`w-full text-left px-3 py-2.5 text-xs transition-colors ${
-                          customerFilter === c.id
-                            ? "text-[#00E5C0] bg-[#00E5C0]/10"
-                            : "text-[#9CA3AF] hover:text-white hover:bg-white/[0.04]"
-                        }`}
+                        className={`w-full text-left px-3 py-2.5 text-xs transition-colors cursor-pointer ${customerFilter === c.id ? dropItemActive : dropItemDefault}`}
                       >
                         {c.company ?? c.name ?? "Unbekannt"}
                       </button>
@@ -302,12 +364,12 @@ export default function InboxPage() {
 
             {/* Search */}
             <div className="relative mb-3">
-              <Search size={12} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#4B5563]" />
+              <Search size={12} className={`absolute left-3 top-1/2 -translate-y-1/2 ${mutedText}`} />
               <input
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Suchen..."
-                className="w-full pl-8 pr-3 py-2 bg-black border border-white/[0.06] rounded-lg text-xs text-white placeholder:text-[#4B5563] focus:outline-none focus:border-[#00E5C0]/50 transition-colors"
+                className={`w-full pl-8 pr-3 py-2 rounded-xl text-xs border transition-colors focus:outline-none ${searchInput}`}
               />
             </div>
 
@@ -317,10 +379,8 @@ export default function InboxPage() {
                 <button
                   key={f}
                   onClick={() => setFilter(f)}
-                  className={`flex-1 text-[11px] py-1.5 rounded-lg font-medium transition-colors ${
-                    filter === f
-                      ? "bg-[#00E5C0]/10 text-[#00E5C0]"
-                      : "text-[#4B5563] hover:text-[#9CA3AF]"
+                  className={`flex-1 text-[11px] py-1.5 rounded-lg font-medium transition-colors cursor-pointer ${
+                    filter === f ? filterPillActive : filterPillDefault
                   }`}
                 >
                   {f === "all" ? "Alle" : f === "open" ? "Offen" : f === "in_progress" ? "Bearb." : "Erl."}
@@ -332,28 +392,28 @@ export default function InboxPage() {
           {/* List */}
           <div className="flex-1 overflow-y-auto">
             {loading ? (
-              <div className="p-6 text-center text-xs text-[#4B5563]">Lade...</div>
+              <div className={`p-6 text-center text-xs ${mutedText}`}>Lade...</div>
             ) : filtered.length === 0 ? (
               <div className="p-8 text-center flex flex-col items-center gap-2">
-                <MessageSquare size={28} className="text-[#4B5563]" />
-                <p className="text-xs text-[#4B5563]">Keine Konversationen</p>
+                <MessageSquare size={28} className={mutedText} />
+                <p className={`text-xs ${mutedText}`}>Keine Konversationen</p>
               </div>
             ) : (
               filtered.map((conv) => (
                 <button
                   key={conv.id}
                   onClick={() => setSelected(conv)}
-                  className={`w-full text-left px-4 py-3.5 border-b border-white/[0.04] transition-all hover:bg-white/[0.02] ${
+                  className={`w-full text-left px-4 py-3.5 transition-all cursor-pointer ${convItemBase} ${
                     selected?.id === conv.id
-                      ? "bg-[#00E5C0]/[0.04] border-l-2 border-l-[#00E5C0]"
+                      ? `${convItemActive} border-l-2`
                       : "border-l-2 border-l-transparent"
                   }`}
                 >
                   <div className="flex items-start justify-between gap-2 mb-0.5">
-                    <span className="text-sm font-medium text-white truncate leading-tight">
+                    <span className={`text-sm font-medium ${convNameText} truncate leading-tight`}>
                       {conv.visitor_name ?? "Unbekannt"}
                     </span>
-                    <span className="text-[10px] text-[#4B5563] shrink-0 mt-0.5">
+                    <span className={`text-[10px] ${convTimeText} shrink-0 mt-0.5`}>
                       {(() => {
                         const d = new Date(conv.last_message_at);
                         const today = new Date();
@@ -367,20 +427,17 @@ export default function InboxPage() {
                       })()}
                     </span>
                   </div>
-                  <p className="text-xs text-[#9CA3AF] truncate mb-2 leading-snug">
+                  <p className={`text-xs ${convSubText} truncate mb-2 leading-snug`}>
                     {conv.subject ?? "Neue Anfrage"}
                   </p>
                   <div className="flex items-center gap-2 flex-wrap">
-                    <span
-                      className={`flex items-center gap-1.5 text-[10px] font-semibold px-2 py-0.5 rounded-full ${STATUS_CONFIG[conv.status].color}`}
-                    >
+                    <span className={`flex items-center gap-1.5 text-[10px] font-semibold px-2 py-0.5 rounded-full ${STATUS_CONFIG[conv.status].color}`}>
                       <span className={`w-1.5 h-1.5 rounded-full ${STATUS_CONFIG[conv.status].dot}`} />
                       {STATUS_CONFIG[conv.status].label}
                     </span>
-                    <span className="text-[10px] text-[#4B5563] capitalize">{conv.source}</span>
-                    {/* Customer badge — only shown to admin when not filtered to one customer */}
+                    <span className={`text-[10px] ${convSourceText} capitalize`}>{conv.source}</span>
                     {profile?.is_admin && !customerFilter && (
-                      <span className="ml-auto text-[10px] text-[#4B5563] bg-white/[0.04] px-2 py-0.5 rounded-full truncate max-w-[100px]">
+                      <span className={`ml-auto text-[10px] px-2 py-0.5 rounded-full truncate max-w-[100px] ${adminBadge}`}>
                         {getCustomerLabel(conv.customer_id)}
                       </span>
                     )}
@@ -391,47 +448,42 @@ export default function InboxPage() {
           </div>
         </div>
 
-        {/* ── Column 2: Chat Area — hidden on mobile when no chat selected ── */}
-        <div className={`${!selected ? "hidden lg:flex" : "flex"} flex-1 flex-col bg-black min-w-0`}>
+        {/* ── Column 2: Chat Area ── */}
+        <div className={`${!selected ? "hidden lg:flex" : "flex"} flex-1 flex-col ${chatBg} min-w-0`}>
           {selected ? (
             <>
               {/* Chat Header */}
-              <div className="px-3 lg:px-5 py-3.5 border-b border-white/[0.06] flex items-center gap-2 justify-between bg-[#0E0E0E] shrink-0">
-                {/* Back button — mobile only */}
+              <div className={`px-3 lg:px-5 py-3.5 border-b ${panelBorder} flex items-center gap-2 justify-between ${chatHeaderBg} shrink-0`}>
                 <button
                   onClick={() => { setSelected(null); setShowInfo(false); }}
-                  className="lg:hidden text-[#9CA3AF] hover:text-white p-1 -ml-1 shrink-0"
+                  className={`lg:hidden p-1 -ml-1 shrink-0 cursor-pointer ${chatBackBtn}`}
                   aria-label="Zurück"
                 >
                   <ArrowLeft size={18} />
                 </button>
                 <div className="flex-1 min-w-0">
-                  <h2 className="text-sm font-semibold text-white truncate">{selected.visitor_name ?? "Unbekannt"}</h2>
-                  <p className="text-xs text-[#4B5563] truncate">
+                  <h2 className={`text-sm font-semibold ${chatTitleText} truncate`}>{selected.visitor_name ?? "Unbekannt"}</h2>
+                  <p className={`text-xs ${chatSubText} truncate`}>
                     {selected.subject ?? "Anfrage"}
                     {profile?.is_admin && (
-                      <span className="ml-2 text-[#4B5563]">· {getCustomerLabel(selected.customer_id)}</span>
+                      <span className={`ml-2 ${chatSubText}`}>· {getCustomerLabel(selected.customer_id)}</span>
                     )}
                   </p>
                 </div>
                 <div className="flex items-center gap-1.5 shrink-0">
-                  {/* Info toggle — mobile only */}
                   <button
                     onClick={() => setShowInfo((v) => !v)}
-                    className={`lg:hidden p-1.5 rounded-lg transition-colors ${showInfo ? "text-[#00E5C0] bg-[#00E5C0]/10" : "text-[#4B5563] hover:text-[#9CA3AF]"}`}
+                    className={`lg:hidden p-1.5 rounded-lg transition-colors cursor-pointer ${showInfo ? infoToggleActive : infoToggleDefault}`}
                     aria-label="Kontaktinfo"
                   >
                     <Info size={16} />
                   </button>
-                  {/* Status buttons — icon-only on mobile, label on desktop */}
                   {(["open", "in_progress", "done"] as const).map((s) => (
                     <button
                       key={s}
                       onClick={() => updateStatus(s)}
-                      className={`text-[11px] px-2 lg:px-3 py-1.5 rounded-lg font-medium transition-colors ${
-                        selected.status === s
-                          ? STATUS_CONFIG[s].color
-                          : "text-[#4B5563] hover:text-[#9CA3AF] bg-white/[0.03] border border-white/[0.06]"
+                      className={`text-[11px] px-2 lg:px-3 py-1.5 rounded-lg font-medium transition-colors cursor-pointer ${
+                        selected.status === s ? statusBtnActive(s) : statusBtnDefault
                       }`}
                     >
                       <span className="hidden lg:inline">{STATUS_CONFIG[s].label}</span>
@@ -444,7 +496,7 @@ export default function InboxPage() {
               {/* Messages */}
               <div className="flex-1 overflow-y-auto px-5 py-4 space-y-3">
                 {messages.length === 0 ? (
-                  <div className="text-center text-xs text-[#4B5563] mt-12">
+                  <div className={`text-center text-xs ${msgEmptyText} mt-12`}>
                     Noch keine Nachrichten in dieser Konversation.
                   </div>
                 ) : (
@@ -454,25 +506,21 @@ export default function InboxPage() {
                       className={`flex ${msg.sender === "agent" ? "justify-end" : "justify-start"}`}
                     >
                       <div
-                        className={`max-w-[72%] px-4 py-2.5 rounded-2xl text-sm ${
+                        className={`max-w-[72%] px-4 py-2.5 rounded-2xl text-sm border ${
                           msg.sender === "agent"
-                            ? "bg-[#00E5C0]/10 text-white border border-[#00E5C0]/20 rounded-br-sm"
+                            ? `${msgAgentBg} rounded-br-sm`
                             : msg.sender === "bot"
-                            ? "bg-[#161616] text-[#9CA3AF] border border-white/[0.06] rounded-bl-sm"
-                            : "bg-[#1a1a1a] text-white border border-white/[0.06] rounded-bl-sm"
+                            ? `${msgBotBg} rounded-bl-sm`
+                            : `${msgVisitorBg} rounded-bl-sm`
                         }`}
                       >
                         {msg.sender !== "agent" && (
-                          <p className="text-[10px] font-semibold tracking-wide uppercase mb-1 text-[#4B5563]">
+                          <p className={`text-[10px] font-semibold tracking-wide uppercase mb-1 ${msgSenderLabel}`}>
                             {msg.sender === "bot" ? "KI Assistent" : selected.visitor_name ?? "Besucher"}
                           </p>
                         )}
                         <p className="leading-relaxed">{msg.content}</p>
-                        <p
-                          className={`text-[10px] mt-1 ${
-                            msg.sender === "agent" ? "text-[#00E5C0]/50 text-right" : "text-[#4B5563]"
-                          }`}
-                        >
+                        <p className={`text-[10px] mt-1 ${msg.sender === "agent" ? `${msgAgentTime} text-right` : msgDefaultTime}`}>
                           {new Date(msg.created_at).toLocaleTimeString("de-DE", {
                             hour: "2-digit",
                             minute: "2-digit",
@@ -486,21 +534,21 @@ export default function InboxPage() {
               </div>
 
               {/* Quick Replies strip */}
-              <div className="px-5 py-2 flex gap-2 overflow-x-auto border-t border-white/[0.04] shrink-0">
+              <div className={`px-5 py-2 flex gap-2 overflow-x-auto border-t ${quickReplyStrip} shrink-0`}>
                 {QUICK_REPLIES.slice(0, 5).map((qr) => (
                   <button
                     key={qr}
                     onClick={() => setReply(qr)}
-                    className="shrink-0 flex items-center gap-1.5 text-[11px] px-3 py-1.5 rounded-full bg-white/[0.03] text-[#9CA3AF] hover:text-white hover:bg-white/[0.07] transition-colors border border-white/[0.06]"
+                    className={`shrink-0 flex items-center gap-1.5 text-[11px] px-3 py-1.5 rounded-full transition-colors border cursor-pointer ${quickReplyBtn}`}
                   >
-                    <Zap size={10} className="text-[#00E5C0]" />
+                    <Zap size={10} className={accentText} />
                     {qr}
                   </button>
                 ))}
               </div>
 
               {/* Input */}
-              <div className="px-5 py-3.5 border-t border-white/[0.06] bg-[#0E0E0E] shrink-0">
+              <div className={`px-5 py-3.5 border-t ${panelBorder} ${inputAreaBg} shrink-0`}>
                 {sendError && (
                   <p className="text-xs text-red-400 mb-2">{sendError}</p>
                 )}
@@ -516,12 +564,12 @@ export default function InboxPage() {
                     }}
                     placeholder="Nachricht schreiben... (Enter zum Senden)"
                     rows={2}
-                    className="flex-1 bg-black border border-white/[0.08] rounded-xl px-4 py-3 text-sm text-white placeholder:text-[#4B5563] focus:outline-none focus:border-[#00E5C0]/50 resize-none transition-colors"
+                    className={`flex-1 rounded-xl px-4 py-3 text-sm border transition-colors focus:outline-none resize-none ${textareaClass}`}
                   />
                   <button
                     onClick={sendReply}
                     disabled={!reply.trim() || sending}
-                    className="bg-[#00E5C0] hover:bg-[#00cdb0] disabled:opacity-30 disabled:cursor-not-allowed text-black p-3 rounded-xl transition-colors shrink-0"
+                    className={`disabled:opacity-30 disabled:cursor-not-allowed p-3 rounded-xl transition-colors shrink-0 cursor-pointer ${sendBtnActive}`}
                   >
                     <Send size={15} />
                   </button>
@@ -530,69 +578,63 @@ export default function InboxPage() {
             </>
           ) : (
             <div className="flex-1 flex flex-col items-center justify-center text-center px-8">
-              <div className="w-16 h-16 rounded-2xl bg-[#00E5C0]/10 flex items-center justify-center mb-4 border border-[#00E5C0]/20">
-                <MessageSquare size={28} className="text-[#00E5C0]" />
+              <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-4 border ${emptyIcon}`}>
+                <MessageSquare size={28} className={accentText} />
               </div>
-              <h3 className="text-white font-semibold mb-2">Konversation auswählen</h3>
-              <p className="text-sm text-[#4B5563] max-w-xs">
+              <h3 className={`font-semibold mb-2 ${headingText}`}>Konversation auswählen</h3>
+              <p className={`text-sm ${mutedText} max-w-xs`}>
                 Wähle links eine Konversation aus, um den Chat-Verlauf anzuzeigen und zu antworten.
               </p>
             </div>
           )}
         </div>
 
-        {/* ── Column 3: Visitor Info — desktop always visible, mobile overlay when showInfo ── */}
+        {/* ── Column 3: Visitor Info ── */}
         {selected && (
-          <div className={`${showInfo ? "flex" : "hidden"} lg:flex w-full absolute inset-0 z-20 lg:relative lg:inset-auto lg:z-auto lg:w-64 xl:w-72 flex-shrink-0 border-l border-white/[0.06] flex-col bg-[#0E0E0E] overflow-y-auto`}>
+          <div className={`${showInfo ? "flex" : "hidden"} lg:flex w-full absolute inset-0 z-20 lg:relative lg:inset-auto lg:z-auto lg:w-64 xl:w-72 flex-shrink-0 border-l ${panelBorder} flex-col ${infoPanelBg} overflow-y-auto`}>
             {/* Contact info */}
-            <div className="px-4 py-4 border-b border-white/[0.06]">
+            <div className={`px-4 py-4 border-b ${panelBorder}`}>
               <div className="flex items-center justify-between mb-3">
-                <p className="text-[10px] font-semibold text-[#4B5563] uppercase tracking-widest">Kontakt</p>
+                <p className={`text-[10px] font-semibold ${infoLabelText} uppercase tracking-widest`}>Kontakt</p>
                 <button
                   onClick={() => setShowInfo(false)}
-                  className="lg:hidden text-[#4B5563] hover:text-white text-xs"
+                  className={`lg:hidden text-xs cursor-pointer ${infoCloseBtnText}`}
                 >
                   ✕
                 </button>
               </div>
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 rounded-full bg-[#00E5C0]/10 flex items-center justify-center text-[#00E5C0] font-bold text-sm border border-[#00E5C0]/20">
+                <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm border ${infoAvatarBg}`}>
                   {(selected.visitor_name?.trim() || "?")[0].toUpperCase()}
                 </div>
                 <div className="min-w-0">
-                  <p className="text-sm font-semibold text-white truncate">
+                  <p className={`text-sm font-semibold ${headingText} truncate`}>
                     {selected.visitor_name ?? "Unbekannt"}
                   </p>
-                  <p className="text-xs text-[#4B5563] capitalize">{selected.source}</p>
+                  <p className={`text-xs ${infoLabelText} capitalize`}>{selected.source}</p>
                 </div>
               </div>
 
               <div className="space-y-2">
                 {selected.visitor_email && (
-                  <a
-                    href={`mailto:${selected.visitor_email}`}
-                    className="flex items-center gap-2.5 group"
-                  >
-                    <Mail size={13} className="text-[#4B5563] shrink-0" />
-                    <span className="text-xs text-[#9CA3AF] group-hover:text-[#00E5C0] truncate transition-colors">
+                  <a href={`mailto:${selected.visitor_email}`} className="flex items-center gap-2.5 group">
+                    <Mail size={13} className={`${infoIconColor} shrink-0`} />
+                    <span className={`text-xs ${infoTextColor} ${infoLinkHover} truncate transition-colors`}>
                       {selected.visitor_email}
                     </span>
                   </a>
                 )}
                 {selected.visitor_phone && (
-                  <a
-                    href={`tel:${selected.visitor_phone}`}
-                    className="flex items-center gap-2.5 group"
-                  >
-                    <Phone size={13} className="text-[#4B5563] shrink-0" />
-                    <span className="text-xs text-[#9CA3AF] group-hover:text-[#00E5C0] transition-colors">
+                  <a href={`tel:${selected.visitor_phone}`} className="flex items-center gap-2.5 group">
+                    <Phone size={13} className={`${infoIconColor} shrink-0`} />
+                    <span className={`text-xs ${infoTextColor} ${infoLinkHover} transition-colors`}>
                       {selected.visitor_phone}
                     </span>
                   </a>
                 )}
                 <div className="flex items-center gap-2.5">
-                  <Clock size={13} className="text-[#4B5563] shrink-0" />
-                  <span className="text-xs text-[#4B5563]">
+                  <Clock size={13} className={`${infoIconColor} shrink-0`} />
+                  <span className={`text-xs ${infoLabelText}`}>
                     {new Date(selected.created_at).toLocaleDateString("de-DE", {
                       day: "2-digit",
                       month: "2-digit",
@@ -605,21 +647,19 @@ export default function InboxPage() {
 
             {/* Customer info — admin only */}
             {profile?.is_admin && (
-              <div className="px-4 py-4 border-b border-white/[0.06]">
-                <p className="text-[10px] font-semibold text-[#4B5563] uppercase tracking-widest mb-2">Kunde</p>
+              <div className={`px-4 py-4 border-b ${panelBorder}`}>
+                <p className={`text-[10px] font-semibold ${infoLabelText} uppercase tracking-widest mb-2`}>Kunde</p>
                 <div className="flex items-center gap-2">
-                  <Building2 size={13} className="text-[#4B5563] shrink-0" />
-                  <span className="text-xs text-[#9CA3AF]">{getCustomerLabel(selected.customer_id)}</span>
+                  <Building2 size={13} className={`${infoIconColor} shrink-0`} />
+                  <span className={`text-xs ${infoTextColor}`}>{getCustomerLabel(selected.customer_id)}</span>
                 </div>
               </div>
             )}
 
             {/* Status */}
-            <div className="px-4 py-4 border-b border-white/[0.06]">
-              <p className="text-[10px] font-semibold text-[#4B5563] uppercase tracking-widest mb-2">Status</p>
-              <span
-                className={`inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-full ${STATUS_CONFIG[selected.status].color}`}
-              >
+            <div className={`px-4 py-4 border-b ${panelBorder}`}>
+              <p className={`text-[10px] font-semibold ${infoLabelText} uppercase tracking-widest mb-2`}>Status</p>
+              <span className={`inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-full ${STATUS_CONFIG[selected.status].color}`}>
                 <span className={`w-1.5 h-1.5 rounded-full ${STATUS_CONFIG[selected.status].dot}`} />
                 {STATUS_CONFIG[selected.status].label}
               </span>
@@ -627,7 +667,7 @@ export default function InboxPage() {
 
             {/* Quick replies full list */}
             <div className="px-4 py-4">
-              <p className="text-[10px] font-semibold text-[#4B5563] uppercase tracking-widest mb-3">
+              <p className={`text-[10px] font-semibold ${infoLabelText} uppercase tracking-widest mb-3`}>
                 Schnellantworten
               </p>
               <div className="space-y-1.5">
@@ -635,9 +675,9 @@ export default function InboxPage() {
                   <button
                     key={qr}
                     onClick={() => setReply(qr)}
-                    className="w-full text-left text-xs px-3 py-2 rounded-lg bg-black border border-white/[0.06] text-[#9CA3AF] hover:text-white hover:border-[#00E5C0]/30 transition-all flex items-center gap-2"
+                    className={`w-full text-left text-xs px-3 py-2 rounded-xl border transition-all flex items-center gap-2 cursor-pointer ${quickReplyListBtn}`}
                   >
-                    <Zap size={10} className="text-[#00E5C0] shrink-0" />
+                    <Zap size={10} className={`${accentText} shrink-0`} />
                     {qr}
                   </button>
                 ))}

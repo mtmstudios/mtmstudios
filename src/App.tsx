@@ -30,6 +30,7 @@ import KeywordPage from "./components/keyword/KeywordPage";
 import ScrollToTop from "./components/ScrollToTop";
 import { AuthProvider } from "./contexts/AuthContext";
 import { useAuth } from "./contexts/AuthContext";
+import { ThemeProvider } from "./contexts/ThemeContext";
 import ProtectedRoute from "./components/portal/ProtectedRoute";
 import PortalLogin from "./pages/portal/PortalLogin";
 import CustomerDashboard from "./pages/portal/CustomerDashboard";
@@ -52,6 +53,7 @@ const App = () => (
           <TooltipProvider>
             <Toaster />
             <Sonner />
+            <ThemeProvider>
             <AuthProvider>
               <BrowserRouter>
                 <ScrollToTop />
@@ -103,6 +105,7 @@ const App = () => (
                 </Routes>
               </BrowserRouter>
             </AuthProvider>
+            </ThemeProvider>
           </TooltipProvider>
         </ContactFunnelProvider>
       </CookieConsentProvider>
