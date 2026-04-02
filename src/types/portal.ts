@@ -80,4 +80,6 @@ export interface CustomerSummary {
   answeredCalls: number;
   totalCostEur: number;
   openErrors: number;
+  dailyStats: CallStat[];
+  recentErrors: N8nError[];
 }
