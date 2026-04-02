@@ -40,24 +40,18 @@ export default function AdminDashboard() {
   const [search, setSearch] = useState("");
   const [selectedCustomer, setSelectedCustomer] = useState<string | null>(null);
   const [expanded, setExpanded] = useState<Set<string>>(new Set());
+  const [dateRange, setDateRange] = useState<7 | 14 | 30 | 90>(30);
 
-  // Hard guard
-  if (profile !== null && !profile?.is_admin) {
-    return (
-      <PortalLayout>
-        <div className="flex items-center justify-center h-64">
-          <p className={`text-sm ${isDark ? "text-slate-600" : "text-slate-400"}`}>Keine Berechtigung.</p>
-        </div>
-      </PortalLayout>
-    );
-  }
-
+  // Fetch only when confirmed admin — useEffect MUST be before any conditional return (React Rules of Hooks)
   useEffect(() => {
-    fetchCustomers();
-    fetchAllErrors();
-  }, []);
+    if (profile?.is_admin) {
+      fetchCustomers();
+      fetchAllErrors();
+    }
+  }, [profile?.is_admin, dateRange]);
 
   async function fetchCustomers() {
+    setLoadingCustomers(true);
     const { data: profiles } = await (supabase
       .from("profiles") as any)
       .select("*")
@@ -66,14 +60,18 @@ export default function AdminDashboard() {
 
     if (!profiles) { setLoadingCustomers(false); return; }
 
+    const fromDate = new Date();
+    fromDate.setDate(fromDate.getDate() - dateRange);
+
     const summaries: CustomerSummary[] = await Promise.all(
       profiles.map(async (prof: Profile) => {
         const { data: stats } = await (supabase
           .from("call_stats") as any)
           .select("*")
           .eq("customer_id", prof.id)
+          .gte("date", fromDate.toISOString().split("T")[0])
           .order("date", { ascending: false })
-          .limit(30);
+          .limit(dateRange);
 
         const { data: errs } = await (supabase
           .from("n8n_errors") as any)
@@ -191,6 +189,17 @@ export default function AdminDashboard() {
     ? { background: "#0E0E16", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 8, color: "#fff", fontSize: 11 }
     : { background: "#fff", border: "1px solid rgba(0,0,0,0.08)", borderRadius: 8, color: "#0f172a", fontSize: 11 };
 
+  // Guard: non-admin users (loaded, confirmed) see nothing
+  if (profile !== undefined && profile !== null && !profile.is_admin) {
+    return (
+      <PortalLayout>
+        <div className="flex items-center justify-center h-64">
+          <p className={`text-sm ${isDark ? "text-slate-600" : "text-slate-400"}`}>Keine Berechtigung.</p>
+        </div>
+      </PortalLayout>
+    );
+  }
+
   // Mini stat box for customer cards
   function MiniStat({ label, value, accent }: { label: string; value: string | number; accent?: boolean }) {
     return (
@@ -204,10 +213,24 @@ export default function AdminDashboard() {
   return (
     <PortalLayout>
       {/* Header */}
-      <div className="mb-8">
-        <p className={`text-xs font-semibold tracking-widest ${eyebrowColor} uppercase mb-1`}>Administration</p>
-        <h1 className={`text-2xl font-bold ${headingColor}`}>Admin Dashboard</h1>
-        <p className={`text-sm ${subColor} mt-1`}>Alle Kunden und System-Aktivitäten im Überblick</p>
+      <div className="flex items-start justify-between gap-4 mb-8 flex-wrap">
+        <div>
+          <p className={`text-xs font-semibold tracking-widest ${eyebrowColor} uppercase mb-1`}>Administration</p>
+          <h1 className={`text-2xl font-bold ${headingColor}`}>Admin Dashboard</h1>
+          <p className={`text-sm ${subColor} mt-1`}>Alle Kunden und System-Aktivitäten im Überblick</p>
+        </div>
+        <div className={`flex gap-1 rounded-xl p-1 self-start mt-1 ${isDark ? "bg-white/[0.04]" : "bg-slate-100"}`}>
+          {([7, 14, 30, 90] as const).map((d) => (
+            <button key={d} onClick={() => setDateRange(d)}
+              className={`text-[11px] px-3 py-1.5 rounded-lg font-semibold transition-all cursor-pointer ${
+                dateRange === d
+                  ? isDark ? "bg-[#00E5C0] text-black" : "bg-teal-500 text-white"
+                  : isDark ? "text-slate-500 hover:text-slate-300" : "text-slate-400 hover:text-slate-700"
+              }`}>
+              {d}T
+            </button>
+          ))}
+        </div>
       </div>
 
       {/* System stats */}

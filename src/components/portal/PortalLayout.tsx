@@ -12,6 +12,7 @@ import {
   Sun,
   Moon,
   TrendingUp,
+  Settings,
 } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useTheme } from "@/contexts/ThemeContext";
@@ -30,6 +31,7 @@ const NAV_ITEMS: NavItem[] = [
   { label: "Anrufe", to: "/portal/dashboard#calls", icon: <Phone size={17} /> },
   { label: "Fehler-Log", to: "/portal/dashboard#errors", icon: <AlertCircle size={17} /> },
   { label: "Alle Kunden", to: "/portal/admin", icon: <Users size={17} />, adminOnly: true },
+  { label: "Einstellungen", to: "/portal/settings", icon: <Settings size={17} /> },
 ];
 
 export default function PortalLayout({ children }: { children: React.ReactNode }) {

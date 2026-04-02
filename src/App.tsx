@@ -36,13 +36,15 @@ import PortalLogin from "./pages/portal/PortalLogin";
 import CustomerDashboard from "./pages/portal/CustomerDashboard";
 import AdminDashboard from "./pages/portal/AdminDashboard";
 import InboxPage from "./pages/portal/InboxPage";
+import SettingsPage from "./pages/portal/SettingsPage";
+import ChatWidget from "./pages/ChatWidget";
 
 const queryClient = new QueryClient();
 
 // Hide public-only widgets (Accessibility, CookieBanner, ContactFunnel) inside the portal
 function PublicWidgets() {
   const { pathname } = useLocation();
-  if (pathname.startsWith("/portal")) return null;
+  if (pathname.startsWith("/portal") || pathname.startsWith("/chat")) return null;
   return (
     <>
       <ContactFunnel />
@@ -110,7 +112,10 @@ const App = () => (
                   <Route path="/portal/login" element={<PortalLogin />} />
                   <Route path="/portal/dashboard" element={<ProtectedRoute><DashboardRouter /></ProtectedRoute>} />
                   <Route path="/portal/inbox" element={<ProtectedRoute><InboxPage /></ProtectedRoute>} />
+                  <Route path="/portal/settings" element={<ProtectedRoute><SettingsPage /></ProtectedRoute>} />
                   <Route path="/portal/admin" element={<ProtectedRoute adminOnly><AdminDashboard /></ProtectedRoute>} />
+                  {/* Public chat widget — embeddable on customer websites */}
+                  <Route path="/chat/:customerId" element={<ChatWidget />} />
                   {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                   <Route path="*" element={<NotFound />} />
                 </Routes>

@@ -8,6 +8,7 @@ import {
   Phone,
   PhoneMissed,
   PhoneCall,
+  PhoneIncoming,
   Zap,
   RefreshCw,
   ArrowLeft,
@@ -16,6 +17,7 @@ import {
   ChevronDown,
   CheckCircle2,
   Circle,
+  FileText,
 } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/contexts/AuthContext";
@@ -73,13 +75,15 @@ export default function InboxPage() {
   const { theme } = useTheme();
   const isDark = theme === "dark";
 
-  // All conversations split into chats (with messages) and missed calls (no messages)
+  // Nachrichten: web chats with visitor messages | Anrufe: voice call summaries (bot-only)
   const [chats, setChats] = useState<Conversation[]>([]);
   const [missed, setMissed] = useState<Conversation[]>([]);
 
   const [selectedChat, setSelectedChat] = useState<Conversation | null>(null);
   const [selectedMissed, setSelectedMissed] = useState<Conversation | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
+  const [callMessages, setCallMessages] = useState<Message[]>([]);
+  const [loadingCallMessages, setLoadingCallMessages] = useState(false);
 
   const [view, setView] = useState<"chats" | "missed">("chats");
   const [reply, setReply] = useState("");
@@ -118,6 +122,11 @@ export default function InboxPage() {
   useEffect(() => {
     if (selectedChat) loadMessages(selectedChat.id);
   }, [selectedChat?.id]);
+
+  useEffect(() => {
+    if (selectedMissed) loadCallMessages(selectedMissed.id);
+    else setCallMessages([]);
+  }, [selectedMissed?.id]);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -168,16 +177,18 @@ export default function InboxPage() {
       return;
     }
 
-    // 2. Find which conversations have at least one message
-    const { data: msgRows } = await (supabase.from("messages") as any)
+    // 2. Find conversations with at least one VISITOR message (= real web chats)
+    //    Voice call summaries only have bot messages → they go to "Anrufe" tab
+    const { data: visitorRows } = await (supabase.from("messages") as any)
       .select("conversation_id")
-      .in("conversation_id", allConvs.map((c) => c.id));
+      .in("conversation_id", allConvs.map((c) => c.id))
+      .eq("sender", "visitor");
 
-    const convIdsWithMessages = new Set((msgRows ?? []).map((r: any) => r.conversation_id));
+    const convIdsWithVisitorMsgs = new Set((visitorRows ?? []).map((r: any) => r.conversation_id));
 
-    // 3. Split
-    setChats(allConvs.filter((c) => convIdsWithMessages.has(c.id)));
-    setMissed(allConvs.filter((c) => !convIdsWithMessages.has(c.id)));
+    // 3. Split: Nachrichten = visitor typed something | Anrufe = voice call summaries / hung-up
+    setChats(allConvs.filter((c) => convIdsWithVisitorMsgs.has(c.id)));
+    setMissed(allConvs.filter((c) => !convIdsWithVisitorMsgs.has(c.id)));
     setLoading(false);
   }
 
@@ -187,6 +198,16 @@ export default function InboxPage() {
       .eq("conversation_id", convId)
       .order("created_at", { ascending: true });
     setMessages(data ?? []);
+  }
+
+  async function loadCallMessages(convId: string) {
+    setLoadingCallMessages(true);
+    const { data } = await (supabase.from("messages") as any)
+      .select("*")
+      .eq("conversation_id", convId)
+      .order("created_at", { ascending: true });
+    setCallMessages(data ?? []);
+    setLoadingCallMessages(false);
   }
 
   async function sendReply() {
@@ -212,7 +233,8 @@ export default function InboxPage() {
 
   async function updateChatStatus(status: "open" | "in_progress" | "done") {
     if (!selectedChat) return;
-    await (supabase.from("conversations") as any).update({ status }).eq("id", selectedChat.id);
+    const { error } = await (supabase.from("conversations") as any).update({ status }).eq("id", selectedChat.id);
+    if (error) { console.error("[InboxPage] updateChatStatus failed:", error.message); return; }
     const updated = { ...selectedChat, status };
     setSelectedChat(updated);
     setChats((prev) => prev.map((c) => (c.id === selectedChat.id ? updated : c)));
@@ -254,6 +276,7 @@ export default function InboxPage() {
     return (
       c.visitor_phone?.includes(q) ||
       c.visitor_name?.toLowerCase().includes(q) ||
+      c.subject?.toLowerCase().includes(q) ||
       getCustomerLabel(c.customer_id).toLowerCase().includes(q)
     );
   });
@@ -353,10 +376,10 @@ export default function InboxPage() {
               onClick={() => { setView("missed"); setSelectedChat(null); }}
               className={`flex-1 flex items-center justify-center gap-1.5 px-3 py-3 text-[12px] font-semibold transition-colors cursor-pointer ${view === "missed" ? tabActive : tabDefault}`}
             >
-              <PhoneMissed size={13} />
-              Verpasst
+              <PhoneIncoming size={13} />
+              Anrufe
               {openMissed > 0 && (
-                <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-bold ${view === "missed" ? accentBadgeBg : "bg-red-500/10 text-red-400"}`}>
+                <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-bold ${view === "missed" ? accentBadgeBg : isDark ? "bg-white/[0.06] text-slate-500" : "bg-slate-100 text-slate-400"}`}>
                   {openMissed}
                 </span>
               )}
@@ -395,7 +418,7 @@ export default function InboxPage() {
               <input
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                placeholder={view === "chats" ? "Suchen..." : "Nummer suchen..."}
+                placeholder={view === "chats" ? "Suchen..." : "Nummer oder Betreff suchen..."}
                 className={`w-full pl-8 pr-3 py-2 rounded-xl text-xs border transition-colors focus:outline-none ${searchInput}`}
               />
             </div>
@@ -411,12 +434,14 @@ export default function InboxPage() {
               </div>
             )}
 
-            {/* Missed filter pills */}
+            {/* Anrufe filter pills */}
             {view === "missed" && (
               <div className="flex gap-1">
-                <button onClick={() => setFilter("open")} className={`flex-1 text-[11px] py-1.5 rounded-lg font-medium transition-colors cursor-pointer ${filter === "open" ? filterPillActive : filterPillDefault}`}>Offen</button>
-                <button onClick={() => setFilter("done")} className={`flex-1 text-[11px] py-1.5 rounded-lg font-medium transition-colors cursor-pointer ${filter === "done" ? filterPillActive : filterPillDefault}`}>Erledigt</button>
-                <button onClick={() => setFilter("all")} className={`flex-1 text-[11px] py-1.5 rounded-lg font-medium transition-colors cursor-pointer ${filter === "all" ? filterPillActive : filterPillDefault}`}>Alle</button>
+                {(["open", "done", "all"] as const).map((f) => (
+                  <button key={f} onClick={() => setFilter(f)} className={`flex-1 text-[11px] py-1.5 rounded-lg font-medium transition-colors cursor-pointer ${filter === f ? filterPillActive : filterPillDefault}`}>
+                    {f === "all" ? "Alle" : f === "open" ? "Offen" : "Erledigt"}
+                  </button>
+                ))}
               </div>
             )}
           </div>
@@ -464,29 +489,39 @@ export default function InboxPage() {
               /* Missed calls list */
               filteredMissed.length === 0 ? (
                 <div className="p-8 text-center flex flex-col items-center gap-2">
-                  <PhoneMissed size={28} className={mutedText} />
-                  <p className={`text-xs ${mutedText}`}>Keine verpassten Anrufe</p>
+                  <PhoneIncoming size={28} className={mutedText} />
+                  <p className={`text-xs ${mutedText}`}>Keine Anrufe</p>
                 </div>
               ) : (
                 filteredMissed.map((conv) => {
                   const isDone = conv.status === "done";
+                  const hasSubject = !!conv.subject;
                   return (
                     <button key={conv.id} onClick={() => setSelectedMissed(conv)} className={`w-full text-left px-4 py-3.5 transition-all cursor-pointer ${convItemBorder} ${convItemHover} ${selectedMissed?.id === conv.id ? `${missedRowActive} border-l-2` : "border-l-2 border-l-transparent"}`}>
                       <div className="flex items-start gap-3">
-                        <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 ${isDone ? isDark ? "bg-emerald-500/10" : "bg-emerald-50" : isDark ? "bg-red-500/10" : "bg-red-50"}`}>
-                          <PhoneMissed size={14} className={isDone ? "text-emerald-500" : "text-red-400"} />
+                        <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 ${isDone ? isDark ? "bg-emerald-500/10" : "bg-emerald-50" : isDark ? "bg-[#00E5C0]/10" : "bg-teal-50"}`}>
+                          <PhoneIncoming size={14} className={isDone ? "text-emerald-500" : isDark ? "text-[#00E5C0]" : "text-teal-600"} />
                         </div>
                         <div className="flex-1 min-w-0">
                           <div className="flex items-start justify-between gap-1">
-                            <p className={`text-sm font-semibold ${headingText} truncate`}>{conv.visitor_phone ?? "Unbekannte Nummer"}</p>
+                            <p className={`text-sm font-semibold ${headingText} truncate`}>
+                              {conv.visitor_name ?? conv.visitor_phone ?? "Unbekannte Nummer"}
+                            </p>
                             <span className={`text-[10px] ${mutedText} shrink-0`}>
-                              {new Date(conv.created_at).toLocaleDateString("de-DE", { day: "2-digit", month: "2-digit" })}
+                              {(() => {
+                                const d = new Date(conv.created_at);
+                                const today = new Date();
+                                const isToday = d.getDate() === today.getDate() && d.getMonth() === today.getMonth() && d.getFullYear() === today.getFullYear();
+                                return isToday ? d.toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" }) : d.toLocaleDateString("de-DE", { day: "2-digit", month: "2-digit" });
+                              })()}
                             </span>
                           </div>
-                          {conv.visitor_name && <p className={`text-xs ${subText} truncate`}>{conv.visitor_name}</p>}
-                          <div className="flex items-center gap-2 mt-1">
-                            <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${isDone ? "bg-emerald-500/10 text-emerald-500" : "bg-red-500/10 text-red-400"}`}>
-                              {isDone ? "Zurückgerufen" : "Ausstehend"}
+                          <p className={`text-xs ${subText} truncate mb-1.5 leading-snug`}>
+                            {hasSubject ? conv.subject : conv.visitor_phone ?? "Kein Betreff"}
+                          </p>
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${isDone ? "bg-emerald-500/10 text-emerald-500" : isDark ? "bg-[#00E5C0]/10 text-[#00E5C0]" : "bg-teal-500/10 text-teal-600"}`}>
+                              {isDone ? "Erledigt" : "Offen"}
                             </span>
                             {profile?.is_admin && !customerFilter && (
                               <span className={`text-[10px] px-2 py-0.5 rounded-full truncate max-w-[80px] ${adminBadge}`}>{getCustomerLabel(conv.customer_id)}</span>
@@ -584,62 +619,133 @@ export default function InboxPage() {
             </>
 
           ) : view === "missed" && selectedMissed ? (
-            /* ── Missed call detail view ── */
+            /* ── Anruf detail view ── */
             <div className="flex-1 overflow-y-auto">
               {/* Header */}
               <div className={`px-3 lg:px-6 py-3.5 border-b ${panelBorder} flex items-center gap-3 ${chatHeaderBg} shrink-0`}>
                 <button onClick={() => setSelectedMissed(null)} className={`lg:hidden p-1 -ml-1 cursor-pointer ${isDark ? "text-slate-400 hover:text-white" : "text-slate-500 hover:text-slate-900"}`}>
                   <ArrowLeft size={18} />
                 </button>
-                <PhoneMissed size={16} className="text-red-400 shrink-0" />
-                <span className={`text-sm font-semibold ${headingText}`}>Verpasster Anruf</span>
+                <PhoneIncoming size={16} className={isDark ? "text-[#00E5C0] shrink-0" : "text-teal-600 shrink-0"} />
+                <div className="flex-1 min-w-0">
+                  <span className={`text-sm font-semibold ${headingText}`}>{selectedMissed.subject ?? "Eingehender Anruf"}</span>
+                  {profile?.is_admin && (
+                    <span className={`ml-2 text-xs ${mutedText}`}>· {getCustomerLabel(selectedMissed.customer_id)}</span>
+                  )}
+                </div>
+                {/* Status toggle in header */}
+                <button
+                  onClick={() => toggleMissedCallback(selectedMissed)}
+                  className={`shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                    selectedMissed.status === "done"
+                      ? isDark ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20" : "bg-emerald-50 text-emerald-600 border border-emerald-200"
+                      : isDark ? "bg-[#00E5C0]/10 text-[#00E5C0] border border-[#00E5C0]/20 hover:bg-[#00E5C0]/20" : "bg-teal-500/10 text-teal-600 border border-teal-500/20 hover:bg-teal-500/20"
+                  }`}
+                >
+                  {selectedMissed.status === "done" ? <><CheckCircle2 size={12} /> Erledigt</> : <><Circle size={12} /> Offen</>}
+                </button>
               </div>
 
-              <div className="px-6 py-6 max-w-lg">
-                {/* Phone number — big */}
-                <div className={`rounded-2xl border p-6 mb-5 text-center ${isDark ? "bg-[#0E0E16] border-white/[0.07]" : "bg-white border-slate-200/80 shadow-sm"}`}>
-                  <div className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 ${isDark ? "bg-red-500/10" : "bg-red-50"}`}>
-                    <PhoneMissed size={28} className="text-red-400" />
+              <div className="px-5 py-5 max-w-2xl space-y-4">
+
+                {/* Caller card */}
+                <div className={`rounded-2xl border p-5 ${isDark ? "bg-[#0E0E16] border-white/[0.07]" : "bg-white border-slate-200/80 shadow-sm"}`}>
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className={`w-12 h-12 rounded-full flex items-center justify-center shrink-0 ${isDark ? "bg-[#00E5C0]/10 border border-[#00E5C0]/20" : "bg-teal-50 border border-teal-100"}`}>
+                      <Phone size={20} className={isDark ? "text-[#00E5C0]" : "text-teal-600"} />
+                    </div>
+                    <div className="min-w-0">
+                      <p className={`text-lg font-bold tracking-wide ${headingText}`}>
+                        {selectedMissed.visitor_phone ?? "Nummer unbekannt"}
+                      </p>
+                      {selectedMissed.visitor_name && (
+                        <p className={`text-sm ${subText}`}>{selectedMissed.visitor_name}</p>
+                      )}
+                    </div>
                   </div>
-                  <p className={`text-2xl font-bold tracking-wide ${headingText} mb-1`}>
-                    {selectedMissed.visitor_phone ?? "Nummer unbekannt"}
-                  </p>
-                  {selectedMissed.visitor_name && (
-                    <p className={`text-sm ${subText}`}>{selectedMissed.visitor_name}</p>
-                  )}
-                  <p className={`text-xs ${mutedText} mt-1`}>
-                    {new Date(selectedMissed.created_at).toLocaleString("de-DE", {
-                      day: "2-digit", month: "2-digit", year: "numeric",
-                      hour: "2-digit", minute: "2-digit",
-                    })}
-                  </p>
-
-                  {/* Callback toggle */}
-                  <button
-                    onClick={() => toggleMissedCallback(selectedMissed)}
-                    className={`mt-5 w-full flex items-center justify-center gap-2.5 py-3 rounded-xl font-semibold text-sm transition-all cursor-pointer ${
-                      selectedMissed.status === "done"
-                        ? isDark ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 hover:bg-emerald-500/20" : "bg-emerald-50 text-emerald-600 border border-emerald-200 hover:bg-emerald-100"
-                        : isDark ? "bg-[#00E5C0] hover:bg-[#00cdb0] text-black" : "bg-teal-500 hover:bg-teal-600 text-white"
-                    }`}
-                  >
-                    {selectedMissed.status === "done" ? (
-                      <><CheckCircle2 size={16} /> Zurückgerufen</>
-                    ) : (
-                      <><PhoneCall size={16} /> Als zurückgerufen markieren</>
-                    )}
-                  </button>
-
-                  {/* Direct call link */}
-                  {selectedMissed.visitor_phone && (
-                    <a
-                      href={`tel:${selectedMissed.visitor_phone}`}
-                      className={`mt-2 w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-medium transition-colors ${isDark ? "text-slate-400 hover:text-white bg-white/[0.03] border border-white/[0.06] hover:bg-white/[0.06]" : "text-slate-500 hover:text-slate-900 bg-slate-50 border border-slate-200 hover:bg-slate-100"}`}
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => toggleMissedCallback(selectedMissed)}
+                      className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl font-semibold text-sm transition-all cursor-pointer ${
+                        selectedMissed.status === "done"
+                          ? isDark ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 hover:bg-emerald-500/20" : "bg-emerald-50 text-emerald-600 border border-emerald-200 hover:bg-emerald-100"
+                          : isDark ? "bg-[#00E5C0] hover:bg-[#00cdb0] text-black" : "bg-teal-500 hover:bg-teal-600 text-white"
+                      }`}
                     >
-                      <Phone size={14} />
-                      Jetzt anrufen
-                    </a>
-                  )}
+                      {selectedMissed.status === "done" ? (
+                        <><CheckCircle2 size={15} /> Als erledigt markiert</>
+                      ) : (
+                        <><PhoneCall size={15} /> Als erledigt markieren</>
+                      )}
+                    </button>
+                    {selectedMissed.visitor_phone && (
+                      <a
+                        href={`tel:${selectedMissed.visitor_phone}`}
+                        className={`flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-colors ${isDark ? "text-slate-300 bg-white/[0.04] border border-white/[0.08] hover:bg-white/[0.08]" : "text-slate-600 bg-slate-50 border border-slate-200 hover:bg-slate-100"}`}
+                      >
+                        <Phone size={14} />
+                        Anrufen
+                      </a>
+                    )}
+                  </div>
+                </div>
+
+                {/* AI call summary */}
+                <div className={`rounded-2xl border ${isDark ? "bg-[#0E0E16] border-white/[0.07]" : "bg-white border-slate-200/80 shadow-sm"}`}>
+                  <div className={`flex items-center justify-between gap-2 px-5 py-3.5 border-b ${isDark ? "border-white/[0.06]" : "border-slate-100"}`}>
+                    <div className="flex items-center gap-2">
+                      <FileText size={14} className={isDark ? "text-[#00E5C0]" : "text-teal-600"} />
+                      <p className={`text-xs font-semibold uppercase tracking-widest ${isDark ? "text-[#00E5C0]" : "text-teal-600"}`}>KI Gesprächsprotokoll</p>
+                    </div>
+                    {callMessages.length > 0 && (
+                      <button
+                        onClick={() => {
+                          const lines = [
+                            `=== Anruf-Zusammenfassung ===`,
+                            `Datum: ${new Date(selectedMissed!.created_at).toLocaleString("de-DE")}`,
+                            `Telefon: ${selectedMissed!.visitor_phone ?? "–"}`,
+                            `Betreff: ${selectedMissed!.subject ?? "–"}`,
+                            ``,
+                            ...callMessages.map((m) => m.content),
+                          ].join("\n");
+                          const blob = new Blob([lines], { type: "text/plain;charset=utf-8" });
+                          const url = URL.createObjectURL(blob);
+                          const a = document.createElement("a");
+                          a.href = url;
+                          a.download = `anruf-${new Date(selectedMissed!.created_at).toISOString().split("T")[0]}.txt`;
+                          a.click();
+                          URL.revokeObjectURL(url);
+                        }}
+                        className={`text-[10px] flex items-center gap-1 px-2.5 py-1 rounded-lg transition-colors cursor-pointer ${isDark ? "text-slate-500 hover:text-white bg-white/[0.04] hover:bg-white/[0.08]" : "text-slate-400 hover:text-slate-900 bg-slate-50 hover:bg-slate-100"}`}
+                      >
+                        ↓ Exportieren
+                      </button>
+                    )}
+                  </div>
+                  <div className="p-5">
+                    {loadingCallMessages ? (
+                      <div className="flex items-center justify-center py-4">
+                        <div className={`w-5 h-5 border-2 ${isDark ? "border-[#00E5C0]" : "border-teal-500"} border-t-transparent rounded-full animate-spin`} />
+                      </div>
+                    ) : callMessages.length === 0 ? (
+                      <div className="flex items-center gap-3 py-2">
+                        <PhoneMissed size={16} className="text-slate-400 shrink-0" />
+                        <p className={`text-sm ${mutedText}`}>Kein Gesprächsinhalt — Anruf wurde aufgelegt.</p>
+                      </div>
+                    ) : (
+                      <div className="space-y-3">
+                        {callMessages.map((msg) => (
+                          <div key={msg.id} className={`rounded-xl px-4 py-3 text-sm border ${isDark ? "bg-[#050508] border-white/[0.06] text-slate-300" : "bg-slate-50 border-slate-100 text-slate-700"}`}>
+                            <p className={`text-[10px] font-semibold uppercase tracking-wide mb-1.5 ${isDark ? "text-slate-600" : "text-slate-400"}`}>KI Assistent</p>
+                            <p className="leading-relaxed whitespace-pre-wrap">{msg.content}</p>
+                            <p className={`text-[10px] mt-2 ${isDark ? "text-slate-700" : "text-slate-400"}`}>
+                              {new Date(msg.created_at).toLocaleString("de-DE", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" })}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 </div>
 
                 {/* Meta info */}
@@ -654,6 +760,12 @@ export default function InboxPage() {
                       <Phone size={13} className={infoIconColor} />
                       <span className={`text-xs ${infoTextColor} capitalize`}>{selectedMissed.source}</span>
                     </div>
+                    {selectedMissed.visitor_email && (
+                      <div className="flex items-center gap-3">
+                        <Mail size={13} className={infoIconColor} />
+                        <a href={`mailto:${selectedMissed.visitor_email}`} className={`text-xs ${infoTextColor} ${infoLinkHover} transition-colors`}>{selectedMissed.visitor_email}</a>
+                      </div>
+                    )}
                     {profile?.is_admin && (
                       <div className="flex items-center gap-3">
                         <Building2 size={13} className={infoIconColor} />
@@ -669,14 +781,14 @@ export default function InboxPage() {
             /* ── Empty state ── */
             <div className="flex-1 flex flex-col items-center justify-center text-center px-8">
               <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-4 border ${isDark ? "bg-[#00E5C0]/10 border-[#00E5C0]/20" : "bg-teal-500/10 border-teal-500/20"}`}>
-                {view === "missed" ? <PhoneMissed size={28} className={accentText} /> : <MessageSquare size={28} className={accentText} />}
+                {view === "missed" ? <PhoneIncoming size={28} className={accentText} /> : <MessageSquare size={28} className={accentText} />}
               </div>
               <h3 className={`font-semibold mb-2 ${headingText}`}>
-                {view === "missed" ? "Verpassten Anruf auswählen" : "Konversation auswählen"}
+                {view === "missed" ? "Anruf auswählen" : "Konversation auswählen"}
               </h3>
               <p className={`text-sm ${mutedText} max-w-xs`}>
                 {view === "missed"
-                  ? "Wähle links einen verpassten Anruf aus, um Details zu sehen und Rückrufe zu verwalten."
+                  ? "Wähle links einen Anruf aus, um das KI-Gesprächsprotokoll und Kontaktdetails zu sehen."
                   : "Wähle links eine Konversation aus, um den Chat-Verlauf anzuzeigen."}
               </p>
             </div>

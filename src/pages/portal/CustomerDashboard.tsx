@@ -26,20 +26,25 @@ export default function CustomerDashboard() {
   const [errors, setErrors] = useState<N8nError[]>([]);
   const [loadingStats, setLoadingStats] = useState(true);
   const [loadingErrors, setLoadingErrors] = useState(true);
+  const [dateRange, setDateRange] = useState<7 | 14 | 30 | 90>(30);
 
   useEffect(() => {
     if (!user?.id) return;
     fetchStats();
     fetchErrors();
-  }, [user?.id]);
+  }, [user?.id, dateRange]);
 
   async function fetchStats() {
+    setLoadingStats(true);
+    const fromDate = new Date();
+    fromDate.setDate(fromDate.getDate() - dateRange);
     const { data } = await (supabase
       .from("call_stats") as any)
       .select("*")
       .eq("customer_id", user!.id)
+      .gte("date", fromDate.toISOString().split("T")[0])
       .order("date", { ascending: false })
-      .limit(30);
+      .limit(dateRange);
     setStats((data as CallStat[]) ?? []);
     setLoadingStats(false);
   }
@@ -75,9 +80,9 @@ export default function CustomerDashboard() {
   const totalCost = stats.reduce((s, r) => s + (r.duration_seconds / 60) * COST_PER_MIN, 0);
   const openErrors = errors.filter((e) => e.status === "open").length;
 
-  // Chart data — last 14 days, reversed for chronological display
+  // Chart data — reversed for chronological display
   const chartData = [...stats]
-    .slice(0, 14)
+    .slice(0, Math.min(dateRange, 30))
     .reverse()
     .map((r) => ({
       date: format(new Date(r.date), "dd.MM", { locale: de }),
@@ -159,7 +164,21 @@ export default function CustomerDashboard() {
 
       {/* Chart */}
       <div className={`rounded-2xl border p-4 lg:p-5 mb-8 ${cardBg}`}>
-        <SectionHeading title="Anrufverlauf" badge="Letzte 14 Tage" />
+        <div className="flex items-center justify-between mb-5 flex-wrap gap-3">
+          <SectionHeading title="Anrufverlauf" badge={`Letzte ${dateRange} Tage`} />
+          <div className={`flex gap-1 rounded-xl p-1 ${isDark ? "bg-white/[0.04]" : "bg-slate-100"}`}>
+            {([7, 14, 30, 90] as const).map((d) => (
+              <button key={d} onClick={() => setDateRange(d)}
+                className={`text-[11px] px-3 py-1.5 rounded-lg font-semibold transition-all cursor-pointer ${
+                  dateRange === d
+                    ? isDark ? "bg-[#00E5C0] text-black" : "bg-teal-500 text-white"
+                    : isDark ? "text-slate-500 hover:text-slate-300" : "text-slate-400 hover:text-slate-700"
+                }`}>
+                {d}T
+              </button>
+            ))}
+          </div>
+        </div>
         {chartData.length === 0 ? (
           <div className={`h-40 flex items-center justify-center ${emptyText} text-sm`}>
             Noch keine Daten vorhanden
