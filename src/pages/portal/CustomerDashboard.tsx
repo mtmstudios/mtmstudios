@@ -34,28 +34,32 @@ export default function CustomerDashboard() {
     fetchErrors();
   }, [user?.id, dateRange]);
 
+  const isAdmin = profile?.is_admin === true;
+
   async function fetchStats() {
     setLoadingStats(true);
     const fromDate = new Date();
     fromDate.setDate(fromDate.getDate() - dateRange);
-    const { data } = await (supabase
+    let query = (supabase
       .from("call_stats") as any)
       .select("*")
-      .eq("customer_id", user!.id)
       .gte("date", fromDate.toISOString().split("T")[0])
       .order("date", { ascending: false })
       .limit(dateRange);
+    if (!isAdmin) query = query.eq("customer_id", user!.id);
+    const { data } = await query;
     setStats((data as CallStat[]) ?? []);
     setLoadingStats(false);
   }
 
   async function fetchErrors() {
-    const { data } = await (supabase
+    let query = (supabase
       .from("n8n_errors") as any)
       .select("*")
-      .eq("customer_id", user!.id)
       .order("created_at", { ascending: false })
       .limit(20);
+    if (!isAdmin) query = query.eq("customer_id", user!.id);
+    const { data } = await query;
     setErrors((data as N8nError[]) ?? []);
     setLoadingErrors(false);
   }
@@ -150,7 +154,7 @@ export default function CustomerDashboard() {
           accent
         />
         <StatCard
-          label="Kosten (30 Tage)"
+          label={`Kosten (Letzte ${dateRange} Tage)`}
           value={loadingStats ? "—" : `€${totalCost.toFixed(2)}`}
           icon={<Euro size={18} />}
         />
