@@ -32,13 +32,13 @@ export interface RegionalContentData {
 }
 
 type ServiceKey = "ki-agentur" | "ki-telefonassistent" | "ki-chatbot" | "automatisierungen";
-type CityKey = "stuttgart" | "ulm";
+type CityKey = "stuttgart" | "ulm" | "esslingen" | "muenchen" | "ludwigsburg" | "reutlingen";
 
 const content: Record<ServiceKey, Record<CityKey, RegionalContentData>> = {
   "ki-agentur": {
     stuttgart: {
       title: "KI Agentur Stuttgart | Voice KI, Chatbot & Automatisierung | MTM Studios",
-      description: "MTM Studios — KI Agentur Stuttgart: Voice KI Telefonassistenten, Chatbots & n8n-Automatisierungen für den Stuttgarter Mittelstand. Kostenlose Erstberatung — in 48h einsatzbereit.",
+      description: "Stuttgarter Unternehmen automatisieren Telefon, Kundenservice & Prozesse mit MTM Studios. Telefonassistent in 48h live — für Handwerk, Praxen & Mittelstand. Kostenlos beraten lassen.",
       h1: "KI Agentur Stuttgart",
       subtext: "Voice KI, Chatbots und Automatisierungen für Stuttgarter Unternehmen — in 48 Stunden einsatzbereit.",
       localContext: "Stuttgart ist eines der bedeutendsten Wirtschaftszentren Deutschlands — von der Automobilindustrie in Untertürkheim und Zuffenhausen über den Maschinenbau in Feuerbach bis hin zu Tausenden Dienstleistungsunternehmen im Stuttgarter Kessel und der Innenstadt. Die Region Stuttgart mit über 2,8 Millionen Einwohnern ist geprägt von einem starken Mittelstand, der täglich mit denselben Herausforderungen kämpft: zu viele Routineaufgaben, steigende Kundenanforderungen und der grassierende Fachkräftemangel. Als KI Agentur für Stuttgart unterstützen wir Betriebe aus Handwerk, Gesundheit, Recht, Immobilien, IT und Industrie mit konkreten KI-Lösungen, die sofort spürbare Ergebnisse liefern — ohne monatelange Projekte und ohne IT-Vorkenntnisse auf deiner Seite.",
@@ -98,6 +98,126 @@ const content: Record<ServiceKey, Record<CityKey, RegionalContentData>> = {
         { question: "Was kostet eine KI Agentur in Ulm?", answer: "Die Kosten hängen vom gewählten Produkt und Umfang ab. MTM Studios erstellt dir nach einem kostenlosen Erstgespräch ein individuelles Angebot — transparent, ohne versteckte Kosten. Kontaktiere uns einfach und wir besprechen, was für dein Unternehmen in Ulm Sinn macht und was es kostet." },
         { question: "Arbeitet MTM Studios nur mit Unternehmen aus Ulm?", answer: "Nein. Wir betreuen Unternehmen in der gesamten Innovationsregion — von Ulm und Neu-Ulm über Blaubeuren, Laichingen und Ehingen bis ins Alb-Donau-Gebiet. Remote-Zusammenarbeit ist jederzeit möglich. Persönliche Treffen in Ulm bieten wir gerne an — das Erstgespräch ist immer kostenlos und unverbindlich." },
         { question: "Wie unterscheidet sich MTM Studios von anderen KI Agenturen in Ulm?", answer: "MTM Studios liefert keine Konzepte, sondern fertige, laufende Lösungen. Drei konkrete Produkte: Voice KI Telefon, Chatbots und n8n-Automatisierungen — einsatzbereit in Tagen. Persönlicher Ansprechpartner statt anonymem Support. DSGVO-konforme Infrastruktur auf europäischen Servern. Und eine nachgewiesene Umsetzungsgeschwindigkeit, die für den Ulmer Mittelstand gemacht ist." },
+      ],
+    },
+    esslingen: {
+      title: "KI Agentur Esslingen | Voice KI, Chatbot & Automatisierung | MTM Studios",
+      description: "Esslingener Unternehmen automatisieren Telefon, Kundenservice & Prozesse mit MTM Studios. KI Telefonassistent, Chatbot & n8n für den Mittelstand am Neckar. Kostenlose Beratung.",
+      h1: "KI Agentur Esslingen",
+      subtext: "Voice KI, Chatbots und Automatisierungen für Esslingener Unternehmen — persönlich, schnell, sofort einsatzbereit.",
+      localContext: "Esslingen am Neckar gehört zu den wirtschaftsstärksten Mittelstädten Baden-Württembergs. Mit rund 93.000 Einwohnern und einer langen Industrietradition — von der Maschinenfabrik Esslingen bis hin zu zahlreichen Automobilzulieferern und Dienstleistern — ist die Stadt ein lebendiges Zentrum des schwäbischen Mittelstands. Die Nähe zu Stuttgart macht Esslingen zum bevorzugten Standort für Unternehmen, die Großstadtnähe mit überschaubaren Kosten verbinden wollen. Als KI Agentur für Esslingen unterstützen wir Betriebe aus Handwerk, Produktion, Medizin und Dienstleistung mit KI-Lösungen, die sofort funktionieren — ohne IT-Vorkenntnisse und ohne lange Einführungsprojekte.",
+      detailedContent: "Als KI Agentur in Esslingen entwickeln wir drei praxiserprobte Lösungen für den lokalen Mittelstand: Voice KI Telefonassistenten, intelligente Chatbots und n8n-Automatisierungen. Esslingener Unternehmen kämpfen täglich mit denselben Herausforderungen wie in der Stuttgarter Region: zu viele Routineanrufe, WhatsApp-Nachrichten, die liegen bleiben, und manuelle Dateneingaben, die Stunden fressen.\n\nUnser Voice KI Telefonassistent für Esslingen nimmt jeden Anruf professionell entgegen — 24 Stunden am Tag, 7 Tage die Woche. Ob Metallbaubetrieb in Berkheim, Zahnarztpraxis in der Pliensauvorstadt oder Steuerberater in der Altstadt — verpasste Anrufe kosten Aufträge. Der Assistent klingt wie ein echter Mitarbeiter, bucht Termine direkt in deinen Kalender und leitet dringende Anrufe sofort weiter.\n\nFür die Kundenkommunikation automatisieren unsere Chatbots WhatsApp Business und deine Website. In Esslingen, wo persönlicher Service großgeschrieben wird, sorgen Chatbots dafür, dass Kunden immer sofort eine kompetente Antwort erhalten — auch wenn das Team gerade ausgelastet ist. n8n-Automatisierungen verbinden deine bestehenden Tools nahtlos: CRM, Kalender, Buchhaltung. Typisch sparen Esslingener Kunden 10–20 Stunden pro Woche.\n\nDie Einrichtung dauert 48 Stunden. Das Erstgespräch ist kostenlos, unverbindlich und zeigt dir konkret, welche KI-Lösung für dein Unternehmen in Esslingen die größte Wirkung hat.",
+      painPoints: [
+        { title: "Anrufe gehen verloren", description: "Gerade wenn das Team beschäftigt ist, landen Kundenanrufe im Nichts — und damit oft auch der Auftrag." },
+        { title: "Routineaufgaben blockieren Kapazitäten", description: "Terminbuchungen, FAQ-Anrufe, Standardanfragen — alles frisst Zeit, die für echte Wertschöpfung fehlt." },
+        { title: "Fachkräftemangel auch in Esslingen", description: "Qualifiziertes Personal für Empfang und Kundenservice ist schwer zu finden und teuer. KI schließt die Lücke." },
+      ],
+      features: [
+        { title: "Voice KI Telefonassistent", description: "24/7 Anrufannahme — professionell, natürlich klingend, sofort einsatzbereit." },
+        { title: "KI-Chatbot für WhatsApp & Website", description: "Automatische Kundenkommunikation auf den Kanälen, die deine Kunden nutzen." },
+        { title: "n8n Prozessautomatisierung", description: "Wiederkehrende Abläufe laufen automatisch — von der Anfrage bis zur Dokumentation." },
+        { title: "Systemintegrationen", description: "Nahtlose Anbindung an CRM, Kalender, Buchhaltung und branchenspezifische Software." },
+      ],
+      advantages: [
+        { title: "Region Stuttgart kennt uns", description: "Wir arbeiten mit Unternehmen aus dem gesamten Großraum Stuttgart — Esslingen inklusive." },
+        { title: "In 48h einsatzbereit", description: "Schnelle Einrichtung, sofortige Wirkung — kein monatelanges Projekt." },
+        { title: "DSGVO-konform", description: "Alle Daten werden sicher auf europäischen Servern verarbeitet — nach deutschem Recht." },
+      ],
+      faqs: [
+        { question: "Was ist eine KI Agentur in Esslingen?", answer: "Eine KI Agentur in Esslingen wie MTM Studios entwickelt und betreibt KI-basierte Automatisierungslösungen für lokale Unternehmen. Konkret: Voice KI Telefonassistenten, die Anrufe rund um die Uhr entgegennehmen, KI-Chatbots für WhatsApp und Website sowie n8n-Workflows, die Geschäftsprozesse automatisieren. MTM Studios betreut Unternehmen in Esslingen und der Region Neckar-Fils mit Lösungen, die in 48 Stunden live gehen." },
+        { question: "Für welche Branchen in Esslingen eignet sich KI?", answer: "KI-Automatisierung eignet sich für nahezu alle Branchen in Esslingen: Metallbau und Maschinenbau (automatische Angebots- und Terminprozesse), Arztpraxen und Therapeuten (Voice KI für Terminbuchung), Steuerberater und Anwälte (Chatbot für Erstanfragen), Handwerksbetriebe (24/7 Anrufannahme), Einzelhandel (WhatsApp-Kundenkommunikation). Jede Lösung wird individuell auf deine Branche angepasst." },
+        { question: "Wie lange dauert die Einrichtung?", answer: "Ein Voice KI Telefonassistent ist innerhalb von 48 Stunden live. Chatbots gehen nach 3–5 Arbeitstagen in Betrieb. n8n-Automatisierungen sind je nach Komplexität in 1–2 Wochen fertig. Im kostenlosen Erstgespräch bekommst du eine verbindliche Timeline und ein transparentes Angebot." },
+        { question: "Arbeitet MTM Studios auch mit Unternehmen aus dem Umland?", answer: "Ja, wir betreuen Unternehmen in der gesamten Region — von Esslingen über Plochingen, Kirchheim unter Teck und Nürtingen bis in den Landkreis Göppingen. Remote-Zusammenarbeit ist jederzeit möglich, persönliche Treffen können flexibel vereinbart werden. Das Erstgespräch ist immer kostenlos und unverbindlich." },
+      ],
+    },
+    muenchen: {
+      title: "KI Agentur München | Voice KI, Chatbot & Automatisierung | MTM Studios",
+      description: "KI Agentur München: Telefonassistenten, Chatbots & n8n-Automatisierungen für Münchner Unternehmen. In 48h einsatzbereit — für Startups, KMU & Mittelstand. Kostenlose Erstberatung.",
+      h1: "KI Agentur München",
+      subtext: "Voice KI, Chatbots und Automatisierungen für Münchner Unternehmen — skalierbar, schnell und sofort einsatzbereit.",
+      localContext: "München ist Deutschlands führende Tech- und Wirtschaftsmetropole. Mit über 1,5 Millionen Einwohnern, einem dichten Startup-Ökosystem rund um das Gründerzentrum UnternehmerTUM und einer der niedrigsten Arbeitslosenquoten Europas ist München ein Markt, in dem Effizienz über Wachstum entscheidet. Von der Maxvorstadt über Schwabing bis Sendling — Münchner Unternehmen in IT, Recht, Gesundheit, Immobilien und Produktion stehen täglich vor denselben Herausforderungen: Telefone klingeln unangenommen, Kundenkommunikation läuft nicht schnell genug und manuelle Prozesse blockieren das Team. Als KI Agentur für München liefern wir Lösungen, die in der Geschwindigkeit der Stadt funktionieren — einsatzbereit in 48 Stunden.",
+      detailedContent: "Als KI Agentur in München entwickeln wir Voice KI Telefonassistenten, KI-Chatbots und n8n-Automatisierungen für den Münchner Markt. In einer Stadt mit so hoher Wettbewerbsdichte ist Erreichbarkeit kein Luxus, sondern Pflicht. Unser Voice KI Telefonassistent nimmt Anrufe 24/7 professionell entgegen — ob du in Schwabing ein Tech-Startup betreibst, in Bogenhausen eine Praxis hast oder in Moosach ein Handwerksunternehmen führst.\n\nMünchner Kunden haben hohe Erwartungen: schnelle Reaktionszeiten, klare Kommunikation, professioneller Service. Unser KI-Telefonassistent erfüllt genau diese Erwartungen — natürlich klingend, Deutsch fließend, auf dein Unternehmen trainiert. Er bucht Termine direkt in deinen Kalender, beantwortet Standardfragen zu Leistungen und Preisen und leitet dringende Anrufe sofort weiter.\n\nFür die Kundenkommunikation bieten unsere Chatbots eine skalierbare Lösung: WhatsApp Business, Website-Chat und mehr. In München, wo viele Unternehmen täglich Dutzende oder Hunderte Anfragen erhalten, ist eine KI-gestützte Erstverfügbarkeit Gold wert. Leads werden qualifiziert, Termine gebucht, Informationen bereitgestellt — vollautomatisch.\n\nUnsere n8n-Automatisierungen verbinden deine Münchner Geschäftsprozesse nahtlos: CRM-Einträge erstellen sich automatisch, Follow-up-E-Mails gehen pünktlich raus, Berichte erstellen sich selbst. Für Münchner KMUs bedeutet das typischerweise 15–30 eingesparte Stunden pro Woche und eine spürbar höhere Lead-Conversion. Die Einrichtung dauert 48 Stunden — egal ob Startup in Maxvorstadt oder Mittelstand in Sendling.",
+      painPoints: [
+        { title: "Hoher Wettbewerbsdruck in München", description: "In München verliert man Kunden schneller als anderswo, wenn der Service nicht stimmt. Erreichbarkeit ist entscheidend." },
+        { title: "Fachkräfte kaum bezahlbar", description: "München hat eine der höchsten Lohnkostenniveaus Deutschlands. KI-Automatisierung spart Personalkosten messbar." },
+        { title: "Skalierung ohne Chaos", description: "Wachstum bringt mehr Anfragen — KI-Lösungen skalieren automatisch mit, ohne dass du mehr Personal einstellen musst." },
+      ],
+      features: [
+        { title: "Voice KI Telefonassistent", description: "24/7 Anrufannahme für Münchner Unternehmen — professionell, natürlich und sofort einsatzbereit." },
+        { title: "KI-Chatbot für WhatsApp & Website", description: "Skalierbare Kundenkommunikation auf allen Kanälen — für das hohe Anfragevolumen in München gemacht." },
+        { title: "n8n Prozessautomatisierung", description: "Von der Anfrage bis zur Rechnung — Münchner Workflows laufen vollautomatisch." },
+        { title: "Systemintegrationen", description: "Anbindung an HubSpot, Salesforce, Lexoffice, Google Workspace und viele weitere Münchner Standard-Tools." },
+      ],
+      advantages: [
+        { title: "Münchner Geschwindigkeit", description: "Einsatzbereit in 48h — passend für den Tempo, den Münchner Unternehmen gewohnt sind." },
+        { title: "Skalierbar wie München", description: "Unsere Lösungen wachsen mit — von 10 auf 100 Anfragen täglich ohne Mehraufwand." },
+        { title: "DSGVO & BSI-konform", description: "Alle Daten auf europäischen Servern, nach deutschem Recht — wichtig für den Münchner B2B-Markt." },
+      ],
+      faqs: [
+        { question: "Was macht eine KI Agentur in München?", answer: "Eine KI Agentur in München wie MTM Studios entwickelt und betreibt KI-basierte Automatisierungen für Unternehmen: Voice KI Telefonassistenten für 24/7-Erreichbarkeit, KI-Chatbots für WhatsApp und Website sowie n8n-Workflows für Prozessautomatisierung. MTM Studios arbeitet mit Münchner Unternehmen aus IT, Recht, Gesundheit, Immobilien, Handwerk und weiteren Branchen — Lösungen gehen in 48 Stunden live." },
+        { question: "Was unterscheidet MTM Studios von anderen KI Agenturen in München?", answer: "Wir liefern keine Konzeptpapiere, sondern laufende Lösungen. Drei klar definierte Produkte — Voice KI Telefon, Chatbots, n8n-Automatisierungen — mit fester Umsetzungszeit von 48 Stunden bis 2 Wochen. Persönlicher Ansprechpartner, transparente Preisgestaltung, DSGVO-konforme EU-Infrastruktur. Und der Fokus auf schnelle, messbare Ergebnisse statt monatelanger Digitalisierungsprojekte." },
+        { question: "Für welche Münchner Branchen eignet sich KI-Automatisierung?", answer: "Für nahezu alle. Besonders hohen ROI sehen wir bei: IT-Dienstleistern und Agenturen (automatische Lead-Qualifizierung), Arztpraxen und Therapiezentren (Voice KI für Terminbuchung), Rechtsanwälten und Steuerberatern (Chatbot für Erstberatungsanfragen), Immobilienmaklern (Besichtigungsanfragen automatisieren), Handwerksbetrieben (24/7 Anrufannahme) und E-Commerce-Unternehmen (WhatsApp-Kundensupport)." },
+        { question: "Wie schnell ist eine KI-Lösung in München einsatzbereit?", answer: "Ein Voice KI Telefonassistent ist innerhalb von 48 Stunden live. Chatbots in 3–5 Arbeitstagen. n8n-Automatisierungen je nach Komplexität in 1–2 Wochen. Kein monatelanges Onboarding, keine IT-Ressourcen deinerseits nötig. Wir richten alles ein und du bekommst eine laufende Lösung." },
+      ],
+    },
+    ludwigsburg: {
+      title: "KI Agentur Ludwigsburg | Voice KI, Chatbot & Automatisierung | MTM Studios",
+      description: "KI Agentur Ludwigsburg: Voice KI Telefonassistent, Chatbot & n8n-Automatisierung für Unternehmen in Ludwigsburg. Persönlich, schnell, DSGVO-konform. Kostenlose Erstberatung.",
+      h1: "KI Agentur Ludwigsburg",
+      subtext: "Voice KI, Chatbots und Automatisierungen für Unternehmen in Ludwigsburg und dem Landkreis — regional verwurzelt, sofort einsatzbereit.",
+      localContext: "Ludwigsburg ist eine der wirtschaftlich stärksten Mittelstädte in Baden-Württemberg. Mit der Filmakademie Baden-Württemberg, einem starken Automobilumfeld (Porsche, Mercedes-Zulieferer), einer lebhaften Einzelhandelsszene in der Innenstadt und zahlreichen produzierenden Unternehmen im Industriegebiet Nord bietet Ludwigsburg ein vielfältiges Umfeld für KI-Automatisierungen. Als KI Agentur für Ludwigsburg verstehen wir die Besonderheiten dieser Region: Den Pragmatismus des schwäbischen Mittelstands, die kreative Energie der Medienbranche und den Innovationsanspruch der Automobilzulieferer. Unsere Lösungen sind auf diese Vielfalt ausgerichtet — konkret, schnell und ohne unnötigen Overhead.",
+      detailedContent: "Als KI Agentur in Ludwigsburg bieten wir drei Kernlösungen für den lokalen Mittelstand: Voice KI Telefonassistenten, KI-Chatbots und n8n-Prozessautomatisierungen. Ludwigsburger Unternehmen aus Medien, Produktion, Handel und Dienstleistung haben eines gemeinsam: Der Alltag ist zu voll für Routinearbeit, die eine KI genauso gut erledigen kann.\n\nUnser Voice KI Telefonassistent für Ludwigsburg nimmt Anrufe 24/7 professionell entgegen. Ob Produktionsbetrieb in Remseck, Agentur in der Schillerstraße oder Praxis in der Weststadt — jeder Anruf wird entgegengenommen, jede Frage beantwortet, jeder Termin gebucht. Direkt in deinen Kalender, ohne manuelle Nacharbeit.\n\nUnsere KI-Chatbots für Ludwigsburg automatisieren die Kundenkommunikation auf WhatsApp Business und deiner Website. Für Ludwigsburger Einzelhändler, Dienstleister und Agenturen bedeutet das: rund um die Uhr erreichbar, ohne Personalaufwand. n8n-Automatisierungen verbinden deine Tools — CRM, E-Mail, Buchhaltung — zu einem reibungslosen System. Ludwigsburger Kunden sparen damit typischerweise 10–25 Stunden pro Woche.\n\nDas Erstgespräch ist kostenlos, dauert 30 Minuten und gibt dir einen konkreten Überblick, welche Prozesse in deinem Unternehmen sich am schnellsten automatisieren lassen.",
+      painPoints: [
+        { title: "Zu viele Telefonate, zu wenig Zeit", description: "Gerade in kleinen und mittleren Betrieben in Ludwigsburg frisst das Telefon Kapazitäten, die woanders gebraucht werden." },
+        { title: "Fehlende Erreichbarkeit außerhalb der Bürozeiten", description: "Kunden rufen an, wenn es ihnen passt — nicht nur werktags zwischen 9 und 17 Uhr." },
+        { title: "Manuelle Prozesse bremsen das Wachstum", description: "Wer in Ludwigsburg wachsen will, braucht skalierbare Prozesse — keine händischen Workflows." },
+      ],
+      features: [
+        { title: "Voice KI Telefonassistent", description: "24/7 Anrufannahme für Ludwigsburger Unternehmen — professionell und sofort einsatzbereit." },
+        { title: "KI-Chatbot für WhatsApp & Website", description: "Automatische Kundenkommunikation — auf den Kanälen, die deine Kunden bevorzugen." },
+        { title: "n8n Prozessautomatisierung", description: "Wiederkehrende Abläufe werden vollautomatisch abgewickelt — ohne manuellen Aufwand." },
+        { title: "Branchenspezifische Konfiguration", description: "Ob Medien, Produktion oder Handel — jede Lösung wird individuell für deine Branche konfiguriert." },
+      ],
+      advantages: [
+        { title: "Großraum Stuttgart kennt uns", description: "Wir betreuen Unternehmen aus dem gesamten Raum Stuttgart — Ludwigsburg inklusive." },
+        { title: "48h Einrichtungszeit", description: "Von der Beratung zur laufenden Lösung — kein langes Onboarding." },
+        { title: "Persönlicher Ansprechpartner", description: "Du hast einen festen Kontakt, der dein Projekt von Anfang an kennt." },
+      ],
+      faqs: [
+        { question: "Was kann eine KI Agentur in Ludwigsburg für mein Unternehmen tun?", answer: "Eine KI Agentur in Ludwigsburg wie MTM Studios automatisiert deine zeitaufwendigsten Prozesse: Telefonannahme (Voice KI Assistent, 24/7), Kundenkommunikation (KI-Chatbot für WhatsApp & Website) und Geschäftsprozesse (n8n-Automatisierungen für CRM, E-Mail, Kalender). Konkret bedeutet das: weniger Routinearbeit, mehr Kapazität für das Wesentliche — und messbare Zeitersparnis von Tag eins." },
+        { question: "Für welche Branchen in Ludwigsburg bietet MTM Studios Lösungen an?", answer: "Wir arbeiten branchenübergreifend: Medienunternehmen und Agenturen (Lead-Management per Chatbot), Produktions- und Handwerksbetriebe (Voice KI für Terminbuchung), Einzelhandel (WhatsApp-Kundenkommunikation), Dienstleister und Beratungsunternehmen (automatische Anfragenqualifizierung) sowie Gesundheitsberufe (Terminbuchung & Patientenkommunikation). Jede Lösung wird individuell konfiguriert." },
+        { question: "Wie lange dauert die Einrichtung einer KI-Lösung in Ludwigsburg?", answer: "Voice KI Telefonassistent: 48 Stunden. KI-Chatbot: 3–5 Arbeitstage. n8n-Automatisierungen: 1–2 Wochen je nach Umfang. Kein IT-Aufwand deinerseits — wir richten alles ein und du startest direkt mit einer laufenden Lösung." },
+        { question: "Kann ich die Lösung später erweitern?", answer: "Ja. Alle unsere Lösungen sind modular aufgebaut. Du kannst weitere Prozesse automatisieren, neue Kanäle integrieren oder bestehende Workflows jederzeit anpassen. Viele Ludwigsburger Kunden starten mit dem Voice KI Assistenten und ergänzen später Chatbot und Automatisierungen." },
+      ],
+    },
+    reutlingen: {
+      title: "KI Agentur Reutlingen | Voice KI, Chatbot & Automatisierung | MTM Studios",
+      description: "KI Agentur Reutlingen: Voice KI Telefonassistent, Chatbot & n8n für Reutlinger Unternehmen. Schnell einsatzbereit, DSGVO-konform, kostenlose Erstberatung. Für den Mittelstand.",
+      h1: "KI Agentur Reutlingen",
+      subtext: "Voice KI, Chatbots und Automatisierungen für Unternehmen in Reutlingen und der Region Neckar-Alb — praxisnah und sofort einsatzbereit.",
+      localContext: "Reutlingen ist mit rund 115.000 Einwohnern eine der größten Städte Baden-Württembergs und wirtschaftlich eng mit Stuttgart vernetzt. Die Hochschule Reutlingen bringt Innovationsimpulse, während etablierte Industrieunternehmen aus Maschinenbau, Textil und Automobil die Region prägen. Unternehmen wie Bosch, ZF und ihre Zulieferer sind in der Umgebung stark vertreten. Als KI Agentur für Reutlingen sprechen wir die Sprache des schwäbischen Mittelstands: keine Experimente, sondern Lösungen, die sofort funktionieren. Pragmatisch, DSGVO-konform und zu fairen Konditionen.",
+      detailedContent: "Als KI Agentur in Reutlingen bieten wir drei Kernlösungen für Reutlinger Unternehmen: Voice KI Telefonassistenten, KI-Chatbots und n8n-Automatisierungen. Die Wirtschaftsstruktur der Region — produzierendes Gewerbe, Handwerk, Hochschul-Spin-offs und klassischer Dienstleistungssektor — stellt täglich dieselben Anforderungen: Kunden wollen sofortige Antworten, Teams sind ausgelastet und manuelle Prozesse bremsen das Wachstum.\n\nUnser Voice KI Telefonassistent für Reutlingen nimmt Anrufe rund um die Uhr professionell entgegen. Ob Maschinenbauunternehmen in Sondelfingen, Handwerksbetrieb in der Innenstadt oder Arztpraxis in Betzingen — der Assistent klingt wie ein echter Mitarbeiter, beantwortet Standardfragen und bucht Termine direkt in deinen Kalender. Einrichtungszeit: 48 Stunden.\n\nUnsere KI-Chatbots für Reutlingen automatisieren WhatsApp Business und Website-Kommunikation. Für Reutlinger Unternehmen, die täglich viele gleichartige Anfragen erhalten, ist das eine enorme Entlastung. Die Integration in CRM, Kalender und Buchhaltung erfolgt per n8n — Workflows, die einmal eingerichtet, dauerhaft und zuverlässig laufen.\n\nDas Erstgespräch ist kostenlos, dauert 30 Minuten und gibt dir sofort Klarheit darüber, welche Prozesse in deinem Reutlinger Betrieb das größte Automatisierungspotenzial haben.",
+      painPoints: [
+        { title: "Telefonische Erreichbarkeit leidet", description: "In Reutlinger KMUs gehen täglich Anrufe verloren — weil niemand abnimmt oder das Team zu beschäftigt ist." },
+        { title: "Wachstum ohne Skalierung der Kosten", description: "Mehr Kunden bedeuten mehr Anfragen. KI skaliert mit — ohne zusätzliche Personalkosten." },
+        { title: "Digitaler Rückstand kostet Aufträge", description: "Kunden vergleichen online. Unternehmen ohne schnellen digitalen Kundenservice verlieren an modernere Anbieter." },
+      ],
+      features: [
+        { title: "Voice KI Telefonassistent", description: "24/7 Anrufannahme für Reutlinger Unternehmen — professionell, schnell eingerichtet." },
+        { title: "KI-Chatbot für WhatsApp & Website", description: "Automatische Kundenkommunikation — rund um die Uhr, auf den Kanälen deiner Kunden." },
+        { title: "n8n Prozessautomatisierung", description: "Workflows laufen vollautomatisch — CRM, E-Mail, Kalender, Buchhaltung verbunden." },
+        { title: "Schnelle Umsetzung", description: "Keine monatelangen Projekte — Ergebnisse in Tagen statt Monaten." },
+      ],
+      advantages: [
+        { title: "Region Stuttgart-Tübingen kennt uns", description: "Wir betreuen Unternehmen aus dem gesamten Großraum — von Stuttgart bis Reutlingen und Tübingen." },
+        { title: "Schwäbischer Pragmatismus", description: "Konkrete Lösungen statt Konzeptpapiere — einsatzbereit in 48 Stunden." },
+        { title: "DSGVO-konform", description: "Alle Daten auf europäischen Servern, nach deutschem Recht — für Reutlinger B2B-Anforderungen." },
+      ],
+      faqs: [
+        { question: "Was ist eine KI Agentur in Reutlingen?", answer: "Eine KI Agentur in Reutlingen wie MTM Studios entwickelt und betreibt KI-basierte Automatisierungen für lokale Unternehmen. Das umfasst Voice KI Telefonassistenten (24/7-Anrufannahme), KI-Chatbots (WhatsApp & Website) und n8n-Automatisierungen (Prozesse & Workflows). MTM Studios betreut Unternehmen in Reutlingen, Tübingen und der Region Neckar-Alb." },
+        { question: "Für welche Reutlinger Branchen eignet sich KI?", answer: "Nahezu alle: Maschinenbau und Produktion (Prozessautomatisierung), Handwerksbetriebe (Voice KI für Terminbuchung), Arztpraxen (automatische Anrufannahme), Steuerberater und Kanzleien (Chatbot für Erstanfragen), Hochschul-Spin-offs (Lead-Automatisierung) und Einzelhandel (WhatsApp-Service). Jede Lösung wird individuell konfiguriert." },
+        { question: "Was kostet eine KI-Lösung in Reutlingen?", answer: "Die Kosten hängen vom Produkt und Umfang ab. MTM Studios erstellt nach einem kostenlosen Erstgespräch ein individuelles Angebot — transparent und ohne versteckte Kosten. Kontaktiere uns für ein unverbindliches Gespräch." },
+        { question: "Wie schnell sehen wir Ergebnisse?", answer: "Sofort. Ein Voice KI Telefonassistent ist nach 48 Stunden live — ab dem ersten Anruf funktioniert er. Chatbots gehen nach 3–5 Tagen in Betrieb. n8n-Workflows in 1–2 Wochen. Du siehst die Wirkung von Tag eins: keine verpassten Anrufe mehr, automatische Terminbuchungen, entlastetes Team." },
       ],
     },
   },
@@ -162,6 +282,120 @@ const content: Record<ServiceKey, Record<CityKey, RegionalContentData>> = {
         { question: "Wie trainiert ihr den Assistenten?", answer: "Wir konfigurieren den Assistenten mit deinen FAQ, Öffnungszeiten, Services, Preislisten und deiner gewünschten Tonalität — komplett auf dich zugeschnitten. Du gibst uns die Informationen, die deine Kunden am häufigsten erfragen, und wir trainieren den Assistenten darauf. Anpassungen sind jederzeit möglich, wenn sich deine Leistungen oder Prozesse ändern." },
       ],
     },
+    esslingen: {
+      title: "KI-Telefonassistent Esslingen | 24/7 Anrufannahme | MTM Studios",
+      description: "KI-Telefonassistent für Esslingener Unternehmen: Automatische Anrufannahme & Terminbuchung — 24/7, kein verpasster Anruf mehr. In 48h einsatzbereit.",
+      h1: "KI-Telefonassistent Esslingen",
+      subtext: "Kein verpasster Anruf mehr in Esslingen. Dein KI-Assistent nimmt an, antwortet und bucht Termine — rund um die Uhr.",
+      localContext: "In Esslingen am Neckar, wo Handwerk, Produktion und Dienstleistung eng verzahnt sind, ist telefonische Erreichbarkeit direkt mit Umsatz verbunden. Gerade in Betrieben, die viel unterwegs sind oder kleine Teams haben, gehen täglich Anrufe verloren — und damit potenzielle Aufträge. Unser KI-Telefonassistent für Esslingen schließt diese Lücke: 24/7 verfügbar, professionell klingend und in 48 Stunden eingerichtet.",
+      detailedContent: "Der KI-Telefonassistent von MTM Studios für Esslingen nimmt jeden eingehenden Anruf professionell entgegen — unabhängig von Uhrzeit, Auslastung des Teams oder Urlaubszeiten. Er beantwortet Standardfragen zu Leistungen, Öffnungszeiten und Preisen, bucht Termine direkt in deinen Kalender und leitet dringende Anliegen sofort weiter. Deine bestehende Telefonnummer bleibt — wir richten lediglich eine intelligente Weiterleitung ein.\n\nBesonders wertvoll für Esslingener Handwerksbetriebe, Praxen und Dienstleister: Der Assistent erstellt nach jedem Gespräch eine Zusammenfassung — direkt per E-Mail oder in deinem CRM. So behältst du immer den Überblick, auch wenn du den Anruf nicht selbst geführt hast.",
+      painPoints: [
+        { title: "Anrufe außerhalb der Öffnungszeiten", description: "Kunden rufen abends und am Wochenende an — und landen bisher bei niemandem." },
+        { title: "Team auf der Baustelle oder im Einsatz", description: "Gerade in Handwerk und Service ist das Telefon oft unbesetzt, weil alle draußen sind." },
+        { title: "Schlechte Erreichbarkeit kostet Aufträge", description: "Wer nicht abhebt, verliert Interessenten an die Konkurrenz — direkt und messbar." },
+      ],
+      features: [
+        { title: "24/7 Anrufannahme", description: "Immer erreichbar — auch nachts, am Wochenende und an Feiertagen." },
+        { title: "Automatische Terminbuchung", description: "Termine direkt in deinen Kalender — ohne Rückruf, ohne Hin-und-Her." },
+        { title: "Dringende Weiterleitungen", description: "Wichtige Anrufe werden sofort erkannt und an die richtige Person weitergeleitet." },
+        { title: "In 48h live", description: "Kein langer Einrichtungsprozess — dein Assistent ist in zwei Tagen aktiv." },
+      ],
+      advantages: [
+        { title: "Kennt den Großraum Stuttgart", description: "Wir betreuen Unternehmen aus der gesamten Region — Esslingen und Neckar-Fils inklusive." },
+        { title: "Keine neue Nummer nötig", description: "Du behältst deine Rufnummer — wir richten die Weiterleitung ein." },
+        { title: "DSGVO-konform", description: "Alle Daten auf europäischen Servern, nach deutschem Recht." },
+      ],
+      faqs: [
+        { question: "Merken Kunden, dass sie mit einer KI sprechen?", answer: "Die meisten bemerken es nicht. Unsere Sprachmodelle klingen natürlich und menschlich. Auf Wunsch kann sich der Assistent auch transparent als KI-Assistent vorstellen — das wird von vielen Kunden als professionell empfunden. Wir konfigurieren genau so, wie es zu deinem Unternehmen passt." },
+        { question: "Was passiert bei Anrufen außerhalb meiner Öffnungszeiten?", answer: "Der Assistent ist immer aktiv — rund um die Uhr. Außerhalb deiner Geschäftszeiten kann er Rückruf-Tickets erstellen, Termine für den nächsten Werktag buchen oder Informationen bereitstellen. Du definierst, was in welcher Situation passieren soll." },
+        { question: "Kann ich die Texte und Antworten selbst anpassen?", answer: "Ja, jederzeit. Wenn sich deine Leistungen, Preise oder Prozesse ändern, passen wir den Assistenten entsprechend an. Größere Änderungen nehmen wir für dich vor, kleinere kannst du nach Schulung selbst vornehmen." },
+      ],
+    },
+    muenchen: {
+      title: "KI-Telefonassistent München | 24/7 Anrufannahme & Terminbuchung | MTM Studios",
+      description: "KI-Telefonassistent für Münchner Unternehmen: 24/7 Anrufannahme, Terminbuchung & Weiterleitung. Professionell, skalierbar, in 48h live. Kostenlose Demo.",
+      h1: "KI-Telefonassistent München",
+      subtext: "Kein verpasster Anruf mehr in München. Dein KI-Telefonassistent ist immer erreichbar — und klingt wie ein echter Mitarbeiter.",
+      localContext: "In München, wo Kunden hohe Servicestandards gewohnt sind und der Wettbewerb keine Fehler verzeiht, ist telefonische Erreichbarkeit kein Nice-to-have, sondern Pflicht. Ob Tech-Startup in Schwabing, Praxis in Bogenhausen, Kanzlei am Marienplatz oder Handwerksbetrieb in Moosach — jeder nicht angenommene Anruf ist ein verlorener Kunde. MTM Studios KI-Telefonassistent für München ist die Lösung: professionell, natürlich klingend und ab dem ersten Tag live.",
+      detailedContent: "Der KI-Telefonassistent von MTM Studios für München nimmt jeden Anruf 24/7 entgegen — professionell, auf Deutsch, individuell auf dein Unternehmen trainiert. In einer Stadt mit so hohem Anfragevolumen wie München ist das besonders wertvoll: kein Anruf geht mehr verloren, keine Warteschleifen, keine überlastete Rezeption.\n\nDer Assistent bucht Termine direkt in Google Calendar, Outlook oder Calendly, beantwortet deine häufigsten Fragen zu Leistungen, Preisen und Öffnungszeiten und leitet dringende Anrufe sofort weiter. Nach jedem Gespräch gibt es eine vollständige Zusammenfassung — per E-Mail oder direkt in deinem CRM. Für Münchner Unternehmen, die täglich viele Anrufe erhalten, ist das ein echter Gamechanger.\n\nEinrichtungszeit: 48 Stunden. Du behältst deine Telefonnummer. Keine IT-Kenntnisse nötig.",
+      painPoints: [
+        { title: "Münchner Kunden haben keine Geduld", description: "Wer nicht sofort abhebt, verliert den Anrufer an die nächste Google-Suche." },
+        { title: "Rezeption und Support sind überlastet", description: "In schnell wachsenden Münchner Unternehmen skaliert der Telefonsupport nicht mit." },
+        { title: "Außerhalb der Bürozeiten unerreichbar", description: "Kunden rufen morgens früh, abends und am Wochenende an — wer fehlt, verliert." },
+      ],
+      features: [
+        { title: "24/7 Anrufannahme", description: "Immer erreichbar — auch in Stoßzeiten, nachts und an Feiertagen." },
+        { title: "Automatische Terminbuchung", description: "Termine in Google Calendar, Outlook oder Calendly — vollautomatisch." },
+        { title: "CRM-Integration", description: "Gesprächszusammenfassungen landen direkt in HubSpot, Salesforce oder deinem CRM." },
+        { title: "Skalierbar", description: "Von 10 auf 1.000 Anrufe täglich — der Assistent skaliert ohne Mehrkosten." },
+      ],
+      advantages: [
+        { title: "Münchner Ansprüche, schwäbische Effizienz", description: "Professioneller Service auf Münchner Niveau — in 48 Stunden eingerichtet." },
+        { title: "Keine Einstellungskosten", description: "KI-Telefonassistent statt Empfangsperson — bei einem Bruchteil der Kosten." },
+        { title: "DSGVO-konform", description: "EU-Infrastruktur, deutsches Recht, BSI-konforme Sicherheitsstandards." },
+      ],
+      faqs: [
+        { question: "Wie klingt der KI-Telefonassistent auf Münchner Kunden?", answer: "Professionell, natürlich und freundlich — kein Roboter-Feeling. Wir trainieren den Assistenten mit deiner Begrüßungsformel, deinem Unternehmenstonfall und deinen wichtigsten Informationen. Münchner Kunden berichten, dass sie keinen Unterschied zum menschlichen Service merken." },
+        { question: "Kann der Assistent auch auf Englisch telefonieren?", answer: "Ja, auf Anfrage konfigurieren wir den Assistenten mehrsprachig — relevant für internationale Münchner Unternehmen, die regelmäßig englischsprachige Anrufe erhalten." },
+        { question: "Wie schnell ist der Assistent in München live?", answer: "48 Stunden nach Projektstart. Wir richten Gesprächsflow, FAQ, Kalenderintegration und Weiterleitung ein. Du musst nichts installieren und keine IT-Ressourcen bereitstellen." },
+      ],
+    },
+    ludwigsburg: {
+      title: "KI-Telefonassistent Ludwigsburg | 24/7 Anrufannahme | MTM Studios",
+      description: "KI-Telefonassistent für Unternehmen in Ludwigsburg: Automatische Anrufannahme & Terminbuchung, 24/7. In 48h live — für Handwerk, Praxen & Mittelstand.",
+      h1: "KI-Telefonassistent Ludwigsburg",
+      subtext: "Kein verpasster Anruf mehr in Ludwigsburg — dein KI-Assistent ist immer erreichbar und bucht Termine automatisch.",
+      localContext: "In Ludwigsburg, wo viele Unternehmen kleine und mittlere Teams haben und gleichzeitig einen hohen Servicestandard halten müssen, sind verpasste Anrufe ein reales Problem. Ob Produktionsbetrieb im Gewerbegebiet, Praxis in der Weststadt oder Agentur in der Innenstadt — wer nicht erreichbar ist, verliert Kunden. Der KI-Telefonassistent von MTM Studios löst dieses Problem dauerhaft.",
+      detailedContent: "Der KI-Telefonassistent von MTM Studios für Ludwigsburg nimmt jeden Anruf professionell entgegen — 24 Stunden am Tag, 7 Tage die Woche. Deine Telefonnummer bleibt, wir richten eine intelligente Weiterleitung ein. Der Assistent beantwortet Standardfragen, bucht Termine und erstellt Gesprächszusammenfassungen — direkt in deinem CRM oder per E-Mail.\n\nBesonders praktisch für Ludwigsburger Handwerksbetriebe und Dienstleister: Der Assistent ist in 48 Stunden live, ohne IT-Aufwand deinerseits. Und er klingt wie ein echter Mitarbeiter — natürlich, freundlich, kompetent.",
+      painPoints: [
+        { title: "Team ist außerhalb oder beschäftigt", description: "Wenn alle im Einsatz sind, klingelt das Telefon im Leeren." },
+        { title: "Wochenende und Feiertage", description: "Kunden rufen auch dann an — und landen bisher beim Anrufbeantworter." },
+        { title: "Routineanrufe fressen Zeit", description: "FAQ-Anrufe und Terminbuchungen kosten täglich Stunden, die das Team anders braucht." },
+      ],
+      features: [
+        { title: "24/7 Erreichbarkeit", description: "Dein Assistent ist immer aktiv — auch an Feiertagen und in den Ferien." },
+        { title: "Automatische Terminbuchung", description: "Direkt in deinen Kalender — ohne Rückruf und ohne Aufwand." },
+        { title: "Natürliche Sprachführung", description: "Klingt wie ein echter Mitarbeiter — auf dein Unternehmen trainiert." },
+        { title: "In 48h live", description: "Schnelle Einrichtung ohne IT-Ressourcen." },
+      ],
+      advantages: [
+        { title: "Großraum Stuttgart Expertise", description: "Wir kennen die Unternehmenslandschaft zwischen Stuttgart und Ludwigsburg." },
+        { title: "Keine neue Rufnummer nötig", description: "Du behältst deine Nummer — wir richten alles ein." },
+        { title: "DSGVO-konform", description: "EU-Server, deutsches Recht, sichere Verarbeitung." },
+      ],
+      faqs: [
+        { question: "Wie lange dauert die Einrichtung in Ludwigsburg?", answer: "48 Stunden nach Projektstart. Wir konfigurieren alles — Gesprächsflow, FAQ-Training, Kalenderanbindung. Du musst nichts tun außer uns die Informationen zu geben, die deine Kunden am häufigsten fragen." },
+        { question: "Kann ich den Assistenten selbst anpassen?", answer: "Ja. Wenn sich Leistungen, Preise oder Öffnungszeiten ändern, passen wir den Assistenten an — schnell und unkompliziert. Du hast immer einen festen Ansprechpartner, der dein Projekt kennt." },
+      ],
+    },
+    reutlingen: {
+      title: "KI-Telefonassistent Reutlingen | 24/7 Anrufannahme | MTM Studios",
+      description: "KI-Telefonassistent für Reutlinger Unternehmen: Automatische Anrufannahme, Terminbuchung & Weiterleitung — 24/7, in 48h live. Für Handwerk, Praxen & Mittelstand.",
+      h1: "KI-Telefonassistent Reutlingen",
+      subtext: "Kein verpasster Anruf mehr in Reutlingen — dein KI-Assistent ist immer erreichbar, bucht Termine und entlastet dein Team.",
+      localContext: "Reutlinger Unternehmen aus Maschinenbau, Handwerk, Gesundheit und Dienstleistung kämpfen täglich mit denselben Herausforderungen: Anrufe kommen außerhalb der Öffnungszeiten, das Team ist beschäftigt und Routinegespräche fressen wertvolle Zeit. Der KI-Telefonassistent von MTM Studios schließt diese Lücke — professionell, DSGVO-konform und in 48 Stunden eingerichtet.",
+      detailedContent: "Der KI-Telefonassistent von MTM Studios für Reutlingen nimmt jeden Anruf 24/7 professionell entgegen. Ob Maschinenbauunternehmen in Sondelfingen, Arztpraxis in Betzingen oder Steuerberater in der Innenstadt — der Assistent klingt wie ein echter Mitarbeiter, beantwortet Standardfragen und bucht Termine direkt in deinen Kalender.\n\nDie Einrichtung dauert 48 Stunden. Du behältst deine bestehende Rufnummer. Nach jedem Gespräch erhältst du eine Zusammenfassung — per E-Mail oder direkt in deinem CRM. Für Reutlinger Unternehmen bedeutet das: keine verpassten Anrufe mehr, kein Aufwand im Team und messbar mehr gebuchte Termine.",
+      painPoints: [
+        { title: "Anrufe gehen verloren", description: "Täglich gehen Anrufe verloren, weil niemand abnimmt — besonders außerhalb der Bürozeiten." },
+        { title: "Routineanrufe kosten Zeit", description: "FAQ, Terminbuchungen, Öffnungszeiten — das lässt sich vollständig automatisieren." },
+        { title: "Wachstum ohne mehr Personal", description: "KI-Telefonassistent skaliert mit dem Auftragsvolumen — ohne Einstellungskosten." },
+      ],
+      features: [
+        { title: "24/7 Erreichbarkeit", description: "Immer aktiv — auch nachts, am Wochenende, an Feiertagen." },
+        { title: "Terminbuchung", description: "Automatisch in Google Calendar, Outlook oder Calendly." },
+        { title: "Intelligente Weiterleitung", description: "Dringende Anrufe werden sofort an die richtige Person weitergeleitet." },
+        { title: "In 48h live", description: "Schnelle Einrichtung ohne IT-Aufwand." },
+      ],
+      advantages: [
+        { title: "Region Stuttgart-Tübingen", description: "Wir kennen den Markt zwischen Stuttgart, Reutlingen und Tübingen." },
+        { title: "Keine neue Nummer", description: "Deine Rufnummer bleibt — wir richten die Weiterleitung ein." },
+        { title: "DSGVO-konform", description: "EU-Server, deutsches Recht." },
+      ],
+      faqs: [
+        { question: "Ist der KI-Telefonassistent für Reutlinger KMUs geeignet?", answer: "Ja, besonders. Kleine und mittlere Unternehmen in Reutlingen profitieren am meisten: Sie haben oft keine dedizierten Rezeptionsmitarbeiter, erhalten aber täglich Dutzende Anrufe. Ab ca. 10–15 Anrufen pro Tag rechnet sich ein KI-Telefonassistent nachweislich — und ist innerhalb von 48 Stunden einsatzbereit." },
+        { question: "Was passiert, wenn der Assistent eine Frage nicht beantworten kann?", answer: "Erkennt der Assistent, dass eine Frage menschliche Expertise erfordert, leitet er den Anruf weiter oder erstellt ein Rückruf-Ticket mit vollem Gesprächskontext. So geht keine Anfrage verloren, und dein Team kann gezielt dort eingreifen, wo es wirklich nötig ist." },
+      ],
+    },
   },
   "ki-chatbot": {
     stuttgart: {
@@ -222,6 +456,118 @@ const content: Record<ServiceKey, Record<CityKey, RegionalContentData>> = {
         { question: "Kann ich den Chatbot selbst anpassen?", answer: "Ja, über ein intuitives Dashboard kannst du Antworten, FAQ und Einstellungen jederzeit selbst ändern. Neue Produkte hinzufügen, Preise aktualisieren oder saisonale Aktionen einpflegen — das geht in Minuten, ohne technisches Vorwissen. Natürlich unterstützen wir dich auch, wenn du Hilfe brauchst." },
         { question: "Was passiert, wenn der Chatbot eine Frage nicht beantworten kann?", answer: "Er gibt es ehrlich zu und leitet die Anfrage an dein Team weiter — mit vollem Gesprächskontext, damit dein Mitarbeiter nahtlos übernehmen kann. So bleibt die Kundenerfahrung positiv, und keine Anfrage geht verloren. Gleichzeitig lernt der Bot aus diesen Situationen und wird mit der Zeit immer besser." },
         { question: "Für welche Unternehmensgrößen ist das geeignet?", answer: "Vom Einzelunternehmer bis zum Mittelständler mit 200 Mitarbeitern — unsere Lösungen skalieren mit deinem Bedarf. Für kleine Unternehmen bieten wir schlanke Einstiegspakete, für größere Betriebe umfassende Multi-Channel-Lösungen. Der Chatbot wächst mit deinem Unternehmen, ohne dass du von vorne anfangen musst." },
+      ],
+    },
+    esslingen: {
+      title: "KI-Chatbot Esslingen | WhatsApp & Website automatisieren | MTM Studios",
+      description: "KI-Chatbot für Esslingener Unternehmen. Automatische Kundenanfragen auf WhatsApp & Website — 24/7, DSGVO-konform, in 3–5 Tagen live.",
+      h1: "KI-Chatbot für Esslingen",
+      subtext: "Automatisierte Kundenkommunikation auf WhatsApp und deiner Website — für Unternehmen in Esslingen am Neckar.",
+      localContext: "Esslingener Unternehmen erhalten täglich Dutzende Kundenanfragen — per WhatsApp, Website-Kontaktformular und Telefon. Gerade in der Hauptgeschäftszeit fehlt die Kapazität, alle Nachrichten sofort zu beantworten. Ein KI-Chatbot von MTM Studios schließt diese Lücke: Er antwortet sofort, qualifiziert Leads und bucht Termine — rund um die Uhr, auf den Kanälen, die deine Kunden nutzen.",
+      detailedContent: "Unser KI-Chatbot für Esslingen wird individuell auf dein Unternehmen trainiert — mit deinen Produkten, FAQ, Preisen und deiner Unternehmenssprache. Ob Handwerksbetrieb in Berkheim, Einzelhandel in der Esslinger Innenstadt oder Dienstleister in Plochingen — jeder Bot spiegelt die Kompetenz und Persönlichkeit deines Unternehmens wider.\n\nDie WhatsApp-Integration ist besonders beliebt: Kunden schreiben, der Bot antwortet sofort — professionell und auf Deutsch. Termine werden direkt gebucht, Anfragen qualifiziert, Infomaterial verschickt. Für komplexe Anliegen übergibt der Bot das Gespräch mit vollem Kontext an dein Team.",
+      painPoints: [
+        { title: "Nachrichten bleiben liegen", description: "WhatsApp und Website-Anfragen werden oft erst Stunden später beantwortet — Kunden warten nicht." },
+        { title: "Gleichartige Fragen immer wieder", description: "Öffnungszeiten, Preise, Leistungen — das lässt sich vollständig automatisieren." },
+        { title: "Leads werden nicht qualifiziert", description: "Ohne Chatbot landen alle Anfragen unstrukturiert beim Team — Chatbot filtert und priorisiert." },
+      ],
+      features: [
+        { title: "WhatsApp Business Integration", description: "Professionell auf dem meistgenutzten Kanal deiner Kunden." },
+        { title: "24/7 Verfügbarkeit", description: "Immer sofortige Antworten — auch außerhalb der Öffnungszeiten." },
+        { title: "Lead-Qualifizierung", description: "Der Bot filtert und priorisiert Anfragen, bevor sie dein Team erreichen." },
+        { title: "In 3–5 Tagen live", description: "Schnelle Einrichtung ohne IT-Aufwand." },
+      ],
+      advantages: [
+        { title: "Region Stuttgart kennt uns", description: "Wir betreuen Unternehmen aus dem gesamten Großraum — Esslingen inklusive." },
+        { title: "Individuell trainiert", description: "Kein Standard-Bot — individuell auf dein Unternehmen konfiguriert." },
+        { title: "DSGVO-konform", description: "EU-Server, deutsches Datenschutzrecht." },
+      ],
+      faqs: [
+        { question: "Auf welchen Kanälen funktioniert der Chatbot?", answer: "WhatsApp Business, deine Website (als eingebetteter Chat), Instagram Direct und weitere Kanäle auf Anfrage. Wir richten alle Kanäle ein und trainieren den Bot einheitlich — egal über welchen Kanal der Kunde schreibt." },
+        { question: "Wie lange dauert die Einrichtung in Esslingen?", answer: "3–5 Arbeitstage für Standard-Chatbots, 1–2 Wochen für komplexere Lösungen mit CRM-Integration. Wir kümmern uns um alles — du gibst uns deine Inhalte, wir richten alles ein." },
+      ],
+    },
+    muenchen: {
+      title: "KI-Chatbot München | WhatsApp & Website automatisieren | MTM Studios",
+      description: "KI-Chatbot für Münchner Unternehmen. Automatisierte Kundenkommunikation auf WhatsApp, Website & mehr — skalierbar, 24/7, DSGVO-konform. Kostenlose Demo.",
+      h1: "KI-Chatbot München",
+      subtext: "Skalierbare Kundenkommunikation auf WhatsApp und deiner Website — für Münchner Unternehmen mit hohem Anfragevolumen.",
+      localContext: "In München, wo Unternehmen täglich hunderte Kundenanfragen erhalten, ist ein KI-Chatbot keine Spielerei — er ist Pflicht. Ob Startup in Maxvorstadt, Kanzlei am Marienplatz, E-Commerce in Sendling oder Praxis in Schwabing — Münchner Kunden erwarten sofortige Antworten. MTM Studios KI-Chatbots für München liefern genau das: professionell, skalierbar und in 3–5 Tagen live.",
+      detailedContent: "Münchner Unternehmen nutzen unsere KI-Chatbots auf WhatsApp Business, Website und weiteren Kanälen. Der Bot wird individuell auf dein Unternehmen trainiert und skaliert mit dem Anfragevolumen — von 10 auf 1.000 Nachrichten täglich ohne Mehrkosten.\n\nBesonders relevant für den Münchner Markt: CRM-Integration in HubSpot, Salesforce oder Pipedrive. Jede Konversation landet strukturiert in deinem System, Leads werden automatisch angelegt und bewertet. Dein Vertriebsteam konzentriert sich auf die qualifizierten Anfragen — der Bot erledigt den Rest.",
+      painPoints: [
+        { title: "Hohes Anfragevolumen nicht skalierbar", description: "In München kommen täglich hunderte Nachrichten — ohne Automatisierung ist das nicht zu bewältigen." },
+        { title: "Reaktionszeiten zu langsam", description: "Münchner Kunden warten nicht — wer nicht sofort antwortet, verliert den Lead." },
+        { title: "Unstrukturierte Leads", description: "Anfragen ohne Qualifizierung kosten Vertriebszeit — der Chatbot filtert und priorisiert." },
+      ],
+      features: [
+        { title: "WhatsApp Business", description: "Professionell auf dem meistgenutzten Kanal." },
+        { title: "CRM-Integration", description: "HubSpot, Salesforce, Pipedrive — Leads landen automatisch strukturiert." },
+        { title: "Skalierbar", description: "Von 10 auf 1.000 Nachrichten täglich ohne Mehrkosten." },
+        { title: "Mehrsprachig", description: "Deutsch und Englisch — relevant für den internationalen Münchner Markt." },
+      ],
+      advantages: [
+        { title: "Münchner Tempo", description: "In 3–5 Tagen live — kein langes Onboarding." },
+        { title: "Enterprise-Features für KMU-Preise", description: "Skalierbare Chatbot-Lösung ohne Enterprise-Budget." },
+        { title: "DSGVO & BSI-konform", description: "EU-Infrastruktur, deutsches Recht." },
+      ],
+      faqs: [
+        { question: "Kann der Chatbot auch auf Englisch kommunizieren?", answer: "Ja. Wir konfigurieren den Chatbot auf Anfrage mehrsprachig — relevant für internationale Münchner Unternehmen oder solche mit englischsprachiger Kundschaft." },
+        { question: "Wie integriert sich der Chatbot in unser CRM?", answer: "Wir verbinden den Chatbot mit deinem CRM-System — HubSpot, Salesforce, Pipedrive oder andere. Kontaktdaten, Gesprächsverläufe und Lead-Scores werden automatisch synchronisiert, sodass dein Team immer den vollen Überblick hat." },
+      ],
+    },
+    ludwigsburg: {
+      title: "KI-Chatbot Ludwigsburg | WhatsApp & Website | MTM Studios",
+      description: "KI-Chatbot für Unternehmen in Ludwigsburg. Automatische Kundenanfragen auf WhatsApp & Website — 24/7, individuell trainiert, in 3–5 Tagen live.",
+      h1: "KI-Chatbot für Ludwigsburg",
+      subtext: "Automatisierte Kundenkommunikation für Unternehmen in Ludwigsburg — auf WhatsApp, Website und mehr.",
+      localContext: "Ludwigsburger Unternehmen — ob Agentur, Händler oder Dienstleister — erhalten täglich Anfragen auf mehreren Kanälen. Ein KI-Chatbot von MTM Studios beantwortet diese Anfragen sofort, qualifiziert Leads und entlastet dein Team messbar. In 3–5 Tagen eingerichtet, individuell auf dein Unternehmen trainiert.",
+      detailedContent: "Unser KI-Chatbot für Ludwigsburg ist auf WhatsApp Business und deiner Website aktiv — rund um die Uhr, ohne manuellen Aufwand. Er wird mit deinen Produkten, FAQ und deiner Unternehmenssprache trainiert. Kundenanfragen werden sofort beantwortet, Termine gebucht und Leads strukturiert an dein Team übergeben.",
+      painPoints: [
+        { title: "Anfragen kommen zu jeder Zeit", description: "Kunden schreiben abends und am Wochenende — ohne Chatbot bleibt es unbeantwortet." },
+        { title: "Team hat keine Kapazität für Routineanfragen", description: "FAQ, Preisanfragen, Terminbuchungen — der Chatbot erledigt das vollautomatisch." },
+        { title: "Langsame Reaktionszeiten kosten Leads", description: "Wer nicht sofort antwortet, verliert Interessenten an die Konkurrenz." },
+      ],
+      features: [
+        { title: "WhatsApp Business", description: "Professionelle Präsenz auf dem meistgenutzten Kanal." },
+        { title: "Website-Chat", description: "Eingebetteter Chatbot auf deiner Website — sofortige Antworten." },
+        { title: "Terminbuchung", description: "Direkt in deinen Kalender — ohne Rückruf." },
+        { title: "In 3–5 Tagen live", description: "Schnelle Einrichtung ohne technischen Aufwand." },
+      ],
+      advantages: [
+        { title: "Großraum Stuttgart Expertise", description: "Wir kennen den Markt in Ludwigsburg und Umgebung." },
+        { title: "Individuell trainiert", description: "Dein Bot, deine Sprache, deine Inhalte." },
+        { title: "DSGVO-konform", description: "EU-Server, deutsches Datenschutzrecht." },
+      ],
+      faqs: [
+        { question: "Wie lange dauert die Chatbot-Einrichtung in Ludwigsburg?", answer: "3–5 Arbeitstage für Standard-Chatbots. Wir kümmern uns um die gesamte Einrichtung — von der technischen Integration bis zum Training mit deinen Inhalten." },
+        { question: "Kann ich den Chatbot nach dem Start selbst pflegen?", answer: "Ja. Du kannst Antworten, FAQ und Einstellungen jederzeit selbst anpassen. Wir schulen dich kurz — danach bist du unabhängig. Natürlich sind wir auch für Änderungen erreichbar." },
+      ],
+    },
+    reutlingen: {
+      title: "KI-Chatbot Reutlingen | WhatsApp & Website | MTM Studios",
+      description: "KI-Chatbot für Reutlinger Unternehmen. Automatisierte Kundenkommunikation auf WhatsApp & Website — 24/7, DSGVO-konform, schnell eingerichtet.",
+      h1: "KI-Chatbot für Reutlingen",
+      subtext: "Automatisierte Kundenkommunikation für Unternehmen in Reutlingen und der Region Neckar-Alb.",
+      localContext: "Reutlinger Unternehmen erhalten täglich Anfragen über WhatsApp, Kontaktformulare und Social Media. Ein KI-Chatbot von MTM Studios beantwortet diese sofort und qualifiziert Leads — ohne dass dein Team tätig werden muss. In 3–5 Tagen eingerichtet, individuell trainiert, DSGVO-konform.",
+      detailedContent: "Unser KI-Chatbot für Reutlingen ist auf WhatsApp Business und deiner Website aktiv — rund um die Uhr. Er wird mit deinen Produkten, FAQ und Preisen trainiert. Kundenanfragen werden sofort beantwortet, Termine gebucht und Leads strukturiert an dein Team übergeben — auch außerhalb der Bürozeiten.",
+      painPoints: [
+        { title: "Anfragen bleiben unbeantwortet", description: "Ohne Chatbot werden viele Nachrichten erst Stunden später gelesen — Kunden sind längst weg." },
+        { title: "Routineanfragen blockieren das Team", description: "FAQ-Antworten und Terminbuchungen lassen sich vollständig automatisieren." },
+        { title: "Verpasste Leads", description: "Interessenten, die keine sofortige Antwort bekommen, wenden sich an die Konkurrenz." },
+      ],
+      features: [
+        { title: "WhatsApp Business", description: "Professionell auf dem meistgenutzten Kanal." },
+        { title: "Website-Chat", description: "Eingebetteter Bot auf deiner Website." },
+        { title: "Lead-Qualifizierung", description: "Strukturierte Übergabe an dein Team." },
+        { title: "In 3–5 Tagen live", description: "Ohne IT-Aufwand deinerseits." },
+      ],
+      advantages: [
+        { title: "Region Neckar-Alb kennt uns", description: "Wir betreuen Unternehmen zwischen Stuttgart und Tübingen." },
+        { title: "Individuell trainiert", description: "Auf deine Inhalte, deine Sprache, dein Unternehmen." },
+        { title: "DSGVO-konform", description: "EU-Server, deutsches Recht." },
+      ],
+      faqs: [
+        { question: "Funktioniert der Chatbot auch für kleinere Unternehmen in Reutlingen?", answer: "Ja, gerade für KMUs in Reutlingen ist ein Chatbot besonders wertvoll. Kleine Teams können nicht rund um die Uhr erreichbar sein — der Chatbot schließt diese Lücke kosteneffizient. Schon ab wenigen Anfragen täglich rechnet sich die Lösung." },
+        { question: "Was passiert mit den Kontaktdaten der Kunden?", answer: "Alle Daten werden DSGVO-konform auf europäischen Servern gespeichert und verarbeitet. Wir stellen alle notwendigen Datenschutzhinweise bereit und integrieren den Chatbot rechtskonform in dein Unternehmen." },
       ],
     },
   },
@@ -286,10 +632,123 @@ const content: Record<ServiceKey, Record<CityKey, RegionalContentData>> = {
         { question: "Sind meine Daten sicher?", answer: "Ja, alle Automatisierungen laufen DSGVO-konform. Deine Daten werden ausschließlich in der EU verarbeitet und gespeichert. Wir setzen auf verschlüsselte Verbindungen, Zugriffskontrollen und regelmäßige Sicherheitsüberprüfungen. Als deutsches Unternehmen unterliegen wir den strengen europäischen Datenschutzrichtlinien — das gibt dir und deinen Kunden Sicherheit." },
       ],
     },
+    esslingen: {
+      title: "Automatisierung Esslingen | n8n Workflows & Prozesse | MTM Studios",
+      description: "Prozessautomatisierung für Unternehmen in Esslingen. n8n-Workflows, CRM-Integration & Datenpipelines — in 1–2 Wochen live. Kostenlose Erstberatung.",
+      h1: "Automatisierung Esslingen",
+      subtext: "n8n-Workflows und Prozessautomatisierungen für Unternehmen in Esslingen am Neckar — spart Zeit, reduziert Fehler.",
+      localContext: "Esslingener Unternehmen aus Produktion, Handwerk und Dienstleistung verbringen täglich Stunden mit manuellen Aufgaben: Daten übertragen, Formulare ausfüllen, E-Mails weiterleiten, Berichte erstellen. Diese Routinearbeiten lassen sich mit n8n-Automatisierungen vollständig eliminieren. MTM Studios baut praxiserprobte Workflows für Esslingener KMUs — in 1–2 Wochen live, DSGVO-konform.",
+      detailedContent: "Als Automatisierungs-Agentur für Esslingen verbinden wir deine bestehenden Tools nahtlos miteinander: CRM, E-Mail, Kalender, Buchhaltung, Projektmanagement. Formulareingaben lösen automatisch CRM-Einträge aus, Bestätigungs-E-Mails gehen pünktlich raus, Berichte erstellen sich selbst. Esslingener Kunden berichten typischerweise von 10–25 eingesparten Stunden pro Woche.\n\nWir starten mit einem kostenlosen Erstgespräch, identifizieren die Prozesse mit dem größten Automatisierungspotenzial und setzen schnelle Quick-Wins zuerst um. Jeder Workflow ist DSGVO-konform, modular aufgebaut und jederzeit erweiterbar.",
+      painPoints: [
+        { title: "Manuelle Dateneingaben fressen Zeit", description: "Daten zwischen Systemen kopieren ist fehleranfällig und kostet täglich Stunden." },
+        { title: "Integrationen fehlen", description: "Tools wie CRM, Buchhaltung und Kalender laufen isoliert voneinander." },
+        { title: "Wachstum nicht skalierbar", description: "Mehr Aufträge bedeuten mehr manuelle Arbeit — ohne Automatisierung wächst der Overhead." },
+      ],
+      features: [
+        { title: "n8n Workflow-Automatisierung", description: "Leistungsstarke, self-hosted Automatisierungen für Esslingener Betriebe." },
+        { title: "CRM & E-Mail Integration", description: "HubSpot, Salesforce, Mailchimp und weitere Systeme verbunden." },
+        { title: "Datenpipelines", description: "Automatischer Datenfluss zwischen deinen Tools — keine manuelle Übertragung mehr." },
+        { title: "In 1–2 Wochen live", description: "Schnelle Umsetzung mit sofort spürbarem Effekt." },
+      ],
+      advantages: [
+        { title: "Region Stuttgart Expertise", description: "Wir kennen den Mittelstand im Großraum Stuttgart — und die typischen Prozesslandschaften." },
+        { title: "DSGVO-konform & self-hosted", description: "Alle Automatisierungen laufen auf EU-Servern, vollständig unter deiner Kontrolle." },
+        { title: "Modular & erweiterbar", description: "Start klein, dann skalieren — jede Lösung ist jederzeit erweiterbar." },
+      ],
+      faqs: [
+        { question: "Welche Tools können in Esslingen automatisiert werden?", answer: "Nahezu alle gängigen Business-Tools: CRM-Systeme (HubSpot, Salesforce, Pipedrive), E-Mail (Gmail, Outlook), Kalender (Google Calendar, Outlook), Buchhaltung (Lexoffice, DATEV, Sevdesk), Projektmanagement (Notion, Asana, ClickUp), Formulare (Typeform, Google Forms) und viele mehr. Wir prüfen im Erstgespräch, welche deiner Tools sich am besten automatisieren lassen." },
+        { question: "Was ist n8n und warum nutzt MTM Studios es?", answer: "n8n ist eine Open-Source-Automatisierungsplattform, die sich selbst hosten lässt. Das bedeutet: deine Daten bleiben auf deinen Servern oder unserer EU-Infrastruktur — DSGVO-konform von Anfang an. n8n ist leistungsstärker und flexibler als Cloud-Dienste wie Zapier, ohne die Datenschutzrisiken. Für den deutschen Mittelstand ist das die ideale Wahl." },
+        { question: "Wie schnell sehe ich Ergebnisse?", answer: "Sofort nach Go-live des ersten Workflows. Wir priorisieren Quick-Wins — also die Prozesse, die sofort viel Zeit sparen. Typische Erstlösungen sind nach 1–2 Wochen live und sparen ab Tag eins messbar Arbeitszeit." },
+      ],
+    },
+    muenchen: {
+      title: "Automatisierung München | n8n Workflows & KI-Prozesse | MTM Studios",
+      description: "Prozessautomatisierung für Münchner Unternehmen: n8n-Workflows, CRM-Integration, Datenpipelines — skalierbar, DSGVO-konform. Kostenlose Erstberatung für den Münchner Mittelstand.",
+      h1: "Automatisierung München",
+      subtext: "n8n-Automatisierungen und Prozessoptimierung für Münchner Unternehmen — skalierbar, schnell umgesetzt, messbare Zeitersparnis.",
+      localContext: "München ist Deutschlands Innovationshauptstadt — und trotzdem verschwinden in vielen Unternehmen täglich Stunden in manuellen Prozessen. Daten werden kopiert, E-Mails manuell weitergleitet, Reports von Hand erstellt. MTM Studios automatisiert diese Prozesse mit n8n für Münchner Unternehmen — von Startups in der Maxvorstadt bis zu etablierten Mittelständlern in Sendling und Moosach.",
+      detailedContent: "Münchner Unternehmen nutzen n8n-Automatisierungen, um manuelle Prozesse zu eliminieren und das Team auf wertschöpfende Arbeit zu fokussieren. Typische Anwendungsfälle: Automatisches CRM-Pflegung nach eingehenden Leads, E-Mail-Sequenzen die sich selbst auslösen, Rechnungen die automatisch erstellt und verschickt werden, Dashboards die sich täglich aktualisieren.\n\nFür Münchner Startups und Scale-Ups besonders relevant: Unsere Automatisierungen skalieren mit dem Wachstum — was bei 50 Kunden funktioniert, läuft genauso zuverlässig bei 5.000. Einrichtungszeit: 1–2 Wochen. Erweiterungen jederzeit möglich.",
+      painPoints: [
+        { title: "Manuelle Prozesse blockieren Skalierung", description: "In schnell wachsenden Münchner Unternehmen können manuelle Workflows nicht mithalten." },
+        { title: "Tool-Wildwuchs ohne Integration", description: "Jedes Team nutzt andere Tools — ohne Automatisierung entstehen Datensilos." },
+        { title: "Hohe Personalkosten in München", description: "Manuelle Routinearbeit kostet bei Münchner Gehaltsniveau sehr viel — Automatisierung rechnet sich sofort." },
+      ],
+      features: [
+        { title: "n8n Enterprise Workflows", description: "Skalierbare Automatisierungen für Münchner Unternehmen jeder Größe." },
+        { title: "CRM & Sales Automation", description: "HubSpot, Salesforce, Pipedrive — Lead-Prozesse vollautomatisch." },
+        { title: "Finance & Reporting", description: "Lexoffice, DATEV, Sevdesk — Buchhaltungsprozesse automatisiert." },
+        { title: "Startup-Ready", description: "Schnell deploybar, modular, skaliert mit eurem Wachstum." },
+      ],
+      advantages: [
+        { title: "Münchner Startup-Erfahrung", description: "Wir kennen die Tool-Stacks und Prozessanforderungen von Münchner Startups und Scale-Ups." },
+        { title: "DSGVO-first", description: "Self-hosted n8n auf EU-Infrastruktur — keine Datenweitergabe in die USA." },
+        { title: "Ergebnisse in Tagen", description: "Quick-Wins in 1–2 Wochen, nicht Monaten." },
+      ],
+      faqs: [
+        { question: "Warum n8n statt Zapier oder Make für Münchner Unternehmen?", answer: "n8n ist self-hosted: Deine Daten verlassen nicht die EU. Gerade in München, wo viele Unternehmen im B2B-Bereich tätig sind und strenge Datenschutzanforderungen haben, ist das entscheidend. Zusätzlich ist n8n bei komplexen Workflows leistungsstärker und langfristig günstiger als cloudbasierte Alternativen." },
+        { question: "Kann n8n mit unserem bestehenden Tech Stack in München integriert werden?", answer: "Mit sehr hoher Wahrscheinlichkeit ja. n8n unterstützt über 400 native Integrationen und lässt sich über Webhooks und APIs mit praktisch jedem modernen System verbinden. Wir prüfen im Erstgespräch deinen Tech Stack und zeigen konkret, was sich automatisieren lässt." },
+      ],
+    },
+    ludwigsburg: {
+      title: "Automatisierung Ludwigsburg | n8n Workflows & Prozesse | MTM Studios",
+      description: "Prozessautomatisierung für Unternehmen in Ludwigsburg. n8n-Workflows, CRM-Integration & Datenpipelines — in 1–2 Wochen live. DSGVO-konform.",
+      h1: "Automatisierung Ludwigsburg",
+      subtext: "n8n-Workflows und Prozessautomatisierung für Unternehmen in Ludwigsburg — spart Zeit, reduziert Fehler, skaliert mit.",
+      localContext: "Ludwigsburger Unternehmen aus Medien, Produktion und Handel können mit n8n-Automatisierungen manuelle Prozesse eliminieren: Leads aus Formularen landen automatisch im CRM, Auftragsbestätigungen gehen sofort raus, Berichte erstellen sich täglich selbst. MTM Studios setzt diese Workflows für Ludwigsburger Betriebe um — in 1–2 Wochen, ohne IT-Aufwand.",
+      detailedContent: "Als Automatisierungs-Agentur für Ludwigsburg verbinden wir deine bestehenden Tools nahtlos: CRM, E-Mail, Kalender, Buchhaltung. Jeder Workflow ist DSGVO-konform, self-hosted auf EU-Servern und jederzeit erweiterbar. Ludwigsburger Kunden sparen typischerweise 10–20 Stunden pro Woche — ab der ersten Woche nach Go-live.",
+      painPoints: [
+        { title: "Daten zwischen Tools manuell übertragen", description: "Copy-Paste zwischen Systemen ist fehleranfällig und kostet täglich Zeit." },
+        { title: "Keine Systemintegration", description: "CRM, E-Mail und Buchhaltung laufen isoliert — Automatisierung verbindet sie." },
+        { title: "Wachstum erhöht manuellen Aufwand", description: "Ohne Automatisierung skaliert der Overhead mit — nicht die Effizienz." },
+      ],
+      features: [
+        { title: "n8n Workflow-Automatisierung", description: "Leistungsstarke, self-hosted Workflows für Ludwigsburger Betriebe." },
+        { title: "CRM-Integration", description: "HubSpot, Pipedrive, Salesforce automatisch befüllt." },
+        { title: "E-Mail-Automatisierung", description: "Follow-ups, Bestätigungen, Newsletter — vollautomatisch." },
+        { title: "In 1–2 Wochen live", description: "Quick-Wins zuerst — sofort spürbare Zeitersparnis." },
+      ],
+      advantages: [
+        { title: "Großraum Stuttgart kennt uns", description: "Wir kennen die Prozesslandschaften von Ludwigsburger Unternehmen." },
+        { title: "Self-hosted & DSGVO-konform", description: "n8n auf EU-Servern — vollständig unter deiner Datenkontrolle." },
+        { title: "Modular erweiterbar", description: "Start mit einem Workflow, dann beliebig ausbauen." },
+      ],
+      faqs: [
+        { question: "Was lässt sich in Ludwigsburg am schnellsten automatisieren?", answer: "Die größten Quick-Wins sind typischerweise: Lead-Erfassung aus Kontaktformularen automatisch ins CRM, automatische Terminbestätigungen und Erinnerungen, tägliche oder wöchentliche Berichte ohne manuelle Arbeit sowie E-Mail-Sequenzen für Neukunden. Wir identifizieren im kostenlosen Erstgespräch, was in deinem Betrieb den größten Effekt hat." },
+        { question: "Brauchen wir IT-Kenntnisse für n8n-Automatisierungen?", answer: "Nein. Wir richten alles ein und du bekommst eine laufende Lösung. Nach einer kurzen Einweisung kannst du einfache Anpassungen selbst vornehmen — für komplexere Änderungen stehen wir jederzeit zur Verfügung." },
+      ],
+    },
+    reutlingen: {
+      title: "Automatisierung Reutlingen | n8n Workflows & Prozesse | MTM Studios",
+      description: "Prozessautomatisierung für Reutlinger Unternehmen. n8n-Workflows, CRM-Integration & Datenpipelines — DSGVO-konform, in 1–2 Wochen live.",
+      h1: "Automatisierung Reutlingen",
+      subtext: "n8n-Automatisierungen für Unternehmen in Reutlingen und der Region Neckar-Alb — manuelle Prozesse eliminieren, Zeit sparen.",
+      localContext: "Reutlinger Unternehmen aus Maschinenbau, Handwerk und Dienstleistung verlieren täglich Stunden an manuelle Routineaufgaben. Mit n8n-Automatisierungen von MTM Studios lassen sich diese Prozesse vollständig eliminieren — CRM-Einträge, E-Mail-Prozesse, Berichte, Formular-Workflows. In 1–2 Wochen live, DSGVO-konform, ohne IT-Aufwand.",
+      detailedContent: "Als Automatisierungs-Agentur für Reutlingen verbinden wir die Tools, die du bereits nutzt: CRM, E-Mail, Kalender, Buchhaltung. Formulareingaben lösen automatisch die richtigen Aktionen aus, Follow-up-E-Mails gehen pünktlich raus, Berichte erstellen sich täglich selbst. Reutlinger Kunden sparen damit typischerweise 10–20 Stunden pro Woche — ab dem ersten Tag nach Go-live.",
+      painPoints: [
+        { title: "Manuelle Datenpflege kostet Zeit", description: "Daten zwischen CRM, E-Mail und Buchhaltung manuell zu übertragen ist fehleranfällig." },
+        { title: "Tools sind nicht verbunden", description: "Jedes System läuft isoliert — n8n verbindet sie alle." },
+        { title: "Skalierung ohne Mehraufwand", description: "Automatisierung wächst mit dem Auftragsvolumen — ohne zusätzliche Personalkosten." },
+      ],
+      features: [
+        { title: "n8n Workflow-Automatisierung", description: "Self-hosted, leistungsstark, DSGVO-konform." },
+        { title: "CRM & E-Mail Integration", description: "Alle wichtigen Business-Tools verbunden." },
+        { title: "Reporting & Dashboards", description: "Tägliche Berichte ohne manuelle Arbeit." },
+        { title: "In 1–2 Wochen live", description: "Quick-Wins zuerst, sofortiger Effekt." },
+      ],
+      advantages: [
+        { title: "Region Neckar-Alb", description: "Wir betreuen Unternehmen zwischen Stuttgart und Tübingen." },
+        { title: "DSGVO & self-hosted", description: "EU-Infrastruktur, vollständige Datenkontrolle." },
+        { title: "Modular & skalierbar", description: "Beliebig erweiterbar — passend für jedes Wachstumsstadium." },
+      ],
+      faqs: [
+        { question: "Welche Prozesse lassen sich in Reutlingen am besten automatisieren?", answer: "Die häufigsten Quick-Wins: Lead-Erfassung automatisch ins CRM, Terminbestätigungen und Erinnerungen per E-Mail oder WhatsApp, automatische Rechnungserstellung, tägliche Verkaufs- oder Projektberichte und E-Mail-Follow-up-Sequenzen. Wir identifizieren im kostenlosen Erstgespräch, wo in deinem Betrieb das größte Potenzial liegt." },
+        { question: "Wie lange dauert die Einrichtung einer Automatisierung in Reutlingen?", answer: "Einfache Workflows in 1–2 Wochen, komplexere Projekte in 3–4 Wochen. Wir arbeiten phasenweise: Erst die Quick-Wins, dann die komplexeren Integrationen. So hast du von Anfang an spürbare Ergebnisse." },
+      ],
+    },
   },
 };
 
-export const validCities: CityKey[] = ["stuttgart", "ulm"];
+export const validCities: CityKey[] = ["stuttgart", "ulm", "esslingen", "muenchen", "ludwigsburg", "reutlingen"];
 export const validServices: ServiceKey[] = ["ki-agentur", "ki-telefonassistent", "ki-chatbot", "automatisierungen"];
 
 export const getRegionalContent = (service: string, city: string): RegionalContentData | null => {

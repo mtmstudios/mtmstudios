@@ -2,42 +2,59 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
   <!-- Hauptseiten -->
-  <url><loc>https://mtmstudios.de/</loc><lastmod>2026-03-24</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://mtmstudios.de/ki-telefonassistent</loc><lastmod>2026-03-24</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://mtmstudios.de/ki-chatbot</loc><lastmod>2026-03-24</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://mtmstudios.de/automatisierungen</loc><lastmod>2026-03-24</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://mtmstudios.de/dassindwir</loc><lastmod>2026-03-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://mtmstudios.de/partnerwerden</loc><lastmod>2026-03-24</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://mtmstudios.de/karriere</loc><lastmod>2026-03-24</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://mtmstudios.de/blog</loc><lastmod>2026-03-24</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://mtmstudios.de/ki-im-mittelstand-zahlen</loc><lastmod>2026-03-24</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://mtmstudios.de/</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://mtmstudios.de/ki-telefonassistent</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://mtmstudios.de/ki-chatbot</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://mtmstudios.de/automatisierungen</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://mtmstudios.de/dassindwir</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mtmstudios.de/partnerwerden</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://mtmstudios.de/karriere</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://mtmstudios.de/blog</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mtmstudios.de/ki-im-mittelstand-zahlen</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
   <url><loc>https://mtmstudios.de/impressum</loc><lastmod>2026-01-01</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
   <url><loc>https://mtmstudios.de/datenschutz</loc><lastmod>2026-01-01</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
   <url><loc>https://mtmstudios.de/agb</loc><lastmod>2026-01-01</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
   <url><loc>https://mtmstudios.de/barrierefreiheit</loc><lastmod>2026-01-01</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
 
   <!-- Tier-1 Keyword-Landingpages -->
-  <url><loc>https://mtmstudios.de/voicebot</loc><lastmod>2026-03-24</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://mtmstudios.de/ki-telefonbot</loc><lastmod>2026-03-24</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://mtmstudios.de/whatsapp-chatbot</loc><lastmod>2026-03-24</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://mtmstudios.de/chatbot-agentur</loc><lastmod>2026-03-24</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://mtmstudios.de/n8n-agentur</loc><lastmod>2026-03-24</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://mtmstudios.de/prozessautomatisierung-kmu</loc><lastmod>2026-03-24</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://mtmstudios.de/voicebot</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://mtmstudios.de/ki-telefonbot</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://mtmstudios.de/whatsapp-chatbot</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://mtmstudios.de/chatbot-agentur</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://mtmstudios.de/n8n-agentur</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://mtmstudios.de/n8n-agentur-deutschland</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.88</priority></url>
+  <url><loc>https://mtmstudios.de/prozessautomatisierung-kmu</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
 
-  <!-- Regionale Seiten: KI-Agentur (Primär-Zielseiten für SEO) -->
-  <url><loc>https://mtmstudios.de/ki-agentur/stuttgart</loc><lastmod>2026-03-24</lastmod><changefreq>weekly</changefreq><priority>0.95</priority></url>
-  <url><loc>https://mtmstudios.de/ki-agentur/ulm</loc><lastmod>2026-03-24</lastmod><changefreq>weekly</changefreq><priority>0.95</priority></url>
+  <!-- Regionale Seiten: KI-Agentur (Primär-Zielseiten) -->
+  <url><loc>https://mtmstudios.de/ki-agentur/stuttgart</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.95</priority></url>
+  <url><loc>https://mtmstudios.de/ki-agentur/ulm</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.95</priority></url>
+  <url><loc>https://mtmstudios.de/ki-agentur/esslingen</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.95</priority></url>
+  <url><loc>https://mtmstudios.de/ki-agentur/muenchen</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.95</priority></url>
+  <url><loc>https://mtmstudios.de/ki-agentur/ludwigsburg</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.90</priority></url>
+  <url><loc>https://mtmstudios.de/ki-agentur/reutlingen</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.90</priority></url>
 
   <!-- Regionale Seiten: KI-Telefonassistent -->
-  <url><loc>https://mtmstudios.de/ki-telefonassistent/stuttgart</loc><lastmod>2026-03-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://mtmstudios.de/ki-telefonassistent/ulm</loc><lastmod>2026-03-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://mtmstudios.de/ki-telefonassistent/stuttgart</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.82</priority></url>
+  <url><loc>https://mtmstudios.de/ki-telefonassistent/ulm</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.82</priority></url>
+  <url><loc>https://mtmstudios.de/ki-telefonassistent/esslingen</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.82</priority></url>
+  <url><loc>https://mtmstudios.de/ki-telefonassistent/muenchen</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.82</priority></url>
+  <url><loc>https://mtmstudios.de/ki-telefonassistent/ludwigsburg</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://mtmstudios.de/ki-telefonassistent/reutlingen</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.80</priority></url>
 
   <!-- Regionale Seiten: KI-Chatbot -->
-  <url><loc>https://mtmstudios.de/ki-chatbot/stuttgart</loc><lastmod>2026-03-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://mtmstudios.de/ki-chatbot/ulm</loc><lastmod>2026-03-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://mtmstudios.de/ki-chatbot/stuttgart</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://mtmstudios.de/ki-chatbot/ulm</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://mtmstudios.de/ki-chatbot/esslingen</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://mtmstudios.de/ki-chatbot/muenchen</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://mtmstudios.de/ki-chatbot/ludwigsburg</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.78</priority></url>
+  <url><loc>https://mtmstudios.de/ki-chatbot/reutlingen</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.78</priority></url>
 
   <!-- Regionale Seiten: Automatisierungen -->
-  <url><loc>https://mtmstudios.de/automatisierungen/stuttgart</loc><lastmod>2026-03-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://mtmstudios.de/automatisierungen/ulm</loc><lastmod>2026-03-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://mtmstudios.de/automatisierungen/stuttgart</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://mtmstudios.de/automatisierungen/ulm</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://mtmstudios.de/automatisierungen/esslingen</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://mtmstudios.de/automatisierungen/muenchen</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://mtmstudios.de/automatisierungen/ludwigsburg</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.78</priority></url>
+  <url><loc>https://mtmstudios.de/automatisierungen/reutlingen</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.78</priority></url>
 
 </urlset>

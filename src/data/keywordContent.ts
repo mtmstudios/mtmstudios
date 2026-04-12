@@ -180,6 +180,35 @@ const pages: Record<string, KeywordPageContent> = {
   },
 };
 
+  "n8n-agentur-deutschland": {
+    title: "n8n Agentur Deutschland | Prozessautomatisierung mit n8n | MTM Studios",
+    description: "MTM Studios ist n8n Agentur für Deutschland: Workflow-Automatisierungen, CRM-Integrationen & Datenpipelines. Self-hosted, DSGVO-konform, für KMU. Kostenlose Erstberatung.",
+    h1: "n8n Agentur Deutschland",
+    subtext: "MTM Studios automatisiert Geschäftsprozesse mit n8n für Unternehmen in ganz Deutschland — self-hosted, DSGVO-konform, schnell umgesetzt.",
+    badge: "n8n · Prozessautomatisierung · Deutschland",
+    intro: "n8n ist die führende Open-Source-Automatisierungsplattform für Unternehmen, die volle Datenkontrolle mit maximaler Flexibilität verbinden wollen. MTM Studios ist eine spezialisierte n8n Agentur für den deutschen Mittelstand: Wir entwickeln, betreiben und warten n8n-Workflows für Unternehmen in ganz Deutschland — von der einfachen CRM-Integration bis zur komplexen Datenpipeline. Self-hosted auf EU-Infrastruktur, DSGVO-konform von Anfang an.",
+    detailedContent: "n8n ist die bessere Alternative zu Zapier und Make für deutsche Unternehmen — weil es sich selbst hosten lässt. Das bedeutet: Deine Daten verlassen nicht die EU, unterliegen keinen amerikanischen Datenschutzgesetzen und sind vollständig unter deiner Kontrolle. Für den deutschen Mittelstand, der mit DSGVO-Anforderungen umgehen muss, ist das ein entscheidender Vorteil.\n\nMTM Studios baut n8n-Automatisierungen für Unternehmen in ganz Deutschland — von einfachen Webhook-Triggern bis zu komplexen Multi-System-Integrationen. Typische Anwendungsfälle: Leads aus Kontaktformularen landen automatisch in HubSpot oder Salesforce. Eingehende E-Mails werden gerouted, kategorisiert und beantwortet. Rechnungen erstellen und versenden sich selbst. Berichte generieren sich täglich ohne manuelle Arbeit. API-Verbindungen zwischen Systemen, die sonst keine native Integration hätten.\n\nn8n unterstützt über 400 native Integrationen und lässt sich über Webhooks und REST-APIs mit praktisch jedem modernen System verbinden. MTM Studios ist spezialisiert auf DATEV-nahe Buchhaltungsautomatisierungen, HubSpot/Salesforce CRM-Workflows, Google Workspace und Microsoft 365 Integrationen sowie branchenspezifische Lösungen für Handwerk, Recht, Gesundheit und Produktion.\n\nWir starten mit einem kostenlosen Erstgespräch, identifizieren die Quick-Wins in deinem Betrieb und haben den ersten Workflow in 1–2 Wochen live. Für Unternehmen in ganz Deutschland — remote oder vor Ort.",
+    features: [
+      { title: "Self-hosted auf EU-Infrastruktur", description: "Deine Daten bleiben in der EU — vollständige DSGVO-Konformität ohne Kompromisse." },
+      { title: "400+ native Integrationen", description: "HubSpot, Salesforce, DATEV, SAP, Google Workspace, Microsoft 365 und viele mehr." },
+      { title: "Maßgeschneiderte Workflows", description: "Keine Templates — individuelle Lösungen für deine Prozesse und deine Systemlandschaft." },
+      { title: "Wartung & Support inklusive", description: "Wir betreiben und warten deine Workflows — du konzentrierst dich aufs Kerngeschäft." },
+      { title: "In 1–2 Wochen live", description: "Quick-Wins zuerst — sofort spürbare Zeitersparnis." },
+      { title: "Für ganz Deutschland", description: "Remote-Zusammenarbeit oder vor Ort — wir betreuen Unternehmen bundesweit." },
+    ],
+    faqs: [
+      { question: "Was ist eine n8n Agentur?", answer: "Eine n8n Agentur wie MTM Studios entwickelt, implementiert und betreibt Automatisierungslösungen auf Basis der Open-Source-Plattform n8n. Das umfasst die Analyse von Geschäftsprozessen, die Entwicklung maßgeschneiderter Workflows, die Integration in bestehende Systeme sowie den laufenden Betrieb und Support. Als n8n Agentur für Deutschland betreut MTM Studios Unternehmen aus dem Mittelstand in der gesamten DACH-Region." },
+      { question: "Warum n8n statt Zapier oder Make?", answer: "n8n ist self-hosted: Deine Daten verlassen nicht die EU. Für deutsche Unternehmen ist das DSGVO-kritisch — Zapier und Make sind US-amerikanische Cloud-Dienste mit entsprechenden Datenschutzrisiken. Zusätzlich ist n8n bei komplexen Workflows leistungsstärker, flexibler und langfristig günstiger. Bei hohem Automatisierungsvolumen entfallen die nutzungsbasierten Kosten komplett." },
+      { question: "Für welche Branchen bietet MTM Studios n8n-Automatisierungen an?", answer: "Wir arbeiten branchenübergreifend: Rechtsanwälte und Steuerberater (Mandantenworkflows, DATEV-Integration), Handwerksbetriebe (Auftragsverarbeitung, CRM), IT-Unternehmen (Tech-Stack-Integration), Produktion und Logistik (Datenpipelines, ERP-Anbindung), Gesundheitsberufe (DSGVO-konforme Prozessautomatisierung) und E-Commerce (Bestell- und Fulfillment-Workflows). Jede Lösung wird individuell entwickelt." },
+      { question: "Wie läuft ein n8n-Projekt mit MTM Studios ab?", answer: "1. Kostenloses Erstgespräch (30 Min.): Wir analysieren deine Prozesse und identifizieren Quick-Wins. 2. Angebot: Konkrete Workflows mit Timeline und Kosten. 3. Entwicklung: Wir bauen und testen die Workflows. 4. Go-live: Du bekommst eine laufende Lösung. 5. Betrieb & Support: Wir warten und erweitern die Workflows. Erste Ergebnisse siehst du in der Regel nach 1–2 Wochen." },
+      { question: "Was kostet n8n-Automatisierung?", answer: "Die Kosten richten sich nach Umfang und Komplexität. Einfache Workflows kosten deutlich weniger als umfangreiche Multi-System-Integrationen. MTM Studios erstellt nach dem kostenlosen Erstgespräch ein transparentes Angebot ohne versteckte Kosten. Was immer gilt: Die Zeitersparnis amortisiert die Investition in den meisten Fällen innerhalb von wenigen Wochen." },
+      { question: "Arbeitet MTM Studios nur in Süddeutschland?", answer: "Nein. Wir betreuen Unternehmen in ganz Deutschland — remote oder vor Ort je nach Bedarf. Der Großteil unserer Projekte läuft vollständig remote: Erstgespräch per Video, Entwicklung remote, Go-live und Support ebenfalls. Für lokale Projekte in Stuttgart, Ulm und Umgebung sind wir auch persönlich vor Ort." },
+    ],
+    parentPath: "/automatisierungen",
+    parentLabel: "Automatisierungen",
+  },
+};
+
 export const getKeywordPageContent = (slug: string): KeywordPageContent | null => {
   return pages[slug] ?? null;
 };

@@ -1,0 +1,5 @@
+# www → non-www (301 permanent)
+https://www.mtmstudios.de/* https://mtmstudios.de/:splat 301!
+
+# SPA fallback — alle Routen auf index.html
+/*    /index.html   200

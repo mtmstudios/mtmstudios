@@ -303,8 +303,8 @@ const KiStatistiken = () => {
   return (
     <div className="relative min-h-screen bg-background">
       <SEOHead
-        title="KI im deutschen Mittelstand 2026 — Zahlen & Fakten | MTM Studios"
-        description="Aktuelle Statistiken zur KI-Nutzung im deutschen Mittelstand: Adoption, Telefonassistenten, Chatbots, ROI. Kostenlos zitierbar mit Quellenangabe."
+        title="KI im Mittelstand 2026: Diese Zahlen sollte jeder Unternehmer kennen"
+        description="67 % planen KI — aber nur 12 % haben automatisiert. Warum der Großteil scheitert, was die Top-Performer anders machen und welche 3 Prozesse sich zuerst lohnen."
       />
 
       {/* Background */}
