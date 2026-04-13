@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { getBlogPost, blogPosts } from "@/data/blogPosts";
 import { useContactFunnel } from "@/contexts/ContactFunnelContext";
+import PageBackground from "@/components/PageBackground";
 
 const appleEase = [0.16, 1, 0.3, 1] as const;
 
@@ -111,6 +112,7 @@ const BlogPost = () => {
 
   return (
     <div className="relative min-h-screen bg-background">
+      <PageBackground />
       <SEOHead
         title={post.metaTitle}
         description={post.metaDescription}

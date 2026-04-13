@@ -2,6 +2,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { motion } from "motion/react";
+import PageBackground from "@/components/PageBackground";
 
 const appleEase = [0.16, 1, 0.3, 1] as const;
 
@@ -21,6 +22,7 @@ const Section = ({ title, children, delay = 0 }: { title: string; children: Reac
 const Barrierefreiheit = () => {
   return (
     <div className="min-h-screen bg-background text-foreground">
+      <PageBackground />
       <SEOHead
         title="Barrierefreiheitserklärung | MTM Studios"
         description="Erklärung zur Barrierefreiheit der Website mtmstudios.de gemäß BFSG und BITV 2.0."

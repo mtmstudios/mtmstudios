@@ -3,6 +3,7 @@ import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { motion } from "motion/react";
 import { Link } from "react-router-dom";
+import PageBackground from "@/components/PageBackground";
 
 const appleEase = [0.16, 1, 0.3, 1] as const;
 
@@ -44,6 +45,7 @@ const BulletList = ({ items }: { items: string[] }) => (
 const AGB = () => {
   return (
     <div className="min-h-screen bg-background text-foreground">
+      <PageBackground />
       <SEOHead title="AGB | MTM Studios" description="Allgemeine Geschäftsbedingungen von MTM Studios für KI-Automatisierung und digitale Lösungen." />
       <Navigation />
       <div>

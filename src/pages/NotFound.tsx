@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { motion } from "motion/react";
 import Navigation from "@/components/Navigation";
 import BlurText from "@/components/BlurText";
+import PageBackground from "@/components/PageBackground";
 
 const NotFound = () => {
   const location = useLocation();
@@ -13,6 +14,7 @@ const NotFound = () => {
 
   return (
     <div className="min-h-screen bg-background flex flex-col relative overflow-hidden">
+      <PageBackground />
       <Navigation />
 
       {/* Decorative accent glow circles */}
