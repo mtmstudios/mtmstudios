@@ -5,15 +5,45 @@ import { motion } from "motion/react";
 interface City {
   name: string;
   slug: string;
-  available: boolean;
 }
 
 const cities: City[] = [
-  { name: "Stuttgart", slug: "stuttgart", available: true },
-  { name: "Ulm", slug: "ulm", available: true },
-  { name: "München", slug: "muenchen", available: false },
-  { name: "Augsburg", slug: "augsburg", available: false },
-  { name: "Reutlingen", slug: "reutlingen", available: false },
+  { name: "Stuttgart", slug: "stuttgart" },
+  { name: "Ulm", slug: "ulm" },
+  { name: "München", slug: "muenchen" },
+  { name: "Esslingen", slug: "esslingen" },
+  { name: "Ludwigsburg", slug: "ludwigsburg" },
+  { name: "Reutlingen", slug: "reutlingen" },
+  { name: "Berlin", slug: "berlin" },
+  { name: "Hamburg", slug: "hamburg" },
+  { name: "Köln", slug: "koeln" },
+  { name: "Frankfurt", slug: "frankfurt" },
+  { name: "Düsseldorf", slug: "duesseldorf" },
+  { name: "Leipzig", slug: "leipzig" },
+  { name: "Dortmund", slug: "dortmund" },
+  { name: "Bremen", slug: "bremen" },
+  { name: "Dresden", slug: "dresden" },
+  { name: "Hannover", slug: "hannover" },
+  { name: "Nürnberg", slug: "nuernberg" },
+  { name: "Augsburg", slug: "augsburg" },
+  { name: "Karlsruhe", slug: "karlsruhe" },
+  { name: "Mannheim", slug: "mannheim" },
+  { name: "Freiburg", slug: "freiburg" },
+  { name: "Bonn", slug: "bonn" },
+  { name: "Münster", slug: "muenster" },
+  { name: "Wiesbaden", slug: "wiesbaden" },
+  { name: "Heidelberg", slug: "heidelberg" },
+  { name: "Mainz", slug: "mainz" },
+  { name: "Aachen", slug: "aachen" },
+  { name: "Kassel", slug: "kassel" },
+  { name: "Erfurt", slug: "erfurt" },
+  { name: "Heilbronn", slug: "heilbronn" },
+  { name: "Ingolstadt", slug: "ingolstadt" },
+  { name: "Regensburg", slug: "regensburg" },
+  { name: "Würzburg", slug: "wuerzburg" },
+  { name: "Bielefeld", slug: "bielefeld" },
+  { name: "Wuppertal", slug: "wuppertal" },
+  { name: "Duisburg", slug: "duisburg" },
 ];
 
 interface RegionalSectionProps {
@@ -21,8 +51,8 @@ interface RegionalSectionProps {
 }
 
 const RegionalSection = ({ contextPath }: RegionalSectionProps) => {
-  const buildLink = (slug: string) =>
-    contextPath ? `/${contextPath}/${slug}` : `/#`;
+  const base = contextPath ?? "ki-agentur";
+  const buildLink = (slug: string) => `/${base}/${slug}`;
 
   return (
     <motion.section
@@ -40,28 +70,16 @@ const RegionalSection = ({ contextPath }: RegionalSectionProps) => {
           </span>
         </div>
 
-        <div className="flex flex-wrap items-center justify-center gap-3 max-w-2xl mx-auto">
-          {cities.map((city) =>
-            city.available ? (
-              <Link
-                key={city.slug}
-                to={buildLink(city.slug)}
-                className="rounded-full border border-white/10 bg-white/[0.03] text-foreground/70 text-sm px-5 py-2.5 hover:border-white/20 hover:bg-white/[0.06] transition-all duration-200"
-              >
-                {city.name}
-              </Link>
-            ) : (
-              <span
-                key={city.slug}
-                className="rounded-full border border-white/10 bg-white/[0.03] text-foreground/30 text-sm px-5 py-2.5 flex items-center gap-2"
-              >
-                {city.name}
-                <span className="text-xs bg-white/[0.06] rounded-full px-2 py-0.5 text-foreground/25">
-                  Bald
-                </span>
-              </span>
-            )
-          )}
+        <div className="flex flex-wrap items-center justify-center gap-3 max-w-4xl mx-auto">
+          {cities.map((city) => (
+            <Link
+              key={city.slug}
+              to={buildLink(city.slug)}
+              className="rounded-full border border-white/10 bg-white/[0.03] text-foreground/70 text-sm px-5 py-2.5 hover:border-accent/40 hover:bg-white/[0.06] hover:text-foreground transition-all duration-200"
+            >
+              {city.name}
+            </Link>
+          ))}
         </div>
       </div>
     </motion.section>
