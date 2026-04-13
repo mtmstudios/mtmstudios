@@ -7,7 +7,7 @@ import CTASection from "@/components/CTASection";
 import RegionalSection from "@/components/RegionalSection";
 import SEOHead from "@/components/SEOHead";
 import { useContactFunnel } from "@/contexts/ContactFunnelContext";
-import { getRegionalContent, getServiceLabel, validCities } from "@/data/regionalContent";
+import { getRegionalContent, getServiceLabel, validCities, cityDisplayNames } from "@/data/regionalContent";
 import { useEffect, useMemo } from "react";
 import PageBackground from "@/components/PageBackground";
 import {
@@ -40,7 +40,7 @@ const RegionalPage = ({ context }: RegionalPageProps) => {
 
   const serviceLabel = getServiceLabel(context);
 
-  const cityName = city.charAt(0).toUpperCase() + city.slice(1);
+  const cityName = cityDisplayNames[city as keyof typeof cityDisplayNames] ?? (city.charAt(0).toUpperCase() + city.slice(1));
   const pageUrl = `https://mtmstudios.de/${context}/${city}`;
 
   const jsonLd = useMemo(() => ({

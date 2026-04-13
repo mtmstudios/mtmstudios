@@ -2,59 +2,187 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
   <!-- Hauptseiten -->
-  <url><loc>https://mtmstudios.de/</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://mtmstudios.de/ki-telefonassistent</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://mtmstudios.de/ki-chatbot</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://mtmstudios.de/automatisierungen</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://mtmstudios.de/dassindwir</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://mtmstudios.de/partnerwerden</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://mtmstudios.de/karriere</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://mtmstudios.de/blog</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://mtmstudios.de/ki-im-mittelstand-zahlen</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://mtmstudios.de/</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://mtmstudios.de/ki-telefonassistent</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://mtmstudios.de/ki-chatbot</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://mtmstudios.de/automatisierungen</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://mtmstudios.de/dassindwir</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mtmstudios.de/partnerwerden</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://mtmstudios.de/karriere</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://mtmstudios.de/blog</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mtmstudios.de/ki-im-mittelstand-zahlen</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
   <url><loc>https://mtmstudios.de/impressum</loc><lastmod>2026-01-01</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
   <url><loc>https://mtmstudios.de/datenschutz</loc><lastmod>2026-01-01</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
   <url><loc>https://mtmstudios.de/agb</loc><lastmod>2026-01-01</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
   <url><loc>https://mtmstudios.de/barrierefreiheit</loc><lastmod>2026-01-01</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
 
   <!-- Tier-1 Keyword-Landingpages -->
-  <url><loc>https://mtmstudios.de/voicebot</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://mtmstudios.de/ki-telefonbot</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://mtmstudios.de/whatsapp-chatbot</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://mtmstudios.de/chatbot-agentur</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://mtmstudios.de/n8n-agentur</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://mtmstudios.de/n8n-agentur-deutschland</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.88</priority></url>
-  <url><loc>https://mtmstudios.de/prozessautomatisierung-kmu</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://mtmstudios.de/voicebot</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://mtmstudios.de/ki-telefonbot</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://mtmstudios.de/whatsapp-chatbot</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://mtmstudios.de/chatbot-agentur</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://mtmstudios.de/n8n-agentur</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://mtmstudios.de/n8n-agentur-deutschland</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.88</priority></url>
+  <url><loc>https://mtmstudios.de/prozessautomatisierung-kmu</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
 
-  <!-- Regionale Seiten: KI-Agentur (Primär-Zielseiten) -->
-  <url><loc>https://mtmstudios.de/ki-agentur/stuttgart</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.95</priority></url>
-  <url><loc>https://mtmstudios.de/ki-agentur/ulm</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.95</priority></url>
-  <url><loc>https://mtmstudios.de/ki-agentur/esslingen</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.95</priority></url>
-  <url><loc>https://mtmstudios.de/ki-agentur/muenchen</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.95</priority></url>
-  <url><loc>https://mtmstudios.de/ki-agentur/ludwigsburg</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.90</priority></url>
-  <url><loc>https://mtmstudios.de/ki-agentur/reutlingen</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.90</priority></url>
+  <!-- Regionale Seiten: KI-Agentur — Primärstädte -->
+  <url><loc>https://mtmstudios.de/ki-agentur/stuttgart</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.95</priority></url>
+  <url><loc>https://mtmstudios.de/ki-agentur/ulm</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.95</priority></url>
+  <url><loc>https://mtmstudios.de/ki-agentur/esslingen</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.95</priority></url>
+  <url><loc>https://mtmstudios.de/ki-agentur/muenchen</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.95</priority></url>
+  <url><loc>https://mtmstudios.de/ki-agentur/ludwigsburg</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.90</priority></url>
+  <url><loc>https://mtmstudios.de/ki-agentur/reutlingen</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.90</priority></url>
 
-  <!-- Regionale Seiten: KI-Telefonassistent -->
-  <url><loc>https://mtmstudios.de/ki-telefonassistent/stuttgart</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.82</priority></url>
-  <url><loc>https://mtmstudios.de/ki-telefonassistent/ulm</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.82</priority></url>
-  <url><loc>https://mtmstudios.de/ki-telefonassistent/esslingen</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.82</priority></url>
-  <url><loc>https://mtmstudios.de/ki-telefonassistent/muenchen</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.82</priority></url>
-  <url><loc>https://mtmstudios.de/ki-telefonassistent/ludwigsburg</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.80</priority></url>
-  <url><loc>https://mtmstudios.de/ki-telefonassistent/reutlingen</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.80</priority></url>
+  <!-- Regionale Seiten: KI-Agentur — Großstädte Deutschland -->
+  <url><loc>https://mtmstudios.de/ki-agentur/berlin</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.88</priority></url>
+  <url><loc>https://mtmstudios.de/ki-agentur/hamburg</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.88</priority></url>
+  <url><loc>https://mtmstudios.de/ki-agentur/koeln</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.88</priority></url>
+  <url><loc>https://mtmstudios.de/ki-agentur/frankfurt</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.88</priority></url>
+  <url><loc>https://mtmstudios.de/ki-agentur/duesseldorf</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.87</priority></url>
+  <url><loc>https://mtmstudios.de/ki-agentur/leipzig</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.86</priority></url>
+  <url><loc>https://mtmstudios.de/ki-agentur/dortmund</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.86</priority></url>
+  <url><loc>https://mtmstudios.de/ki-agentur/bremen</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.86</priority></url>
+  <url><loc>https://mtmstudios.de/ki-agentur/dresden</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.86</priority></url>
+  <url><loc>https://mtmstudios.de/ki-agentur/hannover</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.86</priority></url>
+  <url><loc>https://mtmstudios.de/ki-agentur/nuernberg</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.86</priority></url>
+  <url><loc>https://mtmstudios.de/ki-agentur/augsburg</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://mtmstudios.de/ki-agentur/karlsruhe</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://mtmstudios.de/ki-agentur/mannheim</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://mtmstudios.de/ki-agentur/freiburg</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://mtmstudios.de/ki-agentur/bonn</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.84</priority></url>
+  <url><loc>https://mtmstudios.de/ki-agentur/muenster</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.84</priority></url>
+  <url><loc>https://mtmstudios.de/ki-agentur/wiesbaden</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.84</priority></url>
+  <url><loc>https://mtmstudios.de/ki-agentur/heidelberg</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.84</priority></url>
+  <url><loc>https://mtmstudios.de/ki-agentur/mainz</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.83</priority></url>
+  <url><loc>https://mtmstudios.de/ki-agentur/aachen</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.83</priority></url>
+  <url><loc>https://mtmstudios.de/ki-agentur/kassel</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.83</priority></url>
+  <url><loc>https://mtmstudios.de/ki-agentur/erfurt</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.83</priority></url>
+  <url><loc>https://mtmstudios.de/ki-agentur/heilbronn</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.83</priority></url>
+  <url><loc>https://mtmstudios.de/ki-agentur/ingolstadt</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.83</priority></url>
+  <url><loc>https://mtmstudios.de/ki-agentur/regensburg</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.83</priority></url>
+  <url><loc>https://mtmstudios.de/ki-agentur/wuerzburg</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.82</priority></url>
+  <url><loc>https://mtmstudios.de/ki-agentur/bielefeld</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.82</priority></url>
+  <url><loc>https://mtmstudios.de/ki-agentur/wuppertal</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.82</priority></url>
+  <url><loc>https://mtmstudios.de/ki-agentur/duisburg</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.82</priority></url>
 
-  <!-- Regionale Seiten: KI-Chatbot -->
-  <url><loc>https://mtmstudios.de/ki-chatbot/stuttgart</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.80</priority></url>
-  <url><loc>https://mtmstudios.de/ki-chatbot/ulm</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.80</priority></url>
-  <url><loc>https://mtmstudios.de/ki-chatbot/esslingen</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.80</priority></url>
-  <url><loc>https://mtmstudios.de/ki-chatbot/muenchen</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.80</priority></url>
-  <url><loc>https://mtmstudios.de/ki-chatbot/ludwigsburg</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.78</priority></url>
-  <url><loc>https://mtmstudios.de/ki-chatbot/reutlingen</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.78</priority></url>
+  <!-- Regionale Seiten: KI-Telefonassistent — Primärstädte -->
+  <url><loc>https://mtmstudios.de/ki-telefonassistent/stuttgart</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.82</priority></url>
+  <url><loc>https://mtmstudios.de/ki-telefonassistent/ulm</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.82</priority></url>
+  <url><loc>https://mtmstudios.de/ki-telefonassistent/esslingen</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.82</priority></url>
+  <url><loc>https://mtmstudios.de/ki-telefonassistent/muenchen</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.82</priority></url>
+  <url><loc>https://mtmstudios.de/ki-telefonassistent/ludwigsburg</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://mtmstudios.de/ki-telefonassistent/reutlingen</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.80</priority></url>
 
-  <!-- Regionale Seiten: Automatisierungen -->
-  <url><loc>https://mtmstudios.de/automatisierungen/stuttgart</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.80</priority></url>
-  <url><loc>https://mtmstudios.de/automatisierungen/ulm</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.80</priority></url>
-  <url><loc>https://mtmstudios.de/automatisierungen/esslingen</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.80</priority></url>
-  <url><loc>https://mtmstudios.de/automatisierungen/muenchen</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.80</priority></url>
-  <url><loc>https://mtmstudios.de/automatisierungen/ludwigsburg</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.78</priority></url>
-  <url><loc>https://mtmstudios.de/automatisierungen/reutlingen</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.78</priority></url>
+  <!-- Regionale Seiten: KI-Telefonassistent — Großstädte -->
+  <url><loc>https://mtmstudios.de/ki-telefonassistent/berlin</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://mtmstudios.de/ki-telefonassistent/hamburg</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://mtmstudios.de/ki-telefonassistent/koeln</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://mtmstudios.de/ki-telefonassistent/frankfurt</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://mtmstudios.de/ki-telefonassistent/duesseldorf</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.79</priority></url>
+  <url><loc>https://mtmstudios.de/ki-telefonassistent/leipzig</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.79</priority></url>
+  <url><loc>https://mtmstudios.de/ki-telefonassistent/dortmund</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.79</priority></url>
+  <url><loc>https://mtmstudios.de/ki-telefonassistent/bremen</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.79</priority></url>
+  <url><loc>https://mtmstudios.de/ki-telefonassistent/dresden</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.79</priority></url>
+  <url><loc>https://mtmstudios.de/ki-telefonassistent/hannover</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.79</priority></url>
+  <url><loc>https://mtmstudios.de/ki-telefonassistent/nuernberg</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.79</priority></url>
+  <url><loc>https://mtmstudios.de/ki-telefonassistent/augsburg</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.78</priority></url>
+  <url><loc>https://mtmstudios.de/ki-telefonassistent/karlsruhe</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.78</priority></url>
+  <url><loc>https://mtmstudios.de/ki-telefonassistent/mannheim</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.78</priority></url>
+  <url><loc>https://mtmstudios.de/ki-telefonassistent/freiburg</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.78</priority></url>
+  <url><loc>https://mtmstudios.de/ki-telefonassistent/bonn</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.77</priority></url>
+  <url><loc>https://mtmstudios.de/ki-telefonassistent/muenster</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.77</priority></url>
+  <url><loc>https://mtmstudios.de/ki-telefonassistent/wiesbaden</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.77</priority></url>
+  <url><loc>https://mtmstudios.de/ki-telefonassistent/heidelberg</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.77</priority></url>
+  <url><loc>https://mtmstudios.de/ki-telefonassistent/mainz</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.76</priority></url>
+  <url><loc>https://mtmstudios.de/ki-telefonassistent/aachen</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.76</priority></url>
+  <url><loc>https://mtmstudios.de/ki-telefonassistent/kassel</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.76</priority></url>
+  <url><loc>https://mtmstudios.de/ki-telefonassistent/erfurt</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.76</priority></url>
+  <url><loc>https://mtmstudios.de/ki-telefonassistent/heilbronn</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.76</priority></url>
+  <url><loc>https://mtmstudios.de/ki-telefonassistent/ingolstadt</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.76</priority></url>
+  <url><loc>https://mtmstudios.de/ki-telefonassistent/regensburg</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.76</priority></url>
+  <url><loc>https://mtmstudios.de/ki-telefonassistent/wuerzburg</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://mtmstudios.de/ki-telefonassistent/bielefeld</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://mtmstudios.de/ki-telefonassistent/wuppertal</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://mtmstudios.de/ki-telefonassistent/duisburg</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+
+  <!-- Regionale Seiten: KI-Chatbot — Primärstädte -->
+  <url><loc>https://mtmstudios.de/ki-chatbot/stuttgart</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://mtmstudios.de/ki-chatbot/ulm</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://mtmstudios.de/ki-chatbot/esslingen</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://mtmstudios.de/ki-chatbot/muenchen</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://mtmstudios.de/ki-chatbot/ludwigsburg</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.78</priority></url>
+  <url><loc>https://mtmstudios.de/ki-chatbot/reutlingen</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.78</priority></url>
+
+  <!-- Regionale Seiten: KI-Chatbot — Großstädte -->
+  <url><loc>https://mtmstudios.de/ki-chatbot/berlin</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.78</priority></url>
+  <url><loc>https://mtmstudios.de/ki-chatbot/hamburg</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.78</priority></url>
+  <url><loc>https://mtmstudios.de/ki-chatbot/koeln</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.78</priority></url>
+  <url><loc>https://mtmstudios.de/ki-chatbot/frankfurt</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.78</priority></url>
+  <url><loc>https://mtmstudios.de/ki-chatbot/duesseldorf</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.77</priority></url>
+  <url><loc>https://mtmstudios.de/ki-chatbot/leipzig</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.77</priority></url>
+  <url><loc>https://mtmstudios.de/ki-chatbot/dortmund</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.77</priority></url>
+  <url><loc>https://mtmstudios.de/ki-chatbot/bremen</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.77</priority></url>
+  <url><loc>https://mtmstudios.de/ki-chatbot/dresden</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.77</priority></url>
+  <url><loc>https://mtmstudios.de/ki-chatbot/hannover</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.77</priority></url>
+  <url><loc>https://mtmstudios.de/ki-chatbot/nuernberg</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.77</priority></url>
+  <url><loc>https://mtmstudios.de/ki-chatbot/augsburg</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.76</priority></url>
+  <url><loc>https://mtmstudios.de/ki-chatbot/karlsruhe</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.76</priority></url>
+  <url><loc>https://mtmstudios.de/ki-chatbot/mannheim</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.76</priority></url>
+  <url><loc>https://mtmstudios.de/ki-chatbot/freiburg</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.76</priority></url>
+  <url><loc>https://mtmstudios.de/ki-chatbot/bonn</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://mtmstudios.de/ki-chatbot/muenster</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://mtmstudios.de/ki-chatbot/wiesbaden</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://mtmstudios.de/ki-chatbot/heidelberg</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://mtmstudios.de/ki-chatbot/mainz</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.74</priority></url>
+  <url><loc>https://mtmstudios.de/ki-chatbot/aachen</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.74</priority></url>
+  <url><loc>https://mtmstudios.de/ki-chatbot/kassel</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.74</priority></url>
+  <url><loc>https://mtmstudios.de/ki-chatbot/erfurt</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.74</priority></url>
+  <url><loc>https://mtmstudios.de/ki-chatbot/heilbronn</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.74</priority></url>
+  <url><loc>https://mtmstudios.de/ki-chatbot/ingolstadt</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.74</priority></url>
+  <url><loc>https://mtmstudios.de/ki-chatbot/regensburg</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.74</priority></url>
+  <url><loc>https://mtmstudios.de/ki-chatbot/wuerzburg</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.73</priority></url>
+  <url><loc>https://mtmstudios.de/ki-chatbot/bielefeld</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.73</priority></url>
+  <url><loc>https://mtmstudios.de/ki-chatbot/wuppertal</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.73</priority></url>
+  <url><loc>https://mtmstudios.de/ki-chatbot/duisburg</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.73</priority></url>
+
+  <!-- Regionale Seiten: Automatisierungen — Primärstädte -->
+  <url><loc>https://mtmstudios.de/automatisierungen/stuttgart</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://mtmstudios.de/automatisierungen/ulm</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://mtmstudios.de/automatisierungen/esslingen</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://mtmstudios.de/automatisierungen/muenchen</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://mtmstudios.de/automatisierungen/ludwigsburg</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.78</priority></url>
+  <url><loc>https://mtmstudios.de/automatisierungen/reutlingen</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.78</priority></url>
+
+  <!-- Regionale Seiten: Automatisierungen — Großstädte -->
+  <url><loc>https://mtmstudios.de/automatisierungen/berlin</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.78</priority></url>
+  <url><loc>https://mtmstudios.de/automatisierungen/hamburg</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.78</priority></url>
+  <url><loc>https://mtmstudios.de/automatisierungen/koeln</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.78</priority></url>
+  <url><loc>https://mtmstudios.de/automatisierungen/frankfurt</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.78</priority></url>
+  <url><loc>https://mtmstudios.de/automatisierungen/duesseldorf</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.77</priority></url>
+  <url><loc>https://mtmstudios.de/automatisierungen/leipzig</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.77</priority></url>
+  <url><loc>https://mtmstudios.de/automatisierungen/dortmund</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.77</priority></url>
+  <url><loc>https://mtmstudios.de/automatisierungen/bremen</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.77</priority></url>
+  <url><loc>https://mtmstudios.de/automatisierungen/dresden</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.77</priority></url>
+  <url><loc>https://mtmstudios.de/automatisierungen/hannover</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.77</priority></url>
+  <url><loc>https://mtmstudios.de/automatisierungen/nuernberg</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.77</priority></url>
+  <url><loc>https://mtmstudios.de/automatisierungen/augsburg</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.76</priority></url>
+  <url><loc>https://mtmstudios.de/automatisierungen/karlsruhe</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.76</priority></url>
+  <url><loc>https://mtmstudios.de/automatisierungen/mannheim</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.76</priority></url>
+  <url><loc>https://mtmstudios.de/automatisierungen/freiburg</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.76</priority></url>
+  <url><loc>https://mtmstudios.de/automatisierungen/bonn</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://mtmstudios.de/automatisierungen/muenster</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://mtmstudios.de/automatisierungen/wiesbaden</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://mtmstudios.de/automatisierungen/heidelberg</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://mtmstudios.de/automatisierungen/mainz</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.74</priority></url>
+  <url><loc>https://mtmstudios.de/automatisierungen/aachen</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.74</priority></url>
+  <url><loc>https://mtmstudios.de/automatisierungen/kassel</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.74</priority></url>
+  <url><loc>https://mtmstudios.de/automatisierungen/erfurt</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.74</priority></url>
+  <url><loc>https://mtmstudios.de/automatisierungen/heilbronn</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.74</priority></url>
+  <url><loc>https://mtmstudios.de/automatisierungen/ingolstadt</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.74</priority></url>
+  <url><loc>https://mtmstudios.de/automatisierungen/regensburg</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.74</priority></url>
+  <url><loc>https://mtmstudios.de/automatisierungen/wuerzburg</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.73</priority></url>
+  <url><loc>https://mtmstudios.de/automatisierungen/bielefeld</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.73</priority></url>
+  <url><loc>https://mtmstudios.de/automatisierungen/wuppertal</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.73</priority></url>
+  <url><loc>https://mtmstudios.de/automatisierungen/duisburg</loc><lastmod>2026-04-13</lastmod><changefreq>monthly</changefreq><priority>0.73</priority></url>
 
 </urlset>
