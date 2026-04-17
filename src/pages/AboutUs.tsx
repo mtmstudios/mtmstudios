@@ -57,7 +57,7 @@ const AboutUs = () => {
 
   return (
     <div className="relative min-h-screen bg-background">
-      <SEOHead title="Über MTM Studios | KI-Agentur für Unternehmen" description="Wir sind MTM Studios — dein Partner für KI-Lösungen, die wirklich funktionieren. Klarheit, Geschwindigkeit und Vertrauen." />
+      <SEOHead title="Über MTM Studios | KI-Agentur für Unternehmen" description="Wir sind MTM Studios — dein Partner für KI-Lösungen, die wirklich funktionieren. Klarheit, Geschwindigkeit und Vertrauen." canonical="https://mtmstudios.de/dassindwir" />
       {/* Video Background */}
       <div ref={bgRef} className="fixed inset-0 w-screen h-screen overflow-hidden" style={{ isolation: "isolate", zIndex: 0 }}>
         <img src="/videos/hero-background-still.jpg" alt="" loading="lazy" className="md:hidden w-full h-full object-cover absolute inset-0" style={{ filter: "brightness(0.7) contrast(1.5)", pointerEvents: "none" }} />
