@@ -199,7 +199,7 @@ const RegionalPage = ({ context }: RegionalPageProps) => {
               className="max-w-3xl mx-auto"
             >
               <h2 className="text-2xl md:text-4xl font-bold text-foreground text-center mb-8">
-                So profitieren Unternehmen in {city.charAt(0).toUpperCase() + city.slice(1)}
+                {serviceLabel} in {cityName}: So profitieren Unternehmen
               </h2>
               <div className="text-base md:text-lg text-muted-foreground leading-relaxed space-y-4 text-center">
                 {content.detailedContent.split('\n\n').map((paragraph, i) => (
@@ -254,7 +254,7 @@ const RegionalPage = ({ context }: RegionalPageProps) => {
               transition={{ duration: 0.8, ease: appleEase }}
               className="text-2xl md:text-4xl font-bold text-foreground text-center mb-4"
             >
-              Unsere Leistungen
+              {serviceLabel} {cityName}: Unsere Leistungen
             </motion.h2>
             <motion.p
               initial={{ opacity: 0, y: 10 }}
@@ -263,7 +263,7 @@ const RegionalPage = ({ context }: RegionalPageProps) => {
               transition={{ duration: 0.8, delay: 0.1, ease: appleEase }}
               className="text-muted-foreground text-center mb-12 text-base md:text-lg max-w-xl mx-auto"
             >
-              Was wir für dich in {city.charAt(0).toUpperCase() + city.slice(1)} umsetzen.
+              Was wir für Unternehmen in {cityName} umsetzen.
             </motion.p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -331,7 +331,7 @@ const RegionalPage = ({ context }: RegionalPageProps) => {
               transition={{ duration: 0.8, ease: appleEase }}
               className="text-2xl md:text-4xl font-bold text-foreground text-center mb-12"
             >
-              Häufige Fragen
+              Häufige Fragen zur {serviceLabel} in {cityName}
             </motion.h2>
 
             <Accordion type="single" collapsible className="w-full">
