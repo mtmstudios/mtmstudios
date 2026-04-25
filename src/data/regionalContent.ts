@@ -1554,6 +1554,7 @@ const content: Record<ServiceKey, Record<CityKey, RegionalContentData>> = {
         { question: "Was passiert mit den Kontaktdaten der Kunden?", answer: "Alle Daten werden DSGVO-konform auf europäischen Servern gespeichert und verarbeitet. Wir stellen alle notwendigen Datenschutzhinweise bereit und integrieren den Chatbot rechtskonform in dein Unternehmen." },
       ],
     }])),
+
   },
   automatisierungen: {
     stuttgart: {
