@@ -1319,7 +1319,7 @@ const content: Record<ServiceKey, Record<CityKey, RegionalContentData>> = {
         { question: `Für welche Branchen in ${city} eignet sich ein KI-Telefonassistent?`, answer: `Für alle Branchen in ${city}, besonders ${branches}. Ab ca. 10–15 Anrufen täglich rechnet sich die Lösung nachweislich.` },
         { question: "Wie schnell ist der Assistent live?", answer: "48 Stunden nach Projektstart. Wir richten Gesprächsflow, FAQ und Kalenderintegration ein — kein IT-Aufwand deinerseits." },
       ],
-    }])),
+    }])) as Record<CityKey, RegionalContentData>),
   },
   "ki-chatbot": {
     stuttgart: {
