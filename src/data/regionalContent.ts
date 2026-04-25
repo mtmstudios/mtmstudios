@@ -1494,7 +1494,7 @@ const content: Record<ServiceKey, Record<CityKey, RegionalContentData>> = {
         { question: "Was passiert mit den Kontaktdaten der Kunden?", answer: "Alle Daten werden DSGVO-konform auf europäischen Servern gespeichert und verarbeitet. Wir stellen alle notwendigen Datenschutzhinweise bereit und integrieren den Chatbot rechtskonform in dein Unternehmen." },
       ],
     },
-    ...Object.fromEntries([
+    ...Object.fromEntries(([
       ["berlin", ["Berlin", "Startups und Tech-Unternehmen", "Kreuzberg, Mitte und Charlottenburg"]],
       ["hamburg", ["Hamburg", "Logistik, Medien und Handel", "HafenCity, Altona und Eimsbüttel"]],
       ["koeln", ["Köln", "Medien, Messe und Industrie", "Ehrenfeld, Innenstadt und Mülheim"]],
@@ -1553,7 +1553,7 @@ const content: Record<ServiceKey, Record<CityKey, RegionalContentData>> = {
         { question: "Wie lange dauert die Einrichtung?", answer: `In der Regel 3–5 Werktage. Nach einem kurzen Briefing-Call trainieren wir den Bot auf deine Inhalte, testen ihn und schalten ihn live. Du brauchst keine technischen Kenntnisse — wir kümmern uns um alles. Für Unternehmen in ${city} bieten wir auch persönliche Einführungstermine an.` },
         { question: "Was passiert mit den Kontaktdaten der Kunden?", answer: "Alle Daten werden DSGVO-konform auf europäischen Servern gespeichert und verarbeitet. Wir stellen alle notwendigen Datenschutzhinweise bereit und integrieren den Chatbot rechtskonform in dein Unternehmen." },
       ],
-    }])),
+    }]))),
 
   },
   automatisierungen: {
@@ -1730,7 +1730,7 @@ const content: Record<ServiceKey, Record<CityKey, RegionalContentData>> = {
         { question: "Wie lange dauert die Einrichtung einer Automatisierung in Reutlingen?", answer: "Einfache Workflows in 1–2 Wochen, komplexere Projekte in 3–4 Wochen. Wir arbeiten phasenweise: Erst die Quick-Wins, dann die komplexeren Integrationen. So hast du von Anfang an spürbare Ergebnisse." },
       ],
     },
-    ...Object.fromEntries([
+    ...Object.fromEntries(([
       ["berlin", ["Berlin", "Startups und Tech-Unternehmen", "Kreuzberg, Mitte und Charlottenburg"]],
       ["hamburg", ["Hamburg", "Logistik, Medien und Handel", "HafenCity, Altona und Eimsbüttel"]],
       ["koeln", ["Köln", "Medien, Messe und Industrie", "Ehrenfeld, Innenstadt und Mülheim"]],
@@ -1789,7 +1789,7 @@ const content: Record<ServiceKey, Record<CityKey, RegionalContentData>> = {
         { question: "Muss ich meine bestehende Software wechseln?", answer: `Nein. Wir integrieren uns in deine bestehende Systemlandschaft — ob HubSpot, Salesforce, DATEV, Microsoft 365 oder Branchensoftware. Kein Systemwechsel, keine Datenmigration, keine Umstellungsphase. Dein Team arbeitet weiter in gewohnten Tools.` },
         { question: "Wie lange dauert die Einrichtung?", answer: `Einfache Workflows in 1–2 Wochen, komplexere Projekte in 3–4 Wochen. Wir arbeiten phasenweise: erst die Quick-Wins mit sofort spürbarem Effekt, dann die komplexeren Integrationen. So siehst du von Anfang an konkrete Ergebnisse.` },
       ],
-    }])),
+    }]))),
   },
 };
 
