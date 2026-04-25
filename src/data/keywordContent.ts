@@ -178,8 +178,6 @@ const pages: Record<string, KeywordPageContent> = {
     parentPath: "/automatisierungen",
     parentLabel: "Automatisierungen",
   },
-};
-
   "n8n-agentur-deutschland": {
     title: "n8n Agentur Deutschland | Prozessautomatisierung mit n8n | MTM Studios",
     description: "MTM Studios ist n8n Agentur für Deutschland: Workflow-Automatisierungen, CRM-Integrationen & Datenpipelines. Self-hosted, DSGVO-konform, für KMU. Kostenlose Erstberatung.",
