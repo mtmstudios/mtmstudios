@@ -52,7 +52,7 @@ export const cityDisplayNames: Record<CityKey, string> = {
   bielefeld: "Bielefeld", wuppertal: "Wuppertal", duisburg: "Duisburg",
 };
 
-const content: Record<ServiceKey, Record<CityKey, RegionalContentData>> = {
+const content: Record<ServiceKey, Record<string, RegionalContentData>> = {
   "ki-agentur": {
     stuttgart: {
       title: "KI Agentur Stuttgart | Voice KI, Chatbot & Automatisierung | MTM Studios",
@@ -1261,7 +1261,7 @@ const content: Record<ServiceKey, Record<CityKey, RegionalContentData>> = {
         { question: "Was passiert, wenn der Assistent eine Frage nicht beantworten kann?", answer: "Erkennt der Assistent, dass eine Frage menschliche Expertise erfordert, leitet er den Anruf weiter oder erstellt ein Rückruf-Ticket mit vollem Gesprächskontext. So geht keine Anfrage verloren, und dein Team kann gezielt dort eingreifen, wo es wirklich nötig ist." },
       ],
     },
-    ...Object.fromEntries([
+    ...(Object.fromEntries([
       ["berlin", ["Berlin", "Startups und Tech-Unternehmen", "Kreuzberg, Mitte und Charlottenburg"]],
       ["hamburg", ["Hamburg", "Logistik, Medien und Handel", "HafenCity, Altona und Eimsbüttel"]],
       ["koeln", ["Köln", "Medien, Messe und Industrie", "Ehrenfeld, Innenstadt und Mülheim"]],
@@ -1319,7 +1319,7 @@ const content: Record<ServiceKey, Record<CityKey, RegionalContentData>> = {
         { question: `Für welche Branchen in ${city} eignet sich ein KI-Telefonassistent?`, answer: `Für alle Branchen in ${city}, besonders ${branches}. Ab ca. 10–15 Anrufen täglich rechnet sich die Lösung nachweislich.` },
         { question: "Wie schnell ist der Assistent live?", answer: "48 Stunden nach Projektstart. Wir richten Gesprächsflow, FAQ und Kalenderintegration ein — kein IT-Aufwand deinerseits." },
       ],
-    }])),
+    }])) as Record<CityKey, RegionalContentData>),
   },
   "ki-chatbot": {
     stuttgart: {
@@ -1494,7 +1494,7 @@ const content: Record<ServiceKey, Record<CityKey, RegionalContentData>> = {
         { question: "Was passiert mit den Kontaktdaten der Kunden?", answer: "Alle Daten werden DSGVO-konform auf europäischen Servern gespeichert und verarbeitet. Wir stellen alle notwendigen Datenschutzhinweise bereit und integrieren den Chatbot rechtskonform in dein Unternehmen." },
       ],
     },
-    ...Object.fromEntries([
+    ...(Object.fromEntries([
       ["berlin", ["Berlin", "Startups und Tech-Unternehmen", "Kreuzberg, Mitte und Charlottenburg"]],
       ["hamburg", ["Hamburg", "Logistik, Medien und Handel", "HafenCity, Altona und Eimsbüttel"]],
       ["koeln", ["Köln", "Medien, Messe und Industrie", "Ehrenfeld, Innenstadt und Mülheim"]],
@@ -1525,7 +1525,7 @@ const content: Record<ServiceKey, Record<CityKey, RegionalContentData>> = {
       ["bielefeld", ["Bielefeld", "Industrie, IT und Handel", "Innenstadt, Brackwede und Gadderbaum"]],
       ["wuppertal", ["Wuppertal", "Industrie, Handel und Kreativwirtschaft", "Elberfeld, Barmen und Vohwinkel"]],
       ["duisburg", ["Duisburg", "Logistik, Stahl und Handel", "Innenstadt, Rheinhausen und Hamborn"]],
-    ] as [string, [string, string, string]][]).map(([slug, [city, branches, districts]]) => [slug, {
+    ].map(([slug, [city, branches, districts]]: [string, [string, string, string]]) => [slug, {
       title: `KI-Chatbot ${city} | WhatsApp & Website Chatbot | MTM Studios`,
       description: `KI-Chatbot für Unternehmen in ${city}: Automatische Kundenkommunikation via WhatsApp & Website. Für ${branches}. In 3–5 Tagen live.`,
       h1: `KI-Chatbot ${city}`,
@@ -1553,7 +1553,8 @@ const content: Record<ServiceKey, Record<CityKey, RegionalContentData>> = {
         { question: "Wie lange dauert die Einrichtung?", answer: `In der Regel 3–5 Werktage. Nach einem kurzen Briefing-Call trainieren wir den Bot auf deine Inhalte, testen ihn und schalten ihn live. Du brauchst keine technischen Kenntnisse — wir kümmern uns um alles. Für Unternehmen in ${city} bieten wir auch persönliche Einführungstermine an.` },
         { question: "Was passiert mit den Kontaktdaten der Kunden?", answer: "Alle Daten werden DSGVO-konform auf europäischen Servern gespeichert und verarbeitet. Wir stellen alle notwendigen Datenschutzhinweise bereit und integrieren den Chatbot rechtskonform in dein Unternehmen." },
       ],
-    }])),
+    }])) as Record<string, RegionalContentData>),
+
   },
   automatisierungen: {
     stuttgart: {
@@ -1729,7 +1730,7 @@ const content: Record<ServiceKey, Record<CityKey, RegionalContentData>> = {
         { question: "Wie lange dauert die Einrichtung einer Automatisierung in Reutlingen?", answer: "Einfache Workflows in 1–2 Wochen, komplexere Projekte in 3–4 Wochen. Wir arbeiten phasenweise: Erst die Quick-Wins, dann die komplexeren Integrationen. So hast du von Anfang an spürbare Ergebnisse." },
       ],
     },
-    ...Object.fromEntries([
+    ...(Object.fromEntries([
       ["berlin", ["Berlin", "Startups und Tech-Unternehmen", "Kreuzberg, Mitte und Charlottenburg"]],
       ["hamburg", ["Hamburg", "Logistik, Medien und Handel", "HafenCity, Altona und Eimsbüttel"]],
       ["koeln", ["Köln", "Medien, Messe und Industrie", "Ehrenfeld, Innenstadt und Mülheim"]],
@@ -1760,7 +1761,7 @@ const content: Record<ServiceKey, Record<CityKey, RegionalContentData>> = {
       ["bielefeld", ["Bielefeld", "Industrie, IT und Handel", "Innenstadt, Brackwede und Gadderbaum"]],
       ["wuppertal", ["Wuppertal", "Industrie, Handel und Kreativwirtschaft", "Elberfeld, Barmen und Vohwinkel"]],
       ["duisburg", ["Duisburg", "Logistik, Stahl und Handel", "Innenstadt, Rheinhausen und Hamborn"]],
-    ] as [string, [string, string, string]][]).map(([slug, [city, branches, districts]]) => [slug, {
+    ].map(([slug, [city, branches, districts]]: [string, [string, string, string]]) => [slug, {
       title: `KI-Automatisierung ${city} | Prozesse automatisieren | MTM Studios`,
       description: `KI-Automatisierung für Unternehmen in ${city}: Wiederkehrende Prozesse automatisieren, Fehler eliminieren, Kapazitäten freisetzen. Für ${branches}. Schnell live.`,
       h1: `KI-Automatisierung für ${city}`,
@@ -1788,7 +1789,7 @@ const content: Record<ServiceKey, Record<CityKey, RegionalContentData>> = {
         { question: "Muss ich meine bestehende Software wechseln?", answer: `Nein. Wir integrieren uns in deine bestehende Systemlandschaft — ob HubSpot, Salesforce, DATEV, Microsoft 365 oder Branchensoftware. Kein Systemwechsel, keine Datenmigration, keine Umstellungsphase. Dein Team arbeitet weiter in gewohnten Tools.` },
         { question: "Wie lange dauert die Einrichtung?", answer: `Einfache Workflows in 1–2 Wochen, komplexere Projekte in 3–4 Wochen. Wir arbeiten phasenweise: erst die Quick-Wins mit sofort spürbarem Effekt, dann die komplexeren Integrationen. So siehst du von Anfang an konkrete Ergebnisse.` },
       ],
-    }])),
+    }])) as Record<string, RegionalContentData>),
   },
 };
 
