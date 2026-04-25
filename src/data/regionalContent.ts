@@ -52,7 +52,7 @@ export const cityDisplayNames: Record<CityKey, string> = {
   bielefeld: "Bielefeld", wuppertal: "Wuppertal", duisburg: "Duisburg",
 };
 
-const content: Record<ServiceKey, Record<CityKey, RegionalContentData>> = {
+const content: Record<ServiceKey, Record<string, RegionalContentData>> = {
   "ki-agentur": {
     stuttgart: {
       title: "KI Agentur Stuttgart | Voice KI, Chatbot & Automatisierung | MTM Studios",
