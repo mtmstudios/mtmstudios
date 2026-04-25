@@ -1261,7 +1261,7 @@ const content: Record<ServiceKey, Record<CityKey, RegionalContentData>> = {
         { question: "Was passiert, wenn der Assistent eine Frage nicht beantworten kann?", answer: "Erkennt der Assistent, dass eine Frage menschliche Expertise erfordert, leitet er den Anruf weiter oder erstellt ein Rückruf-Ticket mit vollem Gesprächskontext. So geht keine Anfrage verloren, und dein Team kann gezielt dort eingreifen, wo es wirklich nötig ist." },
       ],
     },
-    ...Object.fromEntries([
+    ...(Object.fromEntries([
       ["berlin", ["Berlin", "Startups und Tech-Unternehmen", "Kreuzberg, Mitte und Charlottenburg"]],
       ["hamburg", ["Hamburg", "Logistik, Medien und Handel", "HafenCity, Altona und Eimsbüttel"]],
       ["koeln", ["Köln", "Medien, Messe und Industrie", "Ehrenfeld, Innenstadt und Mülheim"]],
