@@ -303,8 +303,8 @@ const KiStatistiken = () => {
   return (
     <div className="relative min-h-screen bg-background">
       <SEOHead
-        title="KI im Mittelstand 2026: Diese Zahlen sollte jeder Unternehmer kennen"
-        description="67 % der Mittelständler planen KI — aber nur 12 % haben wirklich automatisiert. Die 3 Prozesse mit dem höchsten ROI, die häufigsten Fehler und was Top-Performer anders machen."
+        title="KI im Mittelstand 2026: 23 Zahlen & Fakten die überraschen | MTM Studios"
+        description="67 % planen KI — nur 12 % haben automatisiert. Welche 3 Prozesse den höchsten ROI bringen, welche Fehler die meisten machen und was Top-Performer anders machen. Alle Zahlen mit Quelle."
         canonical="https://mtmstudios.de/ki-im-mittelstand-zahlen"
       />
 

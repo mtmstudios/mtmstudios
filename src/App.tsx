@@ -1,3 +1,4 @@
+import { lazy, Suspense } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -25,8 +26,8 @@ import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
 import NotFound from "./pages/NotFound";
 import VoiceKI from "./pages/VoiceKI";
-import RegionalPage from "./components/regional/RegionalPage";
-import KeywordPage from "./components/keyword/KeywordPage";
+const RegionalPage = lazy(() => import("./components/regional/RegionalPage"));
+const KeywordPage = lazy(() => import("./components/keyword/KeywordPage"));
 import ScrollToTop from "./components/ScrollToTop";
 import { AuthProvider } from "./contexts/AuthContext";
 import { useAuth } from "./contexts/AuthContext";
@@ -79,6 +80,7 @@ const App = () => (
                 >
                   Zum Inhalt springen
                 </a>
+                <Suspense fallback={<div className="min-h-screen bg-background" />}>
                 <Routes>
                   <Route path="/" element={<Index />} />
                   <Route path="/dassindwir" element={<AboutUs />} />
@@ -120,6 +122,7 @@ const App = () => (
                   {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                   <Route path="*" element={<NotFound />} />
                 </Routes>
+                </Suspense>
               </BrowserRouter>
             </AuthProvider>
             </ThemeProvider>
