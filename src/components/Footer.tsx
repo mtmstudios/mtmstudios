@@ -52,6 +52,11 @@ const Footer = () => {
                   Automatisierungen
                 </Link>
               </li>
+              <li>
+                <Link to="/ki-agentur/stuttgart" className="text-accent/60 hover:text-accent transition-colors duration-200 text-sm">
+                  KI Agentur Stuttgart
+                </Link>
+              </li>
               <li className="pt-2 border-t border-white/[0.04]">
                 <Link to="/dassindwir" className="text-foreground/40 hover:text-foreground transition-colors duration-200 text-sm">
                   Das sind Wir

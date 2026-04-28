@@ -32,7 +32,7 @@ const SolutionsDropdown = () => {
         <svg className={`w-3.5 h-3.5 transition-transform duration-200 ${open ? "rotate-180" : ""}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
       </button>
       {open && (
-        <div className="absolute top-full left-0 mt-2 w-64 rounded-xl bg-background/95 backdrop-blur-md border border-border/20 shadow-lg py-2 z-[110]">
+        <div className="absolute top-full left-0 mt-2 w-72 rounded-xl bg-background/95 backdrop-blur-md border border-border/20 shadow-lg py-2 z-[110]">
           {solutionLinks.map((link) => (
             <Link
               key={link.href}
@@ -44,6 +44,19 @@ const SolutionsDropdown = () => {
               <span className="block text-xs text-foreground/50 mt-0.5">{link.desc}</span>
             </Link>
           ))}
+          <div className="mx-4 my-1.5 border-t border-white/[0.06]" />
+          <div className="px-4 py-1 text-[10px] font-semibold uppercase tracking-widest text-foreground/25">Standort</div>
+          <Link
+            to="/ki-agentur/stuttgart"
+            className="flex items-center gap-3 px-4 py-2.5 hover:bg-white/[0.05] transition-all duration-200 group"
+            onClick={() => setOpen(false)}
+          >
+            <span className="text-[10px] bg-accent/15 text-accent border border-accent/20 rounded-full px-2 py-0.5 font-semibold shrink-0">STR</span>
+            <span>
+              <span className="block text-sm text-foreground/90 group-hover:text-accent transition-colors">KI Agentur Stuttgart</span>
+              <span className="block text-xs text-foreground/40 mt-0.5">Lokaler Partner für den Mittelstand</span>
+            </span>
+          </Link>
         </div>
       )}
     </div>

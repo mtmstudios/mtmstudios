@@ -1,4 +1,4 @@
-import { useParams, Navigate } from "react-router-dom";
+import { useParams, Navigate, Link } from "react-router-dom";
 import { motion } from "motion/react";
 import { AlertTriangle, Sparkles, MapPin, ChevronDown } from "lucide-react";
 import Navigation from "@/components/Navigation";
@@ -356,6 +356,40 @@ const RegionalPage = ({ context }: RegionalPageProps) => {
             </Accordion>
           </div>
         </section>
+
+        {/* Stuttgart Cross-Links — nur für Stuttgart-Seiten */}
+        {city === "stuttgart" && (
+          <section className="py-16 px-6">
+            <div className="max-w-4xl mx-auto">
+              <motion.h2
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, ease: appleEase }}
+                className="text-xl md:text-2xl font-bold text-foreground text-center mb-8"
+              >
+                Weitere KI-Lösungen in Stuttgart
+              </motion.h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {[
+                  { href: "/ki-agentur/stuttgart", label: "KI Agentur Stuttgart", desc: "Überblick aller KI-Services für den Stuttgarter Mittelstand" },
+                  { href: "/ki-telefonassistent/stuttgart", label: "Voice KI Telefonassistent Stuttgart", desc: "Jeder Anruf angenommen — 24/7, in 48h live" },
+                  { href: "/ki-chatbot/stuttgart", label: "KI-Chatbot Stuttgart", desc: "WhatsApp & Website-Chatbot für sofortige Kundenantworten" },
+                  { href: "/automatisierungen/stuttgart", label: "KI-Automatisierung Stuttgart", desc: "n8n Workflows für Prozesse und Datenpipelines" },
+                ].filter(link => link.href !== `/${context}/stuttgart`).map((link) => (
+                  <Link
+                    key={link.href}
+                    to={link.href}
+                    className="flex flex-col p-5 rounded-xl border border-white/10 bg-white/[0.02] hover:border-accent/30 hover:bg-white/[0.04] transition-all duration-200 group"
+                  >
+                    <span className="text-foreground text-sm font-semibold group-hover:text-accent transition-colors mb-1">{link.label}</span>
+                    <span className="text-muted-foreground text-xs leading-relaxed">{link.desc}</span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
 
         {/* CTA */}
         <section className="py-20 px-6 text-center">
