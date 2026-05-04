@@ -506,6 +506,8 @@ const KiStatistiken = () => {
           </motion.div>
         </section>
 
+        <AutomatisierungsCheck onFunnelOpen={() => openFunnel(true)} />
+
         {/* ── KI-Adoption Bento ──────────────────────────────────── */}
         <section className="px-4 sm:px-6 pb-28 md:pb-36">
           <div ref={heroRef} className="max-w-6xl mx-auto">
@@ -609,7 +611,6 @@ const KiStatistiken = () => {
           </div>
         </section>
 
-        <AutomatisierungsCheck onFunnelOpen={() => openFunnel(true)} />
         <CTASection />
         <Footer />
       </main>
