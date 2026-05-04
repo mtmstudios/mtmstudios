@@ -8,7 +8,7 @@ import TestimonialsSection from "@/components/TestimonialsSection";
 import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
 import RegionalSection from "@/components/RegionalSection";
-import StuttgartTeaser from "@/components/StuttgartTeaser";
+import StandortTeaser from "@/components/StandortTeaser";
 import SEOHead from "@/components/SEOHead";
 import { useEffect, useRef } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -92,7 +92,7 @@ const Index = () => {
         <ProcessSection />
         <TestimonialsSection />
         <CTASection />
-        <StuttgartTeaser />
+        <StandortTeaser />
         <RegionalSection contextPath="ki-agentur" />
         <Footer />
       </div>

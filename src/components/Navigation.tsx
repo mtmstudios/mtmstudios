@@ -57,6 +57,17 @@ const SolutionsDropdown = () => {
               <span className="block text-xs text-foreground/40 mt-0.5">Lokaler Partner für den Mittelstand</span>
             </span>
           </Link>
+          <Link
+            to="/ki-agentur/ulm"
+            className="flex items-center gap-3 px-4 py-2.5 hover:bg-white/[0.05] transition-all duration-200 group"
+            onClick={() => setOpen(false)}
+          >
+            <span className="text-[10px] bg-accent/15 text-accent border border-accent/20 rounded-full px-2 py-0.5 font-semibold shrink-0">ULM</span>
+            <span>
+              <span className="block text-sm text-foreground/90 group-hover:text-accent transition-colors">KI Agentur Ulm</span>
+              <span className="block text-xs text-foreground/40 mt-0.5">Automatisierung für Ulm & Neu-Ulm</span>
+            </span>
+          </Link>
         </div>
       )}
     </div>

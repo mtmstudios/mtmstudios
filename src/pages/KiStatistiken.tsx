@@ -10,11 +10,134 @@ import {
   useTransform,
   animate,
 } from "motion/react";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { ExternalLink } from "lucide-react";
+import { useContactFunnel } from "@/contexts/ContactFunnelContext";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 const appleEase = [0.16, 1, 0.3, 1] as const;
+
+/* ─── Automatisierungs-Check ─────────────────────────────────────── */
+const fragen = [
+  {
+    frage: "Wie viele Anrufe verpasst dein Team pro Tag?",
+    antworten: ["Kaum — wir nehmen fast alle an", "1–5 verpasste Anrufe", "5–15 verpasste Anrufe", "Mehr als 15 — ein echtes Problem"],
+    punkte: [0, 1, 2, 3],
+  },
+  {
+    frage: "Wie viel Zeit kostet manuelle Dateneingabe & Routineaufgaben täglich?",
+    antworten: ["Unter 30 Minuten", "30–90 Minuten", "1,5–3 Stunden", "Mehr als 3 Stunden"],
+    punkte: [0, 1, 2, 3],
+  },
+  {
+    frage: "Welche Prozesse laufen bei euch noch vollständig manuell?",
+    antworten: ["Keiner — wir sind gut aufgestellt", "Terminbuchung oder Follow-ups", "Angebote, Rechnungen oder CRM-Pflege", "Mehrere der oben genannten"],
+    punkte: [0, 1, 2, 3],
+  },
+];
+
+const ergebnisse = [
+  { min: 0, max: 2, label: "Gut aufgestellt", text: "Dein Betrieb ist bereits solide automatisiert. Mit gezielten Optimierungen kannst du noch mehr aus deinen Prozessen herausholen.", farbe: "text-green-400" },
+  { min: 3, max: 5, label: "Ausbaufähig", text: "Du verlierst täglich Zeit und möglicherweise Leads durch manuelle Prozesse. Konkrete Automatisierungen würden schnell Wirkung zeigen.", farbe: "text-yellow-400" },
+  { min: 6, max: 9, label: "Hohes Potenzial", text: "Dein Betrieb hat erhebliches Automatisierungspotenzial. Ein KI-Telefonassistent und automatisierte Workflows könnten sofort Stunden pro Tag einsparen.", farbe: "text-accent" },
+];
+
+function AutomatisierungsCheck({ onFunnelOpen }: { onFunnelOpen: () => void }) {
+  const [schritt, setSchritt] = useState(0); // 0-2 = Fragen, 3 = Ergebnis
+  const [antworten, setAntworten] = useState<number[]>([]);
+  const [ausgewaehlt, setAusgewaehlt] = useState<number | null>(null);
+
+  const weiter = (punktzahl: number) => {
+    const neueAntworten = [...antworten, punktzahl];
+    setAntworten(neueAntworten);
+    setAusgewaehlt(null);
+    if (schritt < fragen.length - 1) {
+      setSchritt(schritt + 1);
+    } else {
+      setSchritt(fragen.length);
+    }
+  };
+
+  const gesamt = antworten.reduce((s, p) => s + p, 0);
+  const ergebnis = ergebnisse.find(e => gesamt >= e.min && gesamt <= e.max) ?? ergebnisse[2];
+  const fortschritt = Math.round((schritt / fragen.length) * 100);
+
+  return (
+    <section className="py-16 px-6">
+      <div className="max-w-2xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-40px" }}
+          transition={{ duration: 0.7, ease: appleEase }}
+          className="rounded-2xl border border-white/10 bg-white/[0.02] p-8 md:p-10"
+        >
+          <div className="text-center mb-8">
+            <span className="text-accent text-xs font-bold uppercase tracking-widest">Kostenloser Check</span>
+            <h2 className="text-xl md:text-2xl font-bold text-foreground mt-2">
+              Wie viel Automatisierungspotenzial hat dein Betrieb?
+            </h2>
+            <p className="text-muted-foreground text-sm mt-2">3 Fragen · unter 60 Sekunden</p>
+          </div>
+
+          {schritt < fragen.length ? (
+            <>
+              {/* Fortschrittsbalken */}
+              <div className="h-1 bg-white/[0.06] rounded-full mb-6 overflow-hidden">
+                <div
+                  className="h-full bg-accent rounded-full transition-all duration-500"
+                  style={{ width: `${fortschritt + 33}%` }}
+                />
+              </div>
+              <p className="text-foreground/50 text-xs mb-3">Frage {schritt + 1} von {fragen.length}</p>
+              <p className="text-foreground font-semibold text-base md:text-lg mb-5 leading-snug">
+                {fragen[schritt].frage}
+              </p>
+              <div className="flex flex-col gap-2.5">
+                {fragen[schritt].antworten.map((antwort, i) => (
+                  <button
+                    key={i}
+                    onClick={() => { setAusgewaehlt(i); setTimeout(() => weiter(fragen[schritt].punkte[i]), 200); }}
+                    className={`text-left px-4 py-3 rounded-xl border text-sm transition-all duration-150 ${
+                      ausgewaehlt === i
+                        ? "border-accent bg-accent/10 text-accent"
+                        : "border-white/[0.08] bg-white/[0.02] text-foreground/80 hover:border-accent/40 hover:bg-white/[0.05]"
+                    }`}
+                  >
+                    {antwort}
+                  </button>
+                ))}
+              </div>
+            </>
+          ) : (
+            <div className="text-center">
+              <div className="w-16 h-16 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center mx-auto mb-4">
+                <span className={`text-2xl font-bold ${ergebnis.farbe}`}>{gesamt}</span>
+              </div>
+              <p className="text-xs text-foreground/40 uppercase tracking-widest mb-1">Dein Ergebnis</p>
+              <h3 className={`text-xl font-bold mb-3 ${ergebnis.farbe}`}>{ergebnis.label}</h3>
+              <p className="text-muted-foreground text-sm leading-relaxed mb-6 max-w-sm mx-auto">
+                {ergebnis.text}
+              </p>
+              <button
+                onClick={onFunnelOpen}
+                className="w-full py-3 rounded-xl bg-accent text-black font-semibold text-sm hover:opacity-90 transition-opacity"
+              >
+                Kostenlose Analyse anfordern →
+              </button>
+              <button
+                onClick={() => { setSchritt(0); setAntworten([]); setAusgewaehlt(null); }}
+                className="mt-3 text-foreground/30 text-xs hover:text-foreground/60 transition-colors"
+              >
+                Nochmal starten
+              </button>
+            </div>
+          )}
+        </motion.div>
+      </div>
+    </section>
+  );
+}
 
 /* ─── Count-Up ──────────────────────────────────────────────────── */
 function useCountUp(target: number, inView: boolean, duration = 1.5) {
@@ -265,6 +388,7 @@ const roiStats: BentoStat[] = [
 /* ─── Page ──────────────────────────────────────────────────────── */
 const KiStatistiken = () => {
   const isMobile = useIsMobile();
+  const { setIsOpen: openFunnel } = useContactFunnel();
   const bgRef = useRef<HTMLDivElement>(null);
 
   const heroRef = useRef<HTMLDivElement>(null!);
@@ -485,6 +609,7 @@ const KiStatistiken = () => {
           </div>
         </section>
 
+        <AutomatisierungsCheck onFunnelOpen={() => openFunnel(true)} />
         <CTASection />
         <Footer />
       </main>
